@@ -33,11 +33,38 @@
 		<header>
 			@yield('homeIcon')
 
-			<style>.sideBar {position:fixed; right:-160px; top:0; width:200px; height:100%; background:#ffffff; overflow:hidden; overflow-y:auto; transition:0.5s; z-index:100005;}
+			<style>
+			
+				.sideBar {
+					position: fixed; 
+					right: -160px; 
+					top: 0; 
+					width: 200px; 
+					height: 100%; 
+					background: #FFFFFF; 
+					overflow: hidden; 
+					overflow-y: auto; 
+					transition: 0.5s; 
+					z-index: 100005;
+					border-left: 1px solid black;
+				}
+
+				input#nav0:checked ~ .sideBar {
+					right:0px;
+				}
+
+				.sideBar label {
+					cursor: pointer; 
+					position: fixed;
+					top: 2%; 
+					right: 1%;
+					font-size: 36px;
+				}
+
 			</style>
-			<input name="nav" id="nav0" style="display:none;" class="nav0" checked="" type="radio">
+			<input name="nav" id="nav0" style="display: none;" type="checkbox">
 			<div class="sideBar">
-				<label for="nav0"><a href="#"><i class="fa fa-bars fa-lg" style="position:fixed; top:2%; right:1%;" aria-hidden="true"></i></a></label>
+				<label for="nav0"><i>&#8801;</i></label>
 			</div>
 
 		</header>
