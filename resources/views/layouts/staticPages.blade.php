@@ -68,8 +68,8 @@
 
 				.sideBar a {
 					display: block;
-				    font-size: 24px;
-				    line-height: 40px;
+				    font-size: 12px;
+				    line-height: 20px;
 				    font-family: "Open Sans Condensed", sans-serif;
 				    text-decoration: none;
 				    text-indent: 12px;
