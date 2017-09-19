@@ -41,12 +41,19 @@
 					right: -140px; 
 					top: 0; 
 					width: 200px; 
-					height: 100%;
-					background-color: #FAF0E6;
+					height: 60%;
+					background-color: #FFF;
 					overflow: hidden; 
 					overflow-y: auto; 
 					transition: 0.3s; 
 					z-index: 999;
+					border-left: 1px solid black;
+					border-bottom: 1px solid black;
+				}
+
+				.sideBar > ul {
+					padding-top: 20%;
+					padding-left: 0%;
 				}
 
 				input#nav0:checked ~ .sideBar {
@@ -57,39 +64,44 @@
 					content: "×";
 				}
 
-				input#nav0:checked ~ .sideBar a {
-					display: block;
+				input#nav0:checked ~ .sideBar * {
+					display: inline-block;
 				}
-
 
 				.sideBar label {
 					position: fixed; 
 					font-size: 36px;
-					top: 0%;
-					right: 2%;
+					top: 0px;
+					right: 20px;
 
 				}
 				.sideBar label:after {
 					content: "≡";
 				}
 
+				.sideBar *:not(label) {
+					display:none;
+				}
+
 				.sideBar a {
-					display: block;
 				    font-size: 12px;
 				    line-height: 20px;
 				    font-family: "Open Sans Condensed", sans-serif;
 				    text-decoration: none;
 				    text-indent: 12px;
 				    width: 160px;
-				    display: none;
 				}
 
 			</style>
 			<input name="nav" id="nav0" style="display: none;" type="checkbox">
 			<div class="sideBar">	
 				<label role="button" for="nav0"></label>
-				<!--<label style="float:left;" for="nav0">&#8801;</label>-->
-				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"  tabindex="200" id="navigationSuche">{{ trans('staticPages.nav1') }}</a><a class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201">{{ trans('staticPages.nav16') }}
+				<ul id="metager-static-nav-list" class="list-inline pull-right">
+				<li @if ( !isset($navbarFocus) || $navbarFocus === 'suche') class="active" @endif >
+					<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"  tabindex="200" id="navigationSuche">{{ trans('staticPages.nav1') }}</a>
+				</li>
+				<li @if (isset($navbarFocus) && $navbarFocus === 'foerdern') class="metager-dropdown active" @else class="metager-dropdown" @endif >
+					<a class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201">{{ trans('staticPages.nav16') }}
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
 									<li>
@@ -103,8 +115,11 @@
 									</li>
 								</ul>
 							</li>
-				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/datenschutz/") }}" id="navigationPrivacy" tabindex="215">{{ trans('staticPages.nav3') }}</a>
-				<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationHilfe" tabindex="216">{{ trans('staticPages.nav20') }}
+							<li @if (isset($navbarFocus) && $navbarFocus === 'datenschutz') class="active" @endif >
+								<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/datenschutz/") }}" id="navigationPrivacy" tabindex="215">{{ trans('staticPages.nav3') }}</a>
+							</li>
+							<li @if (isset($navbarFocus) && $navbarFocus === 'hilfe') class="metager-dropdown active" @else class="metager-dropdown" @endif >
+								<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationHilfe" tabindex="216">{{ trans('staticPages.nav20') }}
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
 									<li>
@@ -114,7 +129,9 @@
 										<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/faq/") }}" tabindex="218">{{ trans('staticPages.nav21') }}</a>
 									</li>
 								</ul>
-				<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationKontakt" tabindex="219">{{ trans('staticPages.nav18') }}
+							</li>
+							<li @if (isset($navbarFocus) && $navbarFocus === 'kontakt') class="metager-dropdown active" @else class="metager-dropdown" @endif >
+								<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationKontakt" tabindex="219">{{ trans('staticPages.nav18') }}
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
 									<li>
@@ -133,7 +150,9 @@
 										<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/impressum/") }}" tabindex="224">{{ trans('staticPages.nav8') }}</a>
 									</li>
 								</ul>
-				<a class="metager-dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabindex="225">{{ trans('staticPages.nav15') }}
+							</li>
+							<li @if (isset($navbarFocus) && $navbarFocus === 'dienste') class="metager-dropdown active" @else class="metager-dropdown" @endif >
+								<a class="metager-dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabindex="225">{{ trans('staticPages.nav15') }}
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
 									<li>
@@ -161,7 +180,9 @@
 										<a href="http://forum.suma-ev.de/viewtopic.php?f=3&amp;t=43" tabindex="234">{{ trans('staticPages.nav14') }}</a>
 									</li>
 								</ul>
-				<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationSprache" tabindex="235">{{ trans('staticPages.nav19') }} ({{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }})
+							</li>
+							<li class="metager-dropdown">
+								<a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationSprache" tabindex="235">{{ trans('staticPages.nav19') }} ({{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }})
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
 									@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -170,6 +191,8 @@
 										</li>
 									@endforeach
 								</ul>
+							</li>
+			</ul>
 			</div>
 
 		</header>
