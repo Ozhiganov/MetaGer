@@ -174,7 +174,7 @@ ul.metager-dropdown-menu {
     }
 }
 
-.metager-dropdown:hover {
+#metager-static-nav-list > li:hover {
     background-color: @metager-navbar-toggle-hover-background-color;
     &>.metager-dropdown-menu {
         animation-name: dropdown-animation;
@@ -204,6 +204,10 @@ ul.metager-dropdown-menu {
     background-color: @toggle-nav-hide-or-metager-navbar-toggle-background-color;
 }
 
+#metager-static-nav-list>li {
+    padding-top: 10%;
+}
+
 @media (max-width: 979px) {
     #metager-static-nav-list {
         width: 100%;
@@ -214,6 +218,7 @@ ul.metager-dropdown-menu {
         max-height: 1000px;
     }
     #metager-static-nav-list>li {
+        padding-top: 5px;
         display: initial;
     }
     ul.metager-dropdown-menu {
@@ -230,11 +235,6 @@ ul.metager-dropdown-menu {
     }
 }
 
-@media (min-width: 980px) {
-    .metager-navbar-toggle {
-        display: none;
-    }
-}
 
 #color-chooser {
     padding: 0;
