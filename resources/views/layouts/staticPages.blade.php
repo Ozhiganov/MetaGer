@@ -41,17 +41,20 @@
 					right: -140px; 
 					top: 0; 
 					width: 200px; 
-					height: 100%; 
-					background: #FFFFFF; 
+					height: 100%;
+					background-color: #FAF0E6;
 					overflow: hidden; 
 					overflow-y: auto; 
 					transition: 0.3s; 
 					z-index: 999;
-					border-left: 1px solid black;
 				}
 
 				input#nav0:checked ~ .sideBar {
 					right:0px;
+				}
+
+				input#nav0:checked ~ .sideBar label:after {
+					content: "×";
 				}
 
 				input#nav0:checked ~ .sideBar a {
@@ -60,10 +63,14 @@
 
 
 				.sideBar label {
-					cursor: pointer; 
-					position: relative; 
-					left: 10px;
+					position: fixed; 
 					font-size: 36px;
+					top: 0%;
+					right: 2%;
+
+				}
+				.sideBar label:after {
+					content: "≡";
 				}
 
 				.sideBar a {
@@ -79,8 +86,9 @@
 
 			</style>
 			<input name="nav" id="nav0" style="display: none;" type="checkbox">
-			<div class="sideBar">
-				<label for="nav0"><i>&#8801;</i></label>
+			<div class="sideBar">	
+				<label role="button" for="nav0"></label>
+				<!--<label style="float:left;" for="nav0">&#8801;</label>-->
 				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"  tabindex="200" id="navigationSuche">{{ trans('staticPages.nav1') }}</a><a class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201">{{ trans('staticPages.nav16') }}
 								<span class="caret"></span></a>
 								<ul class="metager-dropdown-menu">
