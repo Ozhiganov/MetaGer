@@ -121,6 +121,61 @@ ul.metager-dropdown-menu {
     }
 }
 
+            
+.sideBar {
+    position: fixed; 
+    display: block;
+    right: -140px; 
+    top: 0; 
+    width: 200px; 
+    height: 100%;
+    background-color: #FFF;
+    overflow: hidden; 
+    overflow-y: auto; 
+    transition: 0.3s; 
+    z-index: 999;
+    border-left: 1px solid LightGray;
+    &>label {
+        position: fixed; 
+        font-size: 36px;
+        top: 0px;
+        right: 20px;
+        &:after {
+            content: "≡";   
+        }
+    }
+    &>ul {
+        padding-top: 20%;
+        padding-left: 0%;
+    }
+    & a {
+        font-size: 12px;
+        line-height: 20px;
+        text-decoration: none;
+        text-indent: 12px;
+        width: 160px;
+
+        &:visited {
+            color: blue;
+        }
+    }
+}
+
+.sideBar *:not(label) {
+    display:none;
+}
+
+input#nav0:checked ~ .sideBar {
+    right:0px;
+    & * {
+        display: inline-block;
+    }
+}
+
+input#nav0:checked ~ .sideBar label:after {
+    content: "×";
+}
+
 #mglogo {
     width: 100%;
     text-align: center;

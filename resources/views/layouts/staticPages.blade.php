@@ -32,68 +32,6 @@
 	<body>
 		<header>
 			@yield('homeIcon')
-
-			<style>
-			
-				.sideBar {
-					position: fixed; 
-					display: block;
-					right: -140px; 
-					top: 0; 
-					width: 200px; 
-					height: 100%;
-					background-color: #FFF;
-					overflow: hidden; 
-					overflow-y: auto; 
-					transition: 0.3s; 
-					z-index: 999;
-					border-left: 1px solid LightGray;
-				}
-
-				.sideBar > ul {
-					padding-top: 20%;
-					padding-left: 0%;
-				}
-
-				input#nav0:checked ~ .sideBar {
-					right:0px;
-				}
-
-				input#nav0:checked ~ .sideBar label:after {
-					content: "×";
-				}
-
-				input#nav0:checked ~ .sideBar * {
-					display: inline-block;
-				}
-
-				.sideBar label {
-					position: fixed; 
-					font-size: 36px;
-					top: 0px;
-					right: 20px;
-
-				}
-				.sideBar label:after {
-					content: "≡";
-				}
-
-				.sideBar *:not(label) {
-					display:none;
-				}
-
-				.sideBar a {
-				    font-size: 12px;
-				    line-height: 20px;
-				    text-decoration: none;
-				    text-indent: 12px;
-				    width: 160px;
-				}
-
-				.sideBar a:visited {
-					color: blue;
-				}
-			</style>
 			<input name="nav" id="nav0" style="display: none;" type="checkbox">
 			<div class="sideBar">	
 				<label role="button" for="nav0"></label>
