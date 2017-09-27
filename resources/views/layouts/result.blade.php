@@ -1,7 +1,4 @@
 <div class="result row" data-count="{{ $result->number }}">
-	<div class="number col-sm-1 hidden-xs" style="color:{{ $result->color }}">
-		{{ $result->number }})
-	</div>
 	<div class="resultInformation col-xs-12 col-sm-11">
 		<div class="col-xs-10 col-sm-11" style="padding:0; ">
 			<p class="title">

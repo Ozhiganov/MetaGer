@@ -208,10 +208,7 @@ nav .input-group {
 .content-wrapper {
     padding: 0px;
     padding-top: 52px;
-    background-color: @content-wrapper-background-color;
-    -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+    background-color: white;
 }
 
 #helpButton {
@@ -309,6 +306,7 @@ a {
     }
     &>.resultInformation {
         border-radius: 5px;
+        padding-left: 0px;
         &>.save {
             position: absolute;
             top: 0;
@@ -618,10 +616,10 @@ a {
     }
 }
 
-@media(max-width: @screen-xs-max) {
-    .resultContainer {
-        padding-left: 0;
-        padding-right: 0;
+.resultContainer {
+    margin-left: 0px;
+    @media(max-width: @screen-xs-max) {
+        padding-right: 0px;
     }
 }
 
@@ -642,8 +640,7 @@ a {
 
 #quicktips {
     display: flex;
-    flex-direction: column;
-    // border: 2px solid #ccc;
+    flex-direction: column; // border: 2px solid #ccc;
     .quicktip {
         margin: 10px 0px;
         padding-left: 10px;
