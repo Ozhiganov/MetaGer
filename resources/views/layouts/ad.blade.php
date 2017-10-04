@@ -1,6 +1,5 @@
 @if(isset($ad)  && !$apiAuthorized)
 	<div class="result ad row">
-		<div class="number col-sm-1"></div>
 		<div class="resultInformation col-sm-10">
 			<p class="title">
 				<a class="title" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ $ad->gefVon }}" data-count="0">
