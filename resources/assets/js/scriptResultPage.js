@@ -566,6 +566,7 @@ function loadQuicktips (search, locale, sprueche) {
 }
 
 const QUICKTIP_SERVER = 'https://quicktips.metager3.de';
+//const QUICKTIP_SERVER = 'http://localhost:63825';
 
 /**
  * Requests quicktips from the quicktip server and passes them to the loadedHandler
@@ -582,15 +583,16 @@ function getQuicktips (search, locale, blacklist, loadedHandler) {
   });
   $.get(getString, function (data, status) {
     if (status === 'success') {
-      var quicktips = $(data).find('entry').map(function () {
+      var quicktips = $(data).children('feed').children('entry').map(function () {
+        console.log(this);
         return quicktip = {
-          type: $(this).children('type').text(),
+          type: $(this).children('mg\\:type').text(),
           title: $(this).children('title').text(),
-          summary: $(this).children('summary').text(),
-          url: $(this).children('url').text(),
+          summary: $(this).children('content').text(),
+          url: $(this).children('link').text(),
           gefVon: $(this).children('gefVon').text(),
-          priority: $(this).children('priority').text(),
-          details: $(this).children('details').map(function () {
+          score: $(this).children('relevance\\:score').text(),
+          details: $(this).children('mg\\:details').children('entry').map(function () {
             return {
               title: $(this).children('title').text(),
               text: $(this).children('text').text(),
@@ -599,6 +601,7 @@ function getQuicktips (search, locale, blacklist, loadedHandler) {
           }).toArray()
         };
       }).toArray();
+      console.log(quicktips);
       loadedHandler(quicktips);
     } else {
       console.error('Loading quicktips failed with status ' + status);
@@ -632,7 +635,7 @@ function getQuicktips (search, locale, blacklist, loadedHandler) {
 function createQuicktips (quicktips, sprueche) {
   var quicktipsDiv = $('#quicktips');
   quicktips.sort(function (a, b) {
-    return b.priority - a.priority;
+    return b.score - a.score;
   }).forEach(function (quicktip) {
     var mainElem;
     if (quicktip.details.length > 0) {
