@@ -11,7 +11,7 @@
 					{{ $ad->anzeigeLink }}
 				</a>
 				<span class="hoster">
-					{!! trans('ad.von') !!} {!! $ad->gefVon !!}
+					<span class="ad-label">{!! trans('ad.werbung') !!}</span> {!! trans('ad.von') !!} {!! $ad->gefVon !!}
 				</span>
 			</p>
 			<p class="description">

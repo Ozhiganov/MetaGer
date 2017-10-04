@@ -35,7 +35,7 @@
 @lsprev-or-lsnext-i-background-color: @result-page-color-black;
 body {
     background-image: inherit;
-    background-color: @body-background-color;
+    background-color: white;
 }
 
 footer {
@@ -296,13 +296,9 @@ a {
 }
 
 .result {
-    margin-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 30px;
     width: 100%;
-    &>.number {
-        font-size: 15px;
-        line-height: 1;
-        text-align: right;
-    }
     &>.resultInformation {
         border-radius: 5px;
         padding-left: 0px;
@@ -321,7 +317,7 @@ a {
     .title {
         color: @result-title-color;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 18px;
         font-weight: bold;
         margin-bottom: 0;
         white-space: nowrap;
@@ -331,7 +327,7 @@ a {
         text-overflow: ellipsis;
     }
     .link {
-        font-size: 13px;
+        font-size: 16px;
         margin: 0;
         line-height: 1.5;
         &>div {
@@ -362,7 +358,7 @@ a {
     .description {
         margin-bottom: 3px;
         color: @result-description-color;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.3;
         clear: both;
         .date {
@@ -384,7 +380,12 @@ a {
         }
     }
     &.ad {
-        margin-left: 30px;
+        .ad-label {
+            border: green solid 1px;
+            padding: 1px;
+            color: green;
+            border-radius: 4px;
+        }
         .description {
             max-width: 115ch;
             overflow: hidden;
@@ -477,15 +478,6 @@ a {
         border: 0;
         margin: 5px 0;
     }
-}
-
-#quicktips iframe {
-    width: 100%;
-    height: 800px;
-    background-color: transparent;
-    border: 0px none transparent;
-    padding: 0px;
-    overflow: hidden;
 }
 
 .js-only {
@@ -626,7 +618,6 @@ a {
     }
 }
 
-
 /*
  * <div id="quicktips">
  *   <div class="quicktip" type="TYPE">
@@ -657,8 +648,11 @@ a {
         }
         .quicktip-summary {
             h1 {
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: bold;
+            }
+            p {
+                font-size: 16px;
             }
         }
         .quicktip-detail {
@@ -666,12 +660,12 @@ a {
             border-bottom: 1px solid #ddd;
             h2 {
                 margin: 10px 0px;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: bold;
             }
             p {
                 display: none;
-                font-size: 12px;
+                font-size: 14px;
             }
         }
         .gefVon {
