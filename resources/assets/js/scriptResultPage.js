@@ -82,6 +82,15 @@ function getDocumentReadyForUse (fokus, custom = false) {
   productWidget();
   $('iframe:not(.resized)').iFrameResize();
   $('iframe').addClass('resized');
+  addListeners();
+}
+
+function addListeners () {
+  $('#reset').attr('type', 'button').click(resetSearchbar);
+}
+
+function resetSearchbar () {
+  $('#eingabeTop').val('');
 }
 
 function pluginInfo () {
@@ -570,7 +579,7 @@ function loadQuicktips (search, locale, sprueche) {
 }
 
 const QUICKTIP_SERVER = 'https://quicktips.metager3.de';
-//const QUICKTIP_SERVER = 'http://localhost:63825';
+// const QUICKTIP_SERVER = 'http://localhost:63825'
 
 /**
  * Requests quicktips from the quicktip server and passes them to the loadedHandler
@@ -588,7 +597,6 @@ function getQuicktips (search, locale, blacklist, loadedHandler) {
   $.get(getString, function (data, status) {
     if (status === 'success') {
       var quicktips = $(data).children('feed').children('entry').map(function () {
-        console.log(this);
         return quicktip = {
           type: $(this).children('mg\\:type').text(),
           title: $(this).children('title').text(),
@@ -605,7 +613,6 @@ function getQuicktips (search, locale, blacklist, loadedHandler) {
           }).toArray()
         };
       }).toArray();
-      console.log(quicktips);
       loadedHandler(quicktips);
     } else {
       console.error('Loading quicktips failed with status ' + status);
