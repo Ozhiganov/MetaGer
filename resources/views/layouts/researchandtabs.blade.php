@@ -18,12 +18,9 @@
 					</div>
 					<div class="col-xs-9 dense-col">
 						<form method="{{ Request::method() }}" accept-charset="UTF-8" class="form" id="submitForm">
-							<div class="input-group">
+							<div class="searchbar">
 								<input autocomplete="off" class="form-control" form="submitForm" id="eingabeTop" name="eingabe" placeholder="Suchbegriffe erweitern/verändern, oder völlig neue Suche:" tabindex="1" type="text" value="{{ $eingabe }}" required />
-								<div class="input-group-addon">
-									<button type='submit' form="submitForm" id='search'><i class="fa fa-search" aria-hidden="true"></i>
-									</button>
-								</div>
+								<button type='submit' form="submitForm" id='search'><i class="fa fa-search" aria-hidden="true"></i></button>
 							</div>
 							@foreach( $metager->request->all() as $key => $value)
 								@if($key !== "eingabe" && $key !== "page" && $key !== "next")
