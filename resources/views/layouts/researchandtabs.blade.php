@@ -34,6 +34,7 @@
 			</div>
 		</nav>
 	</header>
+	@include('layouts.sidebar')
 	<main id="main-content-tabs" class="row">
 		<div>
 			<div class="row">
