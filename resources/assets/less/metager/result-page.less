@@ -35,7 +35,7 @@
 @lsprev-or-lsnext-i-background-color: @result-page-color-black;
 body {
     background-image: inherit;
-    background-color: @body-background-color;
+    background-color: white;
 }
 
 footer {
@@ -48,7 +48,6 @@ footer {
 #map,
 #map div {
     display: flex;
-    margin: 0;
 }
 
 .nav-tabs>li>a {
@@ -208,10 +207,7 @@ nav .input-group {
 .content-wrapper {
     padding: 0px;
     padding-top: 52px;
-    background-color: @content-wrapper-background-color;
-    -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+    background-color: white;
 }
 
 #helpButton {
@@ -316,13 +312,9 @@ a {
 .result {
     margin-bottom: 40px;
     width: 100%;
-    &>.number {
-        font-size: 15px;
-        line-height: 1;
-        text-align: right;
-    }
     &>.resultInformation {
         border-radius: 5px;
+        padding-left: 0px;
         &>.save {
             position: absolute;
             top: 0;
@@ -391,7 +383,7 @@ a {
         }
         img {
             margin: 5px;
-            margin-left: 0;
+            margin-left: 0px;
             margin-right: 15px;
             height: auto;
             width: auto;
@@ -400,11 +392,19 @@ a {
             border: solid 1px @result-description-img-border-color;
         }
     }
-    &.ad .description {
-        max-width: 115ch;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    &.ad {
+        .ad-label {
+            border: green solid 1px;
+            padding: 1px;
+            color: green;
+            border-radius: 4px;
+        }
+        .description {
+            max-width: 115ch;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
     .hoster {
         font-size: 13px;
@@ -491,15 +491,6 @@ a {
         border: 0;
         margin: 5px 0;
     }
-}
-
-#quicktips iframe {
-    width: 100%;
-    height: 800px;
-    background-color: transparent;
-    border: 0px none transparent;
-    padding: 0px;
-    overflow: hidden;
 }
 
 .js-only {
@@ -632,13 +623,13 @@ a {
     }
 }
 
-@media(max-width: @screen-xs-max) {
-    .resultContainer {
-        padding-left: 0;
-        padding-right: 0;
+.resultContainer {
+    margin: 0px;
+    padding: 0px;
+    @media(max-width: @screen-xs-max) {
+        padding-right: 0px;
     }
 }
-
 
 /*
  * <div id="quicktips">
@@ -656,8 +647,7 @@ a {
 
 #quicktips {
     display: flex;
-    flex-direction: column;
-    // border: 2px solid #ccc;
+    flex-direction: column; // border: 2px solid #ccc;
     .quicktip {
         margin: 10px 0px;
         padding-left: 10px;
@@ -675,18 +665,21 @@ a {
                 font-size: 15px;
                 font-weight: bold;
             }
+            p {
+                font-size: 16px;
+            }
         }
         .quicktip-detail {
             border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
             h2 {
                 margin: 10px 0px;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: bold;
             }
             p {
                 display: none;
-                font-size: 12px;
+                font-size: 14px;
             }
         }
         .gefVon {
