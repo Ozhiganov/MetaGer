@@ -36,7 +36,6 @@
 		@endif
 		@if($metager->getMaps())
 		<div class="result row" id="map">
-			<div class="number col-sm-1 hidden-xs"></div>
 			<div class="resultInformation col-xs-12 col-sm-11">
 				<iframe class="" src="https://maps.metager.de/metager/{{ $metager->getQ() }}" scrolling="no" tabindex="-1" style="width: 100%; height:0; border:0;"></iframe>
 			</div>
