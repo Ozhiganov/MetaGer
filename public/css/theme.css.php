@@ -38,11 +38,6 @@ if (isset($_GET['r']) && isset($_GET['g']) && isset($_GET['b']) && isset($_GET['
 	box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
-.navbar.navbar-resultpage {
-    border-bottom: 2px solid <?=$color?>;
-    box-shadow: none;
-}
-
 .lSPrev > i, .lSNext > i {
 	color: <?=$color?>;
 }
