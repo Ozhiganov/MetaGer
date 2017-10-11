@@ -20,9 +20,8 @@ input[type=text]:focus, textarea:focus, input[type=email]:focus, input[type=tel]
 
 
 #mglogo > a {
-	background-image: linear-gradient(<?=$color?> 0%, <?=$color?> 250%);
-    background-color: transparent;
-    color: white;
+	color: rgb(255,128,0);
+    font-size: 90px;
 }
 
 .logo h1{
