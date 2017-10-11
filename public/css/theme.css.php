@@ -15,8 +15,9 @@ input[type=text]:focus, textarea:focus, input[type=email]:focus, input[type=tel]
 	-webkit-box-shadow: 0px 0px 2px 2px <?=$colorRGBA?>;
 	-moz-box-shadow: 0px 0px 2px 2px <?=$colorRGBA?>;
 	box-shadow: 0px 0px 2px 2px <?=$colorRGBA?>;
-    border-color: <?=$colorRGBA?>;
+  border-color: <?=$colorRGBA?>;
 }
+
 
 #mglogo > a {
 	background-image: linear-gradient(<?=$color?> 0%, <?=$color?> 250%);
@@ -44,11 +45,6 @@ input[type=text]:focus, textarea:focus, input[type=email]:focus, input[type=tel]
 .navbar, #navbar-static-pages {
 	border-bottom: 3px solid <?=$color?>;
 	box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
-}
-
-.navbar.navbar-resultpage {
-    border-bottom: 2px solid <?=$color?>;
-    box-shadow: none;
 }
 
 .lSPrev > i, .lSNext > i {
