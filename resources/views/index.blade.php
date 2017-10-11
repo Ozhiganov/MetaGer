@@ -205,7 +205,7 @@
 	</div>
 	<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
 	<!-- Create the focus selection and options -->
-	<div id="foki" class="startpage-foki">
+	<!-- <div id="foki" class="startpage-foki">
 		<div class="focus">
 			<input id="web" class="focus-radio hide" type="radio" name="focus" value="web" form="searchForm" @if ($focus === 'web') checked @endif required="">
 			<label id="web-label" class="focus-label" for="web">
@@ -261,27 +261,18 @@
 			<i class="fa fa-cog" aria-hidden="true"></i>
 			</a>
 		</div>
-	</div>
+	</div>-->
 		<fieldset>
 			<form id="searchForm" @if(Request::has('request') && Request::input('request') === "POST") method="POST" @elseif(Request::has('request') && Request::input('request') === "GET") method="GET" @else method="GET" @endif action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
 				<div class="input-group">
 					<div class="input-group-addon">
-						<button type="button" data-toggle="popover" data-html="true" data-container="body" title="{{ trans('index.design') }}" data-content='&lt;ul id="color-chooser" class="list-inline list-unstyled"&gt;
-							&lt;li &gt;&lt;a id="standard" data-rgba="255,194,107,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="standardHard" data-rgba="255,128,0,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="blue" data-rgba="164,192,230,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="blueHard" data-rgba="2,93,140,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="green" data-rgba="177,226,163,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="greenHard" data-rgba="127,175,27,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="red" data-rgba="255,92,92,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="redHard" data-rgba="255,0,0,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="pink" data-rgba="255,196,246,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="pinkHard" data-rgba="254,67,101,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="black" data-rgba="238,238,238,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-							&lt;li &gt;&lt;a id="blackHard" data-rgba="50,50,50,1" href="#"&gt;&lt;/a&gt;&lt;/li&gt;
-						&lt;/ul&gt;'>
-							<i class="fa fa-tint" aria-hidden="true"></i>
-						</button>
+						<select name="focus" style="font-family: FontAwesome, sans-serif;">
+							<option value="web" style="font-family: FontAwesome, sans-serif;" selected >&#xf0ac; Websuche</option>
+							<option value="nachrichten" style="font-family: FontAwesome, sans-serif;" >&#xf0a1; Nachrichtensuche</option>
+							<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;" >&#xf15c; Wissenschaftssuche</option>
+							<option value="produktsuche" style="font-family: FontAwesome, sans-serif;" >&#xf07a; Produktsuche</option>
+							<option value="maps" style="font-family: FontAwesome, sans-serif;" >&#xf279; Kartensuche</option>
+						</select>
 					</div>
 					<input type="text" name="eingabe" required="" autofocus="" autocomplete="{{$autocomplete}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
 					<input type="hidden" name="encoding" value="utf8">
@@ -296,7 +287,7 @@
 						<input type="hidden" name={{ $fp }} value="on">
 					@endforeach
 					<input type="hidden" name="theme" value={{ $theme }}>
-					<div class="input-group-addon">
+					<div class="input-group-addon" id="submit-inputgroup">
 						<button type="submit">
 							<i class="fa fa-search" aria-hidden="true"></i>
 						</button>
@@ -304,7 +295,7 @@
 				</div>
 			</form>
 		</fieldset>
-		<ul class="list-inline searchform-bonus">
+		<ul class="list-inline searchform-bonus hidden">
 			<li id="plug"
 			@unless ($browser === 'Firefox' || $browser === 'Mozilla' || $browser === 'Chrome' || $browser === 'Opera' || $browser === 'IE' || $browser === 'Edge' || $browser === 'Safari' || $browser === 'Vivaldi')
 				class="hidden"
@@ -322,7 +313,7 @@
 @endsection
 
 @section('optionalContent')
-	<section id="moreInformation" class="hidden-xs">
+	<section id="moreInformation" class="hidden-xs hidden">
 		<h1 class="hidden">{{ trans('index.sponsors.head.1') }}</h1>
 		<div class="row">
 			<div id="sponsors" class="col-sm-6">
