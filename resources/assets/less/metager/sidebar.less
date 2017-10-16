@@ -12,8 +12,8 @@
 .sideBar {
     position: fixed;
     display: block;
-    right: -200px;
-    width: 200px;
+    right: -260px;
+    width: 260px;
     height: 100%;
     background-color: #FFF;
     overflow: hidden;
@@ -21,6 +21,9 @@
     transition: 0.5s;
     z-index: 999;
     border-left: 1px solid LightGray;
+    & * {
+        display: inline-block;
+    }
     &>label {
         position: absolute;
         font-size: 36px;
@@ -36,26 +39,16 @@
         line-height: 20px;
         text-decoration: none;
         text-indent: 12px;
-        width: 160px;
+        width: 100%;
         &:visited {
             color: blue;
         }
     }
 }
 
-.sideBar *:not(label) {
-    display: none;
-}
-
 input#nav0:checked {
-    & ~#closeSideBar:after {
-        content: ""
-    }
     & ~.sideBar {
         right: 0px;
-        & * {
-            display: inline-block;
-        }
     }
 }
 
