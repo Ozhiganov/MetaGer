@@ -4,8 +4,12 @@
     position: fixed;
     top: 0px;
     right: 20px;
+    color: grey;
     &:after {
         content: "≡";
+    }
+    &:hover {
+        color: rgb(255,128,0);
     }
 }
 
@@ -29,6 +33,13 @@
         font-size: 36px;
         top: 0px;
         right: 20px;
+        color: grey;
+        &:after {
+            content: "×";
+        }
+        &:hover {
+            color: rgb(255,128,0);
+        }
     }
     &>ul {
         padding-top: 20%;
@@ -50,8 +61,4 @@ input#nav0:checked {
     & ~.sideBar {
         right: 0px;
     }
-}
-
-input#nav0:checked~.sideBar label:after {
-    content: "×";
 }
