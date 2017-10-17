@@ -2,6 +2,7 @@
 <label id="closeSidebar" role="button" for="nav0"></label>
 <div class="sideBar">	
   <label role="button" for="nav0"></label>
+  <p> MetaGer </p>
   <ul id="metager-static-nav-list" class="list-inline pull-right">
     <li @if ( !isset($navbarFocus) || $navbarFocus === 'suche') class="active" @endif >
       <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"  tabindex="200" id="navigationSuche"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;
