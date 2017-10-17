@@ -1,3 +1,10 @@
+@metager-dropdown-toggle-hover-or-focus-color: fade(@static-pages-color-black, 15%);
+@metager-dropdown-menu-background-color: @static-pages-color-white;
+@metager-dropdown-menu-box-shadow-color: fade(@static-pages-color-black, 17.5%);
+@metager-dropdown-menu-li-a-color: @static-pages-color-almost-black;
+@metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
+@metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
+
 #closeSidebar {
     z-index: 998;
     font-size: 36px;
@@ -43,7 +50,8 @@
     }
     &>ul {
         padding-top: 20%;
-        padding-left: 0%;
+        padding-left: 3%;
+        padding-right: 1%;
     }
     & a {
         font-size: 12px;
@@ -54,6 +62,102 @@
         &:visited {
             color: blue;
         }
+    }
+}
+/*
+ul.metager-dropdown-menu {
+    list-style-type: none;
+    padding-left: 0;
+    top: 100%;
+    left: auto;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+    margin: 2px 0 0;
+    margin-top: 0;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    background-color: @metager-dropdown-menu-background-color;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px @metager-dropdown-menu-box-shadow-color;
+    background-clip: padding-box;
+    max-height: 0px;
+    overflow: hidden;
+    &>li>a {
+        display: block;
+        padding: 3px 20px;
+        width: 100%;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: @metager-dropdown-menu-li-a-color;
+        white-space: nowrap;
+        &:hover {
+            text-decoration: none;
+            color: @metager-dropdown-menu-li-a-hover-color;
+            background-color: @metager-dropdown-menu-li-a-hover-background-color;
+        }
+    }
+}*/
+
+#navbar-static-pages {
+    z-index: 4;
+    width: 100%;
+}
+
+@keyframes dropdown-animation {
+    0% {
+        max-height: 0px;
+        padding: 0px 0;
+        border: none
+    }
+    1% {
+        padding: 5px 0;
+        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
+    }
+    100% {
+        max-height: 1000px;
+        padding: 5px 0;
+        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
+    }
+}
+
+#metager-static-nav-list > li:hover {
+    background-color: @metager-navbar-toggle-hover-background-color;
+    &>.metager-dropdown-menu {
+        animation-name: dropdown-animation;
+        animation-duration: 0.7s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+        animation-delay: 0.1s;
+    }
+}
+
+#metager-static-nav-list>li {
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    border-radius: 10px;
+    margin-bottom: 1%;
+    &>a:hover {
+        color: red;
+    }
+}
+
+@media (max-width: 979px) {
+    #metager-static-nav-list {
+        width: 100%;
+        overflow: hidden;
+    }
+    #metager-static-nav-list:target {
+        max-height: 1000px;
+    }
+    ul.metager-dropdown-menu {
+        position: inherit;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: initial;
     }
 }
 
