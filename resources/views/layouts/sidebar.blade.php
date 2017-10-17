@@ -12,7 +12,7 @@
       <a class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201"><i class="fa fa-money" aria-hidden="true"></i>
 &nbsp;{{ trans('staticPages.nav16') }}
       <span class="caret"></span></a>
-      <!--<ul class="metager-dropdown-menu">
+      <<ul class="metager-dropdown-menu">
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/spende/") }}" tabindex="202">{{ trans('staticPages.nav2') }}</a>
         </li>
@@ -23,7 +23,6 @@
           <a href="https://www.boost-project.com/de/shops?charity_id=1129&amp;tag=bl" tabindex="204">{{ trans('staticPages.nav17') }}</a>
         </li>
       </ul>
-      -->
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'datenschutz') class="active" @endif >
       <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/datenschutz/") }}" id="navigationPrivacy" tabindex="215"><i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
