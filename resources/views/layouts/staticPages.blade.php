@@ -33,7 +33,7 @@
 		<header>
 			@yield('homeIcon')
 		</header>
-		@include('layouts.sidebar')
+		@include('layouts.sidebar', ['id' => 'staticPagesSideBar'])
 		<div class="wrapper">
 			<main class="mg-panel container">
 				@if (isset($success))
