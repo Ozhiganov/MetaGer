@@ -678,15 +678,16 @@ function createQuicktips (quicktips, sprueche) {
       });
     } else {
       mainElem = $('<div class="quicktip-summary">');
-      var headlineElem = $('<h1>');
-      if (quicktip.url.length > 0) {
-        headlineElem.append('<a href=' + quicktip.url + '>' + quicktip.title + '</a>');
-      } else {
-        headlineElem.text(quicktip.title);
+      if (quicktip.title.length > 0) {
+        var headlineElem = $('<h1>');
+        if (quicktip.url.length > 0) {
+          headlineElem.append('<a href=' + quicktip.url + '>' + quicktip.title + '</a>');
+        } else {
+          headlineElem.text(quicktip.title);
+        }
+        mainElem.append(headlineElem);
       }
-      mainElem
-        .append(headlineElem)
-        .append('<p>' + quicktip.summary + '</p>');
+      mainElem.append('<p>' + quicktip.summary + '</p>');
     }
     var quicktipDiv = $('<div class="quicktip" type="' + quicktip.type + '">');
     quicktipDiv
