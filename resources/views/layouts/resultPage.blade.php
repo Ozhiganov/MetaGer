@@ -33,14 +33,7 @@
   					{!! trans('kontakt.form.1') !!}</a>
   				</strong>
 		</div>
-		<footer class="footer-resultpage">
-			<div>
-				<a class="btn btn-default" href="/">{!! trans('resultPage.startseite') !!}</a>
-			</div>
-			<div>
-				<a class="btn btn-default" href="/impressum/">{!! trans('resultPage.impressum') !!}</a>
-			</div>
-		</footer>
+		@include('layouts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		<script type="text/javascript" src="{{ elixir('js/lib.js') }}"></script>
 		<script type="text/javascript" src="{{ elixir('js/scriptResultPage.js') }}"></script>
