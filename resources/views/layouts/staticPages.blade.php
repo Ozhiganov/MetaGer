@@ -51,7 +51,7 @@
 				@yield('content')
 			</main>
 			@yield('optionalContent')
-			<footer class="noprint">
+			<footer class="footer-static-pages noprint">
 				<ul class="list-inline hidden-xs">
 					<li>
 						<a href="https://www.suma-ev.de/"  >
