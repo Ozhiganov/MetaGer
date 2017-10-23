@@ -30,6 +30,7 @@
     overflow-y: auto;
     transition: 0.5s;
     z-index: 999;
+    background-color: white;
     & * {
         display: inline-block;
     }
@@ -78,6 +79,8 @@
         left: 90%;
         margin-top: 8px;
     }
+}
+
 ul.metager-dropdown-menu {
     list-style-type: none;
     padding-left: 0;
@@ -111,11 +114,13 @@ ul.metager-dropdown-menu {
             color: @metager-dropdown-menu-li-a-hover-color;
             background-color: @metager-dropdown-menu-li-a-hover-background-color;
         }
+    }
+    label:after {
+        #navbar-static-pages {
+            z-index: 4;
+            width: 100%;
         }
-        label:after {
-#navbar-static-pages {
-    z-index: 4;
-    width: 100%;
+    }
 }
 
 @keyframes dropdown-animation {
