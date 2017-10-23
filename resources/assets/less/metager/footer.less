@@ -1,6 +1,5 @@
 footer {
-    margin: 30px 0px;
-    bottom: 0;
+    margin: 10px 0px 30px 0px;
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -15,5 +14,15 @@ footer {
     }
     img {
         max-width: 100%;
+    }
+    &.startPageFooter {
+        position: absolute;
+        bottom: 0;
+    }
+    &.footer-resultpage {
+        justify-content: center;
+        a {
+            color: @result-page-color-black;
+        }
     }
 }

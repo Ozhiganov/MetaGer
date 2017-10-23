@@ -1,4 +1,4 @@
-@extends('layouts.staticPages')
+@extends('layouts.staticPages', ['page' => 'startpage'])
 
 @section('homeIcon')
 	<a class="navbar-brand visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
