@@ -34,13 +34,11 @@
   				</strong>
 		</div>
 		<footer class="footer-resultpage">
-			<div class="row">
-				<div @if(LaravelLocalization::getCurrentLocale() === "de") class="col-xs-4"@else class="col-xs-6"@endif>
-					<a class="btn btn-default" href="/">{!! trans('resultPage.startseite') !!}</a>
-				</div>
-				<div @if(LaravelLocalization::getCurrentLocale() === "de") class="col-xs-4"@else class="col-xs-6"@endif>
-					<a class="btn btn-default" href="/impressum/">{!! trans('resultPage.impressum') !!}</a>
-				</div>
+			<div>
+				<a class="btn btn-default" href="/">{!! trans('resultPage.startseite') !!}</a>
+			</div>
+			<div>
+				<a class="btn btn-default" href="/impressum/">{!! trans('resultPage.impressum') !!}</a>
 			</div>
 		</footer>
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />

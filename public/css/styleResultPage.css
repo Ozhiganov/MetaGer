@@ -506,10 +506,6 @@ footer a {
     width: 30px;
 }
 
-.pager {
-    text-align: center;
-}
-
 #searchplugin {
     display: none;
     position: fixed;

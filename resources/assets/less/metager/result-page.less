@@ -39,7 +39,7 @@ body {
 }
 
 .footer-resultpage {
-    text-align: center;
+    justify-content: center;
     a {
         color: @footer-a-color;
     }
@@ -573,8 +573,23 @@ a {
     }
 }
 
-.pager {
-    text-align: center;
+.mg-pager {
+    display: flex;
+    justify-content: center;
+    &>div {
+        border: #aaa solid 1px;
+        border-radius: 10px;
+        padding: 5px;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0px;
+        }
+    }
+}
+
+.disabled, .disabled * {
+    color: #aaa !important;
+    cursor: not-allowed !important;
 }
 
 #searchplugin {
@@ -667,7 +682,7 @@ a {
 
 .resultContainer {
     margin: 0px;
-    padding: 0px;
+    padding: 20px 0px;
     @media(max-width: @screen-xs-max) {
         padding-right: 0px;
     }
