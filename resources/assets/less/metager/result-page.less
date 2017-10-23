@@ -666,6 +666,15 @@ a {
     }
 }
 
+@keyframes quicktip-extender-turn {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+
 
 /*
  * <div id="quicktips">
@@ -681,15 +690,6 @@ a {
  * </...>
  */
 
-@keyframes quicktip-extender-turn {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(180deg);
-    }
-}
-
 #quicktips {
     display: flex;
     flex-direction: column;
@@ -699,7 +699,7 @@ a {
     }
     .quicktip {
         margin: 10px 0px;
-        padding-left: 10px;
+        padding: 10px 0px 10px 10px;
         border-left: 3px solid #fb0;
         details:not([open=""]) {
             .quicktip-summary p {
@@ -710,6 +710,7 @@ a {
         }
         .quicktip-summary {
             h1 {
+                margin: 0px 0px 5px 0px;
                 font-size: 18px;
                 font-weight: bold;
                 display: flex;
