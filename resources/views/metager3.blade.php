@@ -47,11 +47,9 @@
 			@endif
 			@include('layouts.result', ['result' => $result])
 		@endforeach
-		<nav aria-label="...">
-			<ul class="pager">
-				<li @if($metager->getPage() === 1) class="disabled" @endif><a href="@if($metager->getPage() === 1) # @else javascript:history.back() @endif">{{ trans('results.zurueck') }}</a></li>
-				<li @if($metager->nextSearchLink() === "#") class="disabled" @endif><a href="{{ $metager->nextSearchLink() }}">{{ trans('results.weiter') }}</a></li>
-			</ul>
+		<nav class="mg-pager" aria-label="...">
+			<div @if($metager->getPage() === 1) class="disabled" @endif><a href="@if($metager->getPage() === 1) # @else javascript:history.back() @endif">{{ trans('results.zurueck') }}</a></div>
+			<div @if($metager->nextSearchLink() === "#") class="disabled" @endif><a href="{{ $metager->nextSearchLink() }}">{{ trans('results.weiter') }}</a></div>
 		</nav>
 	</div>
 	@if( $metager->showQuicktips() )
