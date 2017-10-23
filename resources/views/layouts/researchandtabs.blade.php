@@ -34,7 +34,7 @@
 			</div>
 		</nav>
 	</header>
-	@include('layouts.sidebar')
+	@include('layouts.sidebar', ['id' => 'resultPageSideBar'])
 	<main id="main-content-tabs" class="row">
 		<div>
 			<div class="row">
