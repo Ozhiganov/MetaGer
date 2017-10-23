@@ -1,19 +1,13 @@
 @quicktip-background-color: @static-pages-color-white;
-@metager-dropdown-menu-background-color: @static-pages-color-white;
-@metager-dropdown-menu-box-shadow-color: fade(@static-pages-color-black, 17.5%);
-@metager-dropdown-menu-li-a-color: @static-pages-color-almost-black;
-@metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
-@metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
 @spruch-color: @static-pages-spruch-color;
 @spruch-border-left-color: @spruch-color;
 @spruch-author-color: @static-pages-color-grey;
-@metager-dropdown-toggle-hover-or-focus-color: fade(@static-pages-color-black, 15%);
 @metager-navbar-toggle-color: @static-pages-color-grey;
 @metager-navbar-toggle-background-color: @static-pages-color-white;
 @metager-navbar-toggle-border-color: @static-pages-color-almost-white;
 @metager-navbar-toggle-visited-color: @static-pages-color-grey;
 @metager-navbar-toggle-hover-background-color: @static-pages-color-almost-white;
-@toggle-nav-hide-or-metager-navbar-toggle-background-color: @static-pages-color-almost-white;
+@toggle-nav-hide-or-metager-navbar-toggle-background-color: rgb(255,128,0);
 @more-information-ul-li-color: @static-pages-color-grey;
 @more-information-h2-color: @static-pages-color-grey;
 @div-right-background-color: @static-pages-color-almost-white;
@@ -77,41 +71,6 @@ nav {
     }
 }
 
-ul.metager-dropdown-menu {
-    list-style-type: none;
-    padding-left: 0;
-    top: 100%;
-    left: auto;
-    z-index: 1000;
-    float: left;
-    min-width: 160px;
-    margin: 2px 0 0;
-    margin-top: 0;
-    list-style: none;
-    font-size: 14px;
-    text-align: left;
-    background-color: @metager-dropdown-menu-background-color;
-    border-radius: 4px;
-    box-shadow: 0 6px 12px @metager-dropdown-menu-box-shadow-color;
-    background-clip: padding-box;
-    max-height: 0px;
-    overflow: hidden;
-    &>li>a {
-        display: block;
-        padding: 3px 20px;
-        clear: both;
-        font-weight: normal;
-        line-height: 1.42857143;
-        color: @metager-dropdown-menu-li-a-color;
-        white-space: nowrap;
-        &:hover {
-            text-decoration: none;
-            color: @metager-dropdown-menu-li-a-hover-color;
-            background-color: @metager-dropdown-menu-li-a-hover-background-color;
-        }
-    }
-}
-
 #mglogo {
     color: rgb(255, 128, 0);
     text-shadow: 2px 2px 10px rgba(150, 150, 150, 1);
@@ -132,39 +91,6 @@ ul.metager-dropdown-menu {
     }
 }
 
-#navbar-static-pages {
-    z-index: 4;
-    width: 100%;
-}
-
-@keyframes dropdown-animation {
-    0% {
-        max-height: 0px;
-        padding: 0px 0;
-        border: none
-    }
-    1% {
-        padding: 5px 0;
-        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
-    }
-    100% {
-        max-height: 1000px;
-        padding: 5px 0;
-        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
-    }
-}
-
-#metager-static-nav-list>li:hover {
-    background-color: @metager-navbar-toggle-hover-background-color;
-    &>.metager-dropdown-menu {
-        animation-name: dropdown-animation;
-        animation-duration: 0.7s;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
-        animation-delay: 0.1s;
-    }
-}
-
 .metager-navbar-toggle {
     color: @metager-navbar-toggle-color;
     background-color: @metager-navbar-toggle-background-color;
@@ -182,37 +108,6 @@ ul.metager-dropdown-menu {
 
 #toggle-nav-hide .metager-navbar-toggle {
     background-color: @toggle-nav-hide-or-metager-navbar-toggle-background-color;
-}
-
-#metager-static-nav-list>li {
-    padding-top: 10%;
-}
-
-@media (max-width: 979px) {
-    #metager-static-nav-list {
-        width: 100%;
-        max-height: 40px;
-        overflow: hidden;
-    }
-    #metager-static-nav-list:target {
-        max-height: 1000px;
-    }
-    #metager-static-nav-list>li {
-        padding-top: 5px;
-        display: initial;
-    }
-    ul.metager-dropdown-menu {
-        position: inherit;
-        width: 100%;
-        border-radius: 0;
-        box-shadow: initial;
-    }
-    ul#metager-static-nav-list:target #toggle-nav-show {
-        display: none;
-    }
-    ul#metager-static-nav-list:target #toggle-nav-hide {
-        display: initial!important;
-    }
 }
 
 #color-chooser {
