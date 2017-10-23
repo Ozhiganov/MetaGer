@@ -33,7 +33,7 @@
   					{!! trans('kontakt.form.1') !!}</a>
   				</strong>
 		</div>
-		<footer>
+		<footer class="footer-resultpage">
 			<div class="row">
 				<div @if(LaravelLocalization::getCurrentLocale() === "de") class="col-xs-4"@else class="col-xs-6"@endif>
 					<a class="btn btn-default" href="/">{!! trans('resultPage.startseite') !!}</a>
