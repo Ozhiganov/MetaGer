@@ -34,10 +34,6 @@ label#openSidebar {
     z-index: 999;
     background-color: white;
 
-    & * {
-        display: inline-block;
-    }
-
     &>label#closeSidebar {
         position: absolute;
         font-size: 36px;
@@ -51,7 +47,7 @@ label#openSidebar {
             color: rgb(255,128,0);
         }
     }
-    
+
     &>ul {
         padding-top: 20%;
     }
@@ -77,21 +73,11 @@ label#openSidebar {
 
     & .metager-dropdown-menu {
         list-style-type: none;
-        padding-left: 0;
-        top: 100%;
-        left: auto;
         z-index: 1000;
         float: left;
         min-width: 160px;
-        margin: 2px 0 0;
-        margin-top: 0;
-        list-style: none;
         font-size: 14px;
         text-align: left;
-        background-color: @metager-dropdown-menu-background-color;
-        border-radius: 4px;
-        box-shadow: 0 6px 12px @metager-dropdown-menu-box-shadow-color;
-        background-clip: padding-box;
         max-height: 0px;
         overflow: hidden;
         &>li>a {
@@ -102,11 +88,8 @@ label#openSidebar {
             clear: both;
             font-weight: normal;
             line-height: 1.42857143;
-            color: @metager-dropdown-menu-li-a-color;
             &:hover {
                 text-decoration: none;
-                color: @metager-dropdown-menu-li-a-hover-color;
-                background-color: @metager-dropdown-menu-li-a-hover-background-color;
             }
         }
         label:after {
@@ -122,6 +105,7 @@ label#openSidebar {
         line-height: 20px;
         text-decoration: none;
         text-indent: 12px;
+        display: inline-block;
         width: 100%;
         color: black;
         &:hover {
