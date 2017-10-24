@@ -1,7 +1,7 @@
 <input name="nav" id="nav0" style="display: none;" type="checkbox">
-  <label id="closeSidebar" role="button" for="nav0"></label>
+  <label id="openSidebar" role="button" for="nav0"></label>
   <div class="sideBar">
-  <label role="button" for="nav0"></label>
+  <label id="closeSidebar" role="button" for="nav0"></label>
   <p> MetaGer </p>
   <ul id="metager-static-nav-list" class="list-inline pull-right">
     <li @if ( !isset($navbarFocus) || $navbarFocus === 'suche') class="active" @endif >
