@@ -1,6 +1,11 @@
 #searchForm {
     select {
         font-size: 15px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: white;
+        padding-right: 35px;
     }
     input {
         height: 40px;
@@ -21,6 +26,25 @@
         button {
             font-size: 16px;
         }
+    }
+}
+
+.focus-selector {
+    background-color: white;
+    position: relative;
+    &:after {
+        content: "\f078";
+        font: 15px "FontAwesome", sans-serif;
+        //text-align: center;
+        line-height: 30px;
+        color: #aaa;
+        background-color: transparent;
+        right: 8px;
+        top: 2px;
+        padding: 2px 2px 2px 5px;
+        border-left: 1px solid #aaa;
+        position: absolute;
+        pointer-events: none;
     }
 }
 
