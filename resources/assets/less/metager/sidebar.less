@@ -5,7 +5,7 @@
 @metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
 @metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
 
-#closeSidebar {
+label#openSidebar {
     z-index: 998;
     font-size: 36px;
     position: fixed;
@@ -33,10 +33,12 @@
     transition: 0.5s;
     z-index: 999;
     background-color: white;
+
     & * {
         display: inline-block;
     }
-    &>label {
+
+    &>label#closeSidebar {
         position: absolute;
         font-size: 36px;
         top: 0px;
@@ -49,9 +51,72 @@
             color: rgb(255,128,0);
         }
     }
+    
     &>ul {
         padding-top: 20%;
     }
+
+    & #metager-static-nav-list > li {
+        
+        width: 100%;
+        padding-top: 10%;
+        padding-bottom: 10%;
+        border-bottom: 1px solid LightGray;
+
+        &:hover {
+            background-color: @metager-navbar-toggle-hover-background-color;
+            &>.metager-dropdown-menu {
+                animation-name: dropdown-animation;
+                animation-duration: 0.7s;
+                animation-timing-function: ease-out;
+                animation-fill-mode: forwards;
+                animation-delay: 0.1s;
+            }
+        }
+    }
+
+    & .metager-dropdown-menu {
+        list-style-type: none;
+        padding-left: 0;
+        top: 100%;
+        left: auto;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        margin: 2px 0 0;
+        margin-top: 0;
+        list-style: none;
+        font-size: 14px;
+        text-align: left;
+        background-color: @metager-dropdown-menu-background-color;
+        border-radius: 4px;
+        box-shadow: 0 6px 12px @metager-dropdown-menu-box-shadow-color;
+        background-clip: padding-box;
+        max-height: 0px;
+        overflow: hidden;
+        &>li>a {
+            display: block;
+            font-size: 12px;
+            padding: 3px 20px;
+            width: 100%;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.42857143;
+            color: @metager-dropdown-menu-li-a-color;
+            &:hover {
+                text-decoration: none;
+                color: @metager-dropdown-menu-li-a-hover-color;
+                background-color: @metager-dropdown-menu-li-a-hover-background-color;
+            }
+        }
+        label:after {
+            #navbar-static-pages {
+                z-index: 4;
+                width: 100%;
+            }
+        }
+    }
+
     & a {
         font-size: 16px;
         line-height: 20px;
@@ -83,48 +148,6 @@
     }
 }
 
-ul.metager-dropdown-menu {
-    list-style-type: none;
-    padding-left: 0;
-    top: 100%;
-    left: auto;
-    z-index: 1000;
-    float: left;
-    min-width: 160px;
-    margin: 2px 0 0;
-    margin-top: 0;
-    list-style: none;
-    font-size: 14px;
-    text-align: left;
-    background-color: @metager-dropdown-menu-background-color;
-    border-radius: 4px;
-    box-shadow: 0 6px 12px @metager-dropdown-menu-box-shadow-color;
-    background-clip: padding-box;
-    max-height: 0px;
-    overflow: hidden;
-    &>li>a {
-        display: block;
-        font-size: 12px;
-        padding: 3px 20px;
-        width: 100%;
-        clear: both;
-        font-weight: normal;
-        line-height: 1.42857143;
-        color: @metager-dropdown-menu-li-a-color;
-        &:hover {
-            text-decoration: none;
-            color: @metager-dropdown-menu-li-a-hover-color;
-            background-color: @metager-dropdown-menu-li-a-hover-background-color;
-        }
-    }
-    label:after {
-        #navbar-static-pages {
-            z-index: 4;
-            width: 100%;
-        }
-    }
-}
-
 @keyframes dropdown-animation {
     0% {
         max-height: 0px;
@@ -140,24 +163,6 @@ ul.metager-dropdown-menu {
         padding: 5px 0;
         border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
     }
-}
-
-#metager-static-nav-list > li:hover {
-    background-color: @metager-navbar-toggle-hover-background-color;
-    &>.metager-dropdown-menu {
-        animation-name: dropdown-animation;
-        animation-duration: 0.7s;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
-        animation-delay: 0.1s;
-    }
-}
-
-#metager-static-nav-list>li {
-    width: 100%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    border-bottom: 1px solid LightGray;
 }
 
 @media (max-width: 979px) {
