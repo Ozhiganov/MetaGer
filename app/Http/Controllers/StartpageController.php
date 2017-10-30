@@ -22,8 +22,23 @@ class StartpageController extends Controller
         $focusPages = [];
         $theme      = "default";
 
+        $optionParams = ['param_sprueche', 'param_newtab', 'param_maps', 'param_autocomplete', 'param_lang', 'param_key'];
+        $option_values = [];
+
+        foreach ($optionParams as $param) {
+            $value = $request->input($param);
+            if ($value) {
+                $option_values[$param] = $value;
+            }
+        }
+
+        $autocomplete = 'on';
+        if(in_array('autocomplete', array_keys($option_values))) {
+            $autocomplete = $option_values['autocomplete'];
+        }
+
         foreach ($request->all() as $key => $value) {
-            if ($value === 'on' && $key != 'param_sprueche' && $key != 'param_newtab' && $key !== 'param_maps' && $key !== 'param_autocomplete' && $key !== 'param_lang') {
+            if ($value === 'on' && !in_array($key, $optionParams)) {
                 $focusPages[] = str_replace('param_', '', $key);
             }
             if ($key === 'param_theme') {
@@ -43,16 +58,12 @@ class StartpageController extends Controller
             ->with('browser', (new Agent())->browser())
             ->with('navbarFocus', 'suche')
             ->with('theme', $theme)
-            ->with('autocomplete', $request->input('param_autocomplete', 'on'))
             ->with('foki', $this->loadFoki())
             ->with('focus', $request->input('focus', 'web'))
-            ->with('lang', $request->input('param_lang', $lang))
-            ->with('resultCount', $request->input('param_resultCount', '20'))
             ->with('time', $request->input('param_time', '1500'))
-            ->with('sprueche', $request->input('param_sprueche', 'on'))
-            ->with('newtab', $request->input('param_newtab', 'on'))
-            ->with('maps', $maps = $request->input('param_maps', 'off'))
-            ->with('key', $request->input('param_key', ''));
+            ->with('request', $request->input('request', 'GET'))
+            ->with('option_values', $option_values)
+            ->with('autocomplete', $autocomplete);
     }
 
     public function loadPage($subpage)
