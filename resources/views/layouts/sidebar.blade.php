@@ -1,4 +1,4 @@
-<input name="nav" id="nav0" style="display: none;" type="checkbox">
+<input id="nav0" style="display: none;" type="checkbox">
   <label id="openSidebar" role="button" for="nav0"></label>
   <div class="sideBar">
   <label id="closeSidebar" role="button" for="nav0"></label>
@@ -9,9 +9,10 @@
 {{ trans('staticPages.nav1') }}</a>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'foerdern') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <a class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201"><i class="fa fa-money" aria-hidden="true"></i>
+      <input id="donationToggle" class="sideBarCheckbox" type="checkbox">
+      <label for="donationToggle" class="metager-dropdown-toggle" role="button" aria-expanded="false" tabindex="201"><i class="fa fa-money" aria-hidden="true"></i>
 &nbsp;{{ trans('staticPages.nav16') }}
-      <span class="caret"></span></a>
+      <span class="caret"></span></label>
       <ul class="metager-dropdown-menu">
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/spende/") }}" tabindex="202">{{ trans('staticPages.nav2') }}</a>
@@ -29,9 +30,10 @@
 {{ trans('staticPages.nav3') }}</a>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'hilfe') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationHilfe" tabindex="216"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+    <input id="helpToggle" class="sideBarCheckbox" type="checkbox">
+      <label for="helpToggle" class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationHilfe" tabindex="216"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
 {{ trans('staticPages.nav20') }}
-      <span class="caret"></span></a>
+      <span class="caret"></span></label>
       <ul class="metager-dropdown-menu">
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/hilfe/") }}" tabindex="217">{{ trans('staticPages.nav20') }}</a>
@@ -42,9 +44,10 @@
       </ul>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'kontakt') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationKontakt" tabindex="219"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;
+    <input id="contactToggle" class="sideBarCheckbox" type="checkbox">
+      <label for="contactToggle" class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationKontakt" tabindex="219"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;
 {{ trans('staticPages.nav18') }}
-      <span class="caret"></span></a>
+      <span class="caret"></span></label>
       <ul class="metager-dropdown-menu">
         <li>
           <a href="http://forum.suma-ev.de/" tabindex="220">{{ trans('staticPages.nav4') }}</a>
@@ -64,9 +67,10 @@
       </ul>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'dienste') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <a class="metager-dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabindex="225"><i class="fa fa-wrench" aria-hidden="true"></i>
+    <input id="servicesToggle" class="sideBarCheckbox" type="checkbox">
+      <label for="servicesToggle" class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" tabindex="225"><i class="fa fa-wrench" aria-hidden="true"></i>
 &nbsp;{{ trans('staticPages.nav15') }}
-      <span class="caret"></span></a>
+      <span class="caret"></span></label>
       <ul class="metager-dropdown-menu">
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/widget/") }}" tabindex="226">{{ trans('staticPages.nav10') }}</a>
@@ -95,9 +99,10 @@
       </ul>
     </li>
     <li class="metager-dropdown">
-      <a class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationSprache" tabindex="235"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;
+    <input id="languagesToggle" class="sideBarCheckbox" type="checkbox">
+      <label for="languagesToggle" class="metager-dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="navigationSprache" tabindex="235"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;
 {{ trans('staticPages.nav19') }} ({{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }})
-      <span class="caret"></span></a>
+      <span class="caret"></span></label>
      <ul class="metager-dropdown-menu">
         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
           <li>
