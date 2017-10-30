@@ -55,9 +55,9 @@ label#openSidebar {
     & #metager-static-nav-list > li {
         
         width: 100%;
-        padding-top: 10%;
-        padding-bottom: 10%;
-        border-bottom: 1px solid LightGray;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        border-top: 1px solid LightGray;
 
         &:hover {
             background-color: @metager-navbar-toggle-hover-background-color;
@@ -152,18 +152,18 @@ label#openSidebar {
 }
 
 @media (max-width: 979px) {
-    #metager-static-nav-list {
-        width: 100%;
-        overflow: hidden;
+    .sideBar {
+        right: -90%;
+        width: 90%;
+        overflow: auto;
     }
+
     #metager-static-nav-list:target {
         max-height: 1000px;
     }
     ul.metager-dropdown-menu {
         position: inherit;
         width: 100%;
-        border-radius: 0;
-        box-shadow: initial;
     }
 }
 
