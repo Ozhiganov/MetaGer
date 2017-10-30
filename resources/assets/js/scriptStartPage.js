@@ -341,79 +341,20 @@ function alreadyInUse (name) {
   return localStorage.hasOwnProperty(getIdFromName(name));
 }
 /**
- * Adds a focus html-element to the focus selection
- * 
- * <input id="NAME" class="hide" type="radio" name="focus" value="NAME" form="searchForm" checked required>
- * <label id="NAME-label" for="NAME">
- *     <i class="fa fa-star" aria-hidden="true"></i>
- *     <span class="content">NAME</span>
- *     <button class="btn btn-default">
- *         <i class="fa fa-pencil" aria-hidden="true"></i>
- *     </button>
- * </label>
+ * Adds an option to the focus selector
  */
 function addFocus (name) {
   var id = getIdFromName(name);
-  var foki = document.getElementById('foki');
-  // create <div> to wrap all Elements
-  var wrapper = document.createElement('div');
-  wrapper.classList.add('focus');
-  // create <input>
-  var newFocus = document.createElement('input');
-  newFocus.id = id;
-  newFocus.classList.add('focus-radio');
-  newFocus.classList.add('custom-focus');
-  newFocus.classList.add('hide');
-  newFocus.type = 'radio';
-  newFocus.name = 'focus';
-  newFocus.value = id;
-  newFocus.setAttribute('Form', 'searchForm');
-  newFocus.checked = true;
-  newFocus.required = true;
-  // create <label>
-  var newFocusLabel = document.createElement('label');
-  newFocusLabel.id = id + '-label';
-  newFocusLabel.classList.add('focus-label');
-  newFocusLabel.classList.add('custom-focus-label');
-  newFocusLabel.htmlFor = id;
-  // create <i> icon
-  var newFocusIcon = document.createElement('i');
-  newFocusIcon.classList.add('fa');
-  newFocusIcon.classList.add('fa-star');
-  newFocusIcon.setAttribute('aria-hidden', 'true');
-  // create content
-  var newFocusContent = document.createElement('span');
-  newFocusIcon.classList.add('content');
-  newFocusContent.textContent = ' ' + name;
-  // create edit button
-  var newFocusEditLink = document.createElement('a');
-  newFocusEditLink.classList.add('focus-edit');
-  newFocusEditLink.classList.add('custom-focus-edit');
-  newFocusEditLink.classList.add('mutelink');
-  newFocusEditLink.href = '#';
-  newFocusEditLink.onclick = function () {
-    showFocusEditDialog(id);
-  };
-  var newFocusEditLinkIcon = document.createElement('i');
-  newFocusEditLinkIcon.classList.add('fa');
-  newFocusEditLinkIcon.classList.add('fa-pencil');
-  newFocusEditLinkIcon.setAttribute('aria-hidden', 'true');
-  // add new elements
-  var addFocusBtn = document.getElementById('addFocusBtnDiv');
-  foki.insertBefore(wrapper, addFocusBtn);
-  wrapper.appendChild(newFocus);
-  wrapper.appendChild(newFocusLabel);
-  newFocusLabel.appendChild(newFocusIcon);
-  newFocusLabel.appendChild(newFocusContent);
-  wrapper.appendChild(newFocusEditLink);
-  newFocusEditLink.appendChild(newFocusEditLinkIcon);
+  $('#focus-select').append('<option value="' + id + '" style="font-family: FontAwesome, sans-serif;">&#xf2c0; ' + name + '</option>')
 }
+
 /**
  * Remove the focuses html-elements
  */
 function removeFocus (name) {
   removeFocusById(getIdFromName(name));
 }
+
 /**
  * Remove the focuses html-elements
  */
@@ -421,11 +362,9 @@ function removeFocusById (id) {
   if(id == '') {
     return;
   }
-  var focusRadio = document.getElementById(id);
-  var focus = focusRadio.parentNode;
-  var parent = focus.parentNode;
-  parent.removeChild(focus);
+  var focus = $('#focus-select option[value="' + id + '"]').remove();
 }
+
 /**
  * Turns a name into an id
  * Converts special characters and spaces
@@ -438,18 +377,21 @@ function getIdFromName (name) {
   name = name.split('ü').join('ue');
   return 'focus_' + name;
 }
+
 /**
  * Loads the focus object for the given id from local storage
  */
 function loadFocusById (id) {
   return JSON.parse(localStorage.getItem(id));
 }
+
 /**
  * Unchecks all focuses from the focus creator dialog
  */
 function uncheckAll () {
   $('.focusCheckbox').prop('checked', false);
 }
+
 /**
  * Resets all settings
  */
