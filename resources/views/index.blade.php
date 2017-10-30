@@ -263,34 +263,37 @@
 		</div>
 	</div>-->
 		<fieldset>
-			<form id="searchForm" @if(Request::has('request') && Request::input('request') === "POST") method="POST" @elseif(Request::has('request') && Request::input('request') === "GET") method="GET" @else method="GET" @endif action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
-				<div class="input-group">
-					<div class="focus-selector input-group-addon">
-							<select name="focus" style="font-family: FontAwesome, sans-serif;">
-								<option value="web" style="font-family: FontAwesome, sans-serif;" selected >&#xf0ac; Websuche</option>
-								<option value="nachrichten" style="font-family: FontAwesome, sans-serif;" >&#xf0a1; Nachrichtensuche</option>
-								<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;" >&#xf15c; Wissenschaftssuche</option>
-								<option value="produktsuche" style="font-family: FontAwesome, sans-serif;" >&#xf07a; Produktsuche</option>
-								<option value="maps" style="font-family: FontAwesome, sans-serif;" >&#xf279; Kartensuche</option>
-							</select>
+			<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
+				<div class="search-bar">
+					<div class="search-focus-selector">
+						<select name="focus" style="font-family: FontAwesome, sans-serif;">
+							<option value="web" style="font-family: FontAwesome, sans-serif;" selected >&#xf0ac; Websuche</option>
+							<option value="nachrichten" style="font-family: FontAwesome, sans-serif;" >&#xf0a1; Nachrichtensuche</option>
+							<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;" >&#xf15c; Wissenschaftssuche</option>
+							<option value="produktsuche" style="font-family: FontAwesome, sans-serif;" >&#xf07a; Produktsuche</option>
+							<option value="maps" style="font-family: FontAwesome, sans-serif;" >&#xf279; Kartensuche</option>
+						</select>
 					</div>
-					<input type="text" name="eingabe" required="" autofocus="" autocomplete="{{$autocomplete}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
-					<input type="hidden" name="encoding" value="utf8">
-					<input type="hidden" name="lang" value={{ $lang }} >
-					<input type="hidden" name="resultCount" value={{ $resultCount }} >
-					<input type="hidden" name="time" value={{ $time }} >
-					<input type="hidden" name="sprueche" value={{ $sprueche }} >
-					<input type="hidden" name="newtab" value={{ $newtab }} >
-					<input type="hidden" name="maps" value={{ $maps }} >
-					<input type="hidden" name="key" value={{ $key }} >
-					@foreach ($focusPages as $fp)
-						<input type="hidden" name={{ $fp }} value="on">
-					@endforeach
-					<input type="hidden" name="theme" value={{ $theme }}>
-					<div class="input-group-addon" id="submit-inputgroup">
-						<button type="submit">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</button>
+					<div class="search-input-submit">
+						<div class="search-input">
+							<input type="text" name="eingabe" required="" autofocus="" autocomplete="{{$autocomplete}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
+						</div>
+						<div class="search-submit" id="submit-inputgroup">
+							<button type="submit">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+					<div class="search-hidden">
+						<input type="hidden" name="encoding" value="utf8">
+						@foreach($option_values as $option => $value)
+							<input type="hidden" name={{ $option }} value={{ $value }}>
+						@endforeach
+						<input type="hidden" name="time" value={{ $time }}>
+						@foreach ($focusPages as $fp)
+							<input type="hidden" name={{ $fp }} value="on">
+						@endforeach
+						<input type="hidden" name="theme" value={{ $theme }}>
 					</div>
 				</div>
 			</form>
