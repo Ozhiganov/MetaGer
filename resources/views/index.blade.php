@@ -204,75 +204,25 @@
 		</div>
 	</div>
 	<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
-	<!-- Create the focus selection and options -->
-	<!-- <div id="foki" class="startpage-foki">
-		<div class="focus">
-			<input id="web" class="focus-radio hide" type="radio" name="focus" value="web" form="searchForm" @if ($focus === 'web') checked @endif required="">
-			<label id="web-label" class="focus-label" for="web">
-				<i class="fa fa-globe" aria-hidden="true"></i>
-				<span class="content">{{ trans('index.foki.web') }}</span>
-			</label>
-		</div>
-		<div class="focus">
-			<input id="nachrichten" class="focus-radio hide" type="radio" name="focus" value="nachrichten" form="searchForm" @if ($focus === 'nachrichten') checked @endif required="">
-			<label id="nachrichten-label" class="focus-label" for="nachrichten">
-				<i class="fa fa-bullhorn" aria-hidden="true"></i>
-				<span class="content">{{ trans('index.foki.nachrichten') }}</span>
-			</label>
-		</div>
-		<div class="focus">
-			<input id="wissenschaft" class="focus-radio hide" type="radio" name="focus" value="wissenschaft" form="searchForm" @if ($focus === 'wissenschaft') checked @endif required="">
-			<label id="wissenschaft-label" class="focus-label" for="wissenschaft">
-				<i class="fa fa-file-text" aria-hidden="true"></i>
-				<span class="content">{{ trans('index.foki.wissenschaft') }}</span>
-			</label>
-		</div>
-		<div class="focus">
-			<input id="produkte" class="focus-radio hide" type="radio" name="focus" value="produktsuche" form="searchForm" @if ($focus === 'produkte') checked @endif required="">
-			<label id="produkte-label" class="focus-label" for="produkte">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-				<span class="content">{{ trans('index.foki.produkte') }}</span>
-			</label>
-		</div>
-		<div class="focus">
-			<input id="maps" class="focus-radio hide" type="radio" name="focus" value="maps" form="searchForm" @if ($focus === 'maps') checked @endif required="">
-			<label id="maps-label" class="focus-label" for="maps">
-				<i class="fa fa-map" aria-hidden="true"></i>
-				<span class="content">{{ trans('index.foki.maps') }}</span>
-			</label>
-		</div>
-		{{-- Fix for older Versions --}}
-		@if ($focus === 'angepasst')
-			<div class="focus">
-				<input id="angepasst" class="focus-radio hide" type="radio" name="focus" value="angepasst" form="searchForm" checked required="">
-				<label id="anpassen-label" class="focus-label" for="angepasst">
-					<i class="fa fa-cog" aria-hidden="true"></i>
-					<span class="content">{{ trans('index.foki.angepasst') }}</span>
-				</label>
-			</div>
-		@endif
-		<div id="addFocusBtnDiv">
-			<button id="addFocusBtn" class="btn btn-default hide">
-			<i class="fa fa-plus" aria-hidden="true"></i>
-			</button>
-		</div>
-		<div id="settingsBtnDiv">
-			<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings") }}">
-			<i class="fa fa-cog" aria-hidden="true"></i>
-			</a>
-		</div>
-	</div>-->
 		<fieldset>
 			<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
 				<div class="search-bar">
 					<div class="search-focus-selector">
-						<select name="focus" style="font-family: FontAwesome, sans-serif;">
+						<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
 							<option value="web" style="font-family: FontAwesome, sans-serif;" selected >&#xf0ac; Websuche</option>
 							<option value="nachrichten" style="font-family: FontAwesome, sans-serif;" >&#xf0a1; Nachrichtensuche</option>
 							<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;" >&#xf15c; Wissenschaftssuche</option>
 							<option value="produktsuche" style="font-family: FontAwesome, sans-serif;" >&#xf07a; Produktsuche</option>
 							<option value="maps" style="font-family: FontAwesome, sans-serif;" >&#xf279; Kartensuche</option>
 						</select>
+					</div>
+					<div class="search-add-focus">
+						<button id="addFocusBtn"><i class="fa fa-plus"></i></button>
+					</div>
+					<div class="search-settings">
+						<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings") }}">
+							<i class="fa fa-cog" aria-hidden="true"></i>
+						</a>
 					</div>
 					<div class="search-input-submit">
 						<div class="search-input">
