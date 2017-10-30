@@ -1,9 +1,11 @@
+@search-bar-width: 1000px;
+
 .mg-panel {
-    @media(max-width: @screen-sm) {
+    @media(max-width: @search-bar-width) {
         width: 100%;
     }
-    @media(min-width: @screen-sm) {
-        width: @screen-sm;
+    @media(min-width: @search-bar-width) {
+        width: @search-bar-width;
     }
 }
 
