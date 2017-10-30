@@ -28,9 +28,7 @@ function loadLocalStorage () {
         $('#theme').attr('href', '/css/theme.css.php?r=' + theme[0] + '&g=' + theme[1] + '&b=' + theme[2] + '&a=' + theme[3]);
       }
     }
-    if (localStorage.getItem('pers') && !isUseOnce()) {
-      setSettings();
-    }
+    setSettings();
   }
 }
 
@@ -79,9 +77,9 @@ function setActionListeners () {
  * Loads stored settings from local storage
  */
 function setSettings () {
+  var acceptedParams = ['autocomplete', 'key', 'lang', 'newtab', 'sprueche'];
   for (var key in localStorage) {
     var value = localStorage.getItem(key);
-    var acceptedParams = ['autocomplete', 'key', 'lang', 'maps', 'newtab', 'sprueche', 'autocomplete'];
     var accepted = false;
     for (var i in acceptedParams) {
       if (key === 'param_' + acceptedParams[i]) {
@@ -90,19 +88,13 @@ function setSettings () {
     } 
     if (accepted) {
       key = key.substring(6);
-      $('#searchForm').append('<input type="hidden" name="' + key + '" value="' + value + '">');
+      // Check for existing hidden fields for this key
+      var existing = $('.search-hidden input[name="' + key + '"]');
+      if (existing.length === 0) {
+        // if none exist, create a new one
+        $('.search-hidden').append('<input type="hidden" name="' + key + '" value="' + value + '">');
+      }
     }
-    $('#foki input[type=radio]#angepasst').attr('checked', true);
-  }
-  // Change the value of the lang input field to the given parameter
-  var lang = localStorage.getItem('param_lang');
-  if (lang !== null) {
-    $('input[name=lang]').val(lang);
-  }
-  // Change the value of the lang input field to the given parameter
-  var autocomplete = localStorage.getItem('param_autocomplete');
-  if (autocomplete !== null) {
-    $('input[name=eingabe]').attr('autocomplete', autocomplete);
   }
   // Change the request method to the given parameter
   var requestMethod = localStorage.getItem('request');

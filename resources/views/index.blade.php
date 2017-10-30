@@ -263,7 +263,7 @@
 		</div>
 	</div>-->
 		<fieldset>
-			<form id="searchForm" @if(Request::has('request') && Request::input('request') === "POST") method="POST" @elseif(Request::has('request') && Request::input('request') === "GET") method="GET" @else method="GET" @endif action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
+			<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
 				<div class="search-bar">
 					<div class="search-focus-selector">
 						<select name="focus" style="font-family: FontAwesome, sans-serif;">
@@ -286,13 +286,10 @@
 					</div>
 					<div class="search-hidden">
 						<input type="hidden" name="encoding" value="utf8">
-						<input type="hidden" name="lang" value={{ $lang }} >
-						<input type="hidden" name="resultCount" value={{ $resultCount }} >
-						<input type="hidden" name="time" value={{ $time }} >
-						<input type="hidden" name="sprueche" value={{ $sprueche }} >
-						<input type="hidden" name="newtab" value={{ $newtab }} >
-						<input type="hidden" name="maps" value={{ $maps }} >
-						<input type="hidden" name="key" value={{ $key }} >
+						@foreach($option_values as $option => $value)
+							<input type="hidden" name={{ $option }} value={{ $value }}>
+						@endforeach
+						<input type="hidden" name="time" value={{ $time }}>
 						@foreach ($focusPages as $fp)
 							<input type="hidden" name={{ $fp }} value="on">
 						@endforeach
