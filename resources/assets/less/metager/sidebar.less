@@ -5,21 +5,6 @@
 @metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
 @metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
 
-label#openSidebar {
-    z-index: 998;
-    font-size: 36px;
-    position: fixed;
-    top: 0px;
-    right: 20px;
-    color: grey;
-    &:after {
-        content: "≡";
-    }
-    &:hover {
-        color: rgb(255,128,0);
-    }
-}
-
 .sideBar {
     position: fixed;
     display: block;
@@ -57,16 +42,32 @@ label#openSidebar {
         width: 100%;
         padding-top: 3%;
         padding-bottom: 3%;
-        border-top: 1px solid LightGray;
+        border-bottom: 1px solid LightGray;
 
         &:hover {
             background-color: @metager-navbar-toggle-hover-background-color;
+            /* 
             &>.metager-dropdown-menu {
                 animation-name: dropdown-animation;
                 animation-duration: 0.7s;
                 animation-timing-function: ease-out;
                 animation-fill-mode: forwards;
                 animation-delay: 0.1s;
+            }
+            */ 
+        }
+
+        &>label {
+            font-size: 16px;
+            line-height: 20px;
+            text-decoration: none;
+            text-indent: 12px;
+            display: inline-block;
+            width: 100%;
+            color: black;
+            font-weight: normal;
+            &:hover {
+                color: red;
             }
         }
     }
@@ -76,7 +77,6 @@ label#openSidebar {
         z-index: 1000;
         float: left;
         min-width: 160px;
-        font-size: 14px;
         text-align: left;
         max-height: 0px;
         overflow: hidden;
@@ -88,7 +88,7 @@ label#openSidebar {
             clear: both;
             font-weight: normal;
             line-height: 1.42857143;
-            border-bottom: 1px solid LightGray;
+            border-top: 1px solid LightGray;
             margin-left: 2px;
             &:hover {
                 text-decoration: none;
@@ -134,20 +134,44 @@ label#openSidebar {
     }
 }
 
+input.sideBarCheckbox {
+    display: none;
+}
+
+input.sideBarCheckbox:checked ~ .metager-dropdown-menu {
+    animation-name: dropdown-animation;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 0.1s;
+}
+
+label#openSidebar {
+    z-index: 998;
+    font-size: 36px;
+    position: fixed;
+    top: 0px;
+    right: 20px;
+    color: grey;
+    &:after {
+        content: "≡";
+    }
+    &:hover {
+        color: rgb(255,128,0);
+    }
+}
+
 @keyframes dropdown-animation {
     0% {
         max-height: 0px;
         padding: 0px 0;
-        border: none
     }
     1% {
         padding: 5px 0;
-        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
     }
     100% {
         max-height: 1000px;
         padding: 5px 0;
-        border: 1px solid @metager-dropdown-toggle-hover-or-focus-color;
     }
 }
 
