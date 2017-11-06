@@ -1,4 +1,6 @@
-@search-bar-width: 1000px;
+.modal {
+    display: none;
+}
 
 .mg-panel {
     @media(max-width: @search-bar-width) {
@@ -77,6 +79,7 @@
         flex-grow: 1;
         input {
             border: none;
+            width: 100%;
             height: 40px;
             &:focus {
                 outline-color: rgb(255, 128, 0);
