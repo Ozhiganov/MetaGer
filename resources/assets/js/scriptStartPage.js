@@ -68,7 +68,7 @@ function setActionListeners () {
   // Save Focus on clicking enter while in the focus name input
   $('#focus-name').keyup(function (event) {
     if (event.keyCode == 13) {
-      $('.save-focus-btn').click();
+      saveFocus();
     }
   });
   $('#create-focus-modal').on('shown.bs.modal', function () {
@@ -286,7 +286,7 @@ function toggleDeleteButton () {
 function saveFocus () {
   /* Vorprüfungen */
   // Falls keine Suchmaschine ausgewählt wurde
-  if (atLeastOneChecked()) {
+  if (!atLeastOneChecked()) {
     switch (document.documentElement.lang) {
       case 'en':
         alert('Please select at least 1 search engine.');
@@ -320,13 +320,15 @@ function saveFocus () {
   var oldId = document.getElementById('original-id').value;
   var id = getIdFromName(name);
   var overwrite = true;
-  // Wenn bereits ein Fokus mit dem Namen existiert, aber keine original-id gesetzt war
+  // Wenn bereits ein Fokus mit dem Namen existiert, man diesen aber nicht editiert sondern gerade einen Neuen erstellt
   if (alreadyInUse(name) && oldId !== id) {
     // Fragt den Nutzer ob er den Fokus überschreiben möchte
     if (!confirm('Name bereits genutzt\nüberschreiben?')) {
       // Falls nicht wird das Speichern abgebrochen
       return;
     }
+    // Ansonsten wird der andere Fokus gelöscht
+    deleteFocusById(id)
   }
   /* Fokus speichern */
   var focus = {};
@@ -336,7 +338,7 @@ function saveFocus () {
   });
   // Name setzen
   focus['name'] = name;
-  // Alte Version des Fokus löschen (aus localStorage und von der Webseite)
+  // Alte Version des Fokus löschen (aus localStorage und von der Webseite, falls eine existiert)
   if (oldId !== '') {
     localStorage.removeItem(oldId);
     removeFocusById(oldId);
@@ -353,13 +355,19 @@ function saveFocus () {
  * Delete current Focus
  * Listens for delete button
  */
+function deleteFocusById (id) {
+  localStorage.removeItem(id);
+  removeFocusById(id);
+  $('#focus-select').change();
+}
+
+/**
+ * Delete current Focus
+ * Listens for delete button
+ */
 function deleteFocus () {
   var oldId = document.getElementById('original-id').value;
-  if ($('#' + oldId).prop('checked')) {
-    setFocusToDefault();
-  }
-  localStorage.removeItem(oldId);
-  removeFocusById(oldId);
+  deleteFocusById(oldId)
   $('#create-focus-modal').modal('hide');
   $('#focus-select').change();
 }
@@ -370,14 +378,14 @@ function deleteFocus () {
 function isValidName (name) {
   // no Characters other then a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed
   // at least 1 character
-  return /^[a-zA-Z0-9äöüß\-_ ]*$/.test(name);
+  return /^[a-zA-Z0-9äöüß\-_ ]+$/.test(name);
 }
 
 /**
  * Is at least one focus selected?
  */
 function atLeastOneChecked () {
-  return $('input[type=checkbox]:checked').length > 0;
+  return $('.focusCheckbox:checked').length > 0;
 }
 
 /**
@@ -409,7 +417,7 @@ function removeFocusById (id) {
   if (id == '') {
     return;
   }
-  var focus = $('#focus-select option[value="' + id + '"]').remove();
+  $('#focus-select option[value="' + id + '"]').remove();
 }
 
 /**
@@ -469,7 +477,8 @@ function setFocusToDefault () {
  * @param {String} focusID The id of the focus, without #
  */
 function setFocus (focusID) {
-  document.getElementById('focus-select').value = focusID;
+  $('#focus-select option[value="' + focusID + '"]').prop('selected', true);
+  $('#focus-select').change();
 }
 
 function checkFocusEditable () {
