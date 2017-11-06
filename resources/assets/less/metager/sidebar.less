@@ -70,10 +70,6 @@
         text-align: left;
         max-height: 0px;
         overflow: hidden;
-        animation-name: reverse-dropdown-animation;
-        animation-duration: 0.3s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
         &>li>a {
             display: block;
             font-size: 12px;
@@ -144,6 +140,15 @@
                 transition:border-top .1s, border-bottom .1s .1s;
             }
         }
+
+        &:not(:checked) {
+            & ~.metager-dropdown-menu {
+                animation-name: reverse-dropdown-animation;
+                animation-duration: 0.3s;
+                animation-timing-function: ease-in;
+                animation-fill-mode: forwards;
+            }
+        }
     }
 
 }
@@ -201,7 +206,7 @@ input#nav0:checked {
 
 @keyframes reverse-dropdown-animation {
     0% {
-        max-height: 1000px;
+        max-height: 300px;
         padding: 5px 0;
     }
     1% {
