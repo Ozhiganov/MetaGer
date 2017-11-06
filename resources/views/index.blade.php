@@ -216,8 +216,11 @@
 							<option value="maps" style="font-family: FontAwesome, sans-serif;" >&#xf279; Kartensuche</option>
 						</select>
 					</div>
-					<div class="search-add-focus">
-						<button id="addFocusBtn"><i class="fa fa-plus"></i></button>
+					<div class="search-add-focus js-only">
+						<button type="button" id="addFocusBtn"><i class="fa fa-plus"></i></button>
+					</div>
+					<div class="search-edit-focus js-only">
+						<button type="button" id="editFocusBtn"><i class="fa fa-wrench"></i></button>
 					</div>
 					<div class="search-settings">
 						<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings") }}">
