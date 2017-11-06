@@ -217,10 +217,10 @@
 						</select>
 					</div>
 					<div class="search-add-focus js-only">
-						<button type="button" id="addFocusBtn"><i class="fa fa-plus"></i></button>
+						<button type="button" id="addFocusBtn" title="@lang('index.add-focus')"><i class="fa fa-plus"></i></button>
 					</div>
 					<div class="search-edit-focus js-only">
-						<button type="button" id="editFocusBtn"><i class="fa fa-wrench"></i></button>
+						<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')"><i class="fa fa-wrench"></i></button>
 					</div>
 					<div class="search-settings">
 						<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings") }}">
