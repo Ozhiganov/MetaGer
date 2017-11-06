@@ -13,9 +13,16 @@
     display: flex;
     align-items: stretch;
     font-size: 16px;
+    background-color: white;
+    > * {
+        border: 1px solid #aaa;
+        background-color: transparent;
+        &:not(:first-child) {
+            border-left: none;
+        }
+    }
     .search-focus-selector {
         background-color: transparent;
-        border: 1px solid #aaa;
         border-radius: 5px 0px 0px 5px;
         select {
             width: 100%;
@@ -27,11 +34,42 @@
             padding-right: 35px;
         }
     }
+    .search-add-focus {
+        display: flex;
+        button {
+            background-color: white;
+            border: none;
+            padding: 0px 8px;
+            font-size: 16px;
+            &:hover {
+                background-color: #e6e6e6;
+            }
+        }
+    }
+    .search-edit-focus {
+        display: flex;
+        button {
+            background-color: white;
+            border: none;
+            padding: 0px 8px;
+            font-size: 16px;
+            &:hover {
+                background-color: #e6e6e6;
+            }
+        }
+    }
+    .search-settings {
+        display: flex;
+        a.btn {
+            border: none;
+            padding: 0px 8px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+    }
     .search-input-submit {
         flex-grow: 1;
-        border-left: none;
-        border: 1px solid #aaa;
-        border-left: none;
         border-radius: 0px 5px 5px 0px;
         display: flex;
     }

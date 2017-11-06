@@ -113,4 +113,7 @@ return [
     'plugin.vivaldi.8'               => 'MetaGer als Startseite im :browser einrichten',
     'plugin.vivaldi.9'               => 'Klicken Sie in Ihrem Browser oben links auf das rote Vivaldi Logo und wählen Sie zuerst "Werkzeuge", dann im Untermenü "Einstellungen".',
     'plugin.vivaldi.10'              => 'Tragen Sie im Feld "Startseite" "https://metager.de" ein.',
+
+    'add-focus'                      => 'Eigenen Fokus hinzufügen',
+    'edit-focus'                     => 'Fokus bearbeiten',
 ];
