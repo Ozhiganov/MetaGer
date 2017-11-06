@@ -12,6 +12,7 @@ $(document).ready(function () {
   setActionListeners();
   loadInitialCustomFocuses();
   loadSavedResults();
+  checkFocusEditable();
 });
 
 /**
@@ -60,12 +61,14 @@ function setActionListeners () {
   }
   $('.focusCheckbox').click(toggleDeleteButton);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
+  $('#editFocusBtn').click(editCurrentFocus);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
+  $('#focus-select').change(checkFocusEditable);
   // Save Focus on clicking enter while in the focus name input
   $('#focus-name').keyup(function (event) {
     if (event.keyCode == 13) {
-      $('.save-focus-btn').click();
+      saveFocus();
     }
   });
   $('#create-focus-modal').on('shown.bs.modal', function () {
@@ -85,7 +88,7 @@ function setSettings () {
       if (key === 'param_' + acceptedParams[i]) {
         accepted = true;
       }
-    } 
+    }
     if (accepted) {
       key = key.substring(6);
       // Check for existing hidden fields for this key
@@ -242,8 +245,8 @@ function showFocusCreateDialog (id) {
     }
   }
   toggleDeleteButton();
-  
 }
+
 /**
  * Shows the focus create dialog for a given id
  */
@@ -251,11 +254,25 @@ function showFocusEditDialog (id) {
   showFocusCreateDialog(id);
 }
 
+function getCurrentFocus () {
+  return document.getElementById('focus-select').value;
+}
+
+/**
+ * Shows an edit dialog for the current selected focus
+ */
+function editCurrentFocus () {
+  console.log('hi');
+  var currentFocus = getCurrentFocus();
+  console.log(currentFocus);
+  showFocusEditDialog(currentFocus);
+}
+
 /**
 * Shows/Hides the delete button if (no) checkboxes are selected
 */
-function toggleDeleteButton() {
-  if(atLeastOneChecked()) {
+function toggleDeleteButton () {
+  if (atLeastOneChecked()) {
     $('.delete-focus-btn').show();
   } else {
     $('.delete-focus-btn').hide();
@@ -267,34 +284,10 @@ function toggleDeleteButton() {
  * Listens for save button
  */
 function saveFocus () {
-  var name = document.getElementById('focus-name').value;
-  if (isValidName(name) && atLeastOneChecked()) {
-    var oldId = document.getElementById('original-id').value;
-    var id = getIdFromName(name);
-    var overwrite = true;
-    if (alreadyInUse(name) && oldId !== id) {
-      overwrite = confirm('Name bereits genutzt\nüberschreiben?');
-      if (overwrite) {
-        localStorage.removeItem(id);
-        removeFocusById(id);
-      }
-    }
-    if (overwrite) {
-      var focus = {};
-      $('input[type=checkbox]:checked').each(function (el) {
-        focus[$(this).attr('name')] = $(this).val();
-      });
-      focus['name'] = name;
-      if (oldId !== '') {
-        localStorage.removeItem(oldId);
-        removeFocusById(oldId);
-      }
-      localStorage.setItem(id, JSON.stringify(focus));
-      addFocus(name);
-      $('#create-focus-modal').modal('hide');
-    }
-  } else {
-     switch(document.documentElement.lang) {
+  /* Vorprüfungen */
+  // Falls keine Suchmaschine ausgewählt wurde
+  if (!atLeastOneChecked()) {
+    switch (document.documentElement.lang) {
       case 'en':
         alert('Please select at least 1 search engine.');
         break;
@@ -304,128 +297,129 @@ function saveFocus () {
       default:
         alert('Bitte mindestens 1 Suchmaschine auswählen.');
         break;
-     }
+    }
+    return;
   }
+  // Falls der Name zu kurz ist oder ungültige Zeichen enthält
+  var name = document.getElementById('focus-name').value;
+  if (!isValidName(name)) {
+    switch (document.documentElement.lang) {
+      case 'en':
+        alert('no Characters other then a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
+        break;
+      case 'es':
+        alert(''); // TODO
+        break;
+      default:
+        alert(''); // TODO
+        break;
+    }
+    return;
+  }
+  // Liest die original-id des aktuellen fokus-dialogs (gesetzt wenn man einen Fokus bearbeitet)
+  var oldId = document.getElementById('original-id').value;
+  var id = getIdFromName(name);
+  var overwrite = true;
+  // Wenn bereits ein Fokus mit dem Namen existiert, man diesen aber nicht editiert sondern gerade einen Neuen erstellt
+  if (alreadyInUse(name) && oldId !== id) {
+    // Fragt den Nutzer ob er den Fokus überschreiben möchte
+    if (!confirm('Name bereits genutzt\nüberschreiben?')) {
+      // Falls nicht wird das Speichern abgebrochen
+      return;
+    }
+    // Ansonsten wird der andere Fokus gelöscht
+    deleteFocusById(id)
+  }
+  /* Fokus speichern */
+  var focus = {};
+  // Ausgewählte Suchmaschinen lesen und zu Fokus hinzufügen
+  $('input[type=checkbox]:checked').each(function (el) {
+    focus[$(this).attr('name')] = $(this).val();
+  });
+  // Name setzen
+  focus['name'] = name;
+  // Alte Version des Fokus löschen (aus localStorage und von der Webseite, falls eine existiert)
+  if (oldId !== '') {
+    localStorage.removeItem(oldId);
+    removeFocusById(oldId);
+  }
+  // Neue Version des Fokus hinzufügen (zu localStorage und der Webseite)
+  localStorage.setItem(id, JSON.stringify(focus));
+  addFocus(name);
+  setFocus(id);
+  // Fokus-Formular verbergen
+  $('#create-focus-modal').modal('hide');
 }
+
+/**
+ * Delete current Focus
+ * Listens for delete button
+ */
+function deleteFocusById (id) {
+  localStorage.removeItem(id);
+  removeFocusById(id);
+  $('#focus-select').change();
+}
+
 /**
  * Delete current Focus
  * Listens for delete button
  */
 function deleteFocus () {
   var oldId = document.getElementById('original-id').value;
-  if ($('#' + oldId).prop('checked')) {
-    setFocusToDefault();
-  }
-  localStorage.removeItem(oldId);
-  removeFocusById(oldId);
+  deleteFocusById(oldId)
   $('#create-focus-modal').modal('hide');
+  $('#focus-select').change();
 }
+
 /**
  * Is the name valid (in terms of characters)?
  */
 function isValidName (name) {
   // no Characters other then a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed
   // at least 1 character
-  return /^[a-zA-Z0-9äöüß\-_ ]*$/.test(name);
+  return /^[a-zA-Z0-9äöüß\-_ ]+$/.test(name);
 }
+
 /**
  * Is at least one focus selected?
  */
 function atLeastOneChecked () {
-  return $('input[type=checkbox]:checked').length > 0;
+  return $('.focusCheckbox:checked').length > 0;
 }
+
 /**
  * Is there already a focus with this name?
  */
 function alreadyInUse (name) {
   return localStorage.hasOwnProperty(getIdFromName(name));
 }
+
 /**
- * Adds a focus html-element to the focus selection
- * 
- * <input id="NAME" class="hide" type="radio" name="focus" value="NAME" form="searchForm" checked required>
- * <label id="NAME-label" for="NAME">
- *     <i class="fa fa-star" aria-hidden="true"></i>
- *     <span class="content">NAME</span>
- *     <button class="btn btn-default">
- *         <i class="fa fa-pencil" aria-hidden="true"></i>
- *     </button>
- * </label>
+ * Adds an option to the focus selector
  */
 function addFocus (name) {
   var id = getIdFromName(name);
-  var foki = document.getElementById('foki');
-  // create <div> to wrap all Elements
-  var wrapper = document.createElement('div');
-  wrapper.classList.add('focus');
-  // create <input>
-  var newFocus = document.createElement('input');
-  newFocus.id = id;
-  newFocus.classList.add('focus-radio');
-  newFocus.classList.add('custom-focus');
-  newFocus.classList.add('hide');
-  newFocus.type = 'radio';
-  newFocus.name = 'focus';
-  newFocus.value = id;
-  newFocus.setAttribute('Form', 'searchForm');
-  newFocus.checked = true;
-  newFocus.required = true;
-  // create <label>
-  var newFocusLabel = document.createElement('label');
-  newFocusLabel.id = id + '-label';
-  newFocusLabel.classList.add('focus-label');
-  newFocusLabel.classList.add('custom-focus-label');
-  newFocusLabel.htmlFor = id;
-  // create <i> icon
-  var newFocusIcon = document.createElement('i');
-  newFocusIcon.classList.add('fa');
-  newFocusIcon.classList.add('fa-star');
-  newFocusIcon.setAttribute('aria-hidden', 'true');
-  // create content
-  var newFocusContent = document.createElement('span');
-  newFocusIcon.classList.add('content');
-  newFocusContent.textContent = ' ' + name;
-  // create edit button
-  var newFocusEditLink = document.createElement('a');
-  newFocusEditLink.classList.add('focus-edit');
-  newFocusEditLink.classList.add('custom-focus-edit');
-  newFocusEditLink.classList.add('mutelink');
-  newFocusEditLink.href = '#';
-  newFocusEditLink.onclick = function () {
-    showFocusEditDialog(id);
-  };
-  var newFocusEditLinkIcon = document.createElement('i');
-  newFocusEditLinkIcon.classList.add('fa');
-  newFocusEditLinkIcon.classList.add('fa-pencil');
-  newFocusEditLinkIcon.setAttribute('aria-hidden', 'true');
-  // add new elements
-  var addFocusBtn = document.getElementById('addFocusBtnDiv');
-  foki.insertBefore(wrapper, addFocusBtn);
-  wrapper.appendChild(newFocus);
-  wrapper.appendChild(newFocusLabel);
-  newFocusLabel.appendChild(newFocusIcon);
-  newFocusLabel.appendChild(newFocusContent);
-  wrapper.appendChild(newFocusEditLink);
-  newFocusEditLink.appendChild(newFocusEditLinkIcon);
+  $('#focus-select').append('<option value="' + id + '" style="font-family: FontAwesome, sans-serif;">&#xf2c0; ' + name + '</option>');
 }
+
 /**
  * Remove the focuses html-elements
  */
 function removeFocus (name) {
   removeFocusById(getIdFromName(name));
 }
+
 /**
  * Remove the focuses html-elements
  */
 function removeFocusById (id) {
-  if(id == '') {
+  if (id == '') {
     return;
   }
-  var focusRadio = document.getElementById(id);
-  var focus = focusRadio.parentNode;
-  var parent = focus.parentNode;
-  parent.removeChild(focus);
+  $('#focus-select option[value="' + id + '"]').remove();
 }
+
 /**
  * Turns a name into an id
  * Converts special characters and spaces
@@ -438,18 +432,21 @@ function getIdFromName (name) {
   name = name.split('ü').join('ue');
   return 'focus_' + name;
 }
+
 /**
  * Loads the focus object for the given id from local storage
  */
 function loadFocusById (id) {
   return JSON.parse(localStorage.getItem(id));
 }
+
 /**
  * Unchecks all focuses from the focus creator dialog
  */
 function uncheckAll () {
   $('.focusCheckbox').prop('checked', false);
 }
+
 /**
  * Resets all settings
  */
@@ -480,7 +477,24 @@ function setFocusToDefault () {
  * @param {String} focusID The id of the focus, without #
  */
 function setFocus (focusID) {
-  $('#' + focusID).prop('checked', true);
+  $('#focus-select option[value="' + focusID + '"]').prop('selected', true);
+  $('#focus-select').change();
+}
+
+function checkFocusEditable () {
+  if (getCurrentFocus().startsWith('focus_')) {
+    enableEditFocusBtn();
+  } else {
+    disableEditFocusBtn();
+  }
+}
+
+function enableEditFocusBtn () {
+  $('#editFocusBtn').removeClass('disabled').click(editCurrentFocus);
+}
+
+function disableEditFocusBtn () {
+  $('#editFocusBtn').addClass('disabled').off('click');
 }
 
 function loadSavedResults () {

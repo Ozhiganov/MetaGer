@@ -16,9 +16,11 @@
 		<link rel="search" type="application/opensearchdescription+xml" title="{{ trans('staticPages.opensearch') }}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
 		<link type="text/css" rel="stylesheet" href="{{ elixir('css/themes/default.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ elixir('css/utility.css') }}" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<script src="{{ elixir('js/scriptSubPages.js') }}"></script>
 		<script src="{{ elixir('js/lib.js') }}"></script>
+		<script src="{{ elixir('js/utility.js') }}"></script>
 		@if (isset($css))
 			@if(is_array($css))
 				@foreach($css as $el)
