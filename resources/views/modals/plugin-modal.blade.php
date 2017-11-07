@@ -6,11 +6,23 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4>
-					@if ($browser === 'Firefox' || $browser === 'Mozilla') {{ trans('index.plugin.head.1') }} @elseif ($browser === 'Chrome')
-					{{ trans('index.plugin.head.2') }} @elseif ($browser === 'Opera') {{ trans('index.plugin.head.3') }} @elseif ($browser
-					=== 'IE') {{ trans('index.plugin.head.4') }} @elseif ($browser === 'Edge') {{ trans('index.plugin.head.5') }} @elseif
-					($browser === 'Safari') {{ trans('index.plugin.head.6') }} @elseif ($browser === 'Vivaldi') {{ trans('index.plugin.head.6')
-					}} @else $(".seperator").addClass("hidden"); @endif
+					@if ($browser === 'Firefox' || $browser === 'Mozilla') 
+						{{ trans('index.plugin.head.1') }}
+					@elseif ($browser === 'Chrome')
+						{{ trans('index.plugin.head.2') }}
+					@elseif ($browser === 'Opera')
+						{{ trans('index.plugin.head.3') }}
+					@elseif ($browser === 'IE')
+						{{ trans('index.plugin.head.4') }}
+					@elseif ($browser === 'Edge')
+						{{ trans('index.plugin.head.5') }}
+					@elseif ($browser === 'Safari')
+						{{ trans('index.plugin.head.6') }}
+					@elseif ($browser === 'Vivaldi')
+						{{ trans('index.plugin.head.6')	}}
+					@else
+						$(".seperator").addClass("hidden");
+					@endif
 				</h4>
 				<p class="text-muted">{{ trans('index.plugin.head.info') }}</p>
 			</div>
@@ -120,8 +132,7 @@
 				@endif
 				<hr>
 				<p>@lang('index.plugin.faq.1')
-					<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "
-					/faq#mg-plugin ") }}">@lang('index.plugin.faq.2')</a>
+					<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), " /faq#mg-plugin ") }}">@lang('index.plugin.faq.2')</a>
 				</p>
 			</div>
 		</div>

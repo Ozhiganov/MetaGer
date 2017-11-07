@@ -53,10 +53,12 @@
 				@yield('content')
 			</main>
 			@yield('optionalContent')
-			@if (isset($page) && $page === 'startpage') @include('layouts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
-			@else @include('layouts.footer', ['type' => 'subpage', 'id' => 'subPageFooter'])
-			@endif
 			<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		</div>
+		@if (isset($page) && $page === 'startpage')
+			@include('layouts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
+		@else
+			@include('layouts.footer', ['type' => 'subpage', 'id' => 'subPageFooter'])
+		@endif
 	</body>
 </html>
