@@ -5,37 +5,25 @@
 @brand-danger: #d9534f;
 @body-bg: rgb(250, 250, 250);
 @input-border-focus: rgb(255, 128, 0);
-@font-family-sans-serif: "Liberation Sans",
-"Helvetica Neue",
-Helvetica,
-Arial,
-sans-serif;
+@font-family-sans-serif: "Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 //** Global textual link color.
-@link-color: #2A2ADE;
+@link-color:           #2A2ADE;
 //@link-color:            rgb(255, 128, 0);
 //** Link hover color set via `darken()` function.
-@link-hover-color: darken(@link-color, 15%);
+@link-hover-color:      darken(@link-color, 15%);
 //** Link hover decoration.
 @link-hover-decoration: underline;
-@font-size-base: 14px;
-@screen-md: 992px;
-@container-desktop: (920px + @grid-gutter-width);
-@screen-lg: 1440px;
-@container-large-desktop: (1370px + @grid-gutter-width);
+
+
+@font-size-base:          14px;
+
+
+@screen-md:                  992px;
+@container-desktop:            (920px + @grid-gutter-width);
+
+@screen-lg:                  1440px;
+@container-large-desktop:      (1370px + @grid-gutter-width);
+
 //** Point at which the navbar becomes uncollapsed.
-@grid-float-breakpoint: 865px;
-
-/* Screen sizes */
-
-@screen-xs: 480px;
-@screen-sm: 768px;
-@screen-md: 992px;
-@screen-lg: 1200px;
-@screen-xs-min: @screen-xs;
-@screen-sm-min: @screen-sm;
-@screen-md-min: @screen-md;
-@screen-lg-min: @screen-lg;
-@screen-xs-max: (@screen-sm-min - 1);
-@screen-sm-max: (@screen-md-min - 1);
-@screen-md-max: (@screen-lg-min - 1);
-@grid-gutter-width: 30px;
+@grid-float-breakpoint:     865px;
