@@ -3,6 +3,7 @@
 @section('title', $title )
 
 @section('content')
+	@include('modals.plugin-modal')
 	@include('modals.create-focus-modal')
 	<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
 		<fieldset>
