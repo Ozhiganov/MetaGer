@@ -1,6 +1,6 @@
 @extends('layouts.indexPage')
 
-@section('title', $title)
+@section('title', $title )
 
 @section('content')
 	<div class="modal fade" id="plugin-modal" tab-index="-1" role="dialog">
@@ -134,7 +134,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="create-focus-modal" tab-index="-1" role="dialog">
+	<div id="create-focus-modal" class="modal fade" tab-index="-1" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="content modal-content">
 				<div class="modal-header">
@@ -203,10 +203,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
-	</div>
-	<div>
+	<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
 		<fieldset>
 			<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3") }}" accept-charset="UTF-8">
 				<div class="search-bar">
@@ -254,8 +251,6 @@
 				</div>
 			</form>
 		</fieldset>
-	</div>
-	<div>
 		<ul class="list-inline searchform-bonus hidden">
 			<li id="plug"
 			@unless ($browser === 'Firefox' || $browser === 'Mozilla' || $browser === 'Chrome' || $browser === 'Opera' || $browser === 'IE' || $browser === 'Edge' || $browser === 'Safari' || $browser === 'Vivaldi')
@@ -270,7 +265,6 @@
 			</li>
 			@endif
 		</ul>
-	</div>
 	<script src="{{ elixir('js/scriptStartPage.js') }}"></script>
 @endsection
 

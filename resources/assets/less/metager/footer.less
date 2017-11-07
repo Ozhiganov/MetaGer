@@ -1,14 +1,11 @@
 footer {
-    padding: 5px;
+    margin: 10px 0px 30px 0px;
     width: 100%;
-    background-color: white;
-    border-top: 1px solid grey;
     display: flex;
     justify-content: space-around;
     white-space: pre-line;
-    align-items: center;
+    align-items: flex-end;
     div {
-        display: flex;
         text-align: center;
         margin-left: 10px;
         &:first-child {
@@ -19,14 +16,8 @@ footer {
         max-width: 100%;
     }
     &.startPageFooter {
-        #info {
-            display: flex;
-            flex-direction: column;
-            p {
-                margin: 0px;
-                line-height: 10px;
-            }
-        }
+        position: absolute;
+        bottom: 0;
     }
     &.footer-resultpage {
         justify-content: center;
