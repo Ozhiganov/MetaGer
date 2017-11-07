@@ -7,51 +7,13 @@
 @aufruf-winter-aufruf-action-btn-hover-border-color: @base-aufruf-winter-border-color;
 @aufruf-winter-quicktip-border-color: @base-aufruf-winter-color!important;
 @new-feature-badge-background-color: @base-new-feature-badge-background-color;
-
 body {
     background-color: @body-background-color;
-    display: flex;
-    flex-direction: column;
+    background-attachment: fixed;
 }
 
-header {
-    width: 100%;
-    padding: 5px;
-    background-color: white;
-    border-bottom: 1px grey solid;
-}
-
-.content {
-    width: 100%;
-    background-color: white;
-    flex-grow: 1;
-}
-
-a {
-    &,
-    &:link,
-    &:visited,
-    &:active,
-    &:focus,
-    &:hover {
-        text-decoration: none;
-    }
-    &,
-    &:link {
-        color: inherit;
-    }
-    &:visited {
-        color: rgb(143, 0, 172);
-    }
-    &:active,
-    &:focus,
-    &:hover {
-        color: rgb(136, 0, 0);
-    }
-}
-
-.image-box {
-    display: flex;
+body#resultBody {
+    background-image: inherit;
 }
 
 summary {

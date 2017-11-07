@@ -33,25 +33,30 @@
 	</head>
 	<body>
 		<header>
-			@include('layouts.header')
+			@yield('homeIcon')
 		</header>
 		@include('layouts.sidebar', ['id' => 'staticPagesSideBar'])
-		<div class="content">
-			@include('layouts.alerts')
-			<main>
+		<div class="wrapper">
+			<main class="mg-panel container">
+				@if (isset($success))
+					<div class="alert alert-success" role="alert">{{ $success }}</div>
+				@endif
+				@if (isset($info))
+					<div class="alert alert-info" role="alert">{{ $info }}</div>
+				@endif
+				@if (isset($warning))
+					<div class="alert alert-warning" role="alert">{{ $warning }}</div>
+				@endif
+				@if (isset($error))
+					<div class="alert alert-danger" role="alert">{{ $error }}</div>
+				@endif
 				@yield('content')
 			</main>
 			@yield('optionalContent')
+			@if (isset($page) && $page === 'startpage') @include('layouts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
+			@else @include('layouts.footer', ['type' => 'subpage', 'id' => 'subPageFooter'])
+			@endif
 			<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		</div>
-		@if (isset($page) && $page === 'startpage')
-			<footer class="noprint startPageFooter">
-				@include('layouts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
-			</footer>
-		@else
-			<footer class="noprint">
-				@include('layouts.footer', ['type' => 'subpage', 'id' => 'subPageFooter'])
-			</footer>
-		@endif
 	</body>
 </html>
