@@ -153,6 +153,12 @@
 
 }
 
+input#sideBarToggle:checked {
+    & ~.sideBar {
+        right: 0px;
+    }
+}
+
 label#openSidebar {
     z-index: 998;
     font-size: 36px;
@@ -181,11 +187,5 @@ label#openSidebar {
     ul.metager-dropdown-menu {
         position: inherit;
         width: 100%;
-    }
-}
-
-input#nav0:checked {
-    & ~.sideBar {
-        right: 0px;
     }
 }
