@@ -58,7 +58,6 @@ class StartpageController extends Controller
             ->with('browser', (new Agent())->browser())
             ->with('navbarFocus', 'suche')
             ->with('theme', $theme)
-            ->with('foki', $this->loadFoki())
             ->with('focus', $request->input('focus', 'web'))
             ->with('time', $request->input('param_time', '1500'))
             ->with('request', $request->input('request', 'GET'))
@@ -133,10 +132,7 @@ class StartpageController extends Controller
 
     public function loadSettings(Request $request)
     {
-        $foki = $this->loadFoki();
-
         return view('settings')
-            ->with('foki', $foki)
             ->with('title', 'Einstellungen')
             ->with('js', ['settings.js'])
             ->with('navbarFocus', 'suche');
@@ -158,38 +154,5 @@ class StartpageController extends Controller
             ->with('title', 'Testseite für die FU-Berlin')
             ->with('link', $link)
             ->with('password', $password);
-    }
-
-    private function loadFoki()
-    {
-        $sumaFile = "";
-        if (App::isLocale('en')) {
-            $sumaFile = config_path() . "/sumas.xml";
-        } else {
-            $sumaFile = config_path() . "/sumas.xml";
-        }
-
-        $xml   = simplexml_load_file($sumaFile);
-        $sumas = $xml->xpath("suma");
-
-        $foki = [];
-        foreach ($sumas as $suma) {
-            if ((!isset($suma['disabled']) || $suma['disabled'] === "") && (!isset($suma['userSelectable']) || $suma['userSelectable']->__toString() === "1")) {
-                if (isset($suma['type'])) {
-                    $f = explode(",", $suma['type']->__toString());
-                    foreach ($f as $tmp) {
-                        $displayName                             = $suma['displayName']->__toString();
-                        $url                                     = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
-                        $foki[$tmp][$suma['name']->__toString()] = ['displayName' => $displayName, 'url' => $url];
-                    }
-                } else {
-                    $displayName                                 = $suma['displayName']->__toString();
-                    $url                                         = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
-                    $foki["andere"][$suma['name']->__toString()] = ['displayName' => $displayName, 'url' => $url];
-                }
-            }
-        }
-
-        return $foki;
     }
 }

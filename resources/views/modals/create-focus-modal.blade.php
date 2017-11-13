@@ -26,36 +26,26 @@
 						</button>
 					</div>
 				</div>
-				{{--
-				<h2>{!! trans('settings.suchmaschinen.1') !!}
-					<small>
-						<button type="button" class="btn btn-link allUnchecker hide">{!! trans('settings.suchmaschinen.2') !!}</button>
-					</small>
-				</h2>
-				--}} @foreach( $foki as $fokus => $sumas )
-				<div class="headingGroup {{ $fokus }}">
-					<h3 class="focus-category">
-						@lang("settings.foki." . $fokus) {{--
-						<small>
-							<button type="button" class="checker btn btn-link hide" data-type="{{ $fokus }}">{!! trans('settings.suchmaschinen.3') !!}</button>
-						</small>
-						--}}
-					</h3>
-					<div class="row">
-						@foreach( $sumas as $name => $data )
-						<div class="col-sm-6 col-md-4 col-lg-3">
-							<div class="checkbox settings-checkbox">
-								<label>
-									<input type="checkbox" name="engine_{{ $name }}" class="focusCheckbox" @if ($fokus=='web' ) checked @endif>{{ $data['displayName'] }}
-									<a class="settings-icon" target="_blank" rel="noopener" href="{{ $data['url'] }}">
-										<i class="fa fa-link" aria-hidden="true"></i>
-									</a>
-								</label>
+				@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
+					<div class="headingGroup {{ $fokus }}">
+						<h3 class="focus-category">
+							@lang("settings.foki." . $fokus)
+						</h3>
+						<div class="row">
+							@foreach( $sumas as $name => $data )
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="checkbox settings-checkbox">
+									<label>
+										<input type="checkbox" name="engine_{{ $name }}" class="focusCheckbox" @if ($fokus=='web' ) checked @endif>{{ $data['displayName'] }}
+										<a class="settings-icon" target="_blank" rel="noopener" href="{{ $data['url'] }}">
+											<i class="fa fa-link" aria-hidden="true"></i>
+										</a>
+									</label>
+								</div>
 							</div>
+							@endforeach
 						</div>
-						@endforeach
 					</div>
-				</div>
 				@endforeach
 				<div class="clearfix">
 					<div class="settings-modal-buttons pull-right">
