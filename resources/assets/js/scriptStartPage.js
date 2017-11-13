@@ -305,13 +305,13 @@ function saveFocus () {
   if (!isValidName(name)) {
     switch (document.documentElement.lang) {
       case 'en':
-        alert('no Characters other then a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
+        alert('No characters other than a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
         break;
       case 'es':
-        alert(''); // TODO
+        alert('Por favor, introduzca un nombre válido'); // TODO
         break;
       default:
-        alert(''); // TODO
+        alert('Bitte gültigen Namen eingeben:\n* Keine Sonderzeichen\n* Mindestens 1 Buchstabe\n'); // TODO
         break;
     }
     return;
