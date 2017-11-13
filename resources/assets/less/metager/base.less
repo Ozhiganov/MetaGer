@@ -7,9 +7,27 @@
 @aufruf-winter-aufruf-action-btn-hover-border-color: @base-aufruf-winter-border-color;
 @aufruf-winter-quicktip-border-color: @base-aufruf-winter-color!important;
 @new-feature-badge-background-color: @base-new-feature-badge-background-color;
+html {
+    min-height: 100%;
+    height: auto;
+    display: flex;
+}
+
 body {
+    flex-grow: 1;
     background-color: @body-background-color;
     background-attachment: fixed;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 body#resultBody {
