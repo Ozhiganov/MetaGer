@@ -21,8 +21,7 @@
 				</button>
 			</div>
 			<div class="search-settings">
-				<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "
-				 settings ") }}">
+				<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
 					<i class="fa fa-cog" aria-hidden="true"></i>
 				</a>
 			</div>
