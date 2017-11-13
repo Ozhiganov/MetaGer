@@ -13,18 +13,12 @@ require('laravel-elixir-vue-2')
 elixir(function (mix) {
   mix.less('default.less', 'public/css/themes/default.css')
   /*
-   | Not mixed (specific pages only)
-   |
-   | widgets.js
-   | editLanguage.js
-   | kontakt.js
-   | scriptResultPage.js
-   | scriptStartPage.js
-   | settings.js
+   lib JS files not mixed (specific pages only)
   */
   mix.scripts(['lib/jquery.js', 'lib/jquery-ui.min.js', 'lib/bootstrap.js', 'lib/lightslider.js', 'lib/masonry.js', 'lib/imagesloaded.js', 'lib/openpgp.min.js', 'lib/iframeResizer.min.js', 'lib/md5.js'], 'public/js/lib.js')
   mix.scripts(['scriptStartPage.js', 'results.js'], 'public/js/scriptStartPage.js');
   mix.scripts(['scriptResultPage.js', 'results.js'], 'public/js/scriptResultPage.js');
+  mix.scripts(['searchbar.js'], 'public/js/searchbar.js');
   //mix.scripts(['scriptSubpages.js'], 'public/js/scriptSubpages.js');
   mix.less('metager/beitritt.less', 'public/css/beitritt.css')
   // utility
