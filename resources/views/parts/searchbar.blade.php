@@ -11,7 +11,7 @@
 				</select>
 			</div>
 			<div class="search-add-focus js-only">
-				<button type="button" id="addFocusBtn" title="@lang('index.add-focus')">
+				<button type="button" id="addFocusBtn">
 					<i class="fa fa-plus"></i>
 				</button>
 			</div>
