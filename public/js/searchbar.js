@@ -1,8 +1,9 @@
 $(function () {
   loadLocalStorage();
-  setActionListeners();
+  setSearchbarActionListeners();
   loadInitialCustomFocuses();
   checkFocusEditable();
+  loadSelectedFocus();
 });
 
 /**
@@ -17,7 +18,7 @@ function loadLocalStorage () {
 /**
  * Sets all action listeners for this page
  */
-function setActionListeners () {
+function setSearchbarActionListeners () {
   $('.focusCheckbox').click(toggleDeleteButton);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
   $('#editFocusBtn').click(editCurrentFocus);
@@ -73,6 +74,7 @@ function loadInitialCustomFocuses () {
     }
   }
 }
+
 /**
  * Shows the focus create dialog
  * If an id is given it will try to load a focus for the given id
@@ -165,10 +167,10 @@ function saveFocus () {
         alert('No characters other than a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
         break;
       case 'es':
-        alert('Por favor, introduzca un nombre válido'); // TODO
+        alert('Por favor, introduzca un nombre válido');
         break;
       default:
-        alert('Bitte gültigen Namen eingeben:\n* Keine Sonderzeichen\n* Mindestens 1 Buchstabe\n'); // TODO
+        alert('Bitte gültigen Namen eingeben:\n* Keine Sonderzeichen\n* Mindestens 1 Buchstabe\n');
         break;
     }
     return;
@@ -336,23 +338,11 @@ function disableEditFocusBtn () {
   $('#editFocusBtn').addClass('disabled').off('click');
 }
 
-function loadSavedResults () {
-  var results = new Results();
-  if (results.length > 0) {
-    var html = $('\
-    <div class="focus">\
-      <input id="savedResults" class="focus-radio hide" name="focus" value="container" form="searchForm" type="radio" required="">\
-      <label id="saved-results-label" class="focus-label" for="savedResults">\
-        <span class="glyphicon glyphicon-floppy-disk"></span>\
-        <span class="content">gespeicherte Ergebnisse</span>\
-        <span class="badge">' + results.length + '</span>\
-      </label>\
-    </div>\
-    ');
-    $('#addFocusBtnDiv').before(html);
-    $('#foki input#savedResults').change(function () {
-      if ($(this).prop('checked')) $('#searchForm').submit();
-    });
+function loadSelectedFocus() {
+  var url = window.location;
+  var focus = /focus=(focus_\w+)/.exec(url)[1];
+  if (focus) {
+    setFocus(focus);
   }
 }
 

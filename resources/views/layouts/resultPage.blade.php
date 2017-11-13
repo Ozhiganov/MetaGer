@@ -21,6 +21,7 @@
 	</head>
 	<body id="resultBody">
 		@if( !isset($suspendheader) )
+			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
 			<div class="tab-content container-fluid">

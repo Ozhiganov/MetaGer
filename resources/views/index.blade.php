@@ -3,8 +3,8 @@
 @section('title', $title )
 
 @section('content')
-	@include('modals.plugin-modal')
 	@include('modals.create-focus-modal')
+	@include('modals.plugin-modal')
 	<h1 id="mglogo"><a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a></h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
 	<ul class="list-inline searchform-bonus hidden">
@@ -16,7 +16,7 @@
 		@if (LaravelLocalization::getCurrentLocale() == "de")
 		<li>
 			<a href="https://suma-ev.de/presse/Werbefreie-Suche-mit-MetaGer.html" target="_blank" class="btn btn-default mutelink">
-					Werbefreie Suche mit MetaGer
+				Werbefreie Suche mit MetaGer
 			</a>
 		</li>
 		@endif
