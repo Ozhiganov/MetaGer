@@ -56,7 +56,7 @@
 				<input type="text" class="form-control settings-form-control" name="param_key" placeholder="@lang('settings.key.placeholder')">
 			</div>
 		<div id="settings-buttons">
-			<a id="settings-abort-btn" class="btn btn-danger mutelink" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">@lang('settings.abort') <i class="fa fa-times" aria-hidden="true"></i></a>
+			<a id="settings-abort-btn" class="btn btn-danger mutelink" href="{{ URL::previous() }}">@lang('settings.abort') <i class="fa fa-times" aria-hidden="true"></i></a>
 			<input id="unten" class="btn btn-primary" type="submit" value="{!! trans('settings.speichern.1') !!}">
 			<input id="save" class="btn btn-primary hidden" type="button" data-href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}" value="{!! trans('settings.speichern.2') !!}">
 			<input id="plugin" class="btn btn-primary" type="submit" value="{!! trans('settings.speichern.3') !!}">
