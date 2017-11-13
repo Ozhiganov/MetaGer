@@ -3,7 +3,7 @@ $(function () {
   setActionListeners();
   loadInitialCustomFocuses();
   checkFocusEditable();
-})
+});
 
 /**
  * Loads the user theme and stored settings from local storage
@@ -35,7 +35,7 @@ function setActionListeners () {
   });
 }
 
-function setSettings() {
+function setSettings () {
   var acceptedParams = ['autocomplete', 'key', 'lang', 'newtab', 'sprueche'];
   for (var key in localStorage) {
     var value = localStorage.getItem(key);
@@ -162,13 +162,13 @@ function saveFocus () {
   if (!isValidName(name)) {
     switch (document.documentElement.lang) {
       case 'en':
-        alert('no Characters other then a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
+        alert('No characters other than a-z, A-Z, 0-9, ä, ö, ü, ß, -, _ allowed, at least 1 character');
         break;
       case 'es':
-        alert(''); // TODO
+        alert('Por favor, introduzca un nombre válido'); // TODO
         break;
       default:
-        alert(''); // TODO
+        alert('Bitte gültigen Namen eingeben:\n* Keine Sonderzeichen\n* Mindestens 1 Buchstabe\n'); // TODO
         break;
     }
     return;
@@ -185,7 +185,7 @@ function saveFocus () {
       return;
     }
     // Ansonsten wird der andere Fokus gelöscht
-    deleteFocusById(id)
+    deleteFocusById(id);
   }
   /* Fokus speichern */
   var focus = {};
@@ -224,7 +224,7 @@ function deleteFocusById (id) {
  */
 function deleteFocus () {
   var oldId = document.getElementById('original-id').value;
-  deleteFocusById(oldId)
+  deleteFocusById(oldId);
   $('#create-focus-modal').modal('hide');
   $('#focus-select').change();
 }
