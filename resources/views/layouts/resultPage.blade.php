@@ -17,7 +17,7 @@
 		<link type="text/css" rel="stylesheet" href="/css/lightslider.css" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
-		@include('layouts.utility')
+		@include('parts.utility')
 	</head>
 	<body id="resultBody">
 		@if( !isset($suspendheader) )
@@ -33,9 +33,10 @@
   					{!! trans('kontakt.form.1') !!}</a>
   				</strong>
 		</div>
-		@include('layouts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
+		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		<script type="text/javascript" src="{{ elixir('js/lib.js') }}"></script>
 		<script type="text/javascript" src="{{ elixir('js/scriptResultPage.js') }}"></script>
+		<script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script>
 	</body>
 </html>
