@@ -18,10 +18,11 @@ class MetaGerSearch extends Controller
             return redirect()->to('https://maps.metager.de/map/' . $searchinput . '/1240908.5493525574,6638783.2192695495,6');
         }
 
-        if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
+        /*if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
             $metager->parseFormData($request);
             return $metager->createView();
-        }
+        }*/
+
         #die($request->header('User-Agent'));
         $time = microtime();
         # Mit gelieferte Formulardaten parsen und abspeichern:

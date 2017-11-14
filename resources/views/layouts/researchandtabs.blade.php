@@ -18,26 +18,11 @@
 					</div>
 					<div id="header-searchbar">
 					@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
-					<!--
-						<form method="{{ Request::method() }}" accept-charset="UTF-8" class="form search-bar-input" id="submitForm">
-							<div class="searchbar">
-								<input autocomplete="off" class="form-control search-input" form="submitForm" id="eingabeTop" name="eingabe" placeholder="{{ @trans('resultPage.search-placeholder') }}" tabindex="1" type="text" value="{{ $eingabe }}" required />
-								<button class="search-reset" type='reset' accesskey="r" form="submitForm" id='reset' value=""><i class="fa fa-times" aria-hidden="true"></i></button>
-								<button class="search-submit" type='submit' form="submitForm" id='search'><i class="fa fa-search" aria-hidden="true"></i></button>
-							</div>
-							@foreach( $metager->request->all() as $key => $value)
-								@if($key !== "eingabe" && $key !== "page" && $key !== "next")
-									<input type='hidden' name='{{ $key }}' value='{{ $value }}' form='submitForm' />
-								@endif
-							@endforeach
-						</form>
-					-->
           </div>
 				</div>
 			</div>
 		</nav>
 	</header>
-	@include('layouts.sidebar', ['id' => 'resultPageSideBar'])
 	<main id="main-content-tabs" class="row">
 		<div>
 			<div class="row">

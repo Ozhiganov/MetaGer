@@ -481,6 +481,8 @@ class MetaGer
         $overtureEnabled      = false;
         $sumaCount            = 0;
 
+        $isCustomSearch = strpos($this->fokus, 'focus_') == 0;
+
         /* Erstellt die Liste der eingestellten Sumas
          * Der einzige Unterschied bei angepasstem Suchfokus ist,
          * dass nicht nach den Typen einer Suma,
@@ -492,7 +494,7 @@ class MetaGer
          * Zu Liste hinzufügen
          */
         foreach ($sumas as $suma) {
-            if (($this->sumaIsSelected($suma, $request)
+            if (($this->sumaIsSelected($suma, $request, $isCustomSearch)
                 || (!$this->isBildersuche()
                     && $this->sumaIsAdsuche($suma, $overtureEnabled)))
                 && (!$this->sumaIsDisabled($suma))) {
@@ -593,10 +595,10 @@ class MetaGer
 
     # Spezielle Suchen und Sumas
 
-    public function sumaIsSelected($suma, $request)
+    public function sumaIsSelected($suma, $request, $custom)
     {
-        if ($this->fokus === "angepasst") {
-            if ($request->has($suma["name"])) {
+        if ($custom) {
+            if ($request->has("engine_" . $suma["name"])) {
                 return true;
             }
         } else {
