@@ -63,7 +63,7 @@
 					<input type="hidden" name="theme" value={{ $theme }}>
 					@endif
 			</div>
-			<div class="custom-search-hidden"></div>
+			<div class="search-custom-hidden"></div>
 		</div>
 	</form>
 </fieldset>

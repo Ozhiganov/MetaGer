@@ -362,11 +362,11 @@ function loadFocusForSearch (focus) {
 }
 
 function clearCustomSearch () {
-  $('.custom-search-hidden').empty();
+  $('.search-custom-hidden').empty();
 }
 
 function addSumaToCustomSearch (sumaId) {
-  $('.custom-search-hidden').append('<input type="hidden" name="' + sumaId + '" value="on">');
+  $('.search-custom-hidden').append('<input type="hidden" name="' + sumaId + '" value="on">');
 }
 
 function getFocusInUrl () {
