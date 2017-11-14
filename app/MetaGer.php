@@ -481,7 +481,7 @@ class MetaGer
         $overtureEnabled      = false;
         $sumaCount            = 0;
 
-        $isCustomSearch = strpos($this->fokus, 'focus_') == 0;
+        $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
 
         /* Erstellt die Liste der eingestellten Sumas
          * Der einzige Unterschied bei angepasstem Suchfokus ist,
@@ -1183,6 +1183,11 @@ class MetaGer
     }
 
 # Hilfsfunktionen
+    public function startsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
 
     public function removeInvalids()
     {
