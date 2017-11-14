@@ -16,6 +16,13 @@
 				<button type="button" id="addFocusBtn">
 					<i class="fa fa-plus"></i>
 				</button>
+				<div class="searchbar-tooltip">
+					<div class="searchbar-tooltip-arrow">
+					</div>
+					<div class="searchbar-tooltip-content">
+					<p>{{{ trans('index.add-focus') }}}</p>
+					</div>
+				</div>
 			</div>
 			<div class="search-edit-focus js-only">
 				<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">

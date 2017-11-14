@@ -143,3 +143,35 @@
 		border-left: none;
 	}
 }
+
+.searchbar-tooltip {
+   display: none;
+    position:absolute;
+    margin-top: 40px;
+
+    & > .searchbar-tooltip-arrow {
+        width: 0; 
+        height: 0; 
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #ff8000;
+        margin-left: 5%;
+    }
+
+    & > .searchbar-tooltip-content {
+        position: relative;
+        margin-left: -45%;
+        & > p {
+            display: inline-block;
+            background: #ff8000;
+            border-radius: .25em;
+            font-size: 16px;
+            color: white;
+            padding: 5px 10px;
+        }
+    }
+}
+
+div:hover > .searchbar-tooltip {
+    display: inline-block;
+}
