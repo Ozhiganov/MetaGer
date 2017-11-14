@@ -20,6 +20,7 @@
 		@include('parts.utility')
 	</head>
 	<body id="resultBody">
+		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
 		@if( !isset($suspendheader) )
 			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
