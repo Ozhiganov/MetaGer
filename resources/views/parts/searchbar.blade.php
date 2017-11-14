@@ -27,7 +27,8 @@
 			<div class="search-edit-focus js-only">
 				<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">
 					<i class="fa fa-wrench"></i>
-				</button><div class="searchbar-tooltip">
+				</button>
+				<div class="searchbar-tooltip">
 					<div class="searchbar-tooltip-arrow">
 					</div>
 					<div class="searchbar-tooltip-content">
