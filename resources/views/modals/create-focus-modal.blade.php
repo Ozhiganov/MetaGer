@@ -36,7 +36,7 @@
 							<div class="col-sm-6 col-md-4 col-lg-3">
 								<div class="checkbox settings-checkbox">
 									<label>
-										<input type="checkbox" name="engine_{{ $name }}" class="focusCheckbox" @if ($fokus=='web' ) checked @endif>{{ $data['displayName'] }}
+										<input type="checkbox" name="engine_{{ strtolower($name) }}" class="focusCheckbox" @if ($fokus=='web' ) checked @endif>{{ $data['displayName'] }}
 										<a class="settings-icon" target="_blank" rel="noopener" href="{{ $data['url'] }}">
 											<i class="fa fa-link" aria-hidden="true"></i>
 										</a>
