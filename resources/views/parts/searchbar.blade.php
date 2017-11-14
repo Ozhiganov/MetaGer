@@ -27,7 +27,13 @@
 			<div class="search-edit-focus js-only">
 				<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">
 					<i class="fa fa-wrench"></i>
-				</button>
+				</button><div class="searchbar-tooltip">
+					<div class="searchbar-tooltip-arrow">
+					</div>
+					<div class="searchbar-tooltip-content">
+					<p>{{{ trans('index.edit-focus') }}}</p>
+					</div>
+				</div>
 			</div>
 			<div class="search-settings">
 				<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
