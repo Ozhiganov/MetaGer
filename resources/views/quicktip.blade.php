@@ -9,7 +9,7 @@
 			<div class="quicktip aufruf-winter">
 				<div class="media">
 					<div class="media-body">
-						<h2 class="qtheader"><a href="@lang('spendenaufruf.link')" target="_blank">@lang('spendenaufruf.heading')</a></h2>
+						<h2 class="qt-header"><a href="@lang('spendenaufruf.link')" target="_blank">@lang('spendenaufruf.heading')</a></h2>
 						<div>@lang('spendenaufruf.text')</div>
 						<br>
 						<a href="@lang('spendenaufruf.link')" class="btn btn-primary btn-block aufruf-action-btn" target="_blank">@lang('spendenaufruf.button')</a>
@@ -32,7 +32,7 @@
 									</div>
 								@endif
 								<div class="media-body">
-									<h2 class="qtheader"><a href="{{ $mq['URL'] }}" target="_blank" rel="noopener">{{ $mq['title'] }}</a></h2>
+									<h2 class="qt-header"><a href="{{ $mq['URL'] }}" target="_blank" rel="noopener">{{ $mq['title'] }}</a></h2>
 									<div>{!! $mq['summary'] !!}</div>
 								</div>
 								<div class="media-right">
@@ -50,7 +50,7 @@
 							</div>
 						@endif
 						<div class="media-body">
-							<h2 class="qtheader"><a href="{{ $mq['URL'] }}" target="_blank" rel="noopener">{{ $mq['title'] }}</a></h2>
+							<h2 class="qt-header"><a href="{{ $mq['URL'] }}" target="_blank" rel="noopener">{{ $mq['title'] }}</a></h2>
 							<div>{!! $mq['summary'] !!}</div>
 						</div>
 					</div>
