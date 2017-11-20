@@ -16,6 +16,11 @@
             appearance: none;
             background-color: transparent;
             padding-right: 35px;
+            font-family: FontAwesome, sans-serif;
+            border: none;
+            &>option {
+                font-family: FontAwesome, sans-serif;
+            }
         }
         &:after {
             content: "\f078";
@@ -152,6 +157,7 @@
             border: 1px solid #aaa;
             border-top: none;
             border-radius: 5px;
+            display: flex;
         }
         .search-input-submit {
             border: 1px solid #aaa;
@@ -172,12 +178,21 @@
 }
 
 .resultpage-searchbar {
-    padding: 5px 0px 0px 5px;
+    padding: 5px;
      :first-child {
         border-left: none;
     }
     @media (max-width: @screen-xs-max) {
-        padding: 5px;
+        .search-focus-selector {
+            border: 1px solid #aaa;
+            border-top: none;
+            border-radius: 5px;
+            display: flex;
+        }
+        .search-input-submit {
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
         >* {
             border: 1px solid #aaa;
             border-radius: 5px;
