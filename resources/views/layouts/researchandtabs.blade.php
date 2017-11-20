@@ -14,7 +14,7 @@
 			<div class="container">
 				<div class="row" id="logo-searchbar-container">
 					<div id="header-logo">
-						<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">M<span class="hidden-xs">eta</span>G<span class="hidden-xs">er</span></h1></a>
+						<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
 					</div>
 					<div id="header-searchbar">
 					@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])

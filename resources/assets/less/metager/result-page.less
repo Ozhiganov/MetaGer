@@ -309,6 +309,9 @@ a {
 
 #logo-searchbar-container {
     display: flex;
+    @media (max-width: @screen-xs-max) {
+        flex-direction: column;
+    }
 }
 
 .mg-logo {
