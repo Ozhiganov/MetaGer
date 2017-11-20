@@ -55,6 +55,7 @@
 				<label class="select-label">@lang('settings.key.label'):</label>
 				<input type="text" class="form-control settings-form-control" name="param_key" placeholder="@lang('settings.key.placeholder')">
 			</div>
+		</div>
 		<div id="settings-buttons">
 			<a id="settings-abort-btn" class="btn btn-danger mutelink" href="{{ URL::previous() }}">@lang('settings.abort') <i class="fa fa-times" aria-hidden="true"></i></a>
 			<input id="unten" class="btn btn-primary" type="submit" value="{!! trans('settings.speichern.1') !!}">

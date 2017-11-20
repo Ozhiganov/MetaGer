@@ -20,3 +20,27 @@
     color: @settings-abort-btn-color;
     margin-right: auto;
 }
+
+@media (max-width: @screen-xs-max) {
+    html,
+    body,
+    .wrapper,
+    #settings-buttons {
+        width: 100%;
+    }
+    #settings-selectors {
+        justify-content: stretch;
+        >* {
+            width: 100%;
+            margin: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+        }
+    }
+    #settings-buttons>* {
+        width: 100%;
+        margin: 10px 0px;
+        overflow: auto;
+    }
+}
