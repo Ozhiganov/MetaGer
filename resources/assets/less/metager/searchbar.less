@@ -4,8 +4,10 @@
     font-size: 16px;
     background-color: white;
     .search-focus-selector {
-        background-color: transparent;
         border-radius: 5px 0px 0px 5px;
+        background-color: white;
+        position: relative;
+        text-overflow: ellipsis;
         select {
             width: 100%;
             color: #777;
@@ -14,6 +16,18 @@
             appearance: none;
             background-color: transparent;
             padding-right: 35px;
+        }
+        &:after {
+            content: "\f078";
+            font: 15px "FontAwesome", sans-serif; //text-align: center;
+            line-height: 30px;
+            color: #aaa;
+            background-color: transparent;
+            right: 8px;
+            top: 2px;
+            padding: 2px 2px 2px 5px;
+            position: absolute;
+            pointer-events: none;
         }
     }
     .search-add-focus {
@@ -84,32 +98,39 @@
     .search-custom-hidden {
         display: none;
     }
+    .searchbar-tooltip {
+        display: none;
+        position: absolute;
+        margin-top: 40px;
+        &>.searchbar-tooltip-arrow {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #ff8000;
+            margin-left: 5%;
+        }
+        &>.searchbar-tooltip-content {
+            position: relative;
+            margin-left: -45%;
+            &>p {
+                display: inline-block;
+                background: #ff8000;
+                border-radius: .25em;
+                font-size: 16px;
+                color: white;
+                padding: 5px 10px;
+            }
+        }
+        div:hover>& {
+            display: inline-block;
+            @media (max-width: @screen-xs-max) {
+                display: none;
+            }
+        }
+    }
     @media (max-width: @screen-xs-max) {
         flex-direction: column-reverse;
-    }
-}
-
-.search-focus-selector {
-    background-color: white;
-    position: relative;
-    text-overflow: ellipsis;
-    &:after {
-        content: "\f078";
-        font: 15px "FontAwesome", sans-serif; //text-align: center;
-        line-height: 30px;
-        color: #aaa;
-        background-color: transparent;
-        right: 8px;
-        top: 2px;
-        padding: 2px 2px 2px 5px;
-        position: absolute;
-        pointer-events: none;
-    }
-}
-
-.searchform-bonus {
-    li {
-        margin: 5px;
     }
 }
 
@@ -154,41 +175,7 @@
 
 .resultpage-searchbar {
     margin: 5px 0px 0px 5px;
-    :first-child {
+     :first-child {
         border-left: none;
-    }
-}
-
-.searchbar-tooltip {
-    display: none;
-    position: absolute;
-    margin-top: 40px;
-    &>.searchbar-tooltip-arrow {
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid #ff8000;
-        margin-left: 5%;
-    }
-    &>.searchbar-tooltip-content {
-        position: relative;
-        margin-left: -45%;
-        &>p {
-            display: inline-block;
-            background: #ff8000;
-            border-radius: .25em;
-            font-size: 16px;
-            color: white;
-            padding: 5px 10px;
-        }
-    }
-}
-
-div:hover>.searchbar-tooltip {
-    display: inline-block;
-    
-    @media (max-width: @screen-xs-max) {
-        display: none;
     }
 }
