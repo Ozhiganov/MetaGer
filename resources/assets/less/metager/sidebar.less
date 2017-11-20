@@ -17,6 +17,7 @@
     z-index: 999;
     background-color: white;
     transition: 0.5s;
+    border-left: none;
     &>label#closeSidebar {
         position: absolute;
         font-size: 36px;
@@ -137,6 +138,9 @@
                 padding: 0px 0;
             }
         }
+    }
+    input#nav0:checked~& {
+        border-left: 1px solid LightGray;
     }
 }
 
