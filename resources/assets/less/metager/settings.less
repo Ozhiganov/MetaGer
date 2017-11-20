@@ -11,8 +11,10 @@
 #settings-selectors {
     display: flex;
     flex-wrap: wrap;
+    align-items: end;
     >* {
-        margin: 10px;
+        padding: 10px;
+        width: 33%;
     }
 }
 
@@ -27,11 +29,11 @@
     .wrapper,
     #settings-buttons {
         width: 100%;
-        &>* {
-            width: 100%;
-            margin: 10px 0px;
-            overflow: auto;
-        }
+    }
+    #settings-buttons>* {
+        width: 100%;
+        margin: 10px 0px;
+        overflow: auto;
     }
     #settings-selectors {
         justify-content: stretch;
