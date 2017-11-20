@@ -4,7 +4,6 @@
 @metager-dropdown-menu-li-a-color: @static-pages-color-almost-black;
 @metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
 @metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
-
 .sideBar {
     position: fixed;
     display: block;
@@ -28,25 +27,20 @@
             content: "×";
         }
         &:hover {
-            color: rgb(255,128,0);
+            color: rgb(255, 128, 0);
         }
     }
-
     &>ul {
         padding-top: 20%;
     }
-
-    & #metager-static-nav-list > li {
-        
+    & #metager-static-nav-list>li {
         width: 100%;
         padding-top: 3%;
         padding-bottom: 3%;
         border-bottom: 1px solid LightGray;
-
         &:hover {
             background-color: @metager-navbar-toggle-hover-background-color;
         }
-
         &>label {
             font-size: 16px;
             font-weight: normal;
@@ -56,13 +50,11 @@
             line-height: 20px;
             display: inline-block;
             width: 100%;
-            
             &:hover {
                 color: red;
             }
         }
     }
-
     & .metager-dropdown-menu {
         min-width: 160px;
         max-height: 0px;
@@ -72,7 +64,6 @@
         float: left;
         overflow: hidden;
         transition: 0.5s ease;
-
         &>li>a {
             display: block;
             font-size: 12px;
@@ -83,12 +74,10 @@
             line-height: 1.42857143;
             border-top: 1px solid LightGray;
             margin-left: 2px;
-
             &:hover {
                 text-decoration: none;
             }
         }
-
         label:after {
             #navbar-static-pages {
                 z-index: 4;
@@ -96,7 +85,6 @@
             }
         }
     }
-
     & a {
         font-size: 16px;
         line-height: 20px;
@@ -109,14 +97,13 @@
             color: red;
         }
     }
-
     & p {
         width: 90%;
         text-align: center;
         font-weight: bold;
         font-style: italic;
         font-size: large;
-        background-color: rgb(255,128,0);
+        background-color: rgb(255, 128, 0);
         border-radius: .25em;
         color: white;
         cursor: default;
@@ -127,50 +114,48 @@
         left: 90%;
         margin-top: 8px;
     }
-
     & input.sideBarCheckbox {
         display: none;
-
         &:checked {
-            & ~.metager-dropdown-menu {
+            &~.metager-dropdown-menu {
                 max-height: 1000px;
                 padding: 5px 0;
             }
-
-            & ~ label > .caret {
-                border-top:0 solid;
-                border-bottom:4px solid;
-                transition:border-top .1s, border-bottom .1s .1s;
+            &~label>.caret {
+                border-top: 0 solid;
+                border-bottom: 4px solid;
+                transition: border-top .1s, border-bottom .1s .1s;
             }
         }
-
         &:not(:checked) {
-            & ~.metager-dropdown-menu {
+            &~.metager-dropdown-menu {
                 padding: 0px 0;
             }
         }
     }
-
 }
 
 input#sideBarToggle:checked {
-    & ~.sideBar {
+    &~.sideBar {
         right: 0px;
     }
 }
 
 label#openSidebar {
+    position: fixed;
+    top: 5px;
+    right: 20px;
     z-index: 998;
     font-size: 36px;
-    position: fixed;
-    top: 0px;
-    right: 20px;
+    line-height: 36px;
+    border-radius: 5px;
     color: grey;
+    background-color: white;
     &:after {
         content: "≡";
     }
     &:hover {
-        color: rgb(255,128,0);
+        color: rgb(255, 128, 0);
     }
 }
 
@@ -180,7 +165,6 @@ label#openSidebar {
         width: 90%;
         overflow: auto;
     }
-
     #metager-static-nav-list:target {
         max-height: 1000px;
     }
