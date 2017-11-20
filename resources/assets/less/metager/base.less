@@ -7,6 +7,10 @@
 @aufruf-winter-aufruf-action-btn-hover-border-color: @base-aufruf-winter-border-color;
 @aufruf-winter-quicktip-border-color: @base-aufruf-winter-color!important;
 @new-feature-badge-background-color: @base-new-feature-badge-background-color;
+* {
+    font-family: Liberation Sans, sans-serif;
+}
+
 html {
     min-height: 100%;
     height: auto;
@@ -15,12 +19,17 @@ html {
 
 body {
     flex-grow: 1;
+    background-image: inherit;
     background-color: @body-background-color;
     background-attachment: fixed;
     min-height: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    &>div {
+        padding-top: 50px;
+    }
 }
 
 .wrapper {
@@ -28,10 +37,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-body#resultBody {
-    background-image: inherit;
 }
 
 summary {

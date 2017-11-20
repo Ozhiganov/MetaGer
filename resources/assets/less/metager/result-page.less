@@ -33,14 +33,11 @@
 @product-shop-color: @result-page-product-shop-color;
 @lsprev-or-lsnext-i-background-color: @result-page-color-black;
 body {
-    background-image: inherit;
-    background-color: white;
-}
-
-.sideBar {
-    border-left: none;
-    input#nav0:checked~& {
-        border-left: 1px solid LightGray;
+    &#resultBody {
+        background-image: inherit;
+    }
+    &.quicktips {
+        background-color: @quicktip-background-color;
     }
 }
 
