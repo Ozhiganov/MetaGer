@@ -27,6 +27,11 @@
     .wrapper,
     #settings-buttons {
         width: 100%;
+        &>* {
+            width: 100%;
+            margin: 10px 0px;
+            overflow: auto;
+        }
     }
     #settings-selectors {
         justify-content: stretch;
@@ -37,10 +42,5 @@
             flex-direction: column;
             justify-content: end;
         }
-    }
-    #settings-buttons>* {
-        width: 100%;
-        margin: 10px 0px;
-        overflow: auto;
     }
 }
