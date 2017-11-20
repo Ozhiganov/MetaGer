@@ -33,7 +33,7 @@
     &>ul {
         padding-top: 20%;
     }
-    & #metager-static-nav-list>li {
+    #metager-static-nav-list>li {
         width: 100%;
         padding-top: 3%;
         padding-bottom: 3%;
@@ -55,7 +55,7 @@
             }
         }
     }
-    & .metager-dropdown-menu {
+    .metager-dropdown-menu {
         min-width: 160px;
         max-height: 0px;
         text-align: left;
@@ -85,7 +85,7 @@
             }
         }
     }
-    & a {
+    a {
         font-size: 16px;
         line-height: 20px;
         text-decoration: none;
@@ -97,7 +97,7 @@
             color: red;
         }
     }
-    & p {
+    p {
         width: 90%;
         text-align: center;
         font-weight: bold;
@@ -105,16 +105,21 @@
         font-size: large;
         background-color: rgb(255, 128, 0);
         border-radius: .25em;
-        color: white;
+        a,
+        a:hover {
+            color: white;
+            font-size: 30px;
+            line-height: 35px;
+        }
         cursor: default;
         margin: 5%
     }
-    & .caret {
+    .caret {
         position: absolute;
         left: 90%;
         margin-top: 8px;
     }
-    & input.sideBarCheckbox {
+    input.sideBarCheckbox {
         display: none;
         &:checked {
             &~.metager-dropdown-menu {
