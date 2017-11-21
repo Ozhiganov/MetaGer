@@ -24,6 +24,7 @@ function setSearchbarActionListeners () {
   $('#editFocusBtn').click(editCurrentFocus);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
+  $('.search-focus-selector').click(showOptionsDialog);
   $('#focus-select').change(focusChanged);
   // Save Focus on clicking enter while in the focus name input
   $('#focus-name').keyup(function (event) {
@@ -375,6 +376,10 @@ function getFocusInUrl () {
   if (focReg && focReg[1]) {
     return focReg[1];
   }
+}
+
+function showOptionsDialog() {
+  $('.search-focus-selector:after').css('content', '"\f077"');
 }
 
 function checkboxCheckListener (event) {
