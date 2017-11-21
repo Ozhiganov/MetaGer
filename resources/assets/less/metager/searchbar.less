@@ -1,6 +1,7 @@
 .searchbar {
     display: flex;
     align-items: stretch;
+    justify-content: center;
     font-size: 16px;
     background-color: white;
     .search-focus-selector {
@@ -16,7 +17,7 @@
             -moz-appearance: none;
             appearance: none;
             background-color: transparent;
-            padding-right: 35px;
+            padding: 0px 35px 0px 5px;
             font-family: FontAwesome, sans-serif;
             border: none;
             &>option {
@@ -73,6 +74,10 @@
     .search-input-submit {
         flex-grow: 1;
         display: flex;
+        max-width: 600px;
+        @media (max-width: @screen-xs-max) {
+            max-width: initial;
+        }
     }
     .search-input {
         flex-grow: 1;
@@ -178,7 +183,7 @@
 }
 
 .resultpage-searchbar {
-    padding: 5px;
+    padding: 5px 45px 5px 5px;
      :first-child {
         border-left: none;
     }
