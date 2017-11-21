@@ -3,9 +3,12 @@
     align-items: stretch;
     font-size: 16px;
     background-color: white;
+
     .search-focus-selector {
         background-color: transparent;
         border-radius: 5px 0px 0px 5px;
+        display: flex;
+        align-items: center;
         select {
             width: 100%;
             color: #777;
@@ -16,8 +19,13 @@
             padding-right: 35px;
         }
     }
+
+    .search-button-container {
+        display: none;
+    }
+
     .search-add-focus {
-        display: flex;
+        //display: flex;
         button {
             background-color: white;
             border: none;
@@ -29,7 +37,7 @@
         }
     }
     .search-edit-focus {
-        display: flex;
+        //display: flex;
         button {
             background-color: white;
             border: none;
@@ -41,7 +49,7 @@
         }
     }
     .search-settings {
-        display: flex;
+        //display: flex;
         a.btn {
             border: none;
             padding: 0px 8px;
@@ -89,22 +97,16 @@
     }
 }
 
+.toggleOptBtn {
+    border: none;
+    background-color: white;
+    
+}
+
 .search-focus-selector {
     background-color: white;
     position: relative;
     text-overflow: ellipsis;
-    &:after {
-        content: "\f078";
-        font: 15px "FontAwesome", sans-serif; //text-align: center;
-        line-height: 30px;
-        color: #aaa;
-        background-color: transparent;
-        right: 8px;
-        top: 2px;
-        padding: 2px 2px 2px 5px;
-        position: absolute;
-        pointer-events: none;
-    }
 }
 
 .searchform-bonus {

@@ -24,6 +24,7 @@ function setSearchbarActionListeners () {
   $('#editFocusBtn').click(editCurrentFocus);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
+  $('.search-focus-selector').click(toggleOptionsDialog);
   $('#focus-select').change(focusChanged);
   // Save Focus on clicking enter while in the focus name input
   $('#focus-name').keyup(function (event) {
@@ -374,6 +375,17 @@ function getFocusInUrl () {
   var focReg = /focus=(focus_\w+)/.exec(url);
   if (focReg && focReg[1]) {
     return focReg[1];
+  }
+}
+
+function toggleOptionsDialog() {
+  var btnMode = $('.toggleOptBtn').attr('data-mode');
+  if (btnMode == "open") {
+    $('.toggleOptBtn').attr('data-mode', 'close');
+    $('.toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
+  } else {
+    $('.toggleOptBtn').attr('data-mode', 'open');
+    $('.toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
   }
 }
 
