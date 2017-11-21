@@ -25,15 +25,15 @@
 			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
-			<div class="tab-content container-fluid">
+			<div class="resultpage-container">
 				@yield('results')
 			</div>
 		@endif
 		<div id="feedback" style="width:50%;margin-left:25%;position: relative; top:10px;" class="alert alert-danger alert-dismissable">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  				<strong> {!! trans('metaGer.feedback') !!}<a href="{{URL::to('')}}/kontakt/{{base64_encode(Request::fullUrl())}}/" target="_blank">
-  					{!! trans('kontakt.form.1') !!}</a>
-  				</strong>
+				<strong> {!! trans('metaGer.feedback') !!}<a href="{{URL::to('')}}/kontakt/{{base64_encode(Request::fullUrl())}}/" target="_blank">
+					{!! trans('kontakt.form.1') !!}</a>
+				</strong>
 		</div>
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
