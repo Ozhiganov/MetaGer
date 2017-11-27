@@ -4,7 +4,7 @@
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class or ''}}">
 			<div class="search-focus-selector">
-				<button type="button" class="toggleOptBtn" data-mode="open">
+				<button type="button" id="toggleOptBtn" data-mode="o">
 					<i class="fa fa-chevron-down"></i>
 				</button>
 				<div class="search-option-frame" style="display:none;">
@@ -15,37 +15,37 @@
 						<option value="produktsuche" style="font-family: FontAwesome, sans-serif;">&#xf07a; Produktsuche</option>
 						<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Kartensuche</option>
 					</select>
-				</div>
-			</div>
-			<div class="search-button-container">
-				<div class="search-add-focus js-only">
-					<button type="button" id="addFocusBtn">
-						<i class="fa fa-plus"></i>
-					</button>
-					<div class="searchbar-tooltip">
-						<div class="searchbar-tooltip-arrow">
+					<div class="search-button-container">
+						<div class="search-add-focus js-only">
+							<button type="button" id="addFocusBtn">
+								<i class="fa fa-plus"></i>
+							</button>
+							<div class="searchbar-tooltip">
+								<div class="searchbar-tooltip-arrow">
+								</div>
+								<div class="searchbar-tooltip-content">
+								<p>{{{ trans('index.add-focus') }}}</p>
+								</div>
+							</div>
 						</div>
-						<div class="searchbar-tooltip-content">
-						<p>{{{ trans('index.add-focus') }}}</p>
+						<div class="search-edit-focus js-only">
+							<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">
+								<i class="fa fa-wrench"></i>
+							</button>
+							<div class="searchbar-tooltip">
+								<div class="searchbar-tooltip-arrow">
+								</div>
+								<div class="searchbar-tooltip-content">
+								<p>{{{ trans('index.edit-focus') }}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="search-settings">
+							<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
+								<i class="fa fa-cog" aria-hidden="true"></i>
+							</a>
 						</div>
 					</div>
-				</div>
-				<div class="search-edit-focus js-only">
-					<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">
-						<i class="fa fa-wrench"></i>
-					</button>
-					<div class="searchbar-tooltip">
-						<div class="searchbar-tooltip-arrow">
-						</div>
-						<div class="searchbar-tooltip-content">
-						<p>{{{ trans('index.edit-focus') }}}</p>
-						</div>
-					</div>
-				</div>
-				<div class="search-settings">
-					<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
-						<i class="fa fa-cog" aria-hidden="true"></i>
-					</a>
 				</div>
 			</div>
 			<div class="search-input-submit">
