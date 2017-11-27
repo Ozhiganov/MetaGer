@@ -7,16 +7,16 @@
 				<button type="button" id="toggleOptBtn" data-mode="o">
 					<i class="fa fa-chevron-down"></i>
 				</button>
+				<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
+					<option value="web" style="font-family: FontAwesome, sans-serif;" selected>&#xf0ac; Websuche</option>
+					<option value="nachrichten" style="font-family: FontAwesome, sans-serif;">&#xf0a1; Nachrichtensuche</option>
+					<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;">&#xf15c; Wissenschaftssuche</option>
+					<option value="produktsuche" style="font-family: FontAwesome, sans-serif;">&#xf07a; Produktsuche</option>
+					<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Kartensuche</option>
+				</select>
 				<div class="search-option-frame" style="display:none;">
 					<div class="searchbar-options-arrow">
 					</div>
-					<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
-						<option value="web" style="font-family: FontAwesome, sans-serif;" selected>&#xf0ac; Websuche</option>
-						<option value="nachrichten" style="font-family: FontAwesome, sans-serif;">&#xf0a1; Nachrichtensuche</option>
-						<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;">&#xf15c; Wissenschaftssuche</option>
-						<option value="produktsuche" style="font-family: FontAwesome, sans-serif;">&#xf07a; Produktsuche</option>
-						<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Kartensuche</option>
-					</select>
 					<div class="search-button-container">
 						<div class="search-add-focus js-only">
 							<button type="button" id="addFocusBtn">

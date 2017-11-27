@@ -390,7 +390,7 @@ function toggleOptionsDialog() {
 function openOptionsDialog() {
   $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
   $('#toggleOptBtn').attr('data-mode', 'c');
-  $('.search-option-frame').css('display', 'inline-block');
+  $('.search-option-frame').css('display', 'flex');
 
 }
 
