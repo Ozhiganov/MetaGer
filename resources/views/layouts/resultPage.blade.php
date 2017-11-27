@@ -16,6 +16,7 @@
 		<link type="text/css" rel="stylesheet" href="{{ elixir('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/css/lightslider.css" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		@include('parts.utility')
 	</head>
