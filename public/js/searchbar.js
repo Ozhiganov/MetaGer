@@ -22,9 +22,9 @@ function setSearchbarActionListeners () {
   $('.focusCheckbox').click(checkboxCheckListener);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
   $('#editFocusBtn').click(editCurrentFocus);
+  $('#toggleOptBtn').click(toggleOptionsDialog);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
-  $('.search-focus-selector').click(toggleOptionsDialog);
   $('#focus-select').change(focusChanged);
   // Save Focus on clicking enter while in the focus name input
   $('#focus-name').keyup(function (event) {
@@ -379,15 +379,27 @@ function getFocusInUrl () {
 }
 
 function toggleOptionsDialog() {
-  var btnMode = $('.toggleOptBtn').attr('data-mode');
-  if (btnMode == 'open') {
-    $('.toggleOptBtn').attr('data-mode', 'close');
-    $('.toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
+  var btnMode = $('#toggleOptBtn').attr('data-mode');
+  if (btnMode == 'o') {
+    openOptionsDialog();
   } else {
-    $('.toggleOptBtn').attr('data-mode', 'open');
-    $('.toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
+    closeOptionsDialog();
   }
 }
+
+function openOptionsDialog() {
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'c');
+  $('.search-option-frame').css('display', 'inline-block');
+
+}
+
+function closeOptionsDialog() {
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'o');
+  $('.search-option-frame').css('display', 'none');
+}
+
 
 
 function checkboxCheckListener (event) {
