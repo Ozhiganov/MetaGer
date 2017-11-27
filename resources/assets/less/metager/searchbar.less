@@ -9,6 +9,12 @@
         border-radius: 5px 0px 0px 5px;
         display: flex;
         align-items: center;
+
+        &>button {
+            border: none;
+            margin: 5px;
+        }
+
         select {
             width: 100%;
             color: #777;
@@ -95,12 +101,6 @@
     @media (max-width: @screen-xs-max) {
         flex-direction: column-reverse;
     }
-}
-
-.toggleOptBtn {
-    border: none;
-    background-color: white;
-    
 }
 
 .search-focus-selector {
