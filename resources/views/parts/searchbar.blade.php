@@ -4,7 +4,7 @@
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class or ''}}">
 			<div class="search-focus-selector">
-				<button type="button" data-mode="open">
+				<button type="button" class="toggleOptBtn" data-mode="open">
 					<i class="fa fa-chevron-down"></i>
 				</button>
 				<div class="search-option-frame" style="display:none;">

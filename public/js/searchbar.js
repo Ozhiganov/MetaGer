@@ -380,7 +380,7 @@ function getFocusInUrl () {
 
 function toggleOptionsDialog() {
   var btnMode = $('.toggleOptBtn').attr('data-mode');
-  if (btnMode == "open") {
+  if (btnMode == 'open') {
     $('.toggleOptBtn').attr('data-mode', 'close');
     $('.toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
   } else {
@@ -388,6 +388,7 @@ function toggleOptionsDialog() {
     $('.toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
   }
 }
+
 
 function checkboxCheckListener (event) {
   toggleDeleteButton();
