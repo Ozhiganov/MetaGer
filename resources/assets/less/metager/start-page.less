@@ -1,3 +1,5 @@
+/* Startseite */
+
 @search-bar-width: 1000px;
 .mg-panel {
     @media(max-width: @search-bar-width) {
@@ -73,4 +75,36 @@
 
 #about-us a:visited {
     color: @link-color;
+}
+
+#sponsors {
+    a {
+        font-size: 0.8em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+#more-information {
+    box-shadow: none;
+    margin-top: 5%;
+    text-align: center;
+    -moz-box-shadow: none;
+    ul {
+        padding: 0;
+    }
+    ul li {
+        color: @more-information-ul-li-color;
+    }
+    &>div {
+        font-size: 15px;
+    }
+    h2 {
+        color: @more-information-h2-color;
+        font-size: 25px;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
 }

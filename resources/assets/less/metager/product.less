@@ -1,0 +1,42 @@
+/* Produktergebnisse */
+
+.product {
+    text-align: center;
+    border: 1px dotted @product-border-color;
+    padding: 5px;
+    max-width: 150px;
+    height: 210px;
+    a {
+        color: @product-a-color;
+    }
+    img {
+        max-width: 100px;
+    }
+    .price {
+        position: relative;
+        top: 20px;
+        color: @product-price-color;
+        background-color: @product-price-background-color;
+        text-align: left;
+        width: 80px;
+        font-weight: bold;
+    }
+    .title {
+        font-size: 12px;
+        font-weight: bold;
+        text-align: left;
+        max-height: 31px;
+        overflow: hidden;
+        margin-bottom: 4px;
+    }
+    .shop {
+        font-size: 10px;
+        text-align: left;
+        color: @product-shop-color;
+        margin-bottom: 6px;
+    }
+    .shipping {
+        font-size: 10px;
+        text-align: left;
+    }
+}
