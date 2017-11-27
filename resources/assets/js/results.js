@@ -251,7 +251,7 @@ Result.prototype.toHtml = function(){
     <div class="result row">\
       <div class="col-sm-1 glyphicon glyphicon-trash remover" title="Ergebnis aus dem Speicher löschen">\
       </div>\
-      <div class="resultInformation col-xs-12 col-sm-11">\
+      <div class="result-information col-xs-12 col-sm-11">\
         <div class="col-xs-10 col-sm-11" style="padding:0; ">\
           <p class="title">\
             <a class="title" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="1" rel="noopener">\

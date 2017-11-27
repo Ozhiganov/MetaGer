@@ -1,6 +1,6 @@
 <div class="row lightSliderContainer hidden">
 	<div class="col-sm-1 hidden-xs"></div>
-	<div class="resultInformation col-xs-12 col-sm-11">
+	<div class="result-information col-xs-12 col-sm-11">
 		<span id="mark">Produktanzeigen:</span>
 		<ul id="products" class="lightSlider" >
 			@foreach($products as $product)

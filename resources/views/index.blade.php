@@ -12,7 +12,7 @@
 @endsection
 
 @section('optionalContent')
-	<section id="moreInformation" class="hidden-xs hidden">
+	<section id="more-information" class="hidden-xs hidden">
 		<h1 class="hidden">{{ trans('index.sponsors.head.1') }}</h1>
 		<div class="row">
 			<div id="sponsors" class="col-sm-6">

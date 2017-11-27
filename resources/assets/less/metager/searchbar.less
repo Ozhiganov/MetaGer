@@ -1,3 +1,5 @@
+/* Suchleiste */
+
 .searchbar {
     display: flex;
     align-items: stretch;
@@ -209,5 +211,19 @@ div:hover>.searchbar-tooltip {
         *:not(.search-submit) {
             width: 100%;
         }
+    }
+}
+
+#research-bar {
+    padding: 10px 60px 0px 10px;
+    border-bottom: 2px solid rgb(255, 128, 0);
+    display: flex;
+    justify-content: center;
+    #header-searchbar {
+        margin-left: 10px;
+    }
+    @media (max-width: @screen-xs-max) {
+        flex-direction: column;
+        padding-right: 10px;
     }
 }
