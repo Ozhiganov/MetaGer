@@ -1,6 +1,7 @@
 @extends('layouts.resultPage')
 
 @section('results')
+	{{-- Show all errors --}}
 	@if(sizeof($errors) > 0)
 		<div class="alert alert-danger">
 			<ul>
@@ -10,6 +11,7 @@
 			</ul>
 		</div>
 	@endif
+	{{-- Show all warnings --}}
 	@if(sizeof($warnings) > 0)
 		<div class="alert alert-warning">
 			<ul>
@@ -19,40 +21,41 @@
 			</ul>
 		</div>
 	@endif
-	@if($metager->showQuicktips())
-		<div class="col-xs-12 col-md-8 resultContainer">
-	@else
-		<div class="col-xs-12 col-md-12 resultContainer">
-	@endif
+	<div id="results">
+		{{-- Show initial products or ads --}}
 		@if($metager->hasProducts())
-    		@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
-    		    @include('layouts.products', ['products' => $metager->getProducts()])
-    		@endif
-
+			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
+				@include('layouts.products', ['products' => $metager->getProducts()])
+			@endif
 		@else
 			@for($i = 0; $i <= 2; $i++)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endfor
 		@endif
+		{{-- Show map --}}
 		@if($metager->getMaps())
-		<div class="result row" id="map">
-			<div class="resultInformation col-xs-12 col-sm-11">
+			<div class="result" id="map">
 				<iframe class="" src="https://maps.metager.de/metager/{{ $metager->getQ() }}" scrolling="no" tabindex="-1" style="width: 100%; height:0; border:0;"></iframe>
 			</div>
-		</div>
 		@endif
+		{{-- Create results and ongoing ads --}}
 		@foreach($metager->getResults() as $result)
 			@if($result->number % 7 === 0)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endif
 			@include('layouts.result', ['result' => $result])
 		@endforeach
+		{{-- Show pagination --}}
 		<nav class="mg-pager" aria-label="...">
-			<div @if($metager->getPage() === 1) class="disabled" @endif><a href="@if($metager->getPage() === 1) # @else javascript:history.back() @endif">{{ trans('results.zurueck') }}</a></div>
-			<div @if($metager->nextSearchLink() === "#") class="disabled" @endif><a href="{{ $metager->nextSearchLink() }}">{{ trans('results.weiter') }}</a></div>
+			<div @if($metager->getPage() === 1) class="disabled" @endif>
+				<a @if($metager->getPage() !== 1) href="javascript:history.back()" @endif>{{ trans('results.zurueck') }}</a>
+			</div>
+			<div @if($metager->nextSearchLink() === "#") class="disabled" @endif>
+				<a @if($metager->nextSearchLink() !== "#") href="{{ $metager->nextSearchLink() }}" @endif>{{ trans('results.weiter') }}</a>
+			</div>
 		</nav>
 	</div>
 	@if( $metager->showQuicktips() )
-		<div class="col-md-4 hidden-xs hidden-sm" id="quicktips"></div>
+		<div id="quicktips"></div>
 	@endif
 @endsection
