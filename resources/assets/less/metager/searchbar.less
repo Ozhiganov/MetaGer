@@ -32,7 +32,7 @@
         display: none;
         position: absolute;
         top: 290px;
-        padding: 1%;
+        padding: 10px;
         border: 1px solid rgb(175, 175, 175);
         border-radius: 4px;
 
@@ -57,6 +57,7 @@
         margin-top: 3%;
         .search-add-focus {
             //display: flex;
+            position: relative;
             button {
                 background-color: white;
                 border: none;
@@ -69,6 +70,7 @@
         }
         .search-edit-focus {
             //display: flex;
+            position: relative;
             button {
                 background-color: white;
                 border: none;
@@ -81,6 +83,7 @@
         }
         .search-settings {
             //display: flex;
+            position: relative;
             a.btn {
                 border: none;
                 padding: 0px 8px;
@@ -186,11 +189,12 @@
 .searchbar-tooltip {
     display: none;
     position: absolute;
-    margin-top: 40px;
+    top: 45px;
+    left: -10px;
     &>.searchbar-tooltip-arrow {
         position: absolute;
-        top: -5px;
-        left: -20px;
+        top: -4px;
+        left: 20px;
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
@@ -199,7 +203,6 @@
     }
     &>.searchbar-tooltip-content {
         position: relative;
-        margin-left: -45%;
         &>p {
             display: inline-block;
             background: #ff8000;
@@ -207,6 +210,7 @@
             font-size: 16px;
             color: white;
             padding: 5px 10px;
+            white-space: nowrap;
         }
     }
 }
