@@ -1,3 +1,5 @@
+/* Startseite */
+
 @search-bar-width: 1000px;
 .mg-panel {
     @media(max-width: @search-bar-width) {
@@ -6,6 +8,10 @@
     @media(min-width: @search-bar-width) {
         width: @search-bar-width;
     }
+}
+
+#mglogo {
+    margin: 0px 0px 30px 0px;
 }
 
 .settings-modal-buttons {
@@ -71,17 +77,34 @@
     color: @link-color;
 }
 
-#anpassen-label a {
-    color: @anpassen-label-color;
+#sponsors {
+    a {
+        font-size: 0.8em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
 }
 
-#addFocusBtnDiv {
-    margin-left: 10px;
-}
-
-#settingsBtnDiv {
-    margin-left: 10px;
-    &>* {
-        vertical-align: middle;
+#more-information {
+    box-shadow: none;
+    margin-top: 5%;
+    text-align: center;
+    -moz-box-shadow: none;
+    ul {
+        padding: 0;
+    }
+    ul li {
+        color: @more-information-ul-li-color;
+    }
+    &>div {
+        font-size: 15px;
+    }
+    h2 {
+        color: @more-information-h2-color;
+        font-size: 25px;
+    }
+    a:hover {
+        text-decoration: underline;
     }
 }

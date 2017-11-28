@@ -8,26 +8,18 @@
 		</div>
 	</div>
 @endif
-<div class="content-wrapper container">
-	<header id="research" class="row">
-		<nav class="navbar navbar-default navbar-fixed-top navbar-resultpage">
-			<div class="container">
-				<div class="row" id="logo-searchbar-container">
-					<div id="header-logo">
-						<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">M<span class="hidden-xs">eta</span>G<span class="hidden-xs">er</span></h1></a>
-					</div>
-					<div id="header-searchbar">
-					@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
-          </div>
-				</div>
-			</div>
-		</nav>
-	</header>
-	<main id="main-content-tabs" class="row">
-		<div>
-			<div class="row">
-				@yield('results')
-			</div>
+<div class="content-wrapper">
+	<header id="research-bar">
+		<div id="header-logo">
+			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
 		</div>
+		<div id="header-searchbar">
+			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+		</div>
+	</header>
+	<div id="research-bar-placeholder">
+	</div>
+	<main class="resultpage-container">
+		@yield('results')
 	</main>
 </div>
