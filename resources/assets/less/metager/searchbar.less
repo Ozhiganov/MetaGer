@@ -213,23 +213,24 @@ div:hover>.searchbar-tooltip {
     }
 }
 
+@media (min-width: @screen-sm-min) {
+    #research-bar {
+        position: fixed;
+        width: 100%;
+    }
+    #research-bar-placeholder {
+        height: 60px;
+    }
+}
+
 #research-bar {
-    position: fixed;
-    width: 100%;
     padding: 10px 60px 0px 10px;
     background-color: white;
     border-bottom: 2px solid rgb(255, 128, 0);
     display: flex;
     justify-content: center;
-    #header-searchbar {
-        margin-left: 10px;
-    }
     @media (max-width: @screen-xs-max) {
         flex-direction: column;
         padding-right: 10px;
     }
-}
-
-#research-bar-placeholder {
-    height: 60px;
 }
