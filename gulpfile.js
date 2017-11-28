@@ -17,8 +17,8 @@ elixir(function (mix) {
   // js
   mix.scripts(['lib/jquery.js', 'lib/jquery-ui.min.js', 'lib/bootstrap.js', 'lib/lightslider.js', 'lib/masonry.js', 'lib/imagesloaded.js', 'lib/openpgp.min.js', 'lib/iframeResizer.min.js', 'lib/md5.js'], 'public/js/lib.js')
   mix.scripts(['scriptStartPage.js', 'results.js'], 'public/js/scriptStartPage.js');
-  mix.scripts(['scriptResultPage.js', 'results.js'], 'public/js/scriptResultPage.js');
-  mix.scripts(['searchbar.js'], 'public/js/searchbar.js');
+  mix.scripts(['scriptResultPage.js', 'results.js', 'quicktips.js'], 'public/js/scriptResultPage.js');
+  mix.scripts(['searchbar.js', 'focus-creator.js'], 'public/js/searchbar.js');
   // utility
   mix.scripts(['utility.js'], 'public/js/utility.js');
   mix.less('utility.less', 'public/css/utility.css');
