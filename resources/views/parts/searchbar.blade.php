@@ -7,6 +7,22 @@
 				<button type="button" id="toggleOptBtn" data-mode="o">
 					<i class="fa fa-chevron-down"></i>
 				</button>
+				<noscript>
+					<style>
+						#toggleOptBtn {
+							display: none;
+						}
+						.search-settings {
+							padding: 5px;
+    						border-right: solid 1px #ccc;
+						}
+					</style>
+					<div class="search-settings">
+						<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
+							<i class="fa fa-cog" aria-hidden="true"></i>
+						</a>
+					</div>
+				</noscript>
 				<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
 					<option value="web" style="font-family: FontAwesome, sans-serif;" selected>&#xf0ac; Websuche</option>
 					<option value="nachrichten" style="font-family: FontAwesome, sans-serif;">&#xf0a1; Nachrichtensuche</option>
