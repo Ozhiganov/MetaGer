@@ -1,15 +1,108 @@
-.qtheader {
-    font-size: 16px;
-    margin: 0px;
-    font-weight: bold;
-}
+/* Quicktips */
 
-.qt-icon {
-    height: 60px;
-}
 
-.detail-short {
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 30px;
+/*
+ * <div id="quicktips">
+ *   <div class="quicktip" type="TYPE">
+ *     <details>
+ *       <summary>
+ *         <h1><a href="URL">TITLE
+ *         <p>SUMMARY
+ *       <div class="quicktip-detail">
+ *         <h1><a href="DETAILURL">DETAILTITLE
+ *         <p>DETAILSUMMARY
+ *     <span>GEFVON
+ * </...>
+ */
+
+#quicktips {
+    display: flex;
+    flex-direction: column;
+    details[open=""] .quicktip-extender {
+        animation-name: quicktip-extender-turn;
+        animation-fill-mode: forwards;
+    }
+    .quicktip {
+        margin: 10px 0px;
+        padding: 10px 0px 10px 10px;
+        border-left: 3px solid #fb0;
+        details:not([open=""]) {
+            .quicktip-summary p {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .quicktip-summary {
+            h1 {
+                margin: 0px 0px 5px 0px;
+                font-size: 18px;
+                font-weight: bold;
+                display: flex;
+                justify-content: space-between;
+                .quicktip-extender {
+                    margin-left: 10px;
+                    color: #777;
+                    font-size: 20px;
+                }
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+        .quicktip-detail {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            h2 {
+                margin: 10px 0px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            p {
+                display: none;
+                font-size: 14px;
+            }
+        }
+        .gefVon {
+            float: right;
+            font-size: 15px;
+        }
+        &[type=spruch] {
+            border-left: 3px solid #070;
+            p {
+                color: #070;
+                .author {
+                    color: #404040;
+                    font-style: italic;
+                }
+            }
+        }
+        &[type=spendenaufruf] {
+            border-left: #ddd;
+            color: #ff8000;
+            .quicktip-summary {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h1 {
+                    margin: 0px;
+                }
+                p {
+                    margin: 5px;
+                    .spendenaufruf-btn {
+                        color: white;
+                        background-color: #ff8000;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        &[type=dictCC] {
+            .quicktip-summary {
+                p {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }
