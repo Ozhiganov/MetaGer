@@ -52,8 +52,8 @@
 		</span>
 		@if( isset($result->partnershop) && $result->partnershop === TRUE )
 			<span class="partnershop-info">
-			<img src="/img/boosticon.png" height="13" alt="">
-			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">{!! trans('result.options.4') !!}</a>
+				<img src="/img/boosticon.png" height="13" alt="">
+				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">{!! trans('result.options.4') !!}</a>
 			</span>
 		@endif
 		<a class="result-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
@@ -61,16 +61,16 @@
 			<span>{!! trans('result.options.5') !!}</span>
 		</a>
 	</div>
-	<div>
+	<div class="result-body">
 		@if( isset($result->logo) )
-			<div>
+			<div class="result-logo">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}">
 					<img src="{{ $metager->getImageProxyLink($result->logo) }}" alt="" />
 				</a>
 			</div>
 		@endif
 		@if( $result->image !== "" )
-			<div class="description">
+			<div class="result-image result-description">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}"  rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
 				</a>
@@ -78,9 +78,13 @@
 			</div>
 		@else
 			@if( $metager->getFokus() == "nachrichten" )
-				<div class="description"><span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}</div>
+				<div class="result-description">
+					<span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}
+				</div>
 			@else
-				<div class="description">{{ $result->descr }}</div>
+				<div class="result-description">
+					{{ $result->descr }}
+				</div>
 			@endif
 		@endif
 	</div>
