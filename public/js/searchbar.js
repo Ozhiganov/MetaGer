@@ -22,6 +22,7 @@ function setSearchbarActionListeners () {
   $('.focusCheckbox').click(checkboxCheckListener);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
   $('#editFocusBtn').click(editCurrentFocus);
+  $('#toggleOptBtn').click(toggleOptionsDialog);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
   $('#focus-select').change(focusChanged);
@@ -376,6 +377,30 @@ function getFocusInUrl () {
     return focReg[1];
   }
 }
+
+function toggleOptionsDialog() {
+  var btnMode = $('#toggleOptBtn').attr('data-mode');
+  if (btnMode == 'o') {
+    openOptionsDialog();
+  } else {
+    closeOptionsDialog();
+  }
+}
+
+function openOptionsDialog() {
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'c');
+  $('.search-option-frame').css('display', 'flex');
+
+}
+
+function closeOptionsDialog() {
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'o');
+  $('.search-option-frame').css('display', 'none');
+}
+
+
 
 function checkboxCheckListener (event) {
   toggleDeleteButton();

@@ -9,10 +9,17 @@
     color: #333;
     .search-focus-selector {
         border-radius: 5px 0px 0px 5px;
-        background-color: white;
-        position: relative;
-        text-overflow: ellipsis;
         display: flex;
+        align-items: center;
+        position: relative;
+
+        &>button {
+            border: none;
+            border-right: 1px solid rgb(170, 170, 170);
+            background-color: white;
+            margin: 5px;
+        }
+
         select {
             width: 100%;
             -webkit-appearance: none;
@@ -38,8 +45,36 @@
             pointer-events: none;
         }
     }
-    .search-add-focus {
+
+    .search-option-frame {
+        display: none;
+        position: absolute;
+        background-color: white;
+        top: 50px;
+        padding: 10px;
+        border: 1px solid rgb(175, 175, 175);
+        border-radius: 4px;
+
+        .searchbar-options-arrow {
+            width: 0;
+            height: 0;
+            top: -5px;
+            position: absolute;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid rgb(175, 175, 175);
+            margin-left: 3%;
+        }
+    }
+
+    .search-button-container {
         display: flex;
+        margin-top: 3%;
+    }
+    
+    .search-add-focus {
+        //display: flex;
+        position: relative;
         button {
             background-color: white;
             border: none;
@@ -51,7 +86,8 @@
         }
     }
     .search-edit-focus {
-        display: flex;
+        //display: flex;
+        position: relative;
         button {
             background-color: white;
             border: none;
@@ -63,15 +99,17 @@
         }
     }
     .search-settings {
-        display: flex;
+        //display: flex;
+        position: relative;
         a.btn {
             border: none;
             padding: 0px 8px;
-            display: flex;
+            display: block;
             align-items: center;
             font-size: 16px;
         }
     }
+
     .search-input-submit {
         flex-grow: 1;
         display: flex;
@@ -178,7 +216,7 @@ div:hover>.searchbar-tooltip {
                 border-left: 1px solid #aaa;
             }
         }
-        *:not(.search-submit) {
+        *:not(.search-submit, .searchbar-options-arrow) {
             width: 100%;
         }
     }
@@ -213,13 +251,32 @@ div:hover>.searchbar-tooltip {
     }
 }
 
-@media (min-width: @screen-sm-min) {
-    #research-bar {
-        position: fixed;
-        width: 100%;
+.searchbar-tooltip {
+    display: none;
+    position: absolute;
+    top: 45px;
+    left: -10px;
+    &>.searchbar-tooltip-arrow {
+        position: absolute;
+        top: -4px;
+        left: 20px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #ff8000;
     }
-    #research-bar-placeholder {
-        height: 60px;
+    &>.searchbar-tooltip-content {
+        position: relative;
+        &>p {
+            display: inline-block;
+            background: #ff8000;
+            border-radius: .25em;
+            font-size: 16px;
+            color: white;
+            padding: 5px 10px;
+            white-space: nowrap;
+        }
     }
 }
 
