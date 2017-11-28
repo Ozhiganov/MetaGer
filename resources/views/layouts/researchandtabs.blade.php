@@ -17,6 +17,8 @@
 			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
 		</div>
 	</header>
+	<div id="research-bar-placeholder">
+	</div>
 	<main class="resultpage-container">
 		@yield('results')
 	</main>
