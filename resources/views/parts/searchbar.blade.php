@@ -22,37 +22,49 @@
 					<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Kartensuche</option>
 				</select>
 				<div class="search-option-frame hide">
-					<div class="searchbar-options-arrow">
-					</div>
+					<div class="searchbar-options-arrow"></div>
 					<div class="search-button-container">
 						<div class="search-add-focus js-only">
+							<div class="search-option-descriptor">
+								<label for="addFocusBtn">{{{ trans('index.tooltips.add-focus') }}}</label>
+							</div>
 							<button type="button" id="addFocusBtn">
 								<i class="fa fa-plus"></i>
 							</button>
 							<div class="searchbar-tooltip">
-								<div class="searchbar-tooltip-arrow">
-								</div>
+								<div class="searchbar-tooltip-arrow"></div>
 								<div class="searchbar-tooltip-content">
-								<p>{{{ trans('index.add-focus') }}}</p>
+									<p>{{{ trans('index.tooltips.add-focus') }}}</p>
 								</div>
 							</div>
 						</div>
 						<div class="search-edit-focus js-only">
+							<div class="search-option-descriptor">
+								<label for="editFocusBtn">{{{ trans('index.tooltips.edit-focus') }}}</label>
+							</div>
 							<button type="button" id="editFocusBtn" title="@lang('index.edit-focus')">
 								<i class="fa fa-wrench"></i>
 							</button>
 							<div class="searchbar-tooltip">
-								<div class="searchbar-tooltip-arrow">
-								</div>
+								<div class="searchbar-tooltip-arrow"></div>
 								<div class="searchbar-tooltip-content">
-								<p>{{{ trans('index.edit-focus') }}}</p>
+									<p>{{{ trans('index.tooltips.edit-focus') }}}</p>
 								</div>
 							</div>
 						</div>
 						<div class="search-settings">
+							<div class="search-option-descriptor">
+								<label for="settings-btn">{{{ trans('index.tooltips.settings') }}}</label>
+							</div>
 							<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
 								<i class="fa fa-cog" aria-hidden="true"></i>
 							</a>
+							<div class="searchbar-tooltip">
+								<div class="searchbar-tooltip-arrow"></div>
+								<div class="searchbar-tooltip-content">
+									<p>{{{ trans('index.tooltips.settings') }}}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
