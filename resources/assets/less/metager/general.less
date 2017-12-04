@@ -1,0 +1,178 @@
+/* Default Font */
+
+* {
+    font-family: Liberation Sans, sans-serif;
+}
+
+
+/* Main Containers */
+
+html,
+body,
+.content-wrapper {
+    width: 100%;
+}
+
+html {
+    min-height: 100%;
+    height: auto;
+    display: flex;
+}
+
+body {
+    flex-grow: 1;
+    background-image: inherit;
+    background-color: @body-background-color;
+    background-attachment: fixed;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+
+/* Logo */
+
+.logo h1,
+h1.mg-logo {
+    color: rgb(255, 128, 0);
+    font-weight: bold;
+}
+
+#mglogo {
+    color: rgb(255, 128, 0);
+    text-align: center;
+    &>a {
+        display: block;
+        text-decoration: none;
+        font-size: 1.1em;
+        font-family: Liberation Sans, sans-serif;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 1.0em;
+        line-height: 1;
+        white-space: nowrap;
+        border-radius: .25em;
+        margin: 0 auto;
+    }
+}
+
+.metager-logo {
+    height: 30px;
+    float: left;
+    top: -2px;
+    margin-right: 3px;
+}
+
+.logo {
+    height: 30px!important;
+    &>h1 {
+        font-size: 30px;
+    }
+}
+
+
+/* Links that look like text */
+
+.mutelink {
+    &,
+    &:focus,
+    &:active,
+    &:visited {
+        color: inherit;
+    }
+}
+
+
+/* Summary Elements */
+
+summary {
+    cursor: pointer;
+    &::-webkit-details-marker {
+        display: none;
+    }
+    &::-moz-details-marker {
+        display: none;
+    }
+    &::-ms-details-marker {
+        display: none;
+    }
+    &::-o-details-marker {
+        display: none;
+    }
+    &::details-marker {
+        display: none;
+    }
+}
+
+
+/* New Feature Badge */
+
+.new-feature.badge {
+    background-color: @new-feature-badge-background-color;
+}
+
+
+/* Box to match Image size */
+
+.imagebox {
+    display: flex;
+    a {
+        display: flex;
+    }
+}
+
+
+/* Unsorted */
+
+.bold {
+    font-weight: bold;
+}
+
+@media print {
+    .noprint {
+        display: none!important;
+    }
+}
+
+nav {
+    h1 {
+        margin: 0;
+        height: 100%;
+        padding-left: 20px;
+        padding-top: 8px;
+        font-family: sans-serif;
+        font-style: italic;
+        margin: 0;
+        font-weight: bold;
+        line-height: 1;
+        white-space: nowrap;
+    }
+    .navbar-brand>div.logo {
+        height: 100%;
+    }
+}
+
+.modal-content {
+    border-radius: 0;
+    -webkit-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    -moz-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+}
+
+label a {
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
