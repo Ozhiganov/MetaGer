@@ -1,27 +1,27 @@
 @extends('layouts.resultPage')
 
 @section('results')
-	{{-- Show all errors --}}
-	@if(sizeof($errors) > 0)
-		<div class="alert alert-danger">
-			<ul>
-				@foreach($errors as $error)
-					<li>{!! $error !!}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
-	{{-- Show all warnings --}}
-	@if(sizeof($warnings) > 0)
-		<div class="alert alert-warning">
-			<ul>
-				@foreach($warnings as $warning)
-					<li>{!! $warning !!}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 	<div id="results">
+		{{-- Show all errors --}}
+		@if(sizeof($errors) > 0)
+			<div class="alert alert-danger">
+				<ul>
+					@foreach($errors as $error)
+						<li>{!! $error !!}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		{{-- Show all warnings --}}
+		@if(sizeof($warnings) > 0)
+			<div class="alert alert-warning">
+				<ul>
+					@foreach($warnings as $warning)
+						<li>{!! $warning !!}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
 		{{-- Show initial products or ads --}}
 		@if($metager->hasProducts())
 			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
