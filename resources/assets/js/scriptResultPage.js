@@ -375,19 +375,3 @@ function initialLoadContent (fokus) {
     getDocumentReadyForUse(fokus);
   });
 }
-
-function resultSaver (index) {
-  var title = $('div.tab-pane.active .result[data-count=' + index + '] a.title').html();
-  var link = $('div.tab-pane.active .result[data-count=' + index + '] a.title').attr('href');
-  var anzeigeLink = $('div.tab-pane.active .result[data-count=' + index + '] div.link-link > a').html();
-  var gefVon = $('div.tab-pane.active .result[data-count=' + index + '] span.hoster').html();
-  var hoster = $('div.tab-pane.active .result[data-count=' + index + '] a.title').attr('data-hoster');
-  var anonym = $('div.tab-pane.active .result[data-count=' + index + '] a.proxy').attr('href');
-  var description = $('div.tab-pane.active .result[data-count=' + index + '] div.description').html();
-  var color = $('div.tab-pane.active .result[data-count=' + index + '] div.number').css('color');
-  var rank = parseFloat($('div.tab-pane.active .result[data-count=' + index + ']').attr('data-rank'));
-  new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, color, rank, undefined);
-  var to = $('#savedFokiTabSelector').length ? $('#savedFokiTabSelector') : $('#foki');
-  $('div.tab-pane.active .result[data-count=' + index + ']').transfer({to: to, duration: 1000});
-  new Results().updateResultPageInterface();
-}

@@ -21,7 +21,7 @@
 			</ul>
 		</div>
 	@endif
-	<div id="results">
+	<main id="results">
 		{{-- Show initial products or ads --}}
 		@if($metager->hasProducts())
 			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
@@ -54,8 +54,5 @@
 				<a @if($metager->nextSearchLink() !== "#") href="{{ $metager->nextSearchLink() }}" @endif>{{ trans('results.weiter') }}</a>
 			</div>
 		</nav>
-	</div>
-	@if( $metager->showQuicktips() )
-		<div id="quicktips"></div>
-	@endif
+	</main>
 @endsection
