@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<span class="result-hoster">
-			<span>von {!! $result->gefVon !!}</span>
+			von {!! $result->gefVon !!}
 		</span>
 		@if( isset($result->partnershop) && $result->partnershop === TRUE )
 			<span class="partnershop-info">
