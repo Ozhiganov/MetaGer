@@ -5,7 +5,7 @@
 		<div class="searchbar {{$class or ''}}">
 			<div class="search-focus-selector">
 				<button type="button" id="toggleOptBtn" class="js-only" data-mode="o">
-					<i class="fa fa-chevron-down"></i>
+					<i class="fa fa-sliders"></i>
 				</button>
 				<div class="no-js">
 					<div class="search-settings">
