@@ -12,6 +12,12 @@
 						<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
 							<i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
+						<div class="searchbar-tooltip">
+							<div class="searchbar-tooltip-arrow"></div>
+							<div class="searchbar-tooltip-content">
+								<p>{{{ trans('index.tooltips.settings') }}}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 				<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
