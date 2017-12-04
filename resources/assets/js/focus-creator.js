@@ -12,7 +12,6 @@ function setFocusCreatorActionListeners () {
   $('.focusCheckbox').click(checkboxCheckListener);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
   $('#editFocusBtn').click(editCurrentFocus);
-  $('#toggleOptBtn').click(toggleOptionsDialog);
   $('.save-focus-btn').click(saveFocus);
   $('.delete-focus-btn').click(deleteFocus);
   $('#focus-select').change(focusChanged);
@@ -337,15 +336,6 @@ function getFocusInUrl () {
   var focReg = /focus=(focus_\w+)/.exec(url);
   if (focReg && focReg[1]) {
     return focReg[1];
-  }
-}
-
-function toggleOptionsDialog () {
-  var btnMode = $('#toggleOptBtn').attr('data-mode');
-  if (btnMode == 'o') {
-    openOptionsDialog();
-  } else {
-    closeOptionsDialog();
   }
 }
 

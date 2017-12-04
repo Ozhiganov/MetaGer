@@ -1,5 +1,6 @@
 $(function () {
   loadLocalStorage();
+  setSearchbarActionListeners();
 });
 
 /**
@@ -9,6 +10,10 @@ function loadLocalStorage () {
   if (localStorage) {
     setSettings();
   }
+}
+
+function setSearchbarActionListeners () {
+  $('#toggleOptBtn').click(toggleOptionsDialog);
 }
 
 function setSettings () {
@@ -35,5 +40,14 @@ function setSettings () {
   var requestMethod = localStorage.getItem('request');
   if (requestMethod !== null && (requestMethod === 'GET' || requestMethod === 'POST')) {
     $('#searchForm').attr('method', requestMethod);
+  }
+}
+
+function toggleOptionsDialog () {
+  var btnMode = $('#toggleOptBtn').attr('data-mode');
+  if (btnMode == 'o') {
+    openOptionsDialog();
+  } else {
+    closeOptionsDialog();
   }
 }
