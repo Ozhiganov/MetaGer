@@ -1,15 +1,34 @@
 /**
+ * Global Results type element
+ */
+RESULTS_GLOBAL = null;
+
+/**
+ * Returns the global results object,
+ * creates it if necessary
+ * @returns {Results} The global results object
+ */
+function results() {
+  if (!RESULTS_GLOBAL) {
+    RESULTS_GLOBAL = new Results();
+  }
+  return RESULTS_GLOBAL;
+}
+
+/**
  * Load all saved results and sort them
  * @param {String} sort The type of sorting function to call for these results
  */
-function Results (sort) {
-  if (!localStorage) return false;
+function Results () { //TODO remove sort
+  if (!localStorage) return;
   this.prefix = 'result_';
-  this.sort = sort;
+  this.sort = 'chronological';
   this.results = [];
   this.loadAllResults();
   this.length = this.results.length;
   this.sortResults();
+
+  results = this;
 }
 
 /**
@@ -113,8 +132,6 @@ Results.prototype.updateResultPageInterface = function () {
  * @param {HTML-Element} container The element to add the saved-results to
  */
 Results.prototype.addToContainer = function (container) {
-  var results = this;
-
   // Create the saver-options element, which is a bar containing 
   // options for filtering, sorting and deleting all results
   var options = $('\
@@ -146,14 +163,14 @@ Results.prototype.addToContainer = function (container) {
   // When the sorting select value is changed, 
   // Sort all results with the selected sorting function and update their appearance
   $(options).find('select').change(function () {
-    results.sortResults($(this).val()).updateResultPageInterface();
+    results().sortResults($(this).val()).updateResultPageInterface();
   });
 
   // When the delete button is clicked,
   // Delete all results and update their appearance
   $(options).find('#saver-options-delete-btn').click(function (event) {
-    results.deleteAllResults();
-    results.updateResultPageInterface();
+    results().deleteAllResults();
+    results().updateResultPageInterface();
   });
 
   // When the user is done typing into the filter input field,
@@ -316,6 +333,7 @@ Result.prototype.remove = function () {
 
 /**
  * Converts this result object into an html element
+ * @returns {HTML-Element} The converted HTML-Element
  */
 Result.prototype.toHtml = function () {
   // Create the saved-result element
@@ -376,10 +394,10 @@ function resultSaver (index) {
   var description = $('.result[data-count=' + index + '] .result-description').html();
 
   // Create the result object
-  new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, index, undefined);
+  var result = new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, index, undefined);
 
   // Update the saved results
-  new Results().updateResultPageInterface();
+  results().updateResultPageInterface();
 
   // Animate the result transfer to the saved results
   var transferTarget = $('.saved-result[data-count=' + index + ']');
