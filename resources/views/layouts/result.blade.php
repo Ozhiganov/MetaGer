@@ -56,10 +56,12 @@
 				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">{!! trans('result.options.4') !!}</a>
 			</span>
 		@endif
-		<a class="result-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-			<img src="/img/proxyicon.png" alt="" />
-			<span>{!! trans('result.options.5') !!}</span>
-		</a>
+		<span class="result-proxy">
+			<a onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+				<img src="/img/proxyicon.png" alt="" />
+				<span>{!! trans('result.options.5') !!}</span>
+			</a>
+		</span>
 	</div>
 	<div class="result-body">
 		@if( isset($result->logo) )

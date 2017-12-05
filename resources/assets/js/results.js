@@ -250,34 +250,33 @@ Result.prototype.remove = function () {
 
 Result.prototype.toHtml = function () {
   var result = $('\
-    <div class="result row">\
-      <div class="col-sm-1 glyphicon glyphicon-trash remover" title="Ergebnis aus dem Speicher löschen">\
+    <div class="saved-result result">\
+      <div class="saved-result-remover remover" title="Ergebnis aus dem Speicher löschen">\
+        <i class="fa fa-trash"></i>\
       </div>\
-      <div class="result-information col-xs-12 col-sm-11">\
-        <div class="col-xs-10 col-sm-11" style="padding:0; ">\
-          <p class="title">\
-            <a class="title" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="1" rel="noopener">\
-              ' + this.title + '\
-            </a>\
-          </p>\
-          <div class="link">\
-            <div>\
-              <div class="link-link">\
-                <a href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="' + this.index + '" rel="noopener">\
-                  ' + this.anzeigeLink + '\
-                </a>\
-            </div>\
-          </div>\
-          <span class="hoster">\
-            ' + this.gefVon + '\
-          </span>\
-          <a class="proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.proxy + '" target="_blank" rel="noopener" data-original-title="" title="">\
-            <img src="/img/proxyicon.png" alt="">\
-            anonym öffnen\
+      <div class="saved-result-content">\
+        <h2 class="result-title">\
+          <a class="title" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="1" rel="noopener">\
+            ' + this.title + '\
           </a>\
+        </h2>\
+        <div class="result-header">\
+          <div class="result-link">\
+            <a href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="' + this.index + '" rel="noopener">\
+              ' + this.anzeigeLink + '\
+            </a>\
+          </div>\
+          <span class="result-hoster">' + this.gefVon + '</span>\
+          <span class="result-proxy">\
+            <a class="result-proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.proxy + '" target="_blank" rel="noopener" data-original-title="" title="">\
+              <img src="/img/proxyicon.png" alt="">\
+              anonym öffnen\
+            </a>\
+          </span>\
         </div>\
-      </div>\
-      <div class="description">' + this.description + '</div>\
+        <div class="result-body">\
+          <div class="description">' + this.description + '</div>\
+        </div>\
       </div>\
     </div>');
   $(result).find('.remover').click({caller: this}, function (event) {

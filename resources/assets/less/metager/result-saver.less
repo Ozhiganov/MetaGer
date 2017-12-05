@@ -1,5 +1,10 @@
+@saved-result-distance-first: 10px;
+@saved-result-distance-between: 10px;
+
 #savedFoki {
     padding-top: 50px;
+    display: flex;
+    flex-direction: column;
     #saver-options {
         display: flex;
         flex-direction: column;
@@ -20,6 +25,22 @@
         }
         .saver-option-delete button {
             width: 100%;
+        }
+    }
+    .saved-result {
+        display: flex;
+        align-items: baseline;
+        margin-top: @saved-result-distance-first;
+        margin-bottom: @saved-result-distance-between;
+        padding-bottom: @saved-result-distance-between;
+        .saved-result-remover {
+            padding: 0px 10px;
+            .fa {
+                font-size: 20px;
+            }
+        }
+        .saved-result-content {
+            overflow: hidden;
         }
     }
 }
