@@ -8,18 +8,22 @@
 		</div>
 	</div>
 @endif
-<div class="content-wrapper">
-	<header id="research-bar">
-		<div id="header-logo">
-			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
-		</div>
-		<div id="header-searchbar">
-			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
-		</div>
-	</header>
-	<div id="research-bar-placeholder">
+<header id="research-bar">
+	<div id="header-logo">
+		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
 	</div>
-	<main class="resultpage-container">
+	<div id="header-searchbar">
+		@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+	</div>
+</header>
+<div id="research-bar-placeholder"></div>
+<div id="resultpage-container">
+	<div id="results-container">
 		@yield('results')
-	</main>
+	</div>
+	<div id="additions-container">
+		@if( $metager->showQuicktips() )
+			<div id="quicktips"></div>
+		@endif
+	</div>
 </div>
