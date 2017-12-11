@@ -71,9 +71,12 @@
             border-left: 3px solid #070;
             p {
                 color: #070;
+                display: flex;
+                flex-direction: column;
                 .author {
                     color: #404040;
                     font-style: italic;
+                    align-self: end;
                 }
             }
         }
@@ -102,6 +105,15 @@
                 p {
                     font-weight: bold;
                 }
+            }
+        }
+        &[type=duckDuckGo-bang] {
+            .bang-btn {
+                width: 100%;
+                margin-top: 5px;
+                color: #fff;
+                background-color: #286992;
+                font-size: 16px;
             }
         }
     }
