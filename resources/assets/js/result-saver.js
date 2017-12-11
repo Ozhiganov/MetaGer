@@ -1,35 +1,39 @@
 /**
- * Global Results type element
+ * All results are stored in the global object 'results'
  */
-RESULTS_GLOBAL = null;
+results = new Results();
 
-/**
- * Returns the global results object,
- * creates it if necessary
- * @returns {Results} The global results object
- */
-function results() {
-  if (!RESULTS_GLOBAL) {
-    RESULTS_GLOBAL = new Results();
-  }
-  return RESULTS_GLOBAL;
-}
+$(document).ready(function () {
+  // Add all saved results
+  results.loadAllResults();
+  // Sort all results
+  results.sortResults();
+  // Update the visualization
+  results.updateResultPageInterface();
+});
 
 /**
  * Load all saved results and sort them
  * @param {String} sort The type of sorting function to call for these results
  */
-function Results () { //TODO remove sort
+function Results () {
   if (!localStorage) return;
   this.prefix = 'result_';
   this.sort = 'chronological';
   this.results = [];
-  this.loadAllResults();
-  this.length = this.results.length;
-  this.sortResults();
-
-  results = this;
 }
+
+/**
+ * Adds a result to the list of results
+ * @param {Result} result The result to add
+ */
+Results.prototype.addResult = function (result) {
+  if (this.results.every(function (val) {
+      return val.hash !== result.hash;
+    })) {
+    this.results.push(result);
+  }
+};
 
 /**
  * Sorts all results according to the sort-type given with this.sort
@@ -51,7 +55,7 @@ Results.prototype.sortResults = function () {
         return 0;
       });
       break;
-    case 'alphabetical':
+    case 'alphabetical': // by hostname
       this.results.sort(function (a, b) {
         if (b.hostname > a.hostname) return -1;
         if (b.hostname < a.hostname) return 1;
@@ -75,8 +79,6 @@ Results.prototype.loadAllResults = function () {
       key = key.substr(this.prefix.length);
       // Create the result for this key by loading it from localstorage
       var tmpResult = new Result(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, key);
-      // Give the result an unique index
-      tmpResult.setIndex(i);
       // Add the result to the list of results
       this.results.push(tmpResult);
     }
@@ -87,6 +89,7 @@ Results.prototype.loadAllResults = function () {
  * Delete all results from localstorage
  */
 Results.prototype.deleteAllResults = function () {
+  this.results = [];
   var keys = [];
   // Save all keys starting with the prefix used for saved results into the keys array
   for (var i = 0; i < localStorage.length; i++) {
@@ -160,33 +163,41 @@ Results.prototype.addToContainer = function (container) {
   // Add the saver-options element to the given container
   $(container).append(options);
 
-  // When the sorting select value is changed, 
-  // Sort all results with the selected sorting function and update their appearance
-  $(options).find('select').change(function () {
-    results().sortResults($(this).val()).updateResultPageInterface();
-  });
-
-  // When the delete button is clicked,
-  // Delete all results and update their appearance
-  $(options).find('#saver-options-delete-btn').click(function (event) {
-    results().deleteAllResults();
-    results().updateResultPageInterface();
-  });
-
+  /* ~~~ Filter ~~~ */
   // When the user is done typing into the filter input field,
   // Filter all results, only showing ones that contain the filer
   $(options).find('input').keyup(function () {
     // Get the entered filter
     var search = $(this).val();
     // Hide all results that do not contain the entered filter
-    $('#savedFoki saved-result-content').each(function (index, value) {
+    $('#savedFoki .saved-result-content').each(function (index, value) {
+      // check for filter in all of the elements html-content
       var html = $(this).html();
       if (html.toLowerCase().indexOf(search.toLowerCase()) === -1) {
-        $(value).addClass('hidden');
+        // hide entire result block
+        $(value).parent().addClass('hidden');
       }else {
-        $(value).removeClass('hidden');
+        // show entire result block
+        $(value).parent().removeClass('hidden');
       }
     });
+  });
+
+  /* ~~~ Sort ~~~ */
+  // When the sorting select value is changed, 
+  // Sort all results with the selected sorting function and update their appearance
+  $(options).find('select').change(function () {
+    var sort = $(this).val();
+    results.sort = sort;
+    results.sortResults(sort).updateResultPageInterface();
+  });
+
+  /* ~~~ Delete ~~~ */
+  // When the delete button is clicked,
+  // Delete all results and update their appearance
+  $(options).find('#saver-options-delete-btn').click(function (event) {
+    results.deleteAllResults();
+    results.updateResultPageInterface();
   });
 
   // Append all results available
@@ -207,18 +218,19 @@ Results.prototype.addToContainer = function (container) {
  * @param {int} rank The rank of this result
  * @param {int} hash The hash value for this result
  */
-function Result (title, link, anzeigeLink, gefVon, hoster, anonym, description, rank, hash) {
+function Result (title, link, anzeigeLink, gefVon, hoster, anonym, description, index, hash) {
   // Set prefix for localstorage
   this.prefix = 'result_';
 
-  if (hash !== null && hash !== undefined) {
-    // If a hash is given, the result for this hash is loaded from localstorage
-    this.hash = hash;
-    this.load();
-  } else {
-    // If no hash is given, calculate it
-    this.hash = MD5(title + link + anzeigeLink + gefVon + hoster + anonym + description);
+  if (hash === null || hash === undefined) {
+    // Calculate the hash value of this result
+    hash = MD5(title + link + anzeigeLink + gefVon + hoster + anonym + description);
+  }
 
+  this.hash = hash;
+
+  // Try to load the result, if there was none create it
+  if (!this.load()) {
     // Save all important data
     this.title = title;
     this.link = link;
@@ -227,11 +239,13 @@ function Result (title, link, anzeigeLink, gefVon, hoster, anonym, description, 
     this.hoster = hoster;
     this.anonym = anonym;
     this.description = description;
-    this.rank = rank;
+    this.index = index;
+    this.rank = index;
     this.added = new Date().getTime();
-    var parser = document.createElement('a');
-    parser.href = this.anzeigeLink;
-    this.hostname = parser.hostname;
+    // read the hostname from the displayed link
+    // matches everything from after a 'www' to the locality ending ('de', 'com', etc.)
+    var matches = /(?:www\.)*((?:[\w\-]+\.)+\w{2,3})(?:$|[/?])/.exec(this.anzeigeLink);
+    this.hostname = matches[1];
 
     // Save this result to localstorage
     this.save();
@@ -262,6 +276,7 @@ Result.prototype.load = function () {
   this.anonym = result.anonym;
   this.description = result.description;
   this.added = result.added;
+  this.index = -result.index;
   this.rank = result.rank;
   this.hostname = result.hostname;
 
@@ -284,6 +299,7 @@ Result.prototype.save = function () {
     anonym: this.anonym,
     description: this.description,
     added: this.added,
+    index: this.index,
     rank: this.rank,
     hostname: this.hostname
   };
@@ -328,7 +344,11 @@ Result.prototype.setIndex = function (index) {
  */
 Result.prototype.remove = function () {
   localStorage.removeItem(this.prefix + this.hash);
-  new Results().updateResultPageInterface();
+  var hash = this.hash;
+  results.results.splice(results.results.findIndex(function (result) {
+    return result.hash === hash;
+  }), 1);
+  results.updateResultPageInterface();
 };
 
 /**
@@ -350,7 +370,7 @@ Result.prototype.toHtml = function () {
         </h2>\
         <div class="result-header">\
           <div class="result-link">\
-            <a href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="' + this.index + '" rel="noopener">\
+            <a href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" rel="noopener">\
               ' + this.anzeigeLink + '\
             </a>\
           </div>\
@@ -385,21 +405,29 @@ function resultSaver (index) {
   var original = $('.result[data-count=' + index + ']');
 
   // Read the necessary data from the result html
-  var title = $('.result[data-count=' + index + '] .result-title a').html();
-  var link = $('.result[data-count=' + index + '] .result-title a').attr('href');
-  var anzeigeLink = $('.result[data-count=' + index + '] .result-link a').html();
-  var gefVon = $('.result[data-count=' + index + '] .result-hoster a').html();
-  var hoster = $('.result[data-count=' + index + '] .result-hoster a').attr('href');
-  var anonym = $('.result[data-count=' + index + '] .result-proxy').attr('href');
-  var description = $('.result[data-count=' + index + '] .result-description').html();
+  var title = $('.result[data-count=' + index + '] .result-title a').html().trim();
+  var link = $('.result[data-count=' + index + '] .result-title a').attr('href').trim();
+  var anzeigeLink = $('.result[data-count=' + index + '] .result-link a').html().trim();
+  var gefVon = $('.result[data-count=' + index + '] .result-hoster a').html().trim();
+  var hoster = $('.result[data-count=' + index + '] .result-hoster a').attr('href').trim();
+  var anonym = $('.result[data-count=' + index + '] .result-proxy a').attr('href').trim();
+  var description = $('.result[data-count=' + index + '] .result-description').html().trim();
 
   // Create the result object
-  var result = new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, index, undefined);
+  var result = new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, index, null);
+
+  // Add new result to results
+  results.addResult(result);
+
+  // Sort results
+  results.sortResults();
 
   // Update the saved results
-  results().updateResultPageInterface();
+  results.updateResultPageInterface();
 
   // Animate the result transfer to the saved results
   var transferTarget = $('.saved-result[data-count=' + index + ']');
-  $(original).transfer({to: transferTarget, duration: 1000});
+  if (original.length > 0 && transferTarget.length > 0) {
+    $(original).transfer({to: transferTarget, duration: 1000});
+  }
 }
