@@ -4,7 +4,6 @@ $(document).ready(function () {
   var custom = $('#foki > li.active').hasClass('custom-focus-tab-selector');
   getDocumentReadyForUse(focus, custom);
   botProtection();
-  new Results().updateResultPageInterface(); // Adds the saved Results if they are present
   if (document.location.href.indexOf('focus=container') !== -1) {
     $($('#foki > li#savedFokiTabSelector').get(0)).find('>a').tab('show');
   }
