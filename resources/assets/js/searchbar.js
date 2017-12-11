@@ -51,3 +51,5 @@ function toggleOptionsDialog () {
     closeOptionsDialog();
   }
 }
+
+//# sourceMappingURL=searchbar.js.map

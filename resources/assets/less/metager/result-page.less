@@ -1,6 +1,7 @@
 /* Ergebnisseite */
 
 @import "./quicktips.less";
+@import "./result-saver.less";
 @import "./result.less";
 @import "./product.less";
 //
@@ -342,12 +343,12 @@ a {
 
 @result-width: 700px;
 @quicktip-width: 500px;
-.resultpage-container {
+#resultpage-container {
     width: @result-width + @quicktip-width;
     align-self: center;
     @media (max-width: (@result-width + @quicktip-width - 1px)) {
         width: @result-width;
-        #quicktips {
+        #additions-container {
             display: none;
         }
     }
@@ -356,11 +357,11 @@ a {
     }
     display: flex;
     justify-content: center;
-    #results {
+    #results-container {
         max-width: @result-width;
         width: 100%;
     }
-    #quicktips {
+    #additions-container {
         padding-left: 50px;
         width: @quicktip-width;
     }

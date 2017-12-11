@@ -25,7 +25,7 @@
 			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
-			<div class="resultpage-container">
+			<div id="resultpage-container">
 				@yield('results')
 			</div>
 		@endif
