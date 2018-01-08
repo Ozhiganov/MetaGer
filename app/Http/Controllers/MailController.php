@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use LaravelLocalization;
 use Mail;
+use Validator;
 
 class MailController extends Controller
 {
@@ -24,6 +25,23 @@ class MailController extends Controller
         # Nachricht, die wir an den Nutzer weiterleiten:
         $messageType   = ""; # [success|error]
         $returnMessage = '';
+
+        # Wir benötigen 3 Felder von dem Benutzer wenn diese nicht übermittelt wurden, oder nicht korrekt sind geben wir einen Error zurück
+        $validator = Validator::make(
+            [
+                'email' => $request->input('email')
+            ],
+            [
+                'email' => 'required|email'
+            ]
+        );
+
+        if($validator->fails()){
+            return view('kontakt.kontakt')->with('formerrors', $validator)->with('title', trans('titles.kontakt'))->with('navbarFocus', 'kontakt');
+        }
+
+        $name = $request->input('name', '');
+
         $replyTo       = $request->input('email', 'noreply@metager.de');
         if ($replyTo === "") {
             $replyTo = "noreply@metager.de";
@@ -31,17 +49,17 @@ class MailController extends Controller
             $replyTo = $request->input('email');
         }
 
-        if (!$request->has('message')) {
+        if (!$request->has('message') || !$request->has('subject')) {
             $messageType   = "error";
-            $returnMessage = "Tut uns leid, aber leider haben wir mit Ihrer Kontaktanfrage keine Daten erhalten. Die Email wurde nicht versand";
+            $returnMessage = "Tut uns leid, aber leider haben wir mit Ihrer Kontaktanfrage keine Daten erhalten. Die Nachricht wurde nicht versandt.";
         } else {
             # Wir versenden die Mail des Benutzers an uns:
             $message = $request->input('message');
+            $subject = $request->input('subject');
+            Mail::to("support@suma-ev.de")
+                ->send(new Kontakt($name, $replyTo, $subject, $message));
 
-            Mail::to("office@suma-ev.de")
-                ->send(new Kontakt($replyTo, $message));
-
-            $returnMessage = 'Ihre Email wurde uns erfolgreich zugestellt. Vielen Dank dafür! Wir werden diese schnellstmöglich bearbeiten und uns dann ggf. wieder bei Ihnen melden.';
+            $returnMessage = 'Ihre Nachricht wurde uns erfolgreich zugestellt. Vielen Dank dafür! Wir werden diese schnellstmöglich bearbeiten und uns dann ggf. wieder bei Ihnen melden.';
             $messageType   = "success";
         }
 
@@ -53,6 +71,7 @@ class MailController extends Controller
 
     public function donation(Request $request)
     {
+
         # Der enthaltene String wird dem Benutzer nach der Spende ausgegeben
         $messageToUser = "";
         $messageType   = ""; # [success|error]
@@ -76,23 +95,29 @@ class MailController extends Controller
             # Kontonummer ( IBAN )
             # Bankleitzahl ( BIC )
             # Nachricht
-            if (!$request->has('Kontonummer') || !$request->has('Bankleitzahl') || !$request->has('Nachricht')) {
+            if (!$request->has('Kontonummer') || !$request->has('Bankleitzahl') || !$request->has('Betrag')) {
                 $messageToUser = "Sie haben eins der folgenden Felder nicht ausgefüllt: IBAN, BIC, Nachricht. Bitte korrigieren Sie Ihre Eingabe und versuchen es erneut.\n";
                 $messageType   = "error";
             } else {
                 $message = "\r\nName: " . $request->input('Name', 'Keine Angabe');
-                $message .= "\r\nTelefon: " . $request->input('Telefon', 'Keine Angabe');
                 $message .= "\r\nKontonummer: " . $request->input('Kontonummer');
                 $message .= "\r\nBankleitzahl: " . $request->input('Bankleitzahl');
+                $message .= "\r\nBetrag: " . $request->input('Betrag');
                 $message .= "\r\nNachricht: " . $request->input('Nachricht');
 
+                $message .= "\r\n\r\nIP: " . $request->ip();
+                $message .= "\r\nUser-Agent: " . $request->header('User-Agent', "");
+
                 $replyTo = $request->input('email', 'anonymous-user@metager.de');
+                if($replyTo == ""){
+                    $replyTo = "noreply@metager.de";
+                }
                 if (!filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
                     $messageToUser .= "Die eingegebene Email-Addresse ($replyTo) scheint nicht korrekt zu sein.";
                 }
 
                 try {
-                    Mail::to("office@suma-ev.de")
+                    Mail::to("spenden@suma-ev.de")
                         ->send(new Spende($replyTo, $message));
 
                     $messageType   = "success";
@@ -110,7 +135,7 @@ class MailController extends Controller
                 ->with('title', 'Kontakt')
                 ->with($messageType, $messageToUser);
         } else {
-            $data = ['name' => $request->input('Name', 'Keine Angabe'), 'telefon' => $request->input('Telefon', 'Keine Angabe'), 'kontonummer' => $request->input('Kontonummer'), 'bankleitzahl' => $request->input('Bankleitzahl'), 'email' => $request->input('email', 'anonymous-user@metager.de'), 'nachricht' => $request->input('Nachricht')];
+            $data = ['name' => $request->input('Name', 'Keine Angabe'), 'kontonummer' => $request->input('Kontonummer'), 'bankleitzahl' => $request->input('Bankleitzahl'), 'email' => $request->input('email', 'anonymous-user@metager.de'), 'betrag' => $request->input('Betrag'), 'nachricht' => $request->input('Nachricht')];
             $data = base64_encode(serialize($data));
             return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route("danke", ['data' => $data])));
         }

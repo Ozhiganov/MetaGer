@@ -23,21 +23,31 @@
 	@endif
 	<main id="results">
 		{{-- Show initial products or ads --}}
+		@if(!$apiAuthorized && !$metager->validated && LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
+			<div class="row" style="margin-bottom: 10px">
+				<div class="col-sm-1">
+				</div>
+				<div class="col-sm-10">
+				<a href="/spendenaufruf" target="_blank" style="
+			    background-color: white;
+			    display: inline-block;
+			    width: 100%;
+			    ">
+			    	<img src="/img/aufruf.png" alt="Spendenaufruf SuMa eV" width="100%">
+			    </a>
+			</div>
+			</div>
+		@endif
 		@if($metager->hasProducts())
 			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
 				@include('layouts.products', ['products' => $metager->getProducts()])
 			@endif
 		@else
-			@for($i = 0; $i <= 2; $i++)
+			@for($i = 0; $i <= 1; $i++)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endfor
 		@endif
 		{{-- Show map --}}
-		@if($metager->getMaps())
-			<div class="result" id="map">
-				<iframe class="" src="https://maps.metager.de/metager/{{ $metager->getQ() }}" scrolling="no" tabindex="-1" style="width: 100%; height:0; border:0;"></iframe>
-			</div>
-		@endif
 		{{-- Create results and ongoing ads --}}
 		@foreach($metager->getResults() as $result)
 			@if($result->number % 7 === 0)

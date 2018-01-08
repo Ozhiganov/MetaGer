@@ -5,7 +5,7 @@ namespace app\Models\parserSkripte;
 use App\Models\Searchengine;
 use Log;
 
-class Fernsehsuche extends Searchengine
+class Fess extends Searchengine
 {
     public $results = [];
 
@@ -23,14 +23,13 @@ class Fernsehsuche extends Searchengine
                 return;
             }
 
-            $results = $content->response->docs;
+            $results = $content->response->result;
             foreach ($results as $result) {
                 try {
-                    $title       = $result->show . " : " . $result->title;
-                    $link        = urldecode($result->url);
+                    $title       = $result->content_title;
+                    $link        = $result->url;
                     $anzeigeLink = $link;
-                    $descr       = $result->description;
-                    $image       = "http://api-resources.fernsehsuche.de" . $result->thumbnail;
+                    $descr       = $result->content_description;
                     $this->counter++;
                     $this->results[] = new \App\Models\Result(
                         $this->engine,
@@ -39,8 +38,7 @@ class Fernsehsuche extends Searchengine
                         $anzeigeLink,
                         $descr,
                         $this->gefVon,
-                        $this->counter,
-                        ['image' => $image]
+                        $this->counter
                     );
                 } catch (\ErrorException $e) {
 

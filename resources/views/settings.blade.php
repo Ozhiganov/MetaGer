@@ -16,13 +16,6 @@
 				</select>
 			</div>
 			<div>
-				<label class="select-label">@lang("settings.maps.label")</label>
-				<select class="form-control settings-form-control" name="param_maps">
-					<option value="on" selected>@lang("settings.maps.on")</option>
-					<option value="off">@lang("settings.maps.off")</option>
-				</select>
-			</div>
-			<div>
 				<label class="select-label">@lang("settings.tab.label")</label>
 				<select class="form-control settings-form-control" name="param_newtab">
 					<option value="on" selected>@lang("settings.tab.new")</option>
