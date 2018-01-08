@@ -24,18 +24,14 @@
 	<main id="results">
 		{{-- Show initial products or ads --}}
 		@if(!$apiAuthorized && !$metager->validated && LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
-			<div class="row" style="margin-bottom: 10px">
-				<div class="col-sm-1">
-				</div>
-				<div class="col-sm-10">
+			<div id="spendenaufruf" style="margin-bottom: 10px">
 				<a href="/spendenaufruf" target="_blank" style="
 			    background-color: white;
 			    display: inline-block;
 			    width: 100%;
 			    ">
 			    	<img src="/img/aufruf.png" alt="Spendenaufruf SuMa eV" width="100%">
-			    </a>
-			</div>
+			  </a>
 			</div>
 		@endif
 		@if($metager->hasProducts())
