@@ -52,4 +52,14 @@ function toggleOptionsDialog () {
   }
 }
 
-//# sourceMappingURL=searchbar.js.map
+function openOptionsDialog () {
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'c');
+  $('.search-option-frame').removeClass('hide');
+}
+
+function closeOptionsDialog () {
+  $('#toggleOptBtn').html('<i class="fa fa-sliders" aria-hidden="true"></i>');
+  $('#toggleOptBtn').attr('data-mode', 'o');
+  $('.search-option-frame').addClass('hide');
+}

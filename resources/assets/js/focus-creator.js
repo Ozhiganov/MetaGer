@@ -339,18 +339,6 @@ function getFocusInUrl () {
   }
 }
 
-function openOptionsDialog () {
-  $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
-  $('#toggleOptBtn').attr('data-mode', 'c');
-  $('.search-option-frame').removeClass('hide');
-}
-
-function closeOptionsDialog () {
-  $('#toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
-  $('#toggleOptBtn').attr('data-mode', 'o');
-  $('.search-option-frame').addClass('hide');
-}
-
 function checkboxCheckListener (event) {
   toggleDeleteButton();
   var elem = event.target;
