@@ -20,15 +20,7 @@
 @endif
 <div id="results">
 	@if(!$apiAuthorized && !$metager->validated && LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
-		<div id="spendenaufruf" style="margin-bottom: 10px">
-				<a href="/spendenaufruf" target="_blank" style="
-				background-color: white;
-				display: inline-block;
-				width: 100%;
-				">
-					<img src="/img/aufruf.png" alt="Spendenaufruf SuMa eV" width="100%">
-				</a>
-		</div>
+		@include('parts.spendenaufruf')
 	@endif
 	{{-- Show initial products or a
 	@if($metager->hasProducts())
