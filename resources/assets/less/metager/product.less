@@ -1,11 +1,14 @@
 /* Produktergebnisse */
 
-.product {
+.products {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    border: 1px dotted @product-border-color;
     padding: 5px;
-    max-width: 150px;
-    height: 210px;
+    .lSSlideOuter  {
+        margin-top: 5px;
+        border: 1px dotted @product-border-color;
+    }
     a {
         color: @product-a-color;
     }

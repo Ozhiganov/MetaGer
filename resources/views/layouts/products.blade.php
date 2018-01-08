@@ -1,6 +1,6 @@
-<div class="result product">
+<div class="result products">
 	<h2 class="result-title">
-		<span id="mark">@lang('produktanzeigen')</span>
+		@lang('results.produktanzeigen')
 	</h2>
 	<ul id="products" class="lightSlider" >
 		@foreach($products as $product)

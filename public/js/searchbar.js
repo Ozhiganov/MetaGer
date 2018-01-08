@@ -1,4 +1,3 @@
-
 $(function () {
   loadLocalStorage();
   setSearchbarActionListeners();
@@ -401,7 +400,7 @@ function openOptionsDialog () {
 }
 
 function closeOptionsDialog () {
-  $('#toggleOptBtn').html('<i class="fa fa-sliders" aria-hidden="true"></i>');
+  $('#toggleOptBtn').html('<i class="fa fa-chevron-down" aria-hidden="true"></i>');
   $('#toggleOptBtn').attr('data-mode', 'o');
   $('.search-option-frame').addClass('hide');
 }
