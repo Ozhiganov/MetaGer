@@ -39,17 +39,7 @@
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		<div class="wrapper">
 			@if(LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
-				<div id="spendenaufruf" style="text-align: center;">
-					<a href="/spendenaufruf" target="_blank" style="
-							background-color: white;
-							display: inline-block;
-							width: 100%;
-							max-width: 770px;
-							margin-bottom: 10px;
-						">
-							<img src="/img/aufruf.png" alt="Spendenaufruf SuMa eV" width="100%">
-					</a>
-				</div>
+				@include('parts.spendenaufruf')
 			@endif
 			<main class="mg-panel container">
 				@if (isset($success))
