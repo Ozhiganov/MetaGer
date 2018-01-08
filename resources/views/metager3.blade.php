@@ -1,27 +1,27 @@
 @extends('layouts.resultPage')
 
 @section('results')
-	<div id="results">
-		{{-- Show all errors --}}
-		@if(sizeof($errors) > 0)
-			<div class="alert alert-danger">
-				<ul>
-					@foreach($errors as $error)
-						<li>{!! $error !!}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
-		{{-- Show all warnings --}}
-		@if(sizeof($warnings) > 0)
-			<div class="alert alert-warning">
-				<ul>
-					@foreach($warnings as $warning)
-						<li>{!! $warning !!}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
+	{{-- Show all errors --}}
+	@if(sizeof($errors) > 0)
+		<div class="alert alert-danger">
+			<ul>
+				@foreach($errors as $error)
+					<li>{!! $error !!}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
+	{{-- Show all warnings --}}
+	@if(sizeof($warnings) > 0)
+		<div class="alert alert-warning">
+			<ul>
+				@foreach($warnings as $warning)
+					<li>{!! $warning !!}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
+	<main id="results">
 		{{-- Show initial products or ads --}}
 		@if($metager->hasProducts())
 			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
@@ -54,8 +54,5 @@
 				<a @if($metager->nextSearchLink() !== "#") href="{{ $metager->nextSearchLink() }}" @endif>{{ trans('results.weiter') }}</a>
 			</div>
 		</nav>
-	</div>
-	@if( $metager->showQuicktips() )
-		<div id="quicktips"></div>
-	@endif
+	</main>
 @endsection
