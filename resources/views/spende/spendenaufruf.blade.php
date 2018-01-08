@@ -14,13 +14,16 @@
 	<p>Für das kommende Jahr haben wir uns nun allerhand vorgenommen:</p>
 	<ul>
 		<li>
-			<p>Unsere englische Version <a href="https://metager.net" target="_blank">https://metager.net</a> muss im englischen Sprachraum expandieren: In Großbritannien ist ein Gesetz (das "<i lang="en-UK">Investigatory Powers Bill</i>") beschlossen, welches <q cite="https://netzpolitik.org//2016/analyse-london-segnet-haertestes-ueberwachungsgesetz-einer-demokratie-ab/">alle bisherigen Eingriffe in Grundrechte in den Schatten</q> stellt - der Orwellsche Überwachungsstaat mit extremer Vorratsdatenspeicherung ist Realität geworden (<a href="https://netzpolitik.org//2016/analyse-london-segnet-haertestes-ueberwachungsgesetz-einer-demokratie-ab/">https://netzpolitik.org//2016/analyse-london-segnet-haertestes-ueberwachungsgesetz-einer-demokratie-ab/</a>). Dagegen bietet MetaGer optimale Schutzmöglichkeiten mit unserem anonymisierenden Proxy, der durch den Klick auf "anonym öffnen" genutzt wird und durch unseren Zugang über das TOR-Netzwerk.  Dieses Wissen müssen wir jetzt im englischen Sprachraum <a href="http://suma-ev.de/en/press/Give-no-Chance-to-Search-Engine-Snoopers-MetaGer.Net.html" target="_blank">propagieren</a>. Und auch hierzulande steht eine <a href="https://digitalcourage.de/themen/vorratsdatenspeicherung" target="_blank">Neuauflage der Vorratsdatenspeicherung</a> vor der Tür.</p>
+			<p>Unsere englische Version <a href="https://metager.net" target="_blank">https://metager.net</a> muss im englischen Sprachraum expandieren. In diesem Jahr konnten wir mit unserem mehrsprachigen Interface eine sehr gute Grundlage schaffen. Für die englische Version müssen wir nun auch noch mit einer gewohnt ausgezeichneten Ergebnisqualität überzeugen.</p>
 		</li>
 		<li>
-			<p>Neben der Suche nach Texten und Bildern ist die Suche nach räumlicher, geographischer Information eine der häufigst genutzten Internetdienste. Gerade hierbei sind die Standortaufzeichnungen der globalen Suchmaschinenanbieter ein Überwachungsinstrument erster Güte. Um dagegen eine Alternative zu bieten, entwickeln wir <a href="https://maps.metager.de" target="_blank">maps.metager.de</a>. Sie können es jetzt bereits nutzen: eine erste Version mit Deutschland-Karten ist online.  Aber das ist bei weitem noch nicht alles, was wir damit vorhaben: Routenplaner, Karten außerhalb Deutschlands usw.  Hiermit wollen wir gegen diese Überwachung der geographischen Nutzerdaten eine Alternative schaffen.</p>
+			<p>Gleichzeitig planen wir die „Wiederbelebung“ unserer Bildersuche. Die bisherige MetaGer Bildersuche wurde dieses Jahr von uns deaktiviert, um diese grundlegend zu überarbeiten. Die Ergebnisse und Optionen waren für viele Nutzer nicht ausreichend. Genau das soll sich nun ändern. 2018 soll MetaGer wieder um eine vollumfängliche Bildersuche erweitert werden.</p>
 		</li>
 		<li>
-			<p>Im August 2016 haben wir den MetaGer-Quellcode öffentlich gemacht (Sie finden diesen unter <a href="https://gitlab.metager3.de/open-source/MetaGer" target="_blank">https://gitlab.metager3.de/open-source/MetaGer</a>).  Damit ist zum einen öffentlich kontrollierbar, wie wir Datenschutz und Privatsphäre im Detail in die Realität umsetzen.  Zum anderen kann jede/r MetaGer mit weiterentwickeln und programmieren.  Denn gegen die gewaltige Macht der globalen IT-Konzerne haben nur offene Systeme eine Chance, an denen <em>viele</em> mitmachen!  Hier erwarten wir im kommenden Jahr neue Ideen und Features für MetaGer. Die von uns ausgelobten <a href="https://suma-awards.de" target="_blank">SUMA Awards</a> belohnen solche Programmierungen mit insgesamt 2.500,-EUR.</p>
+			<p>Frischer, schneller, produktiver: MetaGer bekommt ein neues Gewand, um euch noch besser in jeder Situation unterstützen zu können.</p>
+		</li>
+		<li>
+			<p>Neben der Suche nach Texten und Bildern ist die Suche nach räumlicher, geographischer Information einer der am häufigsten genutzten Internetdienste. Gerade hierbei sind die Standortaufzeichnungen der globalen Suchmaschinenanbieter ein Überwachungsinstrument erster Güte. Um dafür eine Alternative zu bieten, entwickeln wir <a href="https://maps.metager.de" target="_blank">maps.metager.de</a>. Diesen Dienst haben wir vor kurzem um eine generelle Offline-Funktionalität erweitert. Nun gilt es, diese zu verbessern und den Dienst auch auf die ganze Welt auszuweiten.</p>
 		</li>
 		<li>
 			<p>Daneben steht wie immer das "<i>Tagesgeschäft</i>" mit vielen Nutzeranfragen. Unser Ziel ist es, dass <em>jede/r</em> die/der uns etwas fragt, eine vernünftige Antwort bekommt.  Auch das unterscheidet uns von den globalen Suchmaschinenanbietern: Bei MetaGer findet jeder einzelne Mensch Beachtung.</p>
@@ -57,45 +60,50 @@
 					</form>
 				</div>
 				<div class="col-md-6">
-					<h2>{!! trans('spende.bitcoins.1') !!}</h2>
-					<a href="bitcoin:174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V"><img src="/img/WeAcceptBitcoin.png" style="width:120px" alt="Bitcoin"></a>
+					<h3>{!! trans('spende.bitcoins.1') !!}</h3>
+                	{!! trans('spende.bitcoins.2') !!}<br/>
+                		<a href="bitcoin:174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V">174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V</a>
+                	</div>
+                	<div class="clearfix"></div>
+                	<hr>
+
 				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<hr>
 		<div class="col-md-6">
-			<h2 id="lastschrift">{{ trans('spende.lastschrift.1') }}</h2>
-			<p>{{ trans('spende.lastschrift.2') }}</p>
-			<form role="form" method="POST" action="{{ action('MailController@donation') }}">
-				<input type="hidden" name="dt" value="{{ md5(date('Y') . date('m') . date('d')) }}" />
-				<div class="form-group" style="text-align:left;">
-					<label for="Name">{{ trans('spende.lastschrift.3') }}</label>
-					<input type="text" class="form-control" id="Name" required="" name="Name" placeholder="{{ trans('spende.lastschrift.3.placeholder') }}">
-				</div>
-				<div class="form-group" style="text-align:left;">
-					<label for="email">{{ trans('spende.lastschrift.4') }}</label>
-					<input type="email" class="form-control" id="email" name="email" placeholder="Email">
-				</div>
-				<div class="form-group" style="text-align:left;">
-					<label for="tel">{{ trans('spende.lastschrift.5') }}</label>
-					<input type="tel" class="form-control" id="tel" name="Telefon" placeholder="xxxx-xxxxx">
-				</div>
-				<div class="form-group" style="text-align:left;">
-					<label for="iban">{{ trans('spende.lastschrift.6') }}</label>
-					<input type="text" class="form-control" id="iban" required="" name="Kontonummer" placeholder="IBAN">
-				</div>
-				<div class="form-group" style="text-align:left;">
-					<label for="bic">{{ trans('spende.lastschrift.7') }}</label>
-					<input type="text" class="form-control" id="bic" required="" name="Bankleitzahl" placeholder="BIC">
-				</div>
-				<div class="form-group" style="text-align:left;">
-					<label for="msg">{{ trans('spende.lastschrift.8') }}</label>
-					<textarea class="form-control" id="msg" required="" name="Nachricht" placeholder="{{ trans('spende.lastschrift.8.placeholder') }}"></textarea>
-				</div>
-				<button type="submit" class="btn btn-default">{{ trans('spende.lastschrift.9') }}</button>
-			</form>
-			<p>{{ trans('spende.lastschrift.10') }}</p>
+			<h3 id="lastschrift">{!! trans('spende.lastschrift.1') !!}</h3>
+		<p>{!! trans('spende.lastschrift.2') !!}</p>
+		<form id="donate" role="form" method="POST" action="/spende">
+			<input type="hidden" name="dt" value="{{ md5(date('Y') . date('m') . date('d')) }}">
+			<div class="form-group donation-form-group">
+			<label for="Name">{!! trans('spende.lastschrift.3') !!}</label>
+			<input type="text" class="form-control" id="Name" required="" name="Name" placeholder="{!! trans('spende.lastschrift.3.placeholder') !!}" value="{{ old('Name') }}" />
+			</div>
+			<div class="form-group donation-form-group">
+			<label for="email">{!! trans('spende.lastschrift.4') !!}</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+			</div>
+			<div class="form-group donation-form-group">
+			<label for="iban">{!! trans('spende.lastschrift.6') !!}</label>
+				<input type="text" class="form-control" id="iban" required="" name="Kontonummer" placeholder="IBAN" value="{{ old('Kontonummer') }}">
+			</div>
+			<div class="form-group donation-form-group">
+			<label for="bic">{!! trans('spende.lastschrift.7') !!}</label>
+				<input type="text" class="form-control" id="bic" required="" name="Bankleitzahl" placeholder="BIC" value="{{ old('Bankleitzahl') }}">
+			</div>
+			<div class="form-group donation-form-group">
+			<label for="value">{!! trans('spende.lastschrift.8.value')!!} </label>
+				<input type="number" class="form-control" id="value" required="" name="Betrag" placeholder="{!! trans('spende.lastschrift.8.value.placeholder') !!}" value="{{ old('Bankleitzahl') }}">
+			</div>
+			<div class="form-group donation-form-group">
+			<label for="msg">{!! trans('spende.lastschrift.8.message')!!}</label>
+			<label for="msg"><u>{!! trans('spende.bankinfo.3')!!}</u></label>
+			<textarea class="form-control" id="msg" name="Nachricht" placeholder="{!! trans('spende.lastschrift.8.message.placeholder') !!}">{{ old('Nachricht') }}</textarea>
+			</div>
+			<button type="submit" form="donate" class="btn btn-default">{!! trans('spende.lastschrift.9') !!}</button>
+		</form>
 		</div>
 		<div class="col-md-6">
 			<h2 id="mails">Aus den EMails vorheriger Spender:</h2>
