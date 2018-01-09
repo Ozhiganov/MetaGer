@@ -19,16 +19,13 @@
 	</div>
 @endif
 <div id="results">
-	@if(!$apiAuthorized && !$metager->validated && LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
-		@include('parts.spendenaufruf')
-	@endif
 	{{-- Show initial products or a
 	@if($metager->hasProducts())
 		@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
 			@include('layouts.products', ['products' => $metager->getProducts()])
 		@endif
 	@else
-		@for($i = 0; $i <= 1; $i++)
+		@for($i = 0; $i <= 2; $i++)
 			@include('layouts.ad', ['ad' => $metager->popAd()])
 		@endfor
 	@endif

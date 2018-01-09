@@ -38,9 +38,6 @@
 		</header>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		<div class="wrapper">
-			@if(LaravelLocalization::getCurrentLocale() == "de" && strpos(url()->current(), '/beitritt') === false && strpos(url()->current(), '/spendenaufruf') === false)
-				@include('parts.spendenaufruf')
-			@endif
 			<main class="mg-panel container">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
