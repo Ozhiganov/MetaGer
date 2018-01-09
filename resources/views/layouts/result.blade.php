@@ -22,7 +22,7 @@
 					<hr>
 					<li class="js-only">
 						<a href="javascript:resultSaver({{ $result->number }});" class="saver" data-counter="{{ $result->number }}">
-							<i class="fa fa-floppy-disk"></i> {!! trans('result.options.savetab') !!}
+							<i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}
 						</a>
 					</li>
 					@if(strlen($metager->getSite()) === 0)
