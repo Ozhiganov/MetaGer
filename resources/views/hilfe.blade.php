@@ -14,10 +14,10 @@
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.allgemein.1') !!}
 					<a id="settings-btn" class="mutelink btn btn-default" href="#">
-						<i class="fa fa-cog" aria-hidden="true"></i>
+						<i class="fa fa-sliders" aria-hidden="true"></i>
 					</a>
 				</li>
-				<li>{!! trans('hilfe.allgemein.2') !!}</li>
+				{{-- <li>{!! trans('hilfe.allgemein.2') !!}</li> --}}
 				<li>{!! trans('hilfe.allgemein.3') !!}</li>
 			</ul>
 		</div>
