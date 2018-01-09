@@ -58,11 +58,12 @@
 								</div>
 							</div>
 						</div>
+						{{-- Die Struktur sieht hier leicht anders aus, da man keine labels zum klicken von links benutzen kann --}}
 						<div class="search-settings">
-							<div class="search-option-descriptor">
-								<label for="settings-btn">{{{ trans('index.tooltips.settings') }}}</label>
-							</div>
 							<a id="settings-btn" class="mutelink btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "settings ") }}">
+								<div class="search-option-descriptor">
+									<label for="settings-btn">{{{ trans('index.tooltips.settings') }}}</label>
+								</div>
 								<i class="fa fa-cog" aria-hidden="true"></i>
 							</a>
 							<div class="searchbar-tooltip">
