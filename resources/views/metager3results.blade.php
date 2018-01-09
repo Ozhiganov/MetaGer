@@ -25,15 +25,25 @@
 			@include('layouts.products', ['products' => $metager->getProducts()])
 		@endif
 	@else
-		@for($i = 0; $i <= 2; $i++)
+		@if($mobile)
 			@include('layouts.ad', ['ad' => $metager->popAd()])
-		@endfor
+		@else
+			@for($i = 0; $i <= 2; $i++)
+				@include('layouts.ad', ['ad' => $metager->popAd()])
+			@endfor
+		@endif
 	@endif
 	{{-- Show map --}}
 	{{-- Create results and ongoing ads --}}
 	@foreach($metager->getResults() as $result)
-		@if($result->number % 7 === 0)
-			@include('layouts.ad', ['ad' => $metager->popAd()])
+		@if($mobile)
+			@if($result->number % 4 === 0)
+				@include('layouts.ad', ['ad' => $metager->popAd()])
+			@endif
+		@else
+			@if($result->number % 7 === 0)
+				@include('layouts.ad', ['ad' => $metager->popAd()])
+			@endif
 		@endif
 		@include('layouts.result', ['result' => $result])
 	@endforeach
