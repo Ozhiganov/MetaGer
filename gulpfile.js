@@ -23,6 +23,6 @@ elixir(function (mix) {
   mix.scripts(['utility.js'], 'public/js/utility.js');
   mix.less('utility.less', 'public/css/utility.css');
   // Versioning
-  mix.version(['css/themes/default.css', 'js/lib.js', 'js/utility.js', 'css/utility.css', 'js/widgets.js', 'js/editLanguage.js', 'js/kontakt.js', 'js/scriptResultPage.js', 'js/scriptStartPage.js', 'js/settings.js', 'css/beitritt.css']);
+  mix.version(['css/themes/default.css', 'js/lib.js', 'js/utility.js', 'css/utility.css', 'js/widgets.js', 'js/editLanguage.js', 'js/scriptResultPage.js', 'js/scriptStartPage.js', 'js/settings.js', 'css/beitritt.css']);
 
 })
