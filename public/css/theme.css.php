@@ -21,7 +21,6 @@ input[type=text]:focus, textarea:focus, input[type=email]:focus, input[type=tel]
 
 #mglogo > a {
 	color: rgb(255,128,0);
-    font-size: 90px;
 }
 
 .logo h1{
