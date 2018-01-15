@@ -21,11 +21,11 @@
 					</div>
 				</div>
 				<select id="focus-select" name="focus" style="font-family: FontAwesome, sans-serif;">
-					<option value="web" style="font-family: FontAwesome, sans-serif;" selected>&#xf0ac; Websuche</option>
-					<option value="nachrichten" style="font-family: FontAwesome, sans-serif;">&#xf0a1; Nachrichtensuche</option>
-					<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;">&#xf15c; Wissenschaftssuche</option>
-					<option value="produktsuche" style="font-family: FontAwesome, sans-serif;">&#xf07a; Produktsuche</option>
-					<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Kartensuche</option>
+					<option value="web" style="font-family: FontAwesome, sans-serif;" selected>&#xf0ac; Web</option>
+					<option value="nachrichten" style="font-family: FontAwesome, sans-serif;">&#xf0a1; Nachrichten</option>
+					<option value="wissenschaft" style="font-family: FontAwesome, sans-serif;">&#xf15c; Wissenschaft</option>
+					<option value="produktsuche" style="font-family: FontAwesome, sans-serif;">&#xf07a; Produkte</option>
+					<option value="maps" style="font-family: FontAwesome, sans-serif;">&#xf279; Karten</option>
 				</select>
 				<div class="search-option-frame hide">
 					<div class="searchbar-options-arrow"></div>

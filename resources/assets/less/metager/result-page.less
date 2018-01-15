@@ -8,6 +8,7 @@
 body {
     &#resultBody {
         background-image: inherit;
+        background-color: #FAFAFA;
     }
     &.quicktips {
         background-color: @quicktip-background-color;
@@ -356,21 +357,27 @@ p.mg-logo {
 
 @result-width: 700px;
 @quicktip-width: 500px;
+@results-margin-left: 50px;
 #resultpage-container {
     width: @result-width + @quicktip-width;
-    align-self: center;
-    @media (max-width: (@result-width + @quicktip-width - 1px)) {
+    align-self: left;
+    display: flex;
+    justify-content: left;
+    margin-left: @results-margin-left;
+    background-color: #FAFAFA;
+    @media (max-width: (2 * @results-margin-left + @result-width + @quicktip-width - 1px)) {
         width: @result-width;
         #additions-container {
             display: none;
             float: right;
         }
     }
-    @media (max-width: @result-width) {
+    @media (max-width: (2 * @results-margin-left + @result-width - 1px)) {
         width: 100%;
+        justify-content: center;
+        margin: 0px;
+        padding: 0px 8px;
     }
-    display: flex;
-    justify-content: center;
     #results-container {
         max-width: @result-width;
         width: 100%;

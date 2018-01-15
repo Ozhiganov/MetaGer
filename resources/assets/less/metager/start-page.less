@@ -1,6 +1,13 @@
 /* Startseite */
 
 @search-bar-width: 1000px;
+#mglogo {
+    font-size: 90px;
+    @media(max-width: @screen-xs-max) {
+        font-size: 50px;
+    }
+}
+
 .mg-panel {
     flex-grow: 1;
     display: flex;
@@ -71,52 +78,49 @@
     }
 }
 
-#sponsors {
+#more-information {
     flex-grow: 2;
-    margin-top: 50px;
-    text-align: center;
-    ul {
-        padding: 0px;
-        text-align: right;
-        li.sponsor {
-            display: flex;
-            justify-content: space-between;
-            a {
-                margin-left: 10px;
-                color: inherit;
-                font-size: 16px;
-            }
+    padding-top: 50px;
+    display: flex;
+    @media(max-width: @screen-xs-max) {
+        flex-direction: column;
+    }
+    #about-us {
+        max-width: 500px;
+        margin-right: 50px;
+        @media(max-width: @screen-xs-max) {
+            margin: 0px 8px;
+        }
+        h2 {
+            font-size: 21px;
+        }
+        p {
+            text-align: justify;
+            font-size: 15px;
         }
     }
-    h2 {
-        font-size: 20px;
-    }
-}
-
-#about-us a:visited {
-    color: @link-color;
-}
-
-#more-information {
-    box-shadow: none;
-    margin-top: 5%;
-    text-align: center;
-    -moz-box-shadow: none;
-    ul {
-        padding: 0;
-    }
-    ul li {
-        color: @more-information-ul-li-color;
-    }
-    &>div {
-        font-size: 15px;
-    }
-    h2 {
-        color: @more-information-h2-color;
-        font-size: 25px;
-    }
-    a:hover {
-        text-decoration: underline;
+    #sponsors {
+        @media(max-width: @screen-xs-max) {
+            margin: 0px 5px;
+        }
+        h2 {
+            font-size: 21px;
+        }
+        ul {
+            padding: 0px;
+            text-align: left;
+            li.sponsor {
+                a {
+                    color: inherit;
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 15px;
+                    i {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
     }
 }
 
