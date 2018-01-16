@@ -22,13 +22,12 @@ class Result
     public $engineBoost = 1; # Der Boost für den Provider des Suchergebnisses
     public $valid       = true; # Ob das Ergebnis noch gültig ist (bool)
     public $host; # Der aus dem Link gelesene Host des Suchergebnisses
-    public $strippedHost; # Der Host      in Form "foo.bar.de"
-    public $strippedDomain; # Die Domain    in Form "bar.de"
-    public $strippedLink; # Der Link      in Form "foo.bar.de/test"
+    public $strippedHost; # Der Host in Form "foo.bar.de"
+    public $strippedDomain; # Die Domain in Form "bar.de"
+    public $strippedLink; # Der Link in Form "foo.bar.de/test"
     public $rank; # Das Ranking für das Ergebnis
 
     # Erstellt ein neues Ergebnis
-    #public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $sourceRank, $partnershop = false, $image = "", $price = 0, $additionalInformation = [])
     public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $sourceRank, $additionalInformation = [])
     {
         $provider          = simplexml_load_string($provider);
