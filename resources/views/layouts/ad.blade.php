@@ -1,22 +1,21 @@
 @if(isset($ad)  && !$apiAuthorized)
 	<div class="result ad">
-		<h2 class="result-title">
-			<a class="title" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ $ad->gefVon }}" data-count="0">
-				{{ $ad->titel }}
-			</a>
-		</h2>
+		<a class="ad-label" href="{!! $ad->link !!}" target="_blank" rel="noopener">Werbung von {!! $ad->gefVon !!}</a>
+		</span>
 		<div class="result-header">
-			<div class="result-link">
-				<a href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ $ad->gefVon }}" data-count="0">
-					{{ $ad->anzeigeLink }}
+			<h2 class="result-title">
+				<a href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
+					{{ $ad->titel }}
 				</a>
-			</div>
-			<span class="result-hoster">
-				<span class="ad-label">{!! trans('ad.werbung') !!}</span> {!! trans('ad.von') !!} {!! $ad->gefVon !!}
-			</span>
+			</h2>
+			<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
+				{{ $ad->anzeigeLink }}
+			</a>
 		</div>
-		<div class="result-description">
-			{{ $ad->descr }}
+		<div class="result-body">
+			<div class="result-description">
+				{{ $ad->descr }}
+			</div>
 		</div>
 	</div>
 @endif

@@ -1,20 +1,5 @@
 /* Quicktips */
 
-
-/*
- * <div id="quicktips">
- *   <div class="quicktip" type="TYPE">
- *     <details>
- *       <summary>
- *         <h1><a href="URL">TITLE
- *         <p>SUMMARY
- *       <div class="quicktip-detail">
- *         <h1><a href="DETAILURL">DETAILTITLE
- *         <p>DETAILSUMMARY
- *     <span>GEFVON
- * </...>
- */
-
 #quicktips {
     display: flex;
     flex-direction: column;
@@ -25,7 +10,12 @@
     .quicktip {
         margin: 10px 0px;
         padding: 10px 0px 10px 10px;
+        width: 100%;
+        border: 1px solid #ccc;
         border-left: 3px solid #fb0;
+        @media(max-width: @screen-xs-max) {
+            box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        }
         details:not([open=""]) {
             .quicktip-summary p {
                 white-space: nowrap;
@@ -81,7 +71,7 @@
             }
         }
         &[type=spendenaufruf] {
-            border-left: #ddd;
+            border: none;
             color: #ff8000;
             .quicktip-summary {
                 display: flex;

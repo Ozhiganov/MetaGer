@@ -1,15 +1,13 @@
-<div class="result" data-count="{{ $result->number }}">
-	<h2 class="result-title">
-		<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}"  rel="noopener">
-			{!! $result->titel !!}
-		</a>
-	</h2>
+<div class="result">
 	<div class="result-header">
-		<div class="result-link">
-			<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}" rel="noopener">
-				{{ $result->anzeigeLink }}
+		<h2 class="result-title">
+			<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+				{!! $result->titel !!}
 			</a>
-		</div>
+		</h2>
+		<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+			{{ $result->anzeigeLink }}
+		</a>
 		@if( isset($result->partnershop) && $result->partnershop === TRUE )
 			<span class="partnershop-info">
 				<img src="/img/boosticon.png" height="13" alt="">
@@ -20,14 +18,14 @@
 	<div class="result-body">
 		@if( isset($result->logo) )
 			<div class="result-logo">
-				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}">
+				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->logo) }}" alt="" />
 				</a>
 			</div>
 		@endif
 		@if( $result->image !== "" )
 			<div class="result-image result-description">
-				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" data-hoster="{{ strip_tags($result->gefVon) }}" data-count="{{ $result->number }}"  rel="noopener">
+				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
 				</a>
 				{!! $result->descr !!}
@@ -45,22 +43,16 @@
 		@endif
 	</div>
 	<div class="result-footer">
-		<div class="result-open">
-			<a href="{{ $result->link }}" target="_self" data-hoster="{{ strip_tags($result->gefVon) }}" rel="noopener">
-				<span>ÖFFNEN</span>
-			</a>
-		</div>
-		<div class="result-open-newtab">
-			<a href="{{ $result->link }}" target="_blank" data-hoster="{{ strip_tags($result->gefVon) }}" rel="noopener">
-				<span>IN NEUEM TAB</span>
-			</a>
-		</div>
-		<div class="result-open-proxy">
-			<a onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-				<img src="/img/proxyicon.png" alt="" />
-				<span>ANONYM ÖFFNEN</span>
-			</a>
-		</div>
+		<a class="result-open" href="{{ $result->link }}" target="_self" rel="noopener">
+			ÖFFNEN
+		</a>
+		<a class="result-open-newtab" href="{{ $result->link }}" target="_blank" rel="noopener">
+			IN NEUEM TAB
+		</a>
+		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+			<img src="/img/proxyicon.png" alt="" />
+			ANONYM ÖFFNEN
+		</a>
 		<div class="result-options">
 			<a class="dropdown-opener" href="javascript:void(0);">
 				<i class="fa fa-chevron-down option-opener-icon" aria-hidden="true"></i>
@@ -72,7 +64,7 @@
 					</li>
 					<hr>
 					<li class="js-only">
-						<a href="javascript:resultSaver({{ $result->number }});" class="saver" data-counter="{{ $result->number }}">
+						<a href="javascript:resultSaver({{ $result->number }});" class="saver">
 							<i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}
 						</a>
 					</li>
