@@ -2,7 +2,7 @@
 {{-- Don't forget <script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script> --}}
 <fieldset>
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
-		<div class="searchbar {{$class or ''}}">
+		<div class="searchbar {{$class or ''}}"><!--
 			<div class="search-focus-selector">
 				<button type="button" id="toggleOptBtn" class="js-only" data-mode="o">
 					<i class="fa fa-sliders"></i>
@@ -75,10 +75,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<div class="search-input-submit">
 				<div class="search-input">
-					<input type="text" name="eingabe" required="" autofocus="" autocomplete="{{$autocomplete or 'off'}}" class="form-control"placeholder="{{ trans('index.placeholder') }}">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required="" autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
 				</div>
 				<div class="search-submit" id="submit-inputgroup">
 					<button type="submit">

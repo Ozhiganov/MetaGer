@@ -17,5 +17,13 @@
 				{{ $ad->descr }}
 			</div>
 		</div>
+		<div class="result-footer">
+		<a class="result-open" href="{{ $ad->link }}" target="_self" rel="noopener">
+			ÖFFNEN
+		</a>
+		<a class="result-open-newtab" href="{{ $ad->link }}" target="_blank" rel="noopener">
+			IN NEUEM TAB
+		</a>
+	</div>
 	</div>
 @endif

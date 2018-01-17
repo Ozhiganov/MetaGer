@@ -8,12 +8,15 @@
 		</div>
 	</div>
 @endif
-<header id="research-bar">
-	<div id="header-logo">
-		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
-	</div>
-	<div id="header-searchbar">
-		@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+<header>
+	<div id="research-bar">
+		<div id="header-logo">
+			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
+			<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">M</h1></a>
+		</div>
+		<div id="header-searchbar">
+			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+		</div>
 	</div>
 </header>
 <div id="research-bar-placeholder"></div>
