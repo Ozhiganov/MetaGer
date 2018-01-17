@@ -140,7 +140,9 @@
         flex-grow: 1;
         input {
             border: none;
+            border-bottom: 1px solid #ccc;
             height: 40px;
+            box-shadow: none;
             &:focus {
                 outline-color: rgb(255, 128, 0);
                 -webkit-box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
@@ -186,13 +188,13 @@ div:hover>.searchbar-tooltip {
 
 .startpage-searchbar {
     >* {
-        border: 1px solid #aaa;
+        border: 1px solid #a2a2a2;
         &:not(:first-child) {
             border-left: none;
         }
     }
     .search-input-submit {
-        border-radius: 0px 5px 5px 0px;
+        border-radius: 5px;
     }
     .search-submit {
         border-left: 1px solid #aaa;
@@ -220,21 +222,15 @@ div:hover>.searchbar-tooltip {
 
 .resultpage-searchbar {
     padding: 5px;
-     :first-child {
-        border-left: none;
-    }
     @media (max-width: @screen-xs-max) {
         .search-focus-selector {
-            border: 1px solid #aaa;
             border-top: none;
             border-radius: 5px;
         }
         .search-input-submit {
-            border: 1px solid #aaa;
             border-radius: 5px;
         }
         >* {
-            border: 1px solid #aaa;
             border-radius: 5px;
             min-height: 40px;
             &:not(:first-child) {
@@ -276,18 +272,36 @@ div:hover>.searchbar-tooltip {
     }
 }
 
-#research-bar {
+header {
+    margin-left: 50px;
+    padding-top: 10px;
+    display:flex;
     position: fixed;
     z-index: 100;
-    width: 100%;
-    padding: 10px 60px 0px 10px;
+    max-width: 700px;
+    width:100%;
+    background-color: #FAFAFA;
+    @media (max-width: 799px) {
+        margin-left: 0px;
+        -webkit-box-pack: center;
+        justify-content: center;
+        max-width: 799px;
+    }
+}
+
+#research-bar { 
+    max-width: 700px;
+    width:100%;
+    padding: 0px 30px 0px 10px;
     background-color: white;
+    border: 1px solid #ccc;
     border-bottom: 2px solid rgb(255, 128, 0);
     display: flex;
-    justify-content: center;
-    @media (max-width: @screen-xs-max) {
-        flex-direction: column;
-        padding-right: 10px;
+    align-items: center;
+    justify-content: center;    
+    @media (max-width: 799px) {
+        margin: 0px 8px;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
     }
 }
 
@@ -295,6 +309,6 @@ div:hover>.searchbar-tooltip {
     width: 100%;
     height: 60px;
     @media (max-width: @screen-xs-max) {
-        height: 100px;
+        height: 65px;
     }
 }

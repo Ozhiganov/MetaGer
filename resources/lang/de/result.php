@@ -3,7 +3,7 @@
 return [
     'options.headline' => 'Optionen',
     'options.savetab' => 'Ergebnis in Tab speichern.',
-    'options.1' => 'Suche auf dieser Domain neu starten',
+    'options.1' => 'Auf dieser Domain neu suchen',
     'options.2' => ':host ausblenden',
     'options.3' => '*.:domain ausblenden',
     'options.4' => 'Partnershop',

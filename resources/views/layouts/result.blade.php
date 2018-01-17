@@ -50,19 +50,16 @@
 			IN NEUEM TAB
 		</a>
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-			<img src="/img/proxyicon.png" alt="" />
 			ANONYM ÖFFNEN
 		</a>
-		<div class="result-options">
-			<a class="dropdown-opener" href="javascript:void(0);">
-				<i class="fa fa-chevron-down option-opener-icon" aria-hidden="true"></i>
-			</a>
-			<div class="dropdown-content option-content">
+		<label class="open-result-options" for="result-toggle-{{$result->number}}" role="button">
+			MEHR
+		</label>
+	</div>
+	<div class="result-options">
+		<input type="checkbox" id="result-toggle-{{$result->number}}" class="result-toggle" style="display: none">
+		<div class="options">
 				<ul class="option-list list-unstyled small">
-					<li class="option-title">
-						<i class="fa fa-cog"></i> {!! trans('result.options.headline') !!}
-					</li>
-					<hr>
 					<li class="js-only">
 						<a href="javascript:resultSaver({{ $result->number }});" class="saver">
 							<i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}
@@ -88,7 +85,6 @@
 						</li>
 					@endif
 				</ul>
-			</div>
 		</div>
 	</div>
 </div>

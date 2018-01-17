@@ -9,10 +9,10 @@
     }
     .quicktip {
         margin: 10px 0px;
-        padding: 10px 0px 10px 10px;
+        padding: 10px 10px 10px 10px;
         width: 100%;
         border: 1px solid #ccc;
-        border-left: 3px solid #fb0;
+        background-color: white;
         @media(max-width: @screen-xs-max) {
             box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         }
@@ -27,7 +27,6 @@
             h1 {
                 margin: 0px 0px 5px 0px;
                 font-size: 18px;
-                font-weight: bold;
                 display: flex;
                 justify-content: space-between;
                 .quicktip-extender {
@@ -73,6 +72,7 @@
         &[type=spendenaufruf] {
             border: none;
             color: #ff8000;
+            background-color: inherit;
             .quicktip-summary {
                 display: flex;
                 justify-content: space-between;
