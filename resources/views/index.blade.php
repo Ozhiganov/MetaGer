@@ -16,9 +16,9 @@
 @section('optionalContent')
 	<div id="more-information">
 		<div id="about-us">
-			<h2>Besser&nbsp;suchen, schneller&nbsp;finden</h2>
-			<p>MetaGer ist die einzige Suchmaschine, die nicht profitgetrieben, sondern gemeinnützig arbeitet. Wir speichern keine persönlichen Daten und bevorzugen keine Ergebnisse für Geld.</p>
-			<p>Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!</p>
+			<h2>{!! trans('index.slogan.title') !!}</h2>
+			<p>{!! trans('index.slogan.1') !!}</p>
+			<p>{!! trans('index.slogan.2') !!}</p>
 		</div>
 		<div id="sponsors">
 			<h2>{{ trans('index.sponsors.head.2') }}</h2>
