@@ -25,6 +25,11 @@ return [
     'focus-creator.delete'           => 'Suchfokus löschen',
     'focus-creator.focusname'        => 'Fokusname: ',
 
+    'slogan.title'                   => 'Besser&nbsp;suchen, schneller&nbsp;finden',
+    'slogan.1'                       => 'MetaGer ist die einzige Suchmaschine, die nicht profitgetrieben, sondern gemeinnützig arbeitet. Wir speichern keine persönlichen Daten und bevorzugen keine Ergebnisse für Geld.',
+    'slogan.2'                       => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
+
+
     'sponsors.head.1'                => 'Weitere Informationen',
     'sponsors.head.2'                => 'Sponsoren',
     'sponsors.woxikon'               => 'Tagesgeld jetzt!',
