@@ -131,7 +131,8 @@ class MetaGer
                         ->with('errors', $this->errors)
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
-                        ->with('browser', (new Agent())->browser());
+                        ->with('browser', (new Agent())->browser())
+                        ->with('fokus', $this->fokus);
                     break;
                 case 'results-with-style':
                     return view('metager3')
@@ -143,7 +144,8 @@ class MetaGer
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
                         ->with('suspendheader', "yes")
-                        ->with('browser', (new Agent())->browser());
+                        ->with('browser', (new Agent())->browser())
+                        ->with('fokus', $this->fokus);
                     break;
                 case 'rich':
                     return view('metager3rich')
@@ -154,7 +156,8 @@ class MetaGer
                         ->with('errors', $this->errors)
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
-                        ->with('browser', (new Agent())->browser());
+                        ->with('browser', (new Agent())->browser())
+                        ->with('fokus', $this->fokus);
                     break;
                 case 'rss20':
                     return view('metager3resultsrss20')
@@ -162,7 +165,8 @@ class MetaGer
                         ->with('eingabe', $this->eingabe)
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
-                        ->with('resultcount', sizeof($viewResults));
+                        ->with('resultcount', sizeof($viewResults))
+                        ->with('fokus', $this->fokus);
                     break;
                 case 'atom10':
                     return response()->view('metager3resultsatom10', ['results' => $viewResults,'eingabe' => $this->eingabe,'metager' => $this,'resultcount' => sizeof($viewResults)])
@@ -1322,11 +1326,7 @@ class MetaGer
     {
         $requestData          = $this->request->except(['page', 'next']);
         $requestData['focus'] = $fokus;
-        if ($results) {
-            $requestData['out'] = "results";
-        } else {
-            $requestData['out'] = "";
-        }
+        $requestData['out'] = "";
 
         $link = action('MetaGerSearch@search', $requestData);
         return $link;
