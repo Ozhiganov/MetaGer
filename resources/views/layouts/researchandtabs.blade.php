@@ -28,6 +28,26 @@
 		@yield('results')
 	</div>
 	<div id="additions-container">
+		<div id="search-settings" style="display:none">
+			<h1>Eigene Suche</h1>
+			@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
+					<h2 class="focus-category">
+						@lang("settings.foki." . $fokus)
+					</h2>
+					<div class="fokus-engines">
+						@foreach( $sumas as $name => $data )
+							<div class="checkbox settings-checkbox">
+								<label>
+									<input type="checkbox" name="engine_{{ strtolower($name) }}" class="focusCheckbox" @if ($fokus=='web' ) checked @endif>{{ $data['displayName'] }}
+									<a class="settings-icon" target="_blank" rel="noopener" href="{{ $data['url'] }}">
+										<i class="fa fa-info-circle" aria-hidden="true"></i>
+									</a>
+								</label>
+						</div>
+						@endforeach
+				</div>
+			@endforeach
+		</div>
 		@if( $metager->showQuicktips() )
 			<div id="quicktips"></div>
 		@endif
