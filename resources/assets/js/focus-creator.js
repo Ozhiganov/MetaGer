@@ -80,7 +80,7 @@ function showFocusEditDialog (id) {
 }
 
 function getCurrentFocus () {
-  return document.getElementById('focus-select').value;
+  return $("#foki > div.active").attr("id");
 }
 
 /**
@@ -224,7 +224,11 @@ function alreadyInUse (name) {
  */
 function addFocus (name) {
   var id = getIdFromName(name);
-  $('#focus-select').append('<option value="' + id + '" style="font-family: FontAwesome, sans-serif;">&#xf2c0; ' + name + '</option>');
+  var customFocus = $('<div id="' + id +'"><a href="#" target="_self">' + name + '</a><a class="edit-focus" data-id="' + id + '" href="#"><i class="fa fa-wrench"></i></div>');
+  $(customFocus).find(".edit-focus").click(function(){
+    showFocusEditDialog($(this).attr("data-id"));
+  });
+  $("#foki .search-option-frame").before(customFocus);
 }
 
 /**
@@ -315,20 +319,17 @@ function disableEditFocusBtn () {
 
 function loadFocusForSearch (focus) {
   var focus = loadFocusById(focus);
+
+  var url ="/meta/meta.ger3?eingabe=x&focus=";
+
+  console.log(focus, url);
+
   clearCustomSearch();
   for (var key in focus) {
     if (key.startsWith('engine_') && focus[key] == 'on') {
       addSumaToCustomSearch(key);
     }
   }
-}
-
-function clearCustomSearch () {
-  $('.search-custom-hidden').empty();
-}
-
-function addSumaToCustomSearch (sumaId) {
-  $('.search-custom-hidden').append('<input type="hidden" name="' + sumaId + '" value="on">');
 }
 
 function getFocusInUrl () {

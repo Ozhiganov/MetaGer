@@ -20,6 +20,9 @@
 	</div>
 </header>
 <div id="research-bar-placeholder"></div>
+<div id="foki">
+	@include('parts.foki')
+</div>
 <div id="resultpage-container">
 	<div id="results-container">
 		@yield('results')
