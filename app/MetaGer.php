@@ -570,8 +570,7 @@ class MetaGer
         foreach ($engines as $engine) {
             $engine->startSearch($this);
         }
-        // Derzeit deaktiviert, da es die eigene Suche gibt
-        // $this->adjustFocus($sumas, $enabledSearchengines);
+        $quicktips = new \App\Models\Quicktips($this->q, $this->lang, $this->getTime(), $this->getHashCode());
 
         /* Wir warten auf die Antwort der Suchmaschinen
          * Die Verbindung steht zu diesem Zeitpunkt und auch unsere Requests wurden schon gesendet.
