@@ -275,18 +275,21 @@ div:hover>.searchbar-tooltip {
 header {
     margin-left: 50px;
     padding-top: 10px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     position: fixed;
     z-index: 100;
     max-width: 700px;
     width:100%;
     background-color: #FAFAFA;
-    @media (max-width: 799px) {
+    @media (max-width: 1070px) {
         margin-left: 0px;
         -webkit-box-pack: center;
-        justify-content: center;
-        max-width: 799px;
+        max-width: 1070px;
+    }
+
+    @media (max-width: 1400px) {
+        position: relative;
     }
 
     #research-bar { 
