@@ -272,6 +272,8 @@ p.mg-logo {
         border-radius: 10px;
         padding: 5px;
         margin-left: 10px;
+        background-color: white;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         &:first-child {
             margin-left: 0px;
         }
@@ -395,5 +397,14 @@ p.mg-logo {
         background-color: white;
         display: inline-block;
         width: 100%;
+    }
+}
+
+footer.resultPageFooter {
+    max-width: 700px;
+    margin-left: 50px;
+    margin-top: 20px;
+    @media (max-width: (2 * @results-margin-left + @result-width - 1px)) {
+        margin: 20px 0 0 0;
     }
 }
