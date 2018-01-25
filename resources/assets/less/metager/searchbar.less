@@ -281,7 +281,7 @@ header {
     z-index: 100;
     max-width: 700px;
     width:100%;
-    background-color: #FAFAFA;
+    background-color: inherit;
     @media (max-width: 1070px) {
         margin-left: 0px;
         -webkit-box-pack: center;
@@ -302,9 +302,9 @@ header {
         display: flex;
         align-items: center;
         justify-content: center;    
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         @media (max-width: 799px) {
             margin: 0px 8px;
-            box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         }
     }
 
@@ -321,6 +321,7 @@ header {
         padding: 10px;
         margin-left: 50px;
         overflow-x: auto;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
 
         &::-webkit-scrollbar {
             height: 0px;  /* remove scrollbar space */
@@ -329,7 +330,7 @@ header {
 
         @media (max-width: 799px) {
             margin: 10px 8px 0px 8px;
-            box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+            
         }
 
         &>div {

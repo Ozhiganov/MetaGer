@@ -17,9 +17,6 @@
 					<div class="searchbar-options-arrow"></div>
 					<div class="search-button-container">
 						<div class="search-add-focus js-only">
-							<div class="search-option-descriptor">
-								<label for="addFocusBtn">{{{ trans('index.tooltips.add-focus') }}}</label>
-							</div>
 							<button type="button" id="addFocusBtn">
 								<i class="fa fa-plus"></i>
 							</button>
