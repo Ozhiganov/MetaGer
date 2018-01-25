@@ -5,7 +5,7 @@
 @section('content')
 	<h1>{{ trans('about.head.1') }}</h1>
 	<h2>{{ trans('about.head.3') }}</h2>
-	{!! trans('about.3.0') !!}
+	<p class="lead">{!! trans('about.3.0') !!}</p>
 	<ul class="dotlist">
 		<li>{!! trans('about.3.1') !!}</li>
 		<li>{!! trans('about.3.2') !!}</li>
