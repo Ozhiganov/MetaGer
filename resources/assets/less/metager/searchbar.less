@@ -288,10 +288,6 @@ header {
         max-width: 1070px;
     }
 
-    @media (max-width: 1400px) {
-        position: relative;
-    }
-
     #research-bar { 
         max-width: 700px;
         width: auto;
@@ -306,9 +302,13 @@ header {
         @media (max-width: 799px) {
             margin: 0px 8px;
         }
-    }
+    } 
+}
 
-    
+header:nth-child(1) {
+    @media (max-width: 1400px) {
+        position: relative;
+    }
 }
 
 #foki {
