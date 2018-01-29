@@ -1,3 +1,4 @@
+{{ die(var_dump($quicktip)) }}
 @if (sizeof($quicktip->details) > 0)
   <details>
     <summary class="quicktip-summary">
@@ -9,7 +10,6 @@
         @endif
       </h1>
       <p>{{ $quicktip->descr }}</p>
-      @if
     </summary>
     @foreach ($quicktip->details as $detail)
       <div class="quicktip-detail">
@@ -33,6 +33,5 @@
         {{ $quicktip->title }}
       @endif
     </h1>
-    @if
   </summary>
 @endif

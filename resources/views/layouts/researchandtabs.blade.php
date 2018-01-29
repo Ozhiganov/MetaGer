@@ -49,7 +49,9 @@
 			@endforeach
 		</div>
 		@if( $metager->showQuicktips() )
-			<div id="quicktips"></div>
+			<div id="quicktips">
+				@include('quicktips', ['quicktips', $quicktips])
+			</div>
 		@endif
 	</div>
 </div>
