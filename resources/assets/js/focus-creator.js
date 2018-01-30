@@ -322,9 +322,7 @@ function loadFocusForSearch (focus) {
 
   var url ="/meta/meta.ger3?eingabe=x&focus=";
 
-  console.log(focus, url);
-
-  clearCustomSearch();
+  //clearCustomSearch();
   for (var key in focus) {
     if (key.startsWith('engine_') && focus[key] == 'on') {
       addSumaToCustomSearch(key);

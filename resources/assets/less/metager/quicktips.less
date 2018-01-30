@@ -57,6 +57,7 @@
             font-size: 15px;
         }
         &[type=spruch] {
+            order: 0;
             border-left: 3px solid #070;
             p {
                 color: #070;
@@ -69,7 +70,35 @@
                 }
             }
         }
+        &[type=duckDuckGo-bang] {
+            order: 1;
+            .bang-btn {
+                width: 100%;
+                margin-top: 5px;
+                color: #fff;
+                background-color: #286992;
+                font-size: 16px;
+            }
+        }
+        &[type=wikipedia] {
+            order: 2;
+        }
+        &[type=dictCC] {
+            order: 3;
+            .quicktip-summary {
+                p {
+                    font-weight: bold;
+                }
+            }
+        }
+        &[type=tip] {
+            order: 4;
+        }
+        &[type=ad] {
+            order: 5;
+        }
         &[type=spendenaufruf] {
+            order: 6;
             border: none;
             color: #ff8000;
             background-color: inherit;
@@ -88,22 +117,6 @@
                         font-size: 16px;
                     }
                 }
-            }
-        }
-        &[type=dictCC] {
-            .quicktip-summary {
-                p {
-                    font-weight: bold;
-                }
-            }
-        }
-        &[type=duckDuckGo-bang] {
-            .bang-btn {
-                width: 100%;
-                margin-top: 5px;
-                color: #fff;
-                background-color: #286992;
-                font-size: 16px;
             }
         }
     }
