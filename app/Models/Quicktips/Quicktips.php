@@ -99,38 +99,37 @@ class Quicktips
             }
 
             $content->registerXPathNamespace('main', 'http://www.w3.org/2005/Atom');
-            $content->registerXPathNamespace('opensearch', 'http://a9.com/-/spec/opensearch/1.1/');
-            $content->registerXPathNamespace('relevance', 'http://a9.com/-/opensearch/extensions/relevance/1.0/');
-            $content->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
 
             $quicktips = [];
-            #die(var_dump($content->xpath('//main:entry/mg:type')));
 
             $quicktips_xpath = $content->xpath('main:entry');
             foreach ($quicktips_xpath as $quicktip_xml) {
-                $content->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
+                // Title
+                $title = $quicktip_xml->title->__toString();
+
+                // Link
+                $link = $quicktip_xml->link['href']->__toString();
+
+                // Type
+                $quicktip_xml->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
                 $types = $quicktip_xml->xpath('mg:type');
                 if (sizeof($types) > 0) {
                     $type = $types[0]->__toString();
-                }
-                $title = $quicktip_xml->{"title"}->__toString();
-                $link_xml = $quicktip_xml->link['href'];
-                if ($link_xml->count() > 0) {
-                    $link = $link_xml->toString();
                 } else {
-                    $link = "";
+                    $type = "";
                 }
 
-                $link = $quicktip_xml->{"link"}->__toString();
-                $descr = $quicktip_xml->{"content"}->__toString();
+                // Description
+                $descr = $quicktip_xml->content->__toString();
 
+                // Details
                 $details = [];
                 $details_xpath = $quicktip_xml->xpath('mg:details');
                 if (sizeof($details_xpath) > 0) {
-                    foreach ($details_xpath as $detail_xml) {
-                        $details_title = $detail_xml->{"title"}->__toString();
-                        $details_link = $detail_xml->{"url"}->__toString();
-                        $details_descr = $detail_xml->{"text"}->__toString();
+                    foreach ($details_xpath[0] as $detail_xml) {
+                        $details_title = $detail_xml->title->__toString();
+                        $details_link = $detail_xml->url->__toString();
+                        $details_descr = $detail_xml->text->__toString();
                         $details[] = new \App\Models\Quicktips\Quicktip_detail(
                             $details_title,
                             $details_link,
@@ -146,10 +145,8 @@ class Quicktips
                     $details
                 );
             }
-            die(var_dump($quicktips));
             return $quicktips;
         } catch (\Exception $e) {
-            die($e);
             Log::error("A problem occurred parsing quicktips");
             return [];
         }
