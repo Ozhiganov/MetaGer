@@ -1,6 +1,5 @@
 $(function () {
   loadLocalStorage();
-  setSearchbarActionListeners();
 });
 
 /**
@@ -10,10 +9,6 @@ function loadLocalStorage () {
   if (localStorage) {
     setSettings();
   }
-}
-
-function setSearchbarActionListeners () {
-  $('#toggleOptBtn').click(toggleOptionsDialog);
 }
 
 function setSettings () {
@@ -41,25 +36,4 @@ function setSettings () {
   if (requestMethod !== null && (requestMethod === 'GET' || requestMethod === 'POST')) {
     $('#searchForm').attr('method', requestMethod);
   }
-}
-
-function toggleOptionsDialog () {
-  var btnMode = $('#toggleOptBtn').attr('data-mode');
-  if (btnMode == 'o') {
-    openOptionsDialog();
-  } else {
-    closeOptionsDialog();
-  }
-}
-
-function openOptionsDialog () {
-  $('#toggleOptBtn').html('<i class="fa fa-chevron-up" aria-hidden="true"></i>');
-  $('#toggleOptBtn').attr('data-mode', 'c');
-  $('.search-option-frame').removeClass('hide');
-}
-
-function closeOptionsDialog () {
-  $('#toggleOptBtn').html('<i class="fa fa-sliders" aria-hidden="true"></i>');
-  $('#toggleOptBtn').attr('data-mode', 'o');
-  $('.search-option-frame').addClass('hide');
 }
