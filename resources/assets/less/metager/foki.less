@@ -1,0 +1,32 @@
+/* Rund um die Foki */
+
+#show-create-focus {
+    display: none;
+}
+
+#show-create-focus:checked {
+    display: inline-block;
+    & + #create-focus-modal {
+        display: inline;
+    } 
+}
+
+#create-focus-modal {
+    display: none;
+    position: fixed;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: lightgray;
+
+    #close-create-focus:after {
+        content: "×";
+    }
+
+    #foki-modal-dialog {
+
+    }
+
+    #foki-modal-content {
+        max-width: 70%;
+    }
+}

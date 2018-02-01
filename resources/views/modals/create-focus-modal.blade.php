@@ -1,10 +1,9 @@
-<div id="create-focus-modal" class="modal fade" tab-index="-1" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<div class="content modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+<input type="checkbox" id="show-create-focus">
+<div id="create-focus-modal" tab-index="-1" role="dialog">
+	<div class="foki-modal-dialog">
+		<div class="foki-modal-content">
+			<div class="foki-modal-header">
+				<label type="button" id="close-create-focus" for="show-create-focus"></label>
 				<h4>
 					@lang("index.focus-creator.head")
 				</h4>
