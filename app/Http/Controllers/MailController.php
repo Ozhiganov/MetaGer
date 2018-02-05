@@ -49,7 +49,7 @@ class MailController extends Controller
             $replyTo = $request->input('email');
         }
 
-        if (!$request->has('message') || !$request->has('subject')) {
+        if (!$request->filled('message') || !$request->filled('subject')) {
             $messageType   = "error";
             $returnMessage = "Tut uns leid, aber leider haben wir mit Ihrer Kontaktanfrage keine Daten erhalten. Die Nachricht wurde nicht versandt.";
         } else {
@@ -95,7 +95,7 @@ class MailController extends Controller
             # Kontonummer ( IBAN )
             # Bankleitzahl ( BIC )
             # Nachricht
-            if (!$request->has('Kontonummer') || !$request->has('Bankleitzahl') || !$request->has('Betrag')) {
+            if (!$request->filled('Kontonummer') || !$request->filled('Bankleitzahl') || !$request->filled('Betrag')) {
                 $messageToUser = "Sie haben eins der folgenden Felder nicht ausgefüllt: IBAN, BIC, Nachricht. Bitte korrigieren Sie Ihre Eingabe und versuchen es erneut.\n";
                 $messageType   = "error";
             } else {

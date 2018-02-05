@@ -482,7 +482,7 @@ class MetaGer
     public function createSearchEngines(Request $request)
     {
         # Wenn es kein Suchwort gibt
-        if (!$request->has("eingabe") || $this->q === "") {
+        if (!$request->filled("eingabe") || $this->q === "") {
             return;
         }
 
@@ -607,7 +607,7 @@ class MetaGer
     public function sumaIsSelected($suma, $request, $custom)
     {
         if ($custom) {
-            if ($request->has("engine_" . $suma["name"])) {
+            if ($request->filled("engine_" . $suma["name"])) {
                 return true;
             }
         } else {
@@ -707,7 +707,7 @@ class MetaGer
     public function requestIsCached($request)
     {
         return
-        $request->has('next')
+        $request->filled('next')
         && Cache::has($request->input('next'))
         && unserialize(Cache::get($request->input('next')))['page'] > 1;
     }
@@ -972,14 +972,14 @@ class MetaGer
         # Ergebnisse pro Seite:
         $this->resultCount = $request->input('resultCount', '20');
         # Manchmal müssen wir Parameter anpassen um den Sucheinstellungen gerecht zu werden:
-        if ($request->has('dart')) {
+        if ($request->filled('dart')) {
             $this->time       = 10000;
             $this->warnings[] = trans('metaGer.formdata.dartEurope');
         }
         if ($this->time <= 500 || $this->time > 20000) {
             $this->time = 1000;
         }
-        if ($request->has('minism') && ($request->has('fportal') || $request->has('harvest'))) {
+        if ($request->filled('minism') && ($request->filled('fportal') || $request->filled('harvest'))) {
             $input    = $request->all();
             $newInput = [];
             foreach ($input as $key => $value) {
@@ -995,14 +995,14 @@ class MetaGer
         if ($this->resultCount <= 0 || $this->resultCount > 200) {
             $this->resultCount = 1000;
         }
-        if ($request->has('onenewspageAll') || $request->has('onenewspageGermanyAll')) {
+        if ($request->filled('onenewspageAll') || $request->filled('onenewspageGermanyAll')) {
             $this->time  = 5000;
             $this->cache = "cache";
         }
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $this->password = $request->input('password');
         }
-        if ($request->has('quicktips')) {
+        if ($request->filled('quicktips')) {
             $this->quicktips = false;
         } else {
             $this->quicktips = true;
@@ -1045,7 +1045,7 @@ class MetaGer
 
     public function checkSpecialSearches(Request $request)
     {
-        if ($request->has('site')) {
+        if ($request->filled('site')) {
             $site = $request->input('site');
         } else {
             $site = "";

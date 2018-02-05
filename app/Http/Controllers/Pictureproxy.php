@@ -10,7 +10,7 @@ class Pictureproxy extends Controller
 {
     public function get(Request $request)
     {
-        if ($request->has('url')) {
+        if ($request->filled('url')) {
             try {
                 $arrContextOptions = array(
                     "ssl" => array(

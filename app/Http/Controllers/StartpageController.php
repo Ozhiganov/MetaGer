@@ -145,7 +145,7 @@ class StartpageController extends Controller
     {
         $link     = "";
         $password = "";
-        if ($request->has('eingabe')) {
+        if ($request->filled('eingabe')) {
             $password = getenv('berlin');
             $password = md5($request->input('eingabe') . " -host:userpage.fu-berlin.de" . $password);
             $link     = "/meta/meta.ger3?eingabe=" . $request->input('eingabe') . " -host:userpage.fu-berlin.de&focus=web&password=" . $password . "&encoding=utf8&lang=all&site=fu-berlin.de&quicktips=off&out=results-with-style";
