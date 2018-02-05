@@ -88,7 +88,7 @@ class MetaGer
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
-    public function createView()
+    public function createView($quicktipResults = NULL)
     {
         $viewResults = [];
         # Wir extrahieren alle notwendigen Variablen und geben Sie an unseren View:
@@ -184,7 +184,8 @@ class MetaGer
                         ->with('errors', $this->errors)
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
-                        ->with('browser', (new Agent())->browser());
+                        ->with('browser', (new Agent())->browser())
+                        ->with('quicktips', $quicktipResults);
                     break;
             }
         }
@@ -468,6 +469,12 @@ class MetaGer
         }
     }
 
+    public function createQuicktips() {
+        # Die quicktips werden als job erstellt und zur Abarbeitung freigegeben
+        $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime(), $this->getHashCode());
+        return $quicktips;
+    }
+
     /*
      * Die Erstellung der Suchmaschinen bis die Ergebnisse da sind mit Unterfunktionen
      */
@@ -570,8 +577,6 @@ class MetaGer
         foreach ($engines as $engine) {
             $engine->startSearch($this);
         }
-        // Derzeit deaktiviert, da es die eigene Suche gibt
-        // $this->adjustFocus($sumas, $enabledSearchengines);
 
         /* Wir warten auf die Antwort der Suchmaschinen
          * Die Verbindung steht zu diesem Zeitpunkt und auch unsere Requests wurden schon gesendet.

@@ -219,7 +219,6 @@ abstract class Searchengine
     {
         $number = Redis::hget('search.' . $this->hash, $this->name);
         if ($number === null) {
-            die("test");
             return null;
         } else {
             return pfsockopen($this->getHost() . ":" . $this->port . "/$number", $this->port, $errstr, $errno, 1);

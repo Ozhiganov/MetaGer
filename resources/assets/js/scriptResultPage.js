@@ -15,7 +15,7 @@ $(document).ready(function () {
   }
   var search = getMetaTag('q') || '';
   var locale = getMetaTag('l') || 'de';
-  loadQuicktips(search, locale, sprueche); // load the quicktips
+  //loadQuicktips(search, locale, sprueche); // load the quicktips
 });
 
 /*
