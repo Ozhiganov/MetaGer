@@ -1,4 +1,4 @@
-<div class="result">
+<div class="result" data-count="{{ $result->number }}">
 	<div class="result-header">
 		<h2 class="result-title">
 			<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
