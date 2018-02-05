@@ -78,7 +78,7 @@ Results.prototype.loadAllResults = function () {
       // Remove the prefix
       key = key.substr(this.prefix.length);
       // Create the result for this key by loading it from localstorage
-      var tmpResult = new Result(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, key);
+      var tmpResult = new Result(undefined, undefined, undefined, undefined, undefined, undefined, key);
       // Add the result to the list of results
       this.results.push(tmpResult);
     }
@@ -212,20 +212,18 @@ Results.prototype.addToContainer = function (container) {
  * @param {String} title The title of this result
  * @param {String} link The link to this result
  * @param {String} anzeigeLink The displayed link
- * @param {String} gefVon The ??
- * @param {String} hoster The website this result is hosted on
- * @param {String} anonym The link to open this result anonymously
  * @param {String} description The description of this result
+ * @param {String} anonym The link to open this result anonymously
  * @param {int} rank The rank of this result
  * @param {int} hash The hash value for this result
  */
-function Result (title, link, anzeigeLink, gefVon, hoster, anonym, description, index, hash) {
+function Result (title, link, anzeigeLink, description, anonym, index, hash) {
   // Set prefix for localstorage
   this.prefix = 'result_';
 
   if (hash === null || hash === undefined) {
     // Calculate the hash value of this result
-    hash = MD5(title + link + anzeigeLink + gefVon + hoster + anonym + description);
+    hash = MD5(title + link + anzeigeLink + description + anonym);
   }
 
   this.hash = hash;
@@ -236,10 +234,8 @@ function Result (title, link, anzeigeLink, gefVon, hoster, anonym, description, 
     this.title = title;
     this.link = link;
     this.anzeigeLink = anzeigeLink;
-    this.gefVon = gefVon;
-    this.hoster = hoster;
-    this.anonym = anonym;
     this.description = description;
+    this.anonym = anonym;
     this.index = index;
     this.rank = index;
     this.added = new Date().getTime();
@@ -364,27 +360,28 @@ Result.prototype.toHtml = function () {
         <i class="fa fa-trash"></i>\
       </div>\
       <div class="saved-result-content">\
-        <h2 class="result-title">\
-          <a class="title" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" data-count="1" rel="noopener">\
-            ' + this.title + '\
-          </a>\
-        </h2>\
         <div class="result-header">\
-          <div class="result-link">\
-            <a href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" rel="noopener">\
+          <h2 class="result-title">\
+            <a class="title" href="' + this.link + '" target="_blank" data-count="1" rel="noopener">\
+              ' + this.title + '\
+            </a>\
+            <a class="result-link" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" rel="noopener">\
               ' + this.anzeigeLink + '\
             </a>\
-          </div>\
-          <span class="result-hoster">' + this.gefVon + '</span>\
-          <span class="result-proxy">\
-            <a class="result-proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.proxy + '" target="_blank" rel="noopener" data-original-title="" title="">\
-              <img src="/img/proxyicon.png" alt="">\
-              anonym öffnen\
-            </a>\
-          </span>\
-        </div>\
+          </h2>\
         <div class="result-body">\
           <div class="description">' + this.description + '</div>\
+        </div>\
+        <div class="result-footer">\
+          <a class="result-open" href="' + this.link + '" target="_self" rel="noopener">\
+            ÖFFNEN\
+          </a>\
+          <a class="result-open" href="' + this.link + '" target="_blank" rel="noopener">\
+            IN NEUEM TAB\
+          </a>\
+          <a class="result-open-proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.anonym + '" target="_blank" rel="noopener" data-original-title="" title="">\
+            ANONYM ÖFFNEN\
+          </a>\
         </div>\
       </div>\
     </div>');
@@ -408,14 +405,12 @@ function resultSaver (index) {
   // Read the necessary data from the result html
   var title = $('.result[data-count=' + index + '] .result-title a').html().trim();
   var link = $('.result[data-count=' + index + '] .result-title a').attr('href').trim();
-  var anzeigeLink = $('.result[data-count=' + index + '] .result-link a').html().trim();
-  var gefVon = $('.result[data-count=' + index + '] .result-hoster a').html().trim();
-  var hoster = $('.result[data-count=' + index + '] .result-hoster a').attr('href').trim();
-  var anonym = $('.result[data-count=' + index + '] .result-proxy a').attr('href').trim();
+  var anzeigeLink = $('.result[data-count=' + index + '] .result-link').html().trim();
   var description = $('.result[data-count=' + index + '] .result-description').html().trim();
+  var anonym = $('.result[data-count=' + index + '] .result-open-proxy').attr('href').trim();
 
   // Create the result object
-  var result = new Result(title, link, anzeigeLink, gefVon, hoster, anonym, description, index, null);
+  var result = new Result(title, link, anzeigeLink, description, anonym, index, null);
 
   // Add new result to results
   results.addResult(result);
