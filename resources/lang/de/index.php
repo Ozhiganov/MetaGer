@@ -26,7 +26,7 @@ return [
     'focus-creator.focusname'        => 'Fokusname: ',
 
     'slogan.title'                   => 'Besser&nbsp;suchen, schneller&nbsp;finden',
-    'slogan.1'                       => 'MetaGer ist die einzige Suchmaschine, die nicht profitgetrieben, sondern gemeinnützig arbeitet. Wir speichern keine persönlichen Daten und bevorzugen keine Ergebnisse für Geld.',
+    'slogan.1'                       => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach und selbstverständlich.<br>Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger <a href="/spende">Verein</a>: <a href="/beitritt">Werden Sie Mitglied</a>!',
     'slogan.2'                       => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
 
 
