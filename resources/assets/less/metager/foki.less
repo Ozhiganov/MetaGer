@@ -1,4 +1,4 @@
-/* Rund um die Foki */
+/* Rund ums Fokus Modal */
 
 #show-create-focus {
     display: none;
@@ -36,6 +36,30 @@
                         font-size: 24px;
                         content: "×";
                     }
+                }
+            }
+            .focus-dropdown-toggle {
+                display: none;
+
+                &:not(:checked) {
+                    & ~ .focus-dropdown-label ~ .row {
+                        max-height: 0px;
+                        overflow: hidden;
+                    }
+                }
+                &:checked {
+                    & ~ .focus-dropdown-label::after {
+                        content: "Einklappen 🡡";
+                    }
+                }
+            }
+
+            .focus-dropdown-label {
+                font-weight: normal;
+                &::after {
+                    font-size: 16px;
+                    content: "Ausklappen 🡣";
+                    margin-left: 3px;
                 }
             }
         }
