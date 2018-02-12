@@ -35,5 +35,6 @@
 		<script type="text/javascript" src="{{ elixir('js/lib.js') }}"></script>
 		<script type="text/javascript" src="{{ elixir('js/scriptResultPage.js') }}"></script>
 		<script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script>
+		<script type="text/javascript" src="{{ elixir('js/focus-creator.js') }}"></script>
 	</body>
 </html>
