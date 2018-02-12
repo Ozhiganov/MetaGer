@@ -21,7 +21,9 @@
 </header>
 <div id="research-bar-placeholder"></div>
 <div id="foki">
-	@include('parts.foki')
+	<div id="foki-box">
+		@include('parts.foki')
+	</div>
 </div>
 <div id="resultpage-container">
 	<div id="results-container">
