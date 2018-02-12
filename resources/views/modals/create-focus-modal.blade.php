@@ -1,9 +1,9 @@
 <input type="checkbox" id="show-create-focus">
 <div id="create-focus-modal" tab-index="-1" role="dialog">
-	<div class="foki-modal-dialog">
-		<div class="foki-modal-content">
-			<div class="foki-modal-header">
-				<label type="button" id="close-create-focus" for="show-create-focus"></label>
+	<div id="foki-modal-dialog">
+		<div id="foki-modal-content">
+			<div id="foki-modal-header">
+				<label type="button" id="close-create-focus" role= "button" for="show-create-focus"></label>
 				<h4>
 					@lang("index.focus-creator.head")
 				</h4>
