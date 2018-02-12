@@ -30,6 +30,8 @@
 						<h3 class="focus-category">
 							@lang("settings.foki." . $fokus)
 						</h3>
+						<input type="checkbox" id="toggle-{{ $fokus }}-dropdown" class="focus-dropdown-toggle">
+						<label class="focus-dropdown-label" for="toggle-{{ $fokus }}-dropdown"></label>
 						<div class="row">
 							@foreach( $sumas as $name => $data )
 							<div class="col-sm-6 col-md-4 col-lg-3">
