@@ -8,7 +8,8 @@ Homestead.yaml
 .orig
 .vscode
 langfiles.zip
-# The Files created by Gulp in the build process
+# The Files created by webpack in the build process
+/public/mix-manifest.json
 /public/build
 /public/js/lib.js
 /public/js/scriptStartPage.js
