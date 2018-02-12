@@ -360,7 +360,7 @@ p.mg-logo {
 
 @result-width: 700px;
 @quicktip-width: 500px;
-@results-margin-left: 50px;
+@results-margin-left: @resultpage-leftbox-big-screen-margin-left;
 #resultpage-container {
     width: @result-width + @quicktip-width;
     align-self: left;
@@ -379,7 +379,7 @@ p.mg-logo {
         width: 100%;
         justify-content: center;
         margin: 0px;
-        padding: 0px 8px;
+        padding: 0px @resultpage-leftbox-min-dist-left-right; // Verhindert, dass Text bei kleinen Bildschirmen an den Rand ragt
     }
     #results-container {
         max-width: @result-width;
