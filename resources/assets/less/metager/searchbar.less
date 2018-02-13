@@ -282,14 +282,12 @@ div:hover>.searchbar-tooltip {
 @resultpage-leftbox-min-dist-left-right: 8px;
 @resultpage-leftbox-min-dist-top-bottom: 8px;
 @resultpage-leftbox-big-screen-margin-left: 50px;
-
 header {
     padding-top: @resultpage-leftbox-min-dist-top-bottom;
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: 100;
-    // Makes the header larger, so it correctly covers the non scrolling parts below
+    z-index: 100; // Makes the header larger, so it correctly covers the non scrolling parts below
     width: @resultpage-leftbox-max-width + @resultpage-leftbox-big-screen-margin-left + 10;
     padding-left: @resultpage-leftbox-big-screen-margin-left;
     background-color: inherit;
@@ -343,15 +341,9 @@ header:nth-child(1) {
         max-width: @resultpage-leftbox-max-width;
         background-color: white;
         border: 1px solid #ccc;
-        padding: 10px;
-        overflow-x: auto;
         box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-        &::-webkit-scrollbar {
-            height: 0px;
-            /* remove scrollbar space */
-            background: transparent;
-            /* optional: just make scrollbar invisible */
-        }
+        overflow-x: auto;
+        padding: 10px;
         &>div {
             padding: 0px 10px;
             &>a {
@@ -365,12 +357,45 @@ header:nth-child(1) {
         .edit-focus {
             margin-left: 7px;
         }
+        /* Scrollbar Style */
+        &::-webkit-scrollbar {
+            height: 0px;
+            /* remove scrollbar space */
+            background: transparent;
+            /* optional: just make scrollbar invisible */
+        }
+    }
+}
+
+
+/* Scrollbar Style */
+
+@scrollfade-color: white;
+.scrollbox {
+    position: relative;
+    width: 100%;
+    .foki-scrollfade {
+        &-left,
+        &-right {
+            position: absolute;
+            width: 20px;
+            height: 42px;
+            top: 1px;
+        }
+        &-left {
+            background: linear-gradient(to right, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
+            left: 0px;
+        }
+        &-right {
+            background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
+            right: 0px;
+        }
     }
 }
 
 #research-bar-placeholder {
-    margin: @resultpage-leftbox-min-dist-top-bottom 0px 0px 50px;
+    padding: @resultpage-leftbox-min-dist-top-bottom 0px 0px 50px;
     width: 100%;
     max-width: 700px;
-    height: 53px;
+    height: 61px;
 }
