@@ -21,8 +21,12 @@
 </header>
 <div id="research-bar-placeholder"></div>
 <div id="foki">
-	<div id="foki-box">
-		@include('parts.foki')
+	<div class="scrollbox">
+		<div class="foki-scrollfade-left"></div>
+		<div id="foki-box">
+			@include('parts.foki')
+		</div>
+		<div class="foki-scrollfade-right"></div>
 	</div>
 </div>
 <div id="resultpage-container">
