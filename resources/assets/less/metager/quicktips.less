@@ -3,11 +3,19 @@
 #quicktips {
     display: flex;
     flex-direction: column;
-    details[open=""] .quicktip-extender {
-        animation-name: quicktip-extender-turn;
-        animation-fill-mode: forwards;
-    }
     .quicktip {
+        position: relative;
+        .quicktip-extender {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #777;
+            font-size: 20px;
+        }
+        details[open=""] .quicktip-extender {
+            animation-name: quicktip-extender-turn;
+            animation-fill-mode: forwards;
+        }
         margin: 10px 0px;
         padding: 10px 10px 10px 10px;
         width: 100%;
@@ -29,11 +37,6 @@
                 font-size: 18px;
                 display: flex;
                 justify-content: space-between;
-                .quicktip-extender {
-                    margin-left: 10px;
-                    color: #777;
-                    font-size: 20px;
-                }
             }
             p {
                 font-size: 16px;

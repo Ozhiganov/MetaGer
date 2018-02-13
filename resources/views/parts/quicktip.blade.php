@@ -1,6 +1,7 @@
 @if (sizeof($quicktip->details) > 0)
   <details>
     <summary class="quicktip-summary">
+      <i class="quicktip-extender fa fa-chevron-down"></i>
       @if ($quicktip->title != "")
         <h1>
           @if ($quicktip->link != "")
