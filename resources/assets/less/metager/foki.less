@@ -21,23 +21,25 @@
     #foki-modal-dialog {
         background-color: white;
         max-width: 70%;
-        height: 950px;
-        color: black;
+        margin: 30px auto;
+        height: 900px;
         overflow-y: auto;
 
         #foki-modal-content {
             #foki-modal-header {
                 padding: 15px;
                 position: relative;
+                border-bottom: 1px solid #e5e5e5;
                 #close-create-focus{
                     position: absolute;
-                    right: 10px;
+                    right: 15px;
                     &::after {
                         font-size: 24px;
                         content: "×";
                     }
                 }
             }
+
             .focus-dropdown-toggle {
                 display: none;
 
@@ -49,16 +51,15 @@
                 }
                 &:checked {
                     & ~ .focus-dropdown-label::after {
-                        content: "Einklappen 🡡";
+                        content: "🡡";
                     }
                 }
             }
 
             .focus-dropdown-label {
-                font-weight: normal;
                 &::after {
                     font-size: 16px;
-                    content: "Ausklappen 🡣";
+                    content: "🡣";
                     margin-left: 3px;
                 }
             }
