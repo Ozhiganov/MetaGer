@@ -62,6 +62,14 @@
                     content: "🡣";
                     margin-left: 3px;
                 }
+
+                & ~ .row {
+                    -webkit-transition: max-height 0.4s ease;  /* Chrome 1-25, Safari 3.2+ */
+                    -moz-transition: max-height 0.4s ease;  /* Firefox 4-15 */
+                    -o-transition: max-height 0.4s ease;  /* Opera 10.50–12.00 */
+                    transition: max-height 0.4s ease;
+                    max-height: 400px;
+                }
             }
         }
     }
