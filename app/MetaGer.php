@@ -90,6 +90,15 @@ class MetaGer
     # Erstellt aus den gesammelten Ergebnissen den View
     public function createView()
     {
+        # Hiermit werden die evtl. ausgewählten SuMas extrahiert, damit die Input-Boxen richtig gesetzt werden können
+        $focusPages = [];
+        
+        foreach ($this->request->all() as $key => $value) {
+            if ($value === 'on') {
+                $focusPages[] = str_replace('param_', '', $key);
+            }
+        }
+
         $viewResults = [];
         # Wir extrahieren alle notwendigen Variablen und geben Sie an unseren View:
         foreach ($this->results as $result) {
@@ -179,6 +188,7 @@ class MetaGer
                 default:
                     return view('metager3')
                         ->with('eingabe', $this->eingabe)
+                        ->with('focusPages', $focusPages)
                         ->with('mobile', $this->mobile)
                         ->with('warnings', $this->warnings)
                         ->with('errors', $this->errors)
