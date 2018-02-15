@@ -92,10 +92,10 @@ class MetaGer
     {
         # Hiermit werden die evtl. ausgewählten SuMas extrahiert, damit die Input-Boxen richtig gesetzt werden können
         $focusPages = [];
-        
+
         foreach ($this->request->all() as $key => $value) {
             if ($value === 'on') {
-                $focusPages[] = str_replace('param_', '', $key);
+                $focusPages[] = str_replace('param_', '', str_replace('engine_', '', $key));
             }
         }
 
