@@ -9,11 +9,19 @@
 					@lang("index.focus-creator.head")
 				</h4>
 				<p class="text-muted">@lang("index.focus-creator.description")</p>
+				<div class="clearfix">
+					<div class="settings-modal-buttons pull-right">
+						<button type="submit" form="customSearchForm" class="save-focus-btn btn btn-primary">
+							@lang('index.focus-creator.save')
+						</button>
+					</div>
+				</div>
 			</div>
 			<div class="modal-body">
 				<form id="customSearchForm" method="GET" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
-					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">	
-					<input type="hidden" name="focus" value="focus_custom" id="custom-focus-flag">																			
+					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">
+					<input type="hidden" name="encoding" value="utf8">
+					<input type="hidden" name="focus" value="focus_custom">																			
 					@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
 						<div class="headingGroup {{ $fokus }}">
 							<input type="checkbox" id="toggle-{{ $fokus }}-dropdown" class="focus-dropdown-toggle" checked>
