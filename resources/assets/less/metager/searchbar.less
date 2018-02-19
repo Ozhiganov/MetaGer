@@ -176,9 +176,11 @@
     }
 }
 
-div:hover>.searchbar-tooltip {
+label:hover+.searchbar-tooltip {
     display: inline-block;
-    @media (max-width: @screen-xs-max) {
+    top: 30px;
+    left: -10px;
+    @media (max-width: 799px) {
         display: none;
     }
 }
@@ -252,8 +254,6 @@ div:hover>.searchbar-tooltip {
 .searchbar-tooltip {
     display: none;
     position: absolute;
-    top: 45px;
-    left: -10px;
     &>.searchbar-tooltip-arrow {
         position: absolute;
         top: -4px;
@@ -339,24 +339,25 @@ header:nth-child(1) {
         display: flex;
         width: 100%;
         max-width: @resultpage-leftbox-max-width;
-        background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         overflow-x: auto;
         padding: 10px;
-        &>div {
-            padding: 0px 10px;
-            &>a {
-                color: black;
-            }
+        overflow-x: auto;   
+    &>div {
+        padding: 0px 10px;
+        &>a {
+            color: black;
+        }
             &.active>a {
                 border-bottom: 1px solid rgb(255, 128, 0);
                 color: rgb(255, 128, 0);
-            }
         }
+    }
         .edit-focus {
-            margin-left: 7px;
-        }
+        margin-left: 7px;
+    }
         /* Scrollbar Style */
         &::-webkit-scrollbar {
             height: 0px;

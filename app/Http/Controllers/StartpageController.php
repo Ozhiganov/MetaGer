@@ -37,15 +37,6 @@ class StartpageController extends Controller
             $autocomplete = $option_values['autocomplete'];
         }
 
-        foreach ($request->all() as $key => $value) {
-            if ($value === 'on' && !in_array($key, $optionParams)) {
-                $focusPages[] = str_replace('param_', '', $key);
-            }
-            if ($key === 'param_theme') {
-                $theme = str_replace('param_', '', $key);
-            }
-        }
-
         $lang = LaravelLocalization::getCurrentLocale();
         if ($lang === 'de') {
             $lang = 'all';
@@ -54,10 +45,8 @@ class StartpageController extends Controller
         return view('index')
             ->with('title', trans('titles.index'))
             ->with('homeIcon')
-            ->with('focusPages', $focusPages)
             ->with('browser', (new Agent())->browser())
             ->with('navbarFocus', 'suche')
-            ->with('theme', $theme)
             ->with('focus', $request->input('focus', 'web'))
             ->with('time', $request->input('param_time', '1500'))
             ->with('request', $request->input('request', 'GET'))

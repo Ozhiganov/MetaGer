@@ -23,7 +23,8 @@
 				@if (isset($option_values))
 					<input type="hidden" name="time" value={{ $time }}>
 				@endif
-				@if (isset($focusPages))
+				@if (isset($focusPages) && !empty($focusPages))
+					<input type="hidden" name="focus" value="focus_custom">	
 					@foreach ($focusPages as $fp)
 						<input type="hidden" name={{ $fp }} value="on">
 					@endforeach
