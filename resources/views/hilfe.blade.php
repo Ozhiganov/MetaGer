@@ -38,7 +38,7 @@
 		</div>
 	</div>
 	<h2>{!! trans('hilfe.sucheingabe.title') !!}</h2>
-	<p>{!! trans('hilfe.sucheingabe.hint') !!}</p>
+	<div class="alert alert-warning" role="alert">{!! trans('hilfe.sucheingabe.hint') !!}</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">{!! trans('hilfe.stopworte.title') !!}</h3>
@@ -99,40 +99,7 @@
 				<div class="well well-sm">{!! trans('hilfe.domains.blacklist.example.6') !!}</div></li>
 			</ul>
 			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
-			<img id="exampleimg" src="/img/blacklist-tutorial-searchexample.png">
-			<p>{!! trans('hilfe.domains.showcase.explanation.2') !!}<p>
-			<div id="result_option_showcase" style="margin-top: -300px"></div>
-			<div style="margin-top: 315px; margin-bottom: 10px;">
-				<div class="popover fade bottom in" role="tooltip" style="top: auto; left: auto; display: block; position: relative">
-					<div class="arrow" style="left: 50%;"></div>
-					<h3 class="popover-title"><i class="fa fa-cog" aria-hidden="true"></i> Optionen</h3>
-					<div class="popover-content">
-						<ul class="options-list list-unstyled small">
-							<li>
-								<a href="#exampleimg">
-								<i class="glyphicon glyphicon-floppy-disk"></i>
-									Ergebnis in Tab speichern.
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia site:de.wikipedia.org')">
-									Suche auf dieser Domain neu starten
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia -site:de.wikipedia.org')">
-									de.wikipedia.org ausblenden
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia -site:*.wikipedia.org')">
-									*.wikipedia.org ausblenden
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			@include('parts/fake-result')
 			<script type="text/javascript">
 				function setDummySearch(value) {
 					document.getElementById("dummy_search").innerHTML = value

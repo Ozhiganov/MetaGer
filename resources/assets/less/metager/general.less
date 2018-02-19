@@ -212,3 +212,28 @@ label a {
 button {
     border: none;
 }
+
+
+/* Tooltips */
+
+*[data-tooltip]:hover {
+    position: relative;
+    &:after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        color: black;
+        background-color: white;
+        border: 2px solid @metager-orange;
+        border-radius: 6px;
+        padding: 3px 8px;
+        width: 200px;
+        white-space: pre-wrap;
+        font-size: 15px;
+        font-weight: normal;
+        text-decoration: none;
+        text-align: center;
+        pointer-events: none;
+    }
+}
