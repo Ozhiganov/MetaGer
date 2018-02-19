@@ -10,7 +10,6 @@
     border: 1px solid #ccc;
     background-color: white;
     box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-    
     .result-header {
         .result-title {
             margin: 0px;
@@ -134,7 +133,6 @@
             flex-grow: 1;
             text-align: right;
         }
-        
     }
     &.ad .ad-label {
         &,
@@ -152,31 +150,28 @@
         text-align: right;
         color: #777;
     }
-
-
     &>.result-options {
         &>.options {
             width: 100%;
             text-align: right;
             overflow: hidden;
             max-height: 0px;
-            transition: max-height 1.0s;
-            -webkit-transition: max-height 1.0s;
+            transition: all 1.0s;
+            -webkit-transition: all 1.0s;
+            opacity: 0;
         }
-        &>.result-toggle:checked + .options {
+        &>.result-toggle:checked+.options {
             max-height: 150px;
             overflow: initial;
+            opacity: 1;
         }
         li {
             font-size: 14px;
             text-transform: uppercase;
             margin: 10px 0;
         }
-
-        li > a {
+        li>a {
             color: black;
         }
     }
-
 }
-
