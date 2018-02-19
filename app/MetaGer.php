@@ -90,6 +90,15 @@ class MetaGer
     # Erstellt aus den gesammelten Ergebnissen den View
     public function createView($quicktipResults = NULL)
     {
+        # Hiermit werden die evtl. ausgewählten SuMas extrahiert, damit die Input-Boxen richtig gesetzt werden können
+        $focusPages = [];
+
+        foreach ($this->request->all() as $key => $value) {
+            if ($value === 'on') {
+                $focusPages[] = str_replace('param_', '', str_replace('engine_', '', $key));
+            }
+        }
+
         $viewResults = [];
         # Wir extrahieren alle notwendigen Variablen und geben Sie an unseren View:
         foreach ($this->results as $result) {
@@ -179,6 +188,7 @@ class MetaGer
                 default:
                     return view('metager3')
                         ->with('eingabe', $this->eingabe)
+                        ->with('focusPages', $focusPages)
                         ->with('mobile', $this->mobile)
                         ->with('warnings', $this->warnings)
                         ->with('errors', $this->errors)
@@ -493,6 +503,12 @@ class MetaGer
         $sumaCount            = 0;
 
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
+        
+        # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
+        if($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
+            $isCustomSearch = false;
+            $this->fokus = 'web';
+        }
 
         /* Erstellt die Liste der eingestellten Sumas
          * Der einzige Unterschied bei angepasstem Suchfokus ist,
@@ -1207,6 +1223,15 @@ class MetaGer
             }
 
         }
+    }
+
+    public function atLeastOneSearchengineSelected(Request $request) {
+        foreach ($request->all() as $key => $value) {
+            if ($this->startsWith($key, 'engine')) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function showQuicktips()

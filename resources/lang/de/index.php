@@ -119,7 +119,7 @@ return [
     'plugin.vivaldi.9'               => 'Klicken Sie in Ihrem Browser oben links auf das rote Vivaldi Logo und wählen Sie zuerst "Werkzeuge", dann im Untermenü "Einstellungen".',
     'plugin.vivaldi.10'              => 'Tragen Sie im Feld "Startseite" "https://metager.de" ein.',
 
-    'tooltips.add-focus'                      => 'Eigenen Fokus hinzufügen',
+    'tooltips.add-focus'                      => 'Suche anpassen',
     'tooltips.edit-focus'                     => 'Aktuellen Fokus bearbeiten',
     'tooltips.settings' => 'Allgemeine Einstellungen',
 ];
