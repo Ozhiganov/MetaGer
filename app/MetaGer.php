@@ -496,6 +496,11 @@ class MetaGer
         $sumaCount            = 0;
 
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
+        # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
+        if($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
+            $isCustomSearch = false;
+            $this->fokus = 'web';
+        }
 
         /* Erstellt die Liste der eingestellten Sumas
          * Der einzige Unterschied bei angepasstem Suchfokus ist,
@@ -1212,6 +1217,15 @@ class MetaGer
             }
 
         }
+    }
+
+    public function atLeastOneSearchengineSelected(Request $request) {
+        foreach ($request->all() as $key => $value) {
+            if ($this->startsWith($key, 'engine')) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function showQuicktips()
