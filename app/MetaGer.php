@@ -496,6 +496,7 @@ class MetaGer
         $sumaCount            = 0;
 
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
+        
         # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
         if($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
             $isCustomSearch = false;
