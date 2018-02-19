@@ -12,11 +12,11 @@
 			</div>
 			<div class="modal-body">
 				<form id="customSearchForm" method="GET" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
-					<input type="hidden" name="focus" value="focus_custom" id="custom-focus-flag">
-					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">																				
+					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">	
+					<input type="hidden" name="focus" value="focus_custom" id="custom-focus-flag">																			
 					@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
 						<div class="headingGroup {{ $fokus }}">
-							<input type="checkbox" id="toggle-{{ $fokus }}-dropdown" class="focus-dropdown-toggle">
+							<input type="checkbox" id="toggle-{{ $fokus }}-dropdown" class="focus-dropdown-toggle" checked>
 							<label for="toggle-{{ $fokus }}-dropdown" class="focus-category focus-dropdown-label h3">
 								@lang("settings.foki." . $fokus)
 							</label>
