@@ -55,16 +55,22 @@
 			<input type="text" class="form-control" name="betrag" required>
 			<p> {{ trans('beitritt.beitritt.9') }}</p>
 		</div>
-		<p>{{ trans('beitritt.beitritt.10') }}</p>
-		<p>{{ trans('beitritt.beitritt.11') }}</p>
-		<input type="radio" name="veröffentlichung" checked> {{ trans('beitritt.beitritt.12') }}
-		<input type="radio" name="veröffentlichung"> {{ trans('beitritt.beitritt.13') }}
-		<div class="form-group beitritt-form-group">
-			<label for="ort">{{ trans('beitritt.beitritt.14') }}</label>
-			<input type="text" class="form-control beitritt-input" id="ort" placeholder="">
+		<div class="col-sm-12">
+			<p>{{ trans('beitritt.beitritt.10') }}</p>
+			<p>{{ trans('beitritt.beitritt.11') }}</p>
 		</div>
-		<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
-		<div class="newpage"></div>
+		<div class="col-sm-12">
+			<input type="radio" name="veröffentlichung" checked> {{ trans('beitritt.beitritt.12') }}
+			<input type="radio" name="veröffentlichung"> {{ trans('beitritt.beitritt.13') }}
+		</div>
+		<div class="col-sm-12">
+			<div class="form-group beitritt-form-group">
+				<label for="ort">{{ trans('beitritt.beitritt.14') }}</label>
+				<input type="text" class="form-control beitritt-input" id="ort" placeholder="">
+			</div>
+			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
+		</div>
+		<div class="newpage row"></div>
 		<h1>{{ trans('beitritt.abbuchung.2') }}</h1>
 		<p>{{ trans('beitritt.abbuchung.3') }}</p>
 		<div class="form-group beitritt-form-group">
