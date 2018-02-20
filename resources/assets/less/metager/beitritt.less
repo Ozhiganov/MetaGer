@@ -1,6 +1,19 @@
 /* Style für die Druckversion des Beitrittsformulars */
 
 #donation-form {
+    .beitritt-inputs {
+        display: flex;
+        flex-wrap: wrap;
+        >div {
+            width: 50%;
+            padding: 10px;
+        }
+        @media print {
+            padding: 0px;
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+    }
     label {
         font-weight: normal;
     }
@@ -40,7 +53,9 @@
             height: initial !important;
             border: 0;
         }
-        /* Skalierung für Firefox, absolut für die anderen Browser */
+        /* Passt die Größe der Radio-Buttons an
+         * Skalierung für Firefox, absolut für die anderen Browser 
+         */
         input[type=radio] {
             transform: scale(0.5);
             width: 20px !important;
@@ -48,6 +63,7 @@
             margin-top: 0px !important;
             padding-top: 0px !important;
         }
+        /* Blendet die Placeholder aus */
         input::-webkit-input-placeholder {
             /* WebKit browsers */
             color: transparent !important;
