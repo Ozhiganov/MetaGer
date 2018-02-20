@@ -13,7 +13,8 @@ class Result
     public $anzeigeLink; # Der tatsächlich angezeigte Link (rein optisch)
     public $descr; # Die eventuell gekürzte Beschreibung des Suchergebnisses
     public $longDescr; # Die ungekürzte Beschreibung des Suchergebnisses
-    public $gefVon; # Das bei Suchergebnissen angezeigte von ... mitsamt Verlinkung
+    public $gefVon; # Die Suchmaschine von der dieses Ergebnis stammt
+    public $gefVonLink;
     public $sourceRank; # Das Ranking für dieses Suchergebnis von der Seite, die es geliefert hat (implizit durch Ergebnisreihenfolge: 20 - Position in Ergebnisliste)
     public $partnershop; # Ist das Ergebnis von einem Partnershop? (bool)
     public $image; # Ein Vorschaubild für das Suchergebnis (als URL)
@@ -28,7 +29,7 @@ class Result
     public $rank; # Das Ranking für das Ergebnis
 
     # Erstellt ein neues Ergebnis
-    public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $sourceRank, $additionalInformation = [])
+    public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $gefVonLink, $sourceRank, $additionalInformation = [])
     {
         $provider          = simplexml_load_string($provider);
         $this->titel       = strip_tags(trim($titel));
@@ -46,6 +47,7 @@ class Result
 
         }
         $this->gefVon     = trim($gefVon);
+        $this->gefVonLink = trim($gefVonLink);
         $this->proxyLink  = $this->generateProxyLink($this->link);
         $this->sourceRank = $sourceRank;
         if ($this->sourceRank <= 0 || $this->sourceRank > 20) {
