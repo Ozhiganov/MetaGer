@@ -97,7 +97,7 @@ Route::group(
         Route::post('spende', 'MailController@donation');
 
         Route::get('datenschutz', function () {
-            return view('datenschutz')
+            return view('datenschutz/datenschutz')
                 ->with('title', trans('titles.datenschutz'))
                 ->with('navbarFocus', 'datenschutz');
         });
