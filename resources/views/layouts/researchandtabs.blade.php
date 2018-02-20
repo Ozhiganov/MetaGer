@@ -33,7 +33,7 @@
 	<div id="results-container">
 		@yield('results')
 	</div>
-	<div id="additions-container" style="display: none;">
+	<div id="additions-container">
 		<div id="search-settings">
 			<h1>Eigene Suche</h1>
 			@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
