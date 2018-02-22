@@ -1,9 +1,9 @@
 /* Rund ums Fokus Modal */
 
 #show-create-focus:checked {
-    & + #create-focus-modal {
+    &+#create-focus-modal {
         display: flex;
-    } 
+    }
 }
 
 #create-focus-modal {
@@ -12,22 +12,20 @@
     justify-content: center;
     min-height: 100%;
     width: 100%;
-    background: linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7));
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7));
     z-index: 150;
-
     #foki-modal-dialog {
         background-color: white;
         max-width: 700px;
         margin: 30px auto;
         height: 900px;
         overflow-y: auto;
-
         #foki-modal-content {
             #foki-modal-header {
                 padding: 15px;
                 position: relative;
                 border-bottom: 1px solid #e5e5e5;
-                #close-create-focus{
+                #close-create-focus {
                     position: absolute;
                     right: 15px;
                     &::after {
@@ -36,39 +34,37 @@
                     }
                 }
             }
-
             .focus-dropdown-toggle {
                 display: none;
-
                 &:not(:checked) {
-                    & ~ .focus-dropdown-label ~ .row {
+                    &~.focus-dropdown-label~.row {
                         max-height: 0px;
                         overflow: hidden;
                     }
                 }
                 &:checked {
-                    & ~ .focus-dropdown-label::after {
+                    &~.focus-dropdown-label::after {
                         content: "🡡";
                     }
                 }
             }
-
             .focus-dropdown-label {
                 &::after {
                     font-size: 16px;
                     content: "🡣";
                     margin-left: 3px;
                 }
-
-                & ~ .row {
-                    -webkit-transition: max-height 0.4s ease;  /* Chrome 1-25, Safari 3.2+ */
-                    -moz-transition: max-height 0.4s ease;  /* Firefox 4-15 */
-                    -o-transition: max-height 0.4s ease;  /* Opera 10.50–12.00 */
+                &~.row {
+                    -webkit-transition: max-height 0.4s ease;
+                    /* Chrome 1-25, Safari 3.2+ */
+                    -moz-transition: max-height 0.4s ease;
+                    /* Firefox 4-15 */
+                    -o-transition: max-height 0.4s ease;
+                    /* Opera 10.50–12.00 */
                     transition: max-height 0.4s ease;
                     max-height: 400px;
                 }
             }
         }
     }
-
 }
