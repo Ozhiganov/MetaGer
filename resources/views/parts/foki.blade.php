@@ -17,10 +17,4 @@
 	<label for="show-create-focus" role="button" id="">
 		<i class="fa fa-sliders"></i>
 	</label>
-	<div class="searchbar-tooltip">
-		<div class="searchbar-tooltip-arrow"></div>
-		<div class="searchbar-tooltip-content">
-			<p>{{{ trans('index.tooltips.add-focus') }}}</p>
-		</div>
-	</div>
 </div>
