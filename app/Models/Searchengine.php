@@ -23,7 +23,6 @@ abstract class Searchengine
     public $cached   = false;
 
     public $ip; # Die IP aus der metager
-    public $gefVon; # Der HTML-Code für die Verlinkung des Suchanbieters
     public $uses; # Die Anzahl der Nutzungen dieser Suchmaschine
     public $homepage; # Die Homepage dieser Suchmaschine
     public $name; # Der Name dieser Suchmaschine
@@ -71,7 +70,6 @@ abstract class Searchengine
 
         $this->useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1";
         $this->ip        = $metager->getIp();
-        $this->gefVon    = $this->displayName;
         $this->startTime = microtime();
 
         # Suchstring generieren

@@ -34,7 +34,7 @@ class Mg_hochsch_de extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->gefVon,
+                $this->displayName,$this->homepage,
                 $this->counter
             );
         }
