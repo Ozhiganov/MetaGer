@@ -170,10 +170,13 @@ summary {
     font-weight: bold;
 }
 
-@media print {
-    .noprint {
+.noprint {
+    @media print {
         display: none!important;
     }
+}
+.newpage {
+    page-break-after: always;
 }
 
 nav {
