@@ -117,7 +117,7 @@ Results.prototype.updateResultPageInterface = function () {
     // If there is no savedFoki element yet, create it
     var tabPanel = $('\
         <div id="savedFoki">\
-          <h1>Gespeicherte Ergebnisse</h1>\
+          <h1>' + t('result-saver.title') + '</h1>\
         </div>\
         ');
     $('#additions-container').append(tabPanel);
