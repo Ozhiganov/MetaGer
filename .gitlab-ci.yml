@@ -7,7 +7,7 @@ update(144.76.113.134):
     # Abhängigkeiten überprüfen
     - which composer
     - which git
-    - which php7.0
+    - which php
     - which sqlite3
   script:
     # Pfad zum neu geklonten Repo
@@ -24,16 +24,17 @@ update(144.76.113.134):
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
+    - touch database/metager.sqlite
     - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
     - npm run prodution
+    - php artisan migrate --force
     - if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
     - cd ~/
     - while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
     - mv MetaGer_neu MetaGer
-    - php ~/MetaGer/artisan migrate --force
     - sudo pkill --signal SIGHUP supervisord
     - php ~/MetaGer/artisan up
    
@@ -46,7 +47,7 @@ update(metager2):
     # Abhängigkeiten überprüfen
     - which composer
     - which git
-    - which php7.0
+    - which php
     - which sqlite3
   script:
     # Pfad zum neu geklonten Repo
@@ -63,16 +64,17 @@ update(metager2):
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
+    - touch database/metager.sqlite
     - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
     - npm run prodution
+    - php artisan migrate --force
     - if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
     - cd ~/
     - while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
     - mv MetaGer_neu MetaGer
-    - php ~/MetaGer/artisan migrate --force
     - sudo pkill --signal SIGHUP supervisord
     - php ~/MetaGer/artisan up
     
@@ -85,7 +87,7 @@ update(metager3.de):
     # Abhängigkeiten überprüfen
     - which composer
     - which git
-    - which php7.0
+    - which php
     - which sqlite3
   script:
     # Pfad zum neu geklonten Repo
@@ -102,15 +104,16 @@ update(metager3.de):
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
+    - touch database/metager.sqlite
     - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
-    - ./gulpbuild.sh
+    - npm run prodution
+    - php artisan migrate --force
     - if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
     - cd ~/
     - while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
     - mv MetaGer_neu MetaGer
-    - php ~/MetaGer/artisan migrate --force
     - sudo pkill --signal SIGHUP supervisord
     - php ~/MetaGer/artisan up

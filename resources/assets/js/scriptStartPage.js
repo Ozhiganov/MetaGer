@@ -155,6 +155,10 @@ var isChrome = !!window.chrome && !!window.chrome.webstore;
 // Blink engine detection
 var isBlink = (isChrome || isOpera) && !!window.CSS;
 // Prüft, ob der URL-Parameter "usage" auf "once" gesetzt ist.
+    alert(t('select-valid-name'));
+  } else if(atLeastOneChecked()) {
+    alert(t('select-engine'));
+  } else {
 
 function loadSavedResults () {
   var results = new Results();

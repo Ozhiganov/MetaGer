@@ -68,7 +68,7 @@ abstract class Searchengine
             return;
         }
 
-        $this->useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1";
+        $this->useragent = $metager->getUserAgent();
         $this->ip        = $metager->getIp();
         $this->startTime = microtime();
 
@@ -240,7 +240,7 @@ abstract class Searchengine
                 Cache::put($this->hash, $body, $this->cacheDuration);
             }
         }
-        if ($body !== "") {
+        if ($body !== "" && $body !== "connected" && $body !== "waiting") {
             $this->loadResults($body);
             $this->getNext($metager, $body);
             $this->loaded = true;
@@ -333,9 +333,6 @@ abstract class Searchengine
     {
         $affil_data = 'ip=' . $this->ip;
         $affil_data .= '&ua=' . $this->useragent;
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $affil_data .= '&xfip=' . $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
         $affilDataValue = $this->urlEncode($affil_data);
         # Wir benötigen die ServeUrl:
         $serveUrl = $this->urlEncode($url);
