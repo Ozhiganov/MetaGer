@@ -690,8 +690,7 @@ class MetaGer
         return
             $sumaName === "qualigo"
             || $sumaName === "similar_product_ads"
-            || (!$overtureEnabled && $sumaName === "overtureAds")
-            || $sumaName == "rlvproduct";
+            || (!$overtureEnabled && $sumaName === "overtureAds");
     }
 
     public function sumaIsDisabled($suma)
@@ -780,7 +779,7 @@ class MetaGer
         $realEngNames = [];
         foreach ($enabledSearchengines as $realEng) {
             $nam = $realEng["name"]->__toString();
-            if ($nam !== "qualigo" && $nam !== "overtureAds" && $nam !== "rlvproduct") {
+            if ($nam !== "qualigo" && $nam !== "overtureAds") {
                 $realEngNames[] = $nam;
             }
         }
