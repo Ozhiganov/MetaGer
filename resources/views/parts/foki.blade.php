@@ -13,7 +13,7 @@
 <div id="maps">
 	<a href="https://maps.metager.de/map/{{ $metager->getQ() }}/9.7380161,52.37119740000003,12" target="_self">@lang('index.foki.maps')</a>
 </div>
-<div class="search-option-frame">
+<div class="search-option-frame hide-tooltip-on-resultpage" data-tooltip="Eigene Suche erstellen">
 	<label for="show-create-focus" role="button" id="">
 		<i class="fa fa-sliders"></i>
 	</label>
