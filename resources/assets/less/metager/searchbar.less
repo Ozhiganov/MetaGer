@@ -1,138 +1,27 @@
 /* Suchleiste */
 
 .searchbar {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: stretch;
-    justify-content: center;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     font-size: 16px;
     background-color: transparent;
     color: #333;
     &>* {
         background-color: white;
     }
-    .search-focus-selector {
-        border-radius: 5px 0px 0px 5px;
-        display: flex;
-        align-items: center;
-        position: relative;
-        @media(max-width: @screen-xs-max) {
-            display: none;
-        }
-        &>button {
-            border: none;
-            border-right: 1px solid rgb(170, 170, 170);
-            background-color: white;
-            margin: 5px;
-        }
-        .search-settings:only-child {
-            padding: 5px;
-            border-right: solid 1px #ccc;
-        }
-        select {
-            width: 100%;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: transparent;
-            padding: 0px 35px 0px 5px;
-            font-family: FontAwesome, sans-serif;
-            border: none;
-            &>option {
-                font-family: FontAwesome, sans-serif;
-            }
-        }
-        &:after {
-            content: "\f078";
-            font: 15px "FontAwesome", sans-serif;
-            line-height: 30px;
-            background-color: transparent;
-            right: 8px;
-            top: 2px;
-            padding: 2px 2px 2px 5px;
-            position: absolute;
-            pointer-events: none;
-        }
-    }
-    .search-option-frame {
-        display: flex;
-        position: absolute;
-        background-color: white;
-        top: 50px;
-        padding: 10px;
-        border: 1px solid rgb(175, 175, 175);
-        border-radius: 4px;
-        .searchbar-options-arrow {
-            width: 0;
-            height: 0;
-            top: -5px;
-            position: absolute;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 5px solid rgb(175, 175, 175);
-            margin-left: 3%;
-        }
-        #settings-btn {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 0px;
-            i.fa {
-                padding: 0px 8px;
-            }
-        }
-    }
-    .search-button-container {
-        display: flex;
-        margin-top: 3%;
-        @media (max-width: @screen-xs-max) {
-            flex-direction: column;
-        }
-        >* {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            &:hover {
-                background-color: #e6e6e6;
-            }
-        }
-    }
-    .search-add-focus {
-        position: relative;
-        button {
-            background-color: white;
-            border: none;
-            padding: 0px 8px;
-            font-size: 16px;
-            &:hover {
-                background-color: #e6e6e6;
-            }
-        }
-    }
-    .search-edit-focus {
-        position: relative;
-        button {
-            background-color: transparent;
-            border: none;
-            padding: 0px 8px;
-            font-size: 16px;
-            &:hover {
-                background-color: #e6e6e6;
-            }
-        }
-    }
-    .search-settings {
-        position: relative;
-        a.btn {
-            border: none;
-            padding: 0px 8px;
-            display: block;
-            align-items: center;
-            font-size: 16px;
-        }
-    }
     .search-input-submit {
-        flex-grow: 1;
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         max-width: 600px;
         @media (max-width: @screen-xs-max) {
@@ -140,16 +29,18 @@
         }
     }
     .search-input {
-        flex-grow: 1;
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
         input {
             border: none;
             border-bottom: none;
             height: 40px;
-            box-shadow: none;
+            -webkit-box-shadow: none;
+                    box-shadow: none;
             &:focus {
                 outline-color: rgb(255, 128, 0);
                 -webkit-box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
-                -moz-box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
                 box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
                 border-color: rgba(255, 128, 0, 1);
             }
@@ -172,22 +63,10 @@
         display: none;
     }
     @media (max-width: @screen-xs-max) {
-        flex-direction: column-reverse;
-    }
-}
-
-label:hover+.searchbar-tooltip {
-    display: inline-block;
-    top: 30px;
-    left: -10px;
-    @media (max-width: 799px) {
-        display: none;
-    }
-}
-
-.search-option-descriptor {
-    @media (min-width: @screen-sm-min) {
-        display: none;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: reverse;
+            -ms-flex-direction: column-reverse;
+                flex-direction: column-reverse;
     }
 }
 
@@ -251,41 +130,19 @@ label:hover+.searchbar-tooltip {
     }
 }
 
-.searchbar-tooltip {
-    display: none;
-    position: absolute;
-    &>.searchbar-tooltip-arrow {
-        position: absolute;
-        top: -4px;
-        left: 20px;
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid #ff8000;
-    }
-    &>.searchbar-tooltip-content {
-        position: relative;
-        &>p {
-            display: inline-block;
-            background: #ff8000;
-            border-radius: .25em;
-            font-size: 16px;
-            color: white;
-            padding: 5px 10px;
-            white-space: nowrap;
-        }
-    }
-}
-
 @resultpage-leftbox-max-width: @result-width;
 @resultpage-leftbox-min-dist-left-right: 8px;
 @resultpage-leftbox-min-dist-top-bottom: 8px;
 @resultpage-leftbox-big-screen-margin-left: 50px;
 header {
     padding-top: @resultpage-leftbox-min-dist-top-bottom;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     position: fixed;
     z-index: 100; // Makes the header larger, so it correctly covers the non scrolling parts below
     width: @resultpage-leftbox-max-width + @resultpage-leftbox-big-screen-margin-left + 10;
@@ -297,7 +154,9 @@ header {
         margin: 0px;
         padding: @resultpage-leftbox-min-dist-top-bottom @resultpage-leftbox-min-dist-left-right 0px @resultpage-leftbox-min-dist-left-right;
         -webkit-box-pack: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
     #research-bar {
         width: 100%;
@@ -306,10 +165,17 @@ header {
         background-color: white;
         border: 1px solid #ccc;
         border-bottom: 2px solid rgb(255, 128, 0);
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+                box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         @media (max-width: 799px) {
             margin: 0px @resultpage-leftbox-min-dist-left-right;
         }
@@ -323,25 +189,36 @@ header:nth-child(1) {
 }
 
 #foki {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: left;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
     margin-left: @resultpage-leftbox-big-screen-margin-left;
     padding-top: 8px;
     width: @resultpage-leftbox-max-width;
     @media (max-width: 799px) {
         width: 100%;
         margin: 0px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         padding: @resultpage-leftbox-min-dist-top-bottom @resultpage-leftbox-min-dist-left-right 0px @resultpage-leftbox-min-dist-left-right;
     }
     #foki-box {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         width: 100%;
         max-width: @resultpage-leftbox-max-width;
         background-color: white;
         border: 1px solid #ccc;
-        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+                box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         overflow-x: visible;
         padding: 10px;
         @media (max-width: 700px) {
@@ -387,10 +264,12 @@ header:nth-child(1) {
             pointer-events: none;
         }
         &-left {
+            background: -webkit-gradient(linear, left top, right top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
             background: linear-gradient(to right, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
             left: 1px;
         }
         &-right {
+            background: -webkit-gradient(linear, right top, left top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
             background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
             right: 1px;
         }
