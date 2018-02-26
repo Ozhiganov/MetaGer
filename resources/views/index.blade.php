@@ -11,7 +11,6 @@
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
 	<script type="text/javascript" src="{{ elixir('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script>
-	<script src="{{ elixir('js/translations.js') }}"></script>
 @endsection
 
 @section('optionalContent')
