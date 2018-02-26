@@ -11,6 +11,15 @@
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
 	<script type="text/javascript" src="{{ elixir('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script>
+						<hr>
+						<h4>{{ trans('index.plugin.head.8') }}</h4>
+						<ol>
+							<li>{!! trans('index.plugin.firefox-klar.1') !!}</li>
+							<li>{{ trans('index.plugin.firefox-klar.2')}}<img src="/img/FirefoxKlar-Settings.png" width="100%"/></li>
+							<li>{{ trans('index.plugin.firefox-klar.3') }}<img src="/img/FirefoxKlar-addSearchengine.png" width="100%"/></li>
+							<li>{{ trans('index.plugin.firefox-klar.4') }}</li>
+						</ol>
+	<script src="{{ elixir('js/translations.js') }}"></script>
 @endsection
 
 @section('optionalContent')

@@ -23,10 +23,8 @@
 	@endif
 	<main id="results">
 		{{-- Show initial products or ads --}}
-		@if($metager->hasProducts())
-			@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
-				@include('layouts.products', ['products' => $metager->getProducts()])
-			@endif
+    		@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
+    		    @include('layouts.products', ['products' => $metager->getProducts()])
 		@else
 			@if($mobile)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
