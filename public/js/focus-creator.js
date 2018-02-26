@@ -377,7 +377,11 @@ var translations = {
     'result-saver.sort.chronological': 'Chronologisch',
     'result-saver.sort.ranking': 'MetaGer-Ranking',
     'result-saver.sort.alphabetical': 'Alphabetisch (Hostname)',
-    'result-saver.delete': 'Ergebnis aus dem Speicher löschen'
+    'result-saver.delete': 'Ergebnis aus dem Speicher löschen',
+    'result-saver.deleteAll': '<span class="hidden-xs">Ergebnisse</span> löschen</button>',
+    'result-saver.save.this': 'ÖFFNEN',
+    'result-saver.save.newtab': 'IN NEUEM TAB',
+    'result-saver.save.anonymous': 'ANONYM ÖFFNEN'
   },
 
   'en': {
@@ -391,7 +395,11 @@ var translations = {
     'result-saver.sort.chronological': 'Chronological',
     'result-saver.sort.ranking': 'MetaGer-Ranking',
     'result-saver.sort.alphabetical': 'Alphabetical (Hostname)',
-    'result-saver.delete': 'Delete saved Result'
+    'result-saver.delete': 'Delete saved Result',
+    'result-saver.deleteAll': 'delete <span class="hidden-xs">results</span>',
+    'result-saver.save.this': 'OPEN',
+    'result-saver.save.newtab': 'IN NEW TAB',
+    'result-saver.save.anonymous': 'OPEN ANONYMOUSLY'
   },
 
   'es': {

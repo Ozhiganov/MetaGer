@@ -152,8 +152,9 @@ Results.prototype.addToContainer = function (container) {
       </div>\
       <div class="saver-option saver-option-delete">\
         <button class="btn btn-danger btn-md" id="saver-options-delete-btn">\
-        <i class="fa fa-trash-o" aria-hidden="true"></i>\
-        <span class="hidden-xs">Ergebnisse</span> löschen</button>\
+          <i class="fa fa-trash-o" aria-hidden="true"></i>\
+          ' + t('result-saver.deleteAll') + '\
+        </button>\
       </div>\
     </div>\
   ');
@@ -375,13 +376,13 @@ Result.prototype.toHtml = function () {
         </div>\
         <div class="result-footer">\
           <a class="result-open" href="' + this.link + '" target="_self" rel="noopener">\
-            ÖFFNEN\
+            ' + t('result-saver.save.this') + '\
           </a>\
           <a class="result-open" href="' + this.link + '" target="_blank" rel="noopener">\
-            IN NEUEM TAB\
+            ' + t('result-saver.save.newtab') + '\
           </a>\
           <a class="result-open-proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.anonym + '" target="_blank" rel="noopener" data-original-title="" title="">\
-            ANONYM ÖFFNEN\
+            ' + t('result-saver.save.anonymous') + '\
           </a>\
         </div>\
       </div>\
