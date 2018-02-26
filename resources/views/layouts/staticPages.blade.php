@@ -35,12 +35,6 @@
 	<body>
 		<header>
 			@yield('homeIcon')
-									@if(LaravelLocalization::getCurrentLocale() == "de")
-										<li>
-										<a href="https://shop.spreadshirt.de/metager/" rel="noopener" target="_blank">MetaGer-Fanshop</a>
-
-										</li>
-									@endif
 		</header>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		<div class="wrapper">
@@ -60,26 +54,6 @@
 				@yield('content')
 			</main>
 			@yield('optionalContent')
-					<div class="hidden-xs mg-img">
-					</div>
-					<div id="info">
-						<div class="links">
-							<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "kontakt") }}">
-								{{ trans('staticPages.nav5') }}
-							</a>
-							<span> - </span>
-							<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "impressum") }}">
-								{{ trans('staticPages.nav8') }}
-							</a>
-							@if(LaravelLocalization::getCurrentLocale() == "de")
-							<span> - </span>
-							<a href="https://shop.spreadshirt.de/metager/" rel="noopener" target="_blank">Fanshop</a>
-							@endif
-						</div>
-						<div>
-							{{ trans('staticPages.sumaev.1') }}<a href="https://www.suma-ev.de/">{{ trans('staticPages.sumaev.2') }}</a>
-					<div class="hidden-xs mg-img">
-			<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		</div>
 		@if (isset($page) && $page === 'startpage')
 			@include('parts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])

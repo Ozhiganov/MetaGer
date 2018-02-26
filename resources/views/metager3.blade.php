@@ -22,17 +22,13 @@
 		</div>
 	@endif
 	<main id="results">
-		{{-- Show initial products or ads --}}
-    		@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
-    		    @include('layouts.products', ['products' => $metager->getProducts()])
+		{{-- Show initial ads --}}
+		@if($mobile)
+			@include('layouts.ad', ['ad' => $metager->popAd()])
 		@else
-			@if($mobile)
+			@for($i = 0; $i <= 2; $i++)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
-			@else
-				@for($i = 0; $i <= 2; $i++)
-					@include('layouts.ad', ['ad' => $metager->popAd()])
-				@endfor
-			@endif
+			@endfor
 		@endif
 		{{-- Show map --}}
 		{{-- Create results and ongoing ads --}}
