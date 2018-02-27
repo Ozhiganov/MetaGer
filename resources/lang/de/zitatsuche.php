@@ -1,6 +1,8 @@
 <?php
 
 return [
-    'head.1' => 'MetaGer - Zitatsuche',
-    'p.1'    => 'In dem unten stehenden Textfeld können Sie in unserer Datenbank nach Zitaten oder Autoren suchen.',
+    'title'         => 'MetaGer - Zitatsuche',
+    'subtitle'      => 'In dem unten stehenden Textfeld können Sie in unserer Datenbank nach Zitaten oder Autoren suchen.',
+    'search-label'  => 'Suchworte eingeben',
+    'results-label' => 'Ergebnisse für die Suche',
 ];
