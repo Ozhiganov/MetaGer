@@ -19,19 +19,12 @@
 	</div>
 @endif
 <div id="results">
-	{{-- Show initial products or a
-	@if($metager->hasProducts())
-		@if( $metager->getFokus() !== "produktsuche" && !$apiAuthorized)
-			@include('layouts.products', ['products' => $metager->getProducts()])
-		@endif
+	@if($mobile)
+		@include('layouts.ad', ['ad' => $metager->popAd()])
 	@else
-		@if($mobile)
+		@for($i = 0; $i <= 2; $i++)
 			@include('layouts.ad', ['ad' => $metager->popAd()])
-		@else
-			@for($i = 0; $i <= 2; $i++)
-				@include('layouts.ad', ['ad' => $metager->popAd()])
-			@endfor
-		@endif
+		@endfor
 	@endif
 	{{-- Show map --}}
 	{{-- Create results and ongoing ads --}}

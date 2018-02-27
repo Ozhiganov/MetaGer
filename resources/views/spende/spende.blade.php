@@ -16,40 +16,39 @@
 		<form id="donate" role="form" method="POST">
 			<input type="hidden" name="dt" value="{{ md5(date('Y') . date('m') . date('d')) }}">
 			<div class="form-group donation-form-group">
-			<label for="Name">{!! trans('spende.lastschrift.3') !!}</label>
-			<input type="text" class="form-control" id="Name" required="" name="Name" placeholder="{!! trans('spende.lastschrift.3.placeholder') !!}" value="{{ old('Name') }}" />
+				<label for="Name">{!! trans('spende.lastschrift.3') !!}</label>
+				<input type="text" class="form-control" id="Name" required="" name="Name" placeholder="{!! trans('spende.lastschrift.3.placeholder') !!}" value="{{ old('Name') }}" />
 			</div>
 			<div class="form-group donation-form-group">
-			<label for="email">{!! trans('spende.lastschrift.4') !!}</label>
+				<label for="email">{!! trans('spende.lastschrift.4') !!}</label>
 				<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
 			</div>
 			<div class="form-group donation-form-group">
-			<label for="iban">{!! trans('spende.lastschrift.6') !!}</label>
+				<label for="iban">{!! trans('spende.lastschrift.6') !!}</label>
 				<input type="text" class="form-control" id="iban" required="" name="Kontonummer" placeholder="IBAN" value="{{ old('Kontonummer') }}">
 			</div>
 			<div class="form-group donation-form-group">
-			<label for="bic">{!! trans('spende.lastschrift.7') !!}</label>
+				<label for="bic">{!! trans('spende.lastschrift.7') !!}</label>
 				<input type="text" class="form-control" id="bic" required="" name="Bankleitzahl" placeholder="BIC" value="{{ old('Bankleitzahl') }}">
 			</div>
 			<div class="form-group donation-form-group">
-			<label for="value">{!! trans('spende.lastschrift.8.value')!!} </label>
+				<label for="value">{!! trans('spende.lastschrift.8.value')!!} </label>
 				<input type="number" class="form-control" id="value" required="" name="Betrag" placeholder="{!! trans('spende.lastschrift.8.value.placeholder') !!}" value="{{ old('Bankleitzahl') }}">
 			</div>
 			<div class="form-group donation-form-group">
-			<label for="msg">{!! trans('spende.lastschrift.8.message')!!}</label>
-			<label for="msg"><u>{!! trans('spende.bankinfo.3')!!}</u></label>
-			<textarea class="form-control" id="msg" name="Nachricht" placeholder="{!! trans('spende.lastschrift.8.message.placeholder') !!}">{{ old('Nachricht') }}</textarea>
+				<label for="msg">{!! trans('spende.lastschrift.8.message')!!}</label>
+				<label for="msg"><u>{!! trans('spende.bankinfo.3')!!}</u></label>
+				<textarea class="form-control" id="msg" name="Nachricht" placeholder="{!! trans('spende.lastschrift.8.message.placeholder') !!}">{{ old('Nachricht') }}</textarea>
 			</div>
 			<button type="submit" form="donate" class="btn btn-default">{!! trans('spende.lastschrift.9') !!}</button>
 		</form>
 	</div>
-	<div class="col-lg-6 col-md-12 col-sm-12 others bitcoins">	
+	<div class="col-lg-6 col-md-12 col-sm-12 donation-others">	
 		<h3>{!! trans('spende.bankinfo.1') !!}</h3>
 		<p>{!! trans('spende.bankinfo.2') !!}</p>
 	</div>
-	<hr>
-	<div class="col-lg-6 col-md-12 col-sm-12 others bitcoins">
-	<h3>{!! trans('spende.paypal.1') !!}</h3>
+	<div class="col-lg-6 col-md-12 col-sm-12 donation-others">
+		<h3>{!! trans('spende.paypal.1') !!}</h3>
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input name="cmd" value="_xclick" type="hidden">
 			<input name="business" value="wsb@suma-ev.de" type="hidden">
@@ -64,18 +63,16 @@
 			<input name="tax" value="0" type="hidden">
 			<input name="lc" value="DE" type="hidden">
 			<input name="bn" value="PP-DonationsBF" type="hidden">
-		<input src="/img/paypalspenden.gif" name="submit" width="120px" alt="{!! trans('spende.paypal.2') !!}" type="image">
+			<input src="/img/paypalspenden.gif" name="submit" width="120px" alt="{!! trans('spende.paypal.2') !!}" type="image">
 		</form>
 	</div>
-	<div class="col-lg-6 col-md-12 col-sm-12 others bitcoins">
-	<h3>{!! trans('spende.bitcoins.1') !!}</h3>
-	{!! trans('spende.bitcoins.2') !!}<br/>
+	<div class="col-lg-6 col-md-12 col-sm-12 donation-others">
+		<h3>{!! trans('spende.bitcoins.1') !!}</h3>
+		{!! trans('spende.bitcoins.2') !!}<br/>
 		<a href="bitcoin:174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V">174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V</a>
 	</div>
 	<div class="clearfix"></div>
-	<hr>
 </div>
 <p>{!! trans('spende.lastschrift.10') !!}</p>
-<hr>
 <div class="clearfix"></div>
 @endsection

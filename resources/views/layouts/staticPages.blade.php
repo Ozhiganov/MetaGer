@@ -54,7 +54,6 @@
 				@yield('content')
 			</main>
 			@yield('optionalContent')
-			<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		</div>
 		@if (isset($page) && $page === 'startpage')
 			@include('parts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])

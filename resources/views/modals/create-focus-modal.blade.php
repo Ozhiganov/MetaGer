@@ -1,4 +1,3 @@
-{{-- TODO HIDDEN INPUT-FIELD fürs Modal in dem die vorherige Eingabe steht, eigenes <form> tag fürs Modal  --}}
 <input type="checkbox" id="show-create-focus" class="hidden">
 <div id="create-focus-modal" tab-index="-1" role="dialog">
 	<div id="foki-modal-dialog">

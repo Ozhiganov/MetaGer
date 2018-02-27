@@ -82,6 +82,11 @@
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/beitritt/") }}" tabindex="203">{{ trans('staticPages.nav23') }}</a>
         </li>
+        @if(LaravelLocalization::getCurrentLocale() == "de")
+          <li>
+            <a href="https://shop.spreadshirt.de/metager/" rel="noopener" target="_blank">MetaGer-Fanshop</a>
+          </li>
+        @endif
         <li>
           <a href="https://www.boost-project.com/de/shops?charity_id=1129&amp;tag=bl" tabindex="204">{{ trans('staticPages.nav17') }}</a>
         </li>

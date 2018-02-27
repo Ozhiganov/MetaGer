@@ -1,10 +1,13 @@
 <div class="result" data-count="{{ $result->number }}">
 	<div class="result-header">
-		<h2 class="result-title">
-			<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-				{!! $result->titel !!}
-			</a>
-		</h2>
+		<div class="result-headline">
+			<h2 class="result-title">
+				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+					{!! $result->titel !!}
+				</a>
+			</h2>
+			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ $result->gefVon }}</a>
+		</div>
 		<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 			{{ $result->anzeigeLink }}
 		</a>

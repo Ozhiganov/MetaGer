@@ -38,7 +38,7 @@ class Fastbot extends Searchengine
                     $link,
                     $result[3],
                     $result[2],
-                    $this->gefVon,
+                    $this->displayName,$this->homepage,
                     $counter
                 );
             }

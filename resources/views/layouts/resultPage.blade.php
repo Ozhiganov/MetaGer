@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{!! trans('staticPages.meta.language') !!}">
 	<head>
 		<title>{{ $eingabe }} - MetaGer</title>
 		<link href="/favicon.ico" rel="icon" type="image/x-icon" />
@@ -18,6 +18,7 @@
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
+		<meta name="referrer" content="origin">
 		@include('parts.utility')
 	</head>
 	<body id="resultBody">
