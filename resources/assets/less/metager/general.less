@@ -330,5 +330,30 @@ button {
         @media (max-width: @screen-xs-max) {
             width: 100%;
         }
+}
+
+/* Links */
+
+// Intern, aber anderes Design als die Startseite
+.inlink {
+    &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f08e";
+    }
+}
+
+// Extern
+.outlink {
+    &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f08e";
     }
 }
