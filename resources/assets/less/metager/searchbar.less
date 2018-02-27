@@ -5,11 +5,11 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     font-size: 16px;
     background-color: transparent;
     color: #333;
@@ -18,8 +18,8 @@
     }
     .search-input-submit {
         -webkit-box-flex: 1;
-            -ms-flex-positive: 1;
-                flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -30,14 +30,14 @@
     }
     .search-input {
         -webkit-box-flex: 1;
-            -ms-flex-positive: 1;
-                flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
         input {
             border: none;
             border-bottom: none;
             height: 40px;
             -webkit-box-shadow: none;
-                    box-shadow: none;
+            box-shadow: none;
             &:focus {
                 outline-color: rgb(255, 128, 0);
                 -webkit-box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
@@ -65,8 +65,8 @@
     @media (max-width: @screen-xs-max) {
         -webkit-box-orient: vertical;
         -webkit-box-direction: reverse;
-            -ms-flex-direction: column-reverse;
-                flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
     }
 }
 
@@ -141,8 +141,8 @@ header {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     position: fixed;
     z-index: 100; // Makes the header larger, so it correctly covers the non scrolling parts below
     width: @resultpage-leftbox-max-width + @resultpage-leftbox-big-screen-margin-left + 10;
@@ -155,8 +155,8 @@ header {
         padding: @resultpage-leftbox-min-dist-top-bottom @resultpage-leftbox-min-dist-left-right 0px @resultpage-leftbox-min-dist-left-right;
         -webkit-box-pack: center;
         -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
     }
     #research-bar {
         width: 100%;
@@ -169,13 +169,13 @@ header {
         display: -ms-flexbox;
         display: flex;
         -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-                box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         @media (max-width: 799px) {
             margin: 0px @resultpage-leftbox-min-dist-left-right;
         }
@@ -193,8 +193,8 @@ header:nth-child(1) {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: left;
-        -ms-flex-pack: left;
-            justify-content: left;
+    -ms-flex-pack: left;
+    justify-content: left;
     margin-left: @resultpage-leftbox-big-screen-margin-left;
     padding-top: 8px;
     width: @resultpage-leftbox-max-width;
@@ -205,8 +205,8 @@ header:nth-child(1) {
         display: -ms-flexbox;
         display: flex;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         padding: @resultpage-leftbox-min-dist-top-bottom @resultpage-leftbox-min-dist-left-right 0px @resultpage-leftbox-min-dist-left-right;
     }
     #foki-box {
@@ -218,7 +218,7 @@ header:nth-child(1) {
         background-color: white;
         border: 1px solid #ccc;
         -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-                box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         overflow-x: visible;
         padding: 10px;
         @media (max-width: 700px) {
@@ -232,6 +232,9 @@ header:nth-child(1) {
             &.active>a {
                 border-bottom: 1px solid rgb(255, 128, 0);
                 color: rgb(255, 128, 0);
+            }
+            &:last-child {
+                padding-right: 20px
             }
         }
         .edit-focus {
@@ -274,16 +277,14 @@ header:nth-child(1) {
             right: 1px;
         }
     }
-
     .search-option-frame {
         position: relative;
     }
-
 }
 
 #research-bar-placeholder {
     padding: @resultpage-leftbox-min-dist-top-bottom 0px 0px 50px;
     width: 100%;
-    max-width: 700px;
+    max-width: 760px;
     height: 61px;
 }

@@ -57,8 +57,8 @@ Results.prototype.sortResults = function () {
       break;
     case 'alphabetical': // by hostname
       this.results.sort(function (a, b) {
-        if (b.hostname > a.hostname) return -1;
-        if (b.hostname < a.hostname) return 1;
+        if (b.hosterName > a.hosterName) return -1;
+        if (b.hosterName < a.hosterName) return 1;
         return 0;
       });
       break;
@@ -78,7 +78,7 @@ Results.prototype.loadAllResults = function () {
       // Remove the prefix
       key = key.substr(this.prefix.length);
       // Create the result for this key by loading it from localstorage
-      var tmpResult = new Result(undefined, undefined, undefined, undefined, undefined, undefined, key);
+      var tmpResult = new Result(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, key);
       // Add the result to the list of results
       this.results.push(tmpResult);
     }
@@ -117,7 +117,7 @@ Results.prototype.updateResultPageInterface = function () {
     // If there is no savedFoki element yet, create it
     var tabPanel = $('\
         <div id="savedFoki">\
-          <h1>Gespeicherte Ergebnisse</h1>\
+          <h1>' + t('result-saver.title') + '</h1>\
         </div>\
         ');
     $('#additions-container').append(tabPanel);
@@ -141,19 +141,20 @@ Results.prototype.addToContainer = function (container) {
   var options = $('\
     <div id="saver-options">\
       <div class="saver-option saver-option-filter">\
-        <input class="form-control" type="text" placeholder="&#xf0b0 Filtern">\
+        <input class="form-control" type="text" placeholder="&#xf0b0 ' + t('result-saver.filter') + '">\
       </div>\
       <div class="saver-option saver-option-sort">\
         <select class="form-control" style="font-family: FontAwesome, sans-serif;">\
-          <option value="chronological" style="font-family: FontAwesome, sans-serif;">&#xf017 Chronologisch</option>\
-          <option value="rank" style="font-family: FontAwesome, sans-serif;">&#xf162 MetaGer-Ranking</option>\
-          <option value="alphabetical" style="font-family: FontAwesome, sans-serif;">&#xf15d Alphabetisch (Hostname)</option>\
+          <option value="chronological" style="font-family: FontAwesome, sans-serif;">&#xf017 ' + t('result-saver.sort.chronological') + '</option>\
+          <option value="rank" style="font-family: FontAwesome, sans-serif;">&#xf162 ' + t('result-saver.sort.ranking') + '</option>\
+          <option value="alphabetical" style="font-family: FontAwesome, sans-serif;">&#xf15d ' + t('result-saver.sort.alphabetical') + '</option>\
         </select>\
       </div>\
       <div class="saver-option saver-option-delete">\
         <button class="btn btn-danger btn-md" id="saver-options-delete-btn">\
-        <i class="fa fa-trash-o" aria-hidden="true"></i>\
-        <span class="hidden-xs">Ergebnisse</span> löschen</button>\
+          <i class="fa fa-trash-o" aria-hidden="true"></i>\
+          ' + t('result-saver.deleteAll') + '\
+        </button>\
       </div>\
     </div>\
   ');
@@ -217,13 +218,13 @@ Results.prototype.addToContainer = function (container) {
  * @param {int} rank The rank of this result
  * @param {int} hash The hash value for this result
  */
-function Result (title, link, anzeigeLink, description, anonym, index, hash) {
+function Result (title, link, hosterName, hosterLink, anzeigeLink, description, anonym, index, hash) {
   // Set prefix for localstorage
   this.prefix = 'result_';
 
   if (hash === null || hash === undefined) {
     // Calculate the hash value of this result
-    hash = MD5(title + link + anzeigeLink + description + anonym);
+    hash = MD5(title + link + hosterName + hosterLink + anzeigeLink + description + anonym);
   }
 
   this.hash = hash;
@@ -233,16 +234,14 @@ function Result (title, link, anzeigeLink, description, anonym, index, hash) {
     // Save all important data
     this.title = title;
     this.link = link;
+    this.hosterName = hosterName;
+    this.hosterLink = hosterLink;
     this.anzeigeLink = anzeigeLink;
     this.description = description;
     this.anonym = anonym;
     this.index = index;
     this.rank = index;
     this.added = new Date().getTime();
-    // read the hostname from the displayed link
-    // matches everything from after a 'www' to the locality ending ('de', 'com', etc.)
-    var matches = /(?:www\.)*((?:[\w\-]+\.)+\w{2,3})(?:$|[/?])/.exec(this.anzeigeLink);
-    this.hostname = matches[1];
 
     // Save this result to localstorage
     this.save();
@@ -257,25 +256,24 @@ Result.prototype.load = function () {
   if (!localStorage) return false;
 
   // Try to load from local storage
-  var result = localStorage.getItem(this.prefix + this.hash);
-  if (result === null) return false;
+  var encoded = localStorage.getItem(this.prefix + this.hash);
+  if (encoded === null) return false;
 
   // Decode the base64 result into a normal string, then json
-  result = b64DecodeUnicode(result);
-  result = JSON.parse(result);
+  var decoded = b64DecodeUnicode(encoded);
+  var result = JSON.parse(decoded);
 
   // Load all important data
   this.title = result.title;
   this.link = result.link;
   this.anzeigeLink = result.anzeigeLink;
-  this.gefVon = result.gefVon;
-  this.hoster = result.hoster;
+  this.hosterName = result.hosterName;
+  this.hosterLink = result.hosterLink;
   this.anonym = result.anonym;
   this.description = result.description;
   this.added = result.added;
   this.index = -result.index;
   this.rank = result.rank;
-  this.hostname = result.hostname;
 
   return true;
 };
@@ -291,14 +289,13 @@ Result.prototype.save = function () {
     title: this.title,
     link: this.link,
     anzeigeLink: this.anzeigeLink,
-    gefVon: this.gefVon,
-    hoster: this.hoster,
+    hosterName: this.hosterName,
+    hosterLink: this.hosterLink,
     anonym: this.anonym,
     description: this.description,
     added: this.added,
     index: this.index,
-    rank: this.rank,
-    hostname: this.hostname
+    rank: this.rank
   };
 
   // Encode the result object into a string, then into base64
@@ -356,31 +353,36 @@ Result.prototype.toHtml = function () {
   // Create the saved-result element
   var result = $('\
     <div class="saved-result result" data-count="' + this.index + '">\
-      <div class="saved-result-remover remover" title="Ergebnis aus dem Speicher löschen">\
+      <div class="saved-result-remover remover" title="' + t('result-saver.delete') + '">\
         <i class="fa fa-trash"></i>\
       </div>\
       <div class="saved-result-content">\
         <div class="result-header">\
-          <h2 class="result-title">\
-            <a class="title" href="' + this.link + '" target="_blank" data-count="1" rel="noopener">\
-              ' + this.title + '\
+          <div class="result-headline">\
+            <h2 class="result-title">\
+              <a href="' + this.link + '" target="_blank" data-count="1" rel="noopener">\
+                ' + this.title + '\
+              </a>\
+            </h2>\
+            <a class="result-hoster" href="' + this.hosterLink + '" target="_blank" data-count="1" rel="noopener">\
+              ' + this.hosterName + '\
             </a>\
-            <a class="result-link" href="' + this.link + '" target="_blank" data-hoster="' + this.hoster + '" rel="noopener">\
-              ' + this.anzeigeLink + '\
-            </a>\
-          </h2>\
+          </div>\
+          <a class="result-link" href="' + this.link + '" target="_blank" rel="noopener">\
+            ' + this.anzeigeLink + '\
+          </a>\
         <div class="result-body">\
           <div class="description">' + this.description + '</div>\
         </div>\
         <div class="result-footer">\
           <a class="result-open" href="' + this.link + '" target="_self" rel="noopener">\
-            ÖFFNEN\
+            ' + t('result-saver.save.this') + '\
           </a>\
           <a class="result-open" href="' + this.link + '" target="_blank" rel="noopener">\
-            IN NEUEM TAB\
+            ' + t('result-saver.save.newtab') + '\
           </a>\
           <a class="result-open-proxy" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt." href="' + this.anonym + '" target="_blank" rel="noopener" data-original-title="" title="">\
-            ANONYM ÖFFNEN\
+            ' + t('result-saver.save.anonymous') + '\
           </a>\
         </div>\
       </div>\
@@ -405,12 +407,14 @@ function resultSaver (index) {
   // Read the necessary data from the result html
   var title = $('.result[data-count=' + index + '] .result-title a').html().trim();
   var link = $('.result[data-count=' + index + '] .result-title a').attr('href').trim();
+  var hosterName = $('.result[data-count=' + index + '] .result-hoster').html().trim();
+  var hosterLink = $('.result[data-count=' + index + '] .result-hoster').attr('href').trim();
   var anzeigeLink = $('.result[data-count=' + index + '] .result-link').html().trim();
   var description = $('.result[data-count=' + index + '] .result-description').html().trim();
   var anonym = $('.result[data-count=' + index + '] .result-open-proxy').attr('href').trim();
 
   // Create the result object
-  var result = new Result(title, link, anzeigeLink, description, anonym, index, null);
+  var result = new Result(title, link, hosterName, hosterLink, anzeigeLink, description, anonym, index, null);
 
   // Add new result to results
   results.addResult(result);
