@@ -38,7 +38,7 @@
 		</header>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		<div class="wrapper">
-			<main class="mg-panel container">
+			<main class="mg-panel">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
 				@endif

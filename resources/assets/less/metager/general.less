@@ -38,6 +38,60 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    padding: 0px 8px;
+    overflow: hidden;
+    main {
+        width: 100%;
+        max-width: 1000px;
+    }
+}
+
+.first-last-child-margin-fix() {
+    &:first-child {
+        margin-top: 0px;
+    }
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+
+/* General font sizing */
+
+@default-font-size: 15px;
+h1 {
+    font-size: @default-font-size * 1.6;
+    .first-last-child-margin-fix;
+}
+
+h2 {
+    font-size: @default-font-size * 1.4;
+    .first-last-child-margin-fix;
+}
+
+h3 {
+    font-size: @default-font-size * 1.2;
+    .first-last-child-margin-fix;
+}
+
+p {
+    font-size: @default-font-size;
+    .first-last-child-margin-fix;
+}
+
+* {
+    font-size: @default-font-size;
+    .first-last-child-margin-fix;
+}
+
+.page-title {
+    font-size: @default-font-size * 3;
+    text-align: center;
+}
+
+.page-subtitle {
+    font-size: @default-font-size;
+    text-align: center;
 }
 
 
@@ -268,7 +322,15 @@ button {
     }
 }
 
-@metager-url: "metager.de";
+.two-col {
+    >* {
+        width: 50%;
+        margin: 0;
+        float: left;
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+        }
+}
 
 /* Links */
 
