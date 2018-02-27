@@ -6,8 +6,8 @@
 
 @section('content')
 	<link type="text/css" rel="stylesheet" href="{{ elixir('/css/beitritt.css') }}" />
-	<h1 class="page-title">{{ trans('beitritt.heading.1') }}</h1>
 	<div class="card-heavy">
+		<h1>{{ trans('beitritt.heading.1') }}</h1>
 		<form id="donation-form">
 			<div class="beitritt-inputs">
 				<div>
@@ -59,6 +59,8 @@
 				</div>
 				<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
 			</div>
+		</div>
+		<div class="card-heavy">
 			<div class="newpage"></div>
 			<h1>{{ trans('beitritt.abbuchung.2') }}</h1>
 			<p>{{ trans('beitritt.abbuchung.3') }}</p>
@@ -98,7 +100,7 @@
 			<p>{{ trans('beitritt.anweisung.5') }}</p>
 			<p>{{ trans('beitritt.anweisung.6') }}</p>
 		</div>
-		<button type="button" class="btn btn-lg btn-primary noprint" onclick="window.print();">{{ trans('beitritt.anweisung.7') }}</button>
 	</div>
+	<button type="button" class="btn btn-lg btn-primary noprint" onclick="window.print();">{{ trans('beitritt.anweisung.7') }}</button>
 	<!-- <script src="{{ elixir('js/scriptJoinPage.js') }}"></script> -->
 @endsection
