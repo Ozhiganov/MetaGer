@@ -13,14 +13,8 @@
 <div id="maps">
 	<a href="https://maps.metager.de/map/{{ $metager->getQ() }}/9.7380161,52.37119740000003,12" target="_self">@lang('index.foki.maps')</a>
 </div>
-<div class="search-option-frame">
+<div class="search-option-frame hide-tooltip-on-resultpage" data-tooltip="@lang("index.focus-creator.head")">
 	<label for="show-create-focus" role="button" id="">
 		<i class="fa fa-sliders"></i>
 	</label>
-	<div class="searchbar-tooltip">
-		<div class="searchbar-tooltip-arrow"></div>
-		<div class="searchbar-tooltip-content">
-			<p>{{{ trans('index.tooltips.add-focus') }}}</p>
-		</div>
-	</div>
 </div>

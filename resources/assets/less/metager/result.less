@@ -9,21 +9,30 @@
     padding: 15px;
     width: 100%;
     .result-header {
-        .result-title {
-            margin: 0px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-size: @result-font-large;
-            a {
-                &,
-                &:active,
-                &:hover,
-                &:focus,
-                &:visited {
-                    color: black;
-                    text-decoration: none;
+        .result-headline {
+            display: flex;
+            justify-content: space-between;
+            .result-title {
+                margin: 0px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: @result-font-large;
+                a {
+                    &,
+                    &:active,
+                    &:hover,
+                    &:focus,
+                    &:visited {
+                        color: black;
+                        text-decoration: none;
+                    }
                 }
+            }
+            .result-hoster {
+                margin-left: 20px;
+                color: #808080;
+                white-space: nowrap;
             }
         }
         .result-link {
@@ -32,6 +41,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: @result-font-small;
+            width: auto;
             &,
             &:active,
             &:hover,
@@ -140,7 +150,7 @@
         & a:focus,
         & a:visited {
             font-size: @result-font-small;
-            color: #555;
+            color: #808080;
         }
     }
     &>.remover {

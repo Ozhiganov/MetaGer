@@ -30,7 +30,6 @@ class MetaGer
     protected $engines         = [];
     protected $results         = [];
     protected $ads             = [];
-    protected $products        = [];
     protected $warnings        = [];
     protected $errors          = [];
     protected $addedHosts      = [];
@@ -38,6 +37,7 @@ class MetaGer
     protected $canCache        = false;
     # Daten über die Abfrage$
     protected $ip;
+    protected $useragent;
     protected $language;
     protected $agent;
     protected $apiKey        = "";
@@ -295,7 +295,6 @@ class MetaGer
         
         if ($this->validated) {
             $this->ads       = [];
-            $this->products  = [];
             $this->maps      = false;
         }
 
@@ -379,9 +378,6 @@ class MetaGer
             }
             foreach ($engine->ads as $ad) {
                 $this->ads[] = $ad;
-            }
-            foreach ($engine->products as $product) {
-                $this->products[] = $product;
             }
         }
 
@@ -694,8 +690,7 @@ class MetaGer
         return
             $sumaName === "qualigo"
             || $sumaName === "similar_product_ads"
-            || (!$overtureEnabled && $sumaName === "overtureAds")
-            || $sumaName == "rlvproduct";
+            || (!$overtureEnabled && $sumaName === "overtureAds");
     }
 
     public function sumaIsDisabled($suma)
@@ -784,7 +779,7 @@ class MetaGer
         $realEngNames = [];
         foreach ($enabledSearchengines as $realEng) {
             $nam = $realEng["name"]->__toString();
-            if ($nam !== "qualigo" && $nam !== "overtureAds" && $nam !== "rlvproduct") {
+            if ($nam !== "qualigo" && $nam !== "overtureAds") {
                 $realEngNames[] = $nam;
             }
         }
@@ -944,6 +939,8 @@ class MetaGer
         # nicht einmal wir selbst noch Zugriff auf die Daten haben:
         $this->ip = preg_replace("/(\d+)\.(\d+)\.\d+.\d+/s", "$1.$2.0.0", $this->ip);
 
+        $this->useragent = $request->header('User-Agent');
+
         # Language
         if (isset($_SERVER['HTTP_LANGUAGE'])) {
             $this->language = $_SERVER['HTTP_LANGUAGE'];
@@ -1061,40 +1058,52 @@ class MetaGer
 
     public function checkSpecialSearches(Request $request)
     {
-        if ($request->filled('site')) {
-            $site = $request->input('site');
-        } else {
-            $site = "";
-        }
-
-        $this->searchCheckSitesearch($site);
-        $this->searchCheckHostBlacklist();
-        $this->searchCheckDomainBlacklist();
+        $this->searchCheckSitesearch($request);
+        $this->searchCheckHostBlacklist($request);
+        $this->searchCheckDomainBlacklist($request);
         $this->searchCheckUrlBlacklist();
         $this->searchCheckPhrase();
-        $this->searchCheckStopwords();
+        $this->searchCheckStopwords($request);
         $this->searchCheckNoSearch();
     }
 
-    private function searchCheckSitesearch($site)
+    private function searchCheckSitesearch($request)
     {
         // matches '[... ]site:test.de[ ...]'
         while (preg_match("/(^|.+\s)site:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->site = $match[2];
             $this->q    = $match[1] . $match[3];
         }
-        if ($site !== "") {
-            $this->site = $site;
+        # Overwrite Setting if it's submitted via Parameter
+        if ($request->has('site')) {
+            $this->site = $request->input('site');
         }
     }
 
-    private function searchCheckHostBlacklist()
+    private function searchCheckHostBlacklist($request)
     {
         // matches '[... ]-site:test.de[ ...]'
         while (preg_match("/(^|.+\s)-site:([^\s\*]\S*)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->hostBlacklist[] = $match[2];
             $this->q               = $match[1] . $match[3];
         }
+        # Overwrite Setting if it's submitted via Parameter
+        if($request->has('blacklist')){
+            $this->hostBlacklist = [];
+            $blacklistString = trim($request->input('blacklist'));
+            if(strpos($blacklistString, ",") !== FALSE){
+                $blacklistArray = explode(',', $blacklistString);
+                foreach($blacklistArray as $blacklistElement){
+                    $blacklistElement = trim($blacklistElement);
+                    if(strpos($blacklistElement, "*") !== 0){
+                        $this->hostBlacklist[] = $blacklistElement;
+                    }
+                }
+            }else if(strpos($blacklistString, "*") !== 0){
+                $this->hostBlacklist[] = $blacklistString;
+            }
+        }
+
         // print the host blacklist as a user warning
         if (sizeof($this->hostBlacklist) > 0) {
             $hostString = "";
@@ -1106,12 +1115,28 @@ class MetaGer
         }
     }
 
-    private function searchCheckDomainBlacklist()
+    private function searchCheckDomainBlacklist($request)
     {
         // matches '[... ]-site:*.test.de[ ...]'
         while (preg_match("/(^|.+\s)-site:\*\.(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->domainBlacklist[] = $match[2];
             $this->q                 = $match[1] . $match[3];
+        }
+        # Overwrite Setting if it's submitted via Parameter
+        if($request->has('blacklist')){
+            $this->domainBlacklist = [];
+            $blacklistString = trim($request->input('blacklist'));
+            if(strpos($blacklistString, ",") !== FALSE){
+                $blacklistArray = explode(',', $blacklistString);
+                foreach($blacklistArray as $blacklistElement){
+                    $blacklistElement = trim($blacklistElement);
+                    if(strpos($blacklistElement, "*.") === 0){
+                        $this->domainBlacklist[] = substr($blacklistElement, strpos($blacklistElement, "*.")+2);
+                    }
+                }
+            }else if(strpos($blacklistString, "*.") === 0){
+                $this->domainBlacklist[] = substr($blacklistString, strpos($blacklistString, "*.")+2);
+            }
         }
         // print the domain blacklist as a user warning
         if (sizeof($this->domainBlacklist) > 0) {
@@ -1142,12 +1167,26 @@ class MetaGer
         }
     }
 
-    private function searchCheckStopwords()
+    private function searchCheckStopwords($request)
     {
         // matches '[... ]-test[ ...]'
         while (preg_match("/(^|.+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->stopWords[] = $match[2];
             $this->q           = $match[1] . $match[3];
+        }
+        # Overwrite Setting if submitted via Parameter
+        if($request->has('stop')){
+            $this->stopWords = [];
+            $stop = trim($request->input('stop'));
+            if(strpos($stop, ',') !== FALSE){ 
+                $stopArray = explode(',', $stop);
+                foreach($stopArray as $stopElement){
+                    $stopElement = trim($stopElement);
+                    $this->stopWords[] = $stopElement;
+                }
+            }else{
+                $this->stopWords[] = $stop;
+            }
         }
         // print the stopwords as a user warning
         if (sizeof($this->stopWords) > 0) {
@@ -1246,24 +1285,6 @@ class MetaGer
         } else {
             return null;
         }
-    }
-
-    public function hasProducts()
-    {
-        if (count($this->products) > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function getProducts()
-    {
-        $return = [];
-        foreach ($this->products as $product) {
-            $return[] = get_object_vars($product);
-        }
-        return $return;
     }
 
     public function canCache()
@@ -1456,6 +1477,11 @@ class MetaGer
     public function getIp()
     {
         return $this->ip;
+    }
+    
+    public function getUserAgent()
+    {
+        return $this->useragent;
     }
 
     public function getEingabe()
