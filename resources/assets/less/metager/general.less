@@ -38,6 +38,12 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    padding: 0px 8px;
+    overflow: hidden;
+    main {
+        width: 100%;
+        max-width: 1000px;
+    }
 }
 
 .first-last-child-margin-fix() {
@@ -49,29 +55,34 @@ body {
     }
 }
 
+
 /* General font sizing */
+
 @default-font-size: 15px;
 h1 {
     font-size: @default-font-size * 1.6;
     .first-last-child-margin-fix;
 }
+
 h2 {
     font-size: @default-font-size * 1.4;
     .first-last-child-margin-fix;
 }
+
 h3 {
     font-size: @default-font-size * 1.2;
     .first-last-child-margin-fix;
 }
+
 p {
     font-size: @default-font-size;
     .first-last-child-margin-fix;
 }
+
 * {
     font-size: @default-font-size;
     .first-last-child-margin-fix;
 }
-
 
 .page-title {
     font-size: @default-font-size * 3;
@@ -82,6 +93,7 @@ p {
     font-size: @default-font-size;
     text-align: center;
 }
+
 
 /* Logo */
 
@@ -217,6 +229,7 @@ summary {
         display: none!important;
     }
 }
+
 .newpage {
     page-break-after: always;
 }
@@ -292,13 +305,12 @@ button {
         opacity: 0;
         transition: opacity 0.5s ease;
     }
-
-    &.hide-tooltip-on-resultpage:after { /* Auf kleinen Bildschirmen wird der Tooltip nicht angezeigt */
+    &.hide-tooltip-on-resultpage:after {
+        /* Auf kleinen Bildschirmen wird der Tooltip nicht angezeigt */
         @media (max-width: 700px) {
             display: none;
         }
     }
-
     &.delayed:after {
         transition-delay: 0.5s;
     }
@@ -311,11 +323,12 @@ button {
 }
 
 .two-col {
-    /*display: flex;
-    flex-wrap: wrap;*/
     >* {
         width: 50%;
         margin: 0;
         float: left;
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+        }
     }
 }
