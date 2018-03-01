@@ -1,15 +1,15 @@
 $(function () {
   setFocusCreatorActionListeners();
-  loadInitialCustomFocuses();
-  loadInitialSelectedFocus();
-  focusChanged();
+  //loadInitialCustomFocuses();
+  //loadInitialSelectedFocus();
+  //focusChanged();
 });
 
 /**
  * Sets all action listeners for this page
  */
 function setFocusCreatorActionListeners () {
-  $('.focusCheckbox').click(checkboxCheckListener);
+  /* $('.focusCheckbox').click(checkboxCheckListener);
   $('#addFocusBtn').click(() => showFocusCreateDialog(''));
   $('#editFocusBtn').click(editCurrentFocus);
   $('.save-focus-btn').click(saveFocus);
@@ -23,7 +23,17 @@ function setFocusCreatorActionListeners () {
   });
   $('#create-focus-modal').on('shown.bs.modal', function () {
     $('#focus-name').focus();
+  }); */
+  $(document).keydown(function(event) {
+    if ($("input#show-create-focus").is(':checked')) {
+      if (event.keyCode == 27) {
+        $("input#show-create-focus").prop('checked', false);
+      } else if (event.keyCode == 13) {
+        $('#customSearchForm').submit();
+      }
+    }
   });
+
 }
 /**
  * Loads all the custom focuses stored in local storage
