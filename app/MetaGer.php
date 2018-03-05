@@ -22,25 +22,25 @@ class MetaGer
     protected $lang;
     protected $cache = "";
     protected $site;
-    protected $hostBlacklist   = [];
+    protected $hostBlacklist = [];
     protected $domainBlacklist = [];
-    private $urlBlacklist      = [];
-    protected $stopWords       = [];
-    protected $phrases         = [];
-    protected $engines         = [];
-    protected $results         = [];
-    protected $ads             = [];
-    protected $warnings        = [];
-    protected $errors          = [];
-    protected $addedHosts      = [];
-    protected $startCount      = 0;
-    protected $canCache        = false;
+    private $urlBlacklist = [];
+    protected $stopWords = [];
+    protected $phrases = [];
+    protected $engines = [];
+    protected $results = [];
+    protected $ads = [];
+    protected $warnings = [];
+    protected $errors = [];
+    protected $addedHosts = [];
+    protected $startCount = 0;
+    protected $canCache = false;
     # Daten über die Abfrage$
     protected $ip;
     protected $useragent;
     protected $language;
     protected $agent;
-    protected $apiKey        = "";
+    protected $apiKey = "";
     protected $apiAuthorized = false;
     # Konfigurationseinstellungen:
     protected $sumaFile;
@@ -50,7 +50,7 @@ class MetaGer
     protected $maps;
     protected $newtab;
     protected $domainsBlacklisted = [];
-    protected $urlsBlacklisted    = [];
+    protected $urlsBlacklisted = [];
     protected $url;
     protected $languageDetect;
 
@@ -61,10 +61,10 @@ class MetaGer
 
         # Versuchen Blacklists einzulesen
         if (file_exists(config_path() . "/blacklistDomains.txt") && file_exists(config_path() . "/blacklistUrl.txt")) {
-            $tmp                      = file_get_contents(config_path() . "/blacklistDomains.txt");
+            $tmp = file_get_contents(config_path() . "/blacklistDomains.txt");
             $this->domainsBlacklisted = explode("\n", $tmp);
-            $tmp                      = file_get_contents(config_path() . "/blacklistUrl.txt");
-            $this->urlsBlacklisted    = explode("\n", $tmp);
+            $tmp = file_get_contents(config_path() . "/blacklistUrl.txt");
+            $this->urlsBlacklisted = explode("\n", $tmp);
         } else {
             Log::warning("Achtung: Eine, oder mehrere Blacklist Dateien, konnten nicht geöffnet werden");
         }
@@ -88,7 +88,7 @@ class MetaGer
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
-    public function createView($quicktipResults = NULL)
+    public function createView($quicktipResults = null)
     {
         # Hiermit werden die evtl. ausgewählten SuMas extrahiert, damit die Input-Boxen richtig gesetzt werden können
         $focusPages = [];
@@ -109,7 +109,7 @@ class MetaGer
         if ($this->fokus === "bilder") {
             switch ($this->out) {
                 case 'results':
-                    return view('metager3bilderresults')
+                    return view('resultpages.results_images')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('mobile', $this->mobile)
@@ -119,7 +119,7 @@ class MetaGer
                         ->with('metager', $this)
                         ->with('browser', (new Agent())->browser());
                 default:
-                    return view('metager3bilder')
+                    return view('resultpages.resultpage_images')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('mobile', $this->mobile)
@@ -132,7 +132,7 @@ class MetaGer
         } else {
             switch ($this->out) {
                 case 'results':
-                    return view('metager3results')
+                    return view('resultpages.results')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('mobile', $this->mobile)
@@ -144,7 +144,7 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'results-with-style':
-                    return view('metager3')
+                    return view('resultpages.resultpage')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('mobile', $this->mobile)
@@ -157,7 +157,7 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'rich':
-                    return view('metager3rich')
+                    return view('resultpages.metager3rich')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('mobile', $this->mobile)
@@ -169,7 +169,7 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'rss20':
-                    return view('metager3resultsrss20')
+                    return view('resultpages.metager3resultsrss20')
                         ->with('results', $viewResults)
                         ->with('eingabe', $this->eingabe)
                         ->with('apiAuthorized', $this->apiAuthorized)
@@ -178,15 +178,15 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'atom10':
-                    return response()->view('metager3resultsatom10', ['results' => $viewResults,'eingabe' => $this->eingabe,'metager' => $this,'resultcount' => sizeof($viewResults)])
-			->header('Content-Type', 'application/xml');
+                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults)])
+                        ->header('Content-Type', 'application/xml');
                     break;
                 case 'result-count':
                     # Wir geben die Ergebniszahl und die benötigte Zeit zurück:
                     return sizeof($viewResults) . ";" . round((microtime(true) - $this->starttime), 2);
                     break;
                 default:
-                    return view('metager3')
+                    return view('resultpages.resultpage')
                         ->with('eingabe', $this->eingabe)
                         ->with('focusPages', $focusPages)
                         ->with('mobile', $this->mobile)
@@ -252,7 +252,7 @@ class MetaGer
         #Adgoal Implementation
         $this->results = $this->parseAdgoal($this->results);
 
-        $counter   = 0;
+        $counter = 0;
         $firstRank = 0;
 
         if (isset($this->startForwards)) {
@@ -270,7 +270,7 @@ class MetaGer
 
             $counter++;
             $result->number = $counter + $this->startCount;
-            $confidence     = 0;
+            $confidence = 0;
             if ($firstRank > 0) {
                 $confidence = $result->rank / $firstRank;
             } else {
@@ -292,10 +292,10 @@ class MetaGer
         if (LaravelLocalization::getCurrentLocale() === "en") {
             $this->ads = [];
         }
-        
+
         if ($this->validated) {
-            $this->ads       = [];
-            $this->maps      = false;
+            $this->ads = [];
+            $this->maps = false;
         }
 
         if (count($this->results) <= 0) {
@@ -303,11 +303,11 @@ class MetaGer
         }
 
         if ($this->canCache() && isset($this->next) && count($this->next) > 0 && count($this->results) > 0) {
-            $page       = $this->page + 1;
+            $page = $this->page + 1;
             $this->next = [
-                'page'          => $page,
+                'page' => $page,
                 'startForwards' => $this->results[count($this->results) - 1]->number,
-                'engines'       => $this->next,
+                'engines' => $this->next,
             ];
             Cache::put(md5(serialize($this->next)), serialize($this->next), 60);
         } else {
@@ -328,7 +328,7 @@ class MetaGer
             return $results;
         } else {
             # Ansonsten müssen wir jedem Result einen Sprachcode hinzufügen
-            $id          = 0;
+            $id = 0;
             $langStrings = [];
             foreach ($results as $result) {
                 # Wir geben jedem Ergebnis eine ID um später die Sprachcodes zuordnen zu können
@@ -343,8 +343,8 @@ class MetaGer
             $filename = "/tmp/" . getmypid();
             file_put_contents($filename, json_encode($langStrings));
             $langDetectorPath = app_path() . "/Models/lang.pl";
-            $lang             = exec("echo '$filename' | $langDetectorPath");
-            $lang             = json_decode($lang, true);
+            $lang = exec("echo '$filename' | $langDetectorPath");
+            $lang = json_decode($lang, true);
 
             # Wir haben nun die Sprachcodes der einzelnen Ergebnisse.
             # Diese müssen wir nur noch korrekt zuordnen, dann sind wir fertig.
@@ -385,7 +385,7 @@ class MetaGer
 
     public function parseAdgoal($results)
     {
-        $publicKey  = getenv('adgoal_public');
+        $publicKey = getenv('adgoal_public');
         $privateKey = getenv('adgoal_private');
         if ($publicKey === false) {
             return $results;
@@ -408,13 +408,13 @@ class MetaGer
             # Query
             $query = urlencode($this->q);
 
-            $link   = "https://api.smartredirect.de/api_v2/CheckForAffiliateUniversalsearchMetager.php?p=" . $publicKey . "&k=" . $hash . "&tld=" . $tldList . "&q=" . $query;
+            $link = "https://api.smartredirect.de/api_v2/CheckForAffiliateUniversalsearchMetager.php?p=" . $publicKey . "&k=" . $hash . "&tld=" . $tldList . "&q=" . $query;
             $answer = json_decode(file_get_contents($link));
 
             # Nun müssen wir nur noch die Links für die Advertiser ändern:
             foreach ($answer as $el) {
                 $hoster = $el[0];
-                $hash   = $el[1];
+                $hash = $el[1];
 
                 foreach ($results as $result) {
                     if ($hoster === $result->tld) {
@@ -433,9 +433,9 @@ class MetaGer
                             $targetUrl = "http://" . $targetUrl;
                         }
 
-                        $gateHash            = md5($targetUrl . $privateKey);
-                        $newLink             = "https://api.smartredirect.de/api_v2/ClickGate.php?p=" . $publicKey . "&k=" . $gateHash . "&url=" . urlencode($targetUrl) . "&q=" . $query;
-                        $result->link        = $newLink;
+                        $gateHash = md5($targetUrl . $privateKey);
+                        $newLink = "https://api.smartredirect.de/api_v2/ClickGate.php?p=" . $publicKey . "&k=" . $gateHash . "&url=" . urlencode($targetUrl) . "&q=" . $query;
+                        $result->link = $newLink;
                         $result->partnershop = true;
                     }
                 }
@@ -453,8 +453,8 @@ class MetaGer
             'dummy' => rand(),
         ));
         $opts = array('http' => array(
-            'method'  => 'POST',
-            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'method' => 'POST',
+            'header' => 'Content-type: application/x-www-form-urlencoded',
             'content' => $postdata,
         ),
         );
@@ -462,7 +462,7 @@ class MetaGer
         $context = stream_context_create($opts);
 
         try {
-            $link   = "https://key.metager3.de/" . urlencode($key) . "/request-permission/api-access";
+            $link = "https://key.metager3.de/" . urlencode($key) . "/request-permission/api-access";
             $result = json_decode(file_get_contents($link, false, $context));
             if ($result->{'api-access'} == true) {
                 return true;
@@ -475,7 +475,8 @@ class MetaGer
         }
     }
 
-    public function createQuicktips() {
+    public function createQuicktips()
+    {
         # Die quicktips werden als job erstellt und zur Abarbeitung freigegeben
         $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime(), $this->getHashCode());
         return $quicktips;
@@ -492,16 +493,16 @@ class MetaGer
             return;
         }
 
-        $xml                  = simplexml_load_file($this->sumaFile);
-        $sumas                = $xml->xpath("suma");
+        $xml = simplexml_load_file($this->sumaFile);
+        $sumas = $xml->xpath("suma");
         $enabledSearchengines = [];
-        $overtureEnabled      = false;
-        $sumaCount            = 0;
+        $overtureEnabled = false;
+        $sumaCount = 0;
 
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
-        
+
         # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
-        if($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
+        if ($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
             $isCustomSearch = false;
             $this->fokus = 'web';
         }
@@ -573,7 +574,7 @@ class MetaGer
         $siteSearchFailed = $this->checkCanNotSitesearch($enabledSearchengines);
 
         $typeslist = [];
-        $counter   = 0;
+        $counter = 0;
 
         if ($this->requestIsCached($request)) {
             $engines = $this->getCachedEngines($request);
@@ -598,7 +599,7 @@ class MetaGer
          */
 
         $enginesToLoad = [];
-        $canBreak      = false;
+        $canBreak = false;
         foreach ($engines as $engine) {
             if ($engine->cached) {
                 if ($overtureEnabled && ($engine->name === "overture" || $engine->name === "overtureAds")) {
@@ -725,9 +726,9 @@ class MetaGer
 
     public function getCachedEngines($request)
     {
-        $next       = unserialize(Cache::get($request->input('next')));
+        $next = unserialize(Cache::get($request->input('next')));
         $this->page = $next['page'];
-        $engines    = $next['engines'];
+        $engines = $next['engines'];
         if (isset($next['startForwards'])) {
             $this->startForwards = $next['startForwards'];
         }
@@ -739,9 +740,9 @@ class MetaGer
 
     public function loadMiniSucher($xml, $subcollections)
     {
-        $minisucherEngine             = $xml->xpath('suma[@name="minism"]')[0];
+        $minisucherEngine = $xml->xpath('suma[@name="minism"]')[0];
         $minisucherEngine["subcollections"] = implode(", ", $subcollections);
-        $subcollectionsString         = urlencode("(" . implode(" OR ", $subcollections) . ")");
+        $subcollectionsString = urlencode("(" . implode(" OR ", $subcollections) . ")");
         $minisucherEngine["formData"] = str_replace("<<SUBCOLLECTIONS>>", $subcollectionsString, $minisucherEngine["formData"]);
         $minisucherEngine["formData"] = str_replace("<<COUNT>>", sizeof($subcollections) * 10, $minisucherEngine["formData"]);
         return $minisucherEngine;
@@ -786,7 +787,7 @@ class MetaGer
 
         # Anschließend werden diese beiden Listen verglichen (jeweils eine der Fokuslisten für jeden Fokus), um herauszufinden ob sie vielleicht identisch sind. Ist dies der Fall, so hat der Nutzer anscheinend Suchmaschinen eines kompletten Fokus eingestellt. Der Fokus wird dementsprechend angepasst.
         foreach ($foki as $fok => $engines) {
-            $isFokus      = true;
+            $isFokus = true;
             $fokiEngNames = [];
             foreach ($engines as $eng) {
                 $fokiEngNames[] = $eng;
@@ -835,7 +836,7 @@ class MetaGer
     {
 
         $timeStart = microtime(true);
-        $results   = null;
+        $results = null;
         while (true) {
             $results = Redis::hgetall('search.' . $this->getHashCode());
 
@@ -932,7 +933,7 @@ class MetaGer
         }
         # Sucheingabe
         $this->eingabe = trim($request->input('eingabe', ''));
-        $this->q       = mb_strtolower($this->eingabe, "UTF-8");
+        $this->q = mb_strtolower($this->eingabe, "UTF-8");
         # IP
         $this->ip = $request->ip();
         # Unser erster Schritt wird sein, IP-Adresse und USER-Agent zu anonymisieren, damit
@@ -959,7 +960,7 @@ class MetaGer
             $this->lang = "all";
         }
 
-        $this->agent  = new Agent();
+        $this->agent = new Agent();
         $this->mobile = $this->agent->isMobile();
         # Sprüche
         $this->sprueche = $request->input('sprueche', 'on');
@@ -986,14 +987,14 @@ class MetaGer
         $this->resultCount = $request->input('resultCount', '20');
         # Manchmal müssen wir Parameter anpassen um den Sucheinstellungen gerecht zu werden:
         if ($request->filled('dart')) {
-            $this->time       = 10000;
+            $this->time = 10000;
             $this->warnings[] = trans('metaGer.formdata.dartEurope');
         }
         if ($this->time <= 500 || $this->time > 20000) {
             $this->time = 1000;
         }
         if ($request->filled('minism') && ($request->filled('fportal') || $request->filled('harvest'))) {
-            $input    = $request->all();
+            $input = $request->all();
             $newInput = [];
             foreach ($input as $key => $value) {
                 if ($key !== "fportal" && $key !== "harvest") {
@@ -1009,7 +1010,7 @@ class MetaGer
             $this->resultCount = 1000;
         }
         if ($request->filled('onenewspageAll') || $request->filled('onenewspageGermanyAll')) {
-            $this->time  = 5000;
+            $this->time = 5000;
             $this->cache = "cache";
         }
         if ($request->filled('password')) {
@@ -1022,21 +1023,21 @@ class MetaGer
         }
 
         $this->apiKey = $request->input('key', '');
-        
+
         $this->validated = false;
         if (isset($this->password)) {
             # Wir bieten einen bezahlten API-Zugriff an, bei dem dementsprechend die Werbung ausgeblendet wurde:
             # Aktuell ist es nur die Uni-Mainz. Deshalb überprüfen wir auch nur diese.
-            $password       = getenv('mainz');
+            $password = getenv('mainz');
             $passwordBerlin = getenv('berlin');
-            $eingabe        = $this->eingabe;
-            $password       = md5($eingabe . $password);
+            $eingabe = $this->eingabe;
+            $password = md5($eingabe . $password);
             $passwordBerlin = md5($eingabe . $passwordBerlin);
             if ($this->password === $password || $this->password === $passwordBerlin) {
                 $this->validated = true;
             }
         }
-        
+
         $this->out = $request->input('out', "html");
         # Standard output format html
         if ($this->out !== "html" && $this->out !== "json" && $this->out !== "results" && $this->out !== "results-with-style" && $this->out !== "result-count" && $this->out !== "rss20" && $this->out !== "atom10" && $this->out !== "rich") {
@@ -1049,7 +1050,7 @@ class MetaGer
         # ob MetaGer funktioniert (bzw. die Fetcher laufen)
         # Auch ein Log sollte nicht geschrieben werden, da es am Ende ziemlich viele Logs werden könnten.
         if ($this->out === "result-count") {
-            $this->canCache  = false;
+            $this->canCache = false;
             $this->shouldLog = false;
         } else {
             $this->shouldLog = true;
@@ -1072,7 +1073,7 @@ class MetaGer
         // matches '[... ]site:test.de[ ...]'
         while (preg_match("/(^|.+\s)site:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->site = $match[2];
-            $this->q    = $match[1] . $match[3];
+            $this->q = $match[1] . $match[3];
         }
         # Overwrite Setting if it's submitted via Parameter
         if ($request->has('site')) {
@@ -1085,21 +1086,21 @@ class MetaGer
         // matches '[... ]-site:test.de[ ...]'
         while (preg_match("/(^|.+\s)-site:([^\s\*]\S*)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->hostBlacklist[] = $match[2];
-            $this->q               = $match[1] . $match[3];
+            $this->q = $match[1] . $match[3];
         }
         # Overwrite Setting if it's submitted via Parameter
-        if($request->has('blacklist')){
+        if ($request->has('blacklist')) {
             $this->hostBlacklist = [];
             $blacklistString = trim($request->input('blacklist'));
-            if(strpos($blacklistString, ",") !== FALSE){
+            if (strpos($blacklistString, ",") !== false) {
                 $blacklistArray = explode(',', $blacklistString);
-                foreach($blacklistArray as $blacklistElement){
+                foreach ($blacklistArray as $blacklistElement) {
                     $blacklistElement = trim($blacklistElement);
-                    if(strpos($blacklistElement, "*") !== 0){
+                    if (strpos($blacklistElement, "*") !== 0) {
                         $this->hostBlacklist[] = $blacklistElement;
                     }
                 }
-            }else if(strpos($blacklistString, "*") !== 0){
+            } else if (strpos($blacklistString, "*") !== 0) {
                 $this->hostBlacklist[] = $blacklistString;
             }
         }
@@ -1110,7 +1111,7 @@ class MetaGer
             foreach ($this->hostBlacklist as $host) {
                 $hostString .= $host . ", ";
             }
-            $hostString       = rtrim($hostString, ", ");
+            $hostString = rtrim($hostString, ", ");
             $this->warnings[] = trans('metaGer.formdata.hostBlacklist', ['host' => $hostString]);
         }
     }
@@ -1120,22 +1121,22 @@ class MetaGer
         // matches '[... ]-site:*.test.de[ ...]'
         while (preg_match("/(^|.+\s)-site:\*\.(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->domainBlacklist[] = $match[2];
-            $this->q                 = $match[1] . $match[3];
+            $this->q = $match[1] . $match[3];
         }
         # Overwrite Setting if it's submitted via Parameter
-        if($request->has('blacklist')){
+        if ($request->has('blacklist')) {
             $this->domainBlacklist = [];
             $blacklistString = trim($request->input('blacklist'));
-            if(strpos($blacklistString, ",") !== FALSE){
+            if (strpos($blacklistString, ",") !== false) {
                 $blacklistArray = explode(',', $blacklistString);
-                foreach($blacklistArray as $blacklistElement){
+                foreach ($blacklistArray as $blacklistElement) {
                     $blacklistElement = trim($blacklistElement);
-                    if(strpos($blacklistElement, "*.") === 0){
-                        $this->domainBlacklist[] = substr($blacklistElement, strpos($blacklistElement, "*.")+2);
+                    if (strpos($blacklistElement, "*.") === 0) {
+                        $this->domainBlacklist[] = substr($blacklistElement, strpos($blacklistElement, "*.") + 2);
                     }
                 }
-            }else if(strpos($blacklistString, "*.") === 0){
-                $this->domainBlacklist[] = substr($blacklistString, strpos($blacklistString, "*.")+2);
+            } else if (strpos($blacklistString, "*.") === 0) {
+                $this->domainBlacklist[] = substr($blacklistString, strpos($blacklistString, "*.") + 2);
             }
         }
         // print the domain blacklist as a user warning
@@ -1144,7 +1145,7 @@ class MetaGer
             foreach ($this->domainBlacklist as $domain) {
                 $domainString .= $domain . ", ";
             }
-            $domainString     = rtrim($domainString, ", ");
+            $domainString = rtrim($domainString, ", ");
             $this->warnings[] = trans('metaGer.formdata.domainBlacklist', ['domain' => $domainString]);
         }
     }
@@ -1154,7 +1155,7 @@ class MetaGer
         // matches '[... ]-site:*.test.de[ ...]'
         while (preg_match("/(^|.+\s)-url:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->urlBlacklist[] = $match[2];
-            $this->q              = $match[1] . $match[3];
+            $this->q = $match[1] . $match[3];
         }
         // print the url blacklist as a user warning
         if (sizeof($this->urlBlacklist) > 0) {
@@ -1162,7 +1163,7 @@ class MetaGer
             foreach ($this->urlBlacklist as $url) {
                 $urlString .= $url . ", ";
             }
-            $urlString        = rtrim($urlString, ", ");
+            $urlString = rtrim($urlString, ", ");
             $this->warnings[] = trans('metaGer.formdata.urlBlacklist', ['url' => $urlString]);
         }
     }
@@ -1172,19 +1173,19 @@ class MetaGer
         // matches '[... ]-test[ ...]'
         while (preg_match("/(^|.+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->stopWords[] = $match[2];
-            $this->q           = $match[1] . $match[3];
+            $this->q = $match[1] . $match[3];
         }
         # Overwrite Setting if submitted via Parameter
-        if($request->has('stop')){
+        if ($request->has('stop')) {
             $this->stopWords = [];
             $stop = trim($request->input('stop'));
-            if(strpos($stop, ',') !== FALSE){ 
+            if (strpos($stop, ',') !== false) {
                 $stopArray = explode(',', $stop);
-                foreach($stopArray as $stopElement){
+                foreach ($stopArray as $stopElement) {
                     $stopElement = trim($stopElement);
                     $this->stopWords[] = $stopElement;
                 }
-            }else{
+            } else {
                 $this->stopWords[] = $stop;
             }
         }
@@ -1194,18 +1195,18 @@ class MetaGer
             foreach ($this->stopWords as $stopword) {
                 $stopwordsString .= $stopword . ", ";
             }
-            $stopwordsString  = rtrim($stopwordsString, ", ");
+            $stopwordsString = rtrim($stopwordsString, ", ");
             $this->warnings[] = trans('metaGer.formdata.stopwords', ['stopwords' => $stopwordsString]);
         }
     }
 
     private function searchCheckPhrase()
     {
-        $p   = "";
+        $p = "";
         $tmp = $this->q;
         // matches '[... ]"test satz"[ ...]'
         while (preg_match("/(^|.+\s)\"(.+)\"(?:\s(.+)|($))/si", $tmp, $match)) {
-            $tmp             = $match[1] . $match[3];
+            $tmp = $match[1] . $match[3];
             $this->phrases[] = strtolower($match[2]);
         }
         foreach ($this->phrases as $phrase) {
@@ -1232,7 +1233,7 @@ class MetaGer
                 $requestData["out"] = $this->request->input('out');
             }
             $requestData['next'] = md5(serialize($this->next));
-            $link                = action('MetaGerSearch@search', $requestData);
+            $link = action('MetaGerSearch@search', $requestData);
         } else {
             $link = "#";
         }
@@ -1264,7 +1265,8 @@ class MetaGer
         }
     }
 
-    public function atLeastOneSearchengineSelected(Request $request) {
+    public function atLeastOneSearchengineSelected(Request $request)
+    {
         foreach ($request->all() as $key => $value) {
             if ($this->startsWith($key, 'engine')) {
                 return true;
@@ -1375,7 +1377,7 @@ class MetaGer
 
     public function generateSearchLink($fokus, $results = true)
     {
-        $requestData          = $this->request->except(['page', 'next']);
+        $requestData = $this->request->except(['page', 'next']);
         $requestData['focus'] = $fokus;
         $requestData['out'] = "";
 
@@ -1392,17 +1394,17 @@ class MetaGer
 
     public function generateSiteSearchLink($host)
     {
-        $host        = urlencode($host);
+        $host = urlencode($host);
         $requestData = $this->request->except(['page', 'out', 'next']);
         $requestData['eingabe'] .= " site:$host";
         $requestData['focus'] = "web";
-        $link                 = action('MetaGerSearch@search', $requestData);
+        $link = action('MetaGerSearch@search', $requestData);
         return $link;
     }
 
     public function generateRemovedHostLink($host)
     {
-        $host        = urlencode($host);
+        $host = urlencode($host);
         $requestData = $this->request->except(['page', 'out', 'next']);
         $requestData['eingabe'] .= " -site:$host";
         $link = action('MetaGerSearch@search', $requestData);
@@ -1411,7 +1413,7 @@ class MetaGer
 
     public function generateRemovedDomainLink($domain)
     {
-        $domain      = urlencode($domain);
+        $domain = urlencode($domain);
         $requestData = $this->request->except(['page', 'out', 'next']);
         $requestData['eingabe'] .= " -site:*.$domain";
         $link = action('MetaGerSearch@search', $requestData);
@@ -1420,9 +1422,9 @@ class MetaGer
 
     public function getUnFilteredLink()
     {
-        $requestData         = $this->request->except(['lang']);
+        $requestData = $this->request->except(['lang']);
         $requestData['lang'] = "all";
-        $link                = action('MetaGerSearch@search', $requestData);
+        $link = action('MetaGerSearch@search', $requestData);
         return $link;
     }
 
@@ -1440,9 +1442,9 @@ class MetaGer
 
     public function getImageProxyLink($link)
     {
-        $requestData        = [];
+        $requestData = [];
         $requestData["url"] = $link;
-        $link               = action('Pictureproxy@get', $requestData);
+        $link = action('Pictureproxy@get', $requestData);
         return $link;
     }
 
@@ -1478,7 +1480,7 @@ class MetaGer
     {
         return $this->ip;
     }
-    
+
     public function getUserAgent()
     {
         return $this->useragent;

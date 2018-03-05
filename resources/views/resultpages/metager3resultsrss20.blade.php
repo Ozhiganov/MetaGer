@@ -8,18 +8,17 @@
      <opensearch:totalResults>{{ $resultcount }}</opensearch:totalResults>
      <opensearch:Query role="request" searchTerms="{{ htmlspecialchars($eingabe, ENT_QUOTES) }}"/>
      <mg:nextSearchResults url="{{htmlspecialchars($metager->nextSearchLink() ,ENT_QUOTES)}}" />
-
-  @if($apiAuthorized)
-  @foreach($metager->getResults() as $result)
-     <item>
-       <title>{!! htmlspecialchars($result->titel, ENT_XML1, 'UTF-8'); !!}</title>
-       <link>{!! htmlspecialchars($result->link, ENT_XML1, 'UTF-8'); !!}</link>
-       <mg:anzeigeLink>{!! htmlspecialchars($result->anzeigeLink, ENT_XML1, 'UTF-8'); !!}</mg:anzeigeLink>
-       <description>
-          {!! htmlspecialchars($result->longDescr, ENT_XML1, 'UTF-8'); !!}
-       </description>
-     </item>
-  @endforeach
-  @endif
-   </channel>
+      @if($apiAuthorized)
+        @foreach($metager->getResults() as $result)
+          <item>
+            <title>{!! htmlspecialchars($result->titel, ENT_XML1, 'UTF-8'); !!}</title>
+            <link>{!! htmlspecialchars($result->link, ENT_XML1, 'UTF-8'); !!}</link>
+            <mg:anzeigeLink>{!! htmlspecialchars($result->anzeigeLink, ENT_XML1, 'UTF-8'); !!}</mg:anzeigeLink>
+            <description>
+              {!! htmlspecialchars($result->longDescr, ENT_XML1, 'UTF-8'); !!}
+            </description>
+          </item>
+        @endforeach
+      @endif
+    </channel>
  </rss>
