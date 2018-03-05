@@ -64,7 +64,7 @@ var translations = {
 function t (key, lang) {
   if (arguments.length == 1) {
     var lang = $('html').attr('lang');
-    return translations[lang][key];
+    return t(key, lang);
   } else if (arguments.length == 2 && translations[lang] && translations[lang][key]) {
     return translations[lang][key];
   } else {
