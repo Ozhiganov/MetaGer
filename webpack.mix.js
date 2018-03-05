@@ -25,4 +25,5 @@ mix
   .scripts('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
   // utility
   .scripts(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
+  .sourceMaps(false, 'inline-source-map')
   .version();
