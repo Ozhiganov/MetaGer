@@ -2,6 +2,9 @@
 	<div class="result-header">
 		<div class="result-headline">
 			<h2 class="result-title">
+				@if(stripos($result->anzeigeLink, "twitter.com") !== false)
+					<i class="fa fa-twitter" aria-hidden="true"></i>
+				@endif
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					{!! $result->titel !!}
 				</a>
