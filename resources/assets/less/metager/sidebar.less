@@ -24,7 +24,7 @@
             content: "×";
         }
         &:hover {
-            color: rgb(255, 128, 0);
+            color: @metager-orange;
         }
     }
     &>ul {
@@ -36,7 +36,7 @@
         padding-bottom: 3%;
         border-bottom: 1px solid LightGray;
         &:hover {
-            background-color: @metager-navbar-toggle-hover-background-color;
+            background-color: @color-almost-white;
         }
         &>label {
             font-size: 16px;
@@ -94,21 +94,19 @@
             color: red;
         }
     }
-    
     p {
         width: 90%;
         text-align: center;
         font-weight: bold;
         font-style: italic;
         font-size: large;
-        background-color: rgb(255, 128, 0);
+        background-color: @metager-orange;
         border-radius: .25em;
         margin: 5%;
         color: white;
         font-size: 30px;
         line-height: 35px;
     }
-    
     .caret {
         position: absolute;
         left: 90%;
@@ -158,7 +156,7 @@ label#openSidebar {
         content: "≡";
     }
     &:hover {
-        color: rgb(255, 128, 0);
+        color: @metager-orange;
     }
     .noprint;
 }

@@ -7,6 +7,17 @@
 @result-width: 700px;
 @quicktip-width: 500px;
 @results-margin-left: @resultpage-leftbox-big-screen-margin-left;
+//
+@result-page-body-background-color: @background-color;
+@result-page-a-hover-color: red;
+@result-page-a-visited-color: @metager-orange;
+@result-page-product-shop-color: green;
+//
+@body-background-color: @result-page-body-background-color;
+@a-visited-color: @result-page-a-visited-color;
+@a-hover-color: @result-page-a-hover-color;
+@a-donation-hover-color: @result-page-a-hover-color;
+@product-shop-color: @result-page-product-shop-color;
 #header-logo {
     z-index: 0;
     padding-right: 10px;
@@ -29,17 +40,17 @@ body {
 }
 
 .navbar {
-    border-bottom: 3px solid rgb(255, 128, 0);
+    border-bottom: 3px solid @metager-orange;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
     &.navbar-resultpage {
-        border-bottom: 2px solid rgb(255, 128, 0);
+        border-bottom: 2px solid @metager-orange;
         box-shadow: none;
     }
 }
 
 .lSPrev>span,
 .lSNext>span {
-    color: rgb(255, 128, 0);
+    color: @metager-orange;
 }
 
 #map,
