@@ -1,17 +1,29 @@
 @if (sizeof($quicktip->details) > 0)
   <details>
     <summary class="quicktip-summary">
-      <i class="quicktip-extender fa fa-chevron-down"></i>
-      @if ($quicktip->title != "")
-        <h1>
-          @if ($quicktip->link != "")
-            <a href="{{ $quicktip->link }}">{{ $quicktip->title }}</a>
-          @else
-            {{ $quicktip->title }}
-          @endif
-        </h1>
-      @endif
-      <p>{!! $quicktip->descr !!}</p>
+      <div class="quicktip-headline">
+        @if ($quicktip->title != "")
+          <h1 class="quicktip-title">
+            @if ($quicktip->link != "")
+              <a href="{{ $quicktip->link }}">{{ $quicktip->title }}</a>
+            @else
+              {{ $quicktip->title }}
+            @endif
+          </h1>
+        @endif
+        <div class="space-taker"></div>
+        @if ($quicktip->gefVonLink != "")
+          <a class="quicktip-hoster" href="{{ $quicktip->gefVonLink }}" target="_blank" rel="noopener">
+            @if ($quicktip->gefVonTitle != "")
+              {{ $quicktip->gefVonTitle }}
+            @else
+              {{ $quicktip->gefVonTitle }}
+            @endif
+          </a>
+        @endif
+        <i class="quicktip-extender fa fa-chevron-down"></i>
+      </div>
+      <p class="quicktip-description">{!! $quicktip->descr !!}</p>
     </summary>
     @foreach ($quicktip->details as $detail)
       <div class="quicktip-detail">

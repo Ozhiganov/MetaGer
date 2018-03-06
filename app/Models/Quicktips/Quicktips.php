@@ -104,12 +104,6 @@ class Quicktips
 
             $quicktips_xpath = $content->xpath('main:entry');
             foreach ($quicktips_xpath as $quicktip_xml) {
-                // Title
-                $title = $quicktip_xml->title->__toString();
-
-                // Link
-                $link = $quicktip_xml->link['href']->__toString();
-
                 // Type
                 $quicktip_xml->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
                 $types = $quicktip_xml->xpath('mg:type');
@@ -117,6 +111,27 @@ class Quicktips
                     $type = $types[0]->__toString();
                 } else {
                     $type = "";
+                }
+
+                // Title
+                $title = $quicktip_xml->title->__toString();
+
+                // Link
+                $link = $quicktip_xml->link['href']->__toString();
+
+                // gefVon
+                $quicktip_xml->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
+                $gefVonTitles = $quicktip_xml->xpath('mg:gefVonTitle');
+                if (sizeof($gefVonTitles) > 0) {
+                    $gefVonTitle = $gefVonTitles[0]->__toString();
+                } else {
+                    $gefVonTitle = "";
+                }
+                $gefVonLinks = $quicktip_xml->xpath('mg:gefVonLink');
+                if (sizeof($gefVonLinks) > 0) {
+                    $gefVonLink = $gefVonLinks[0]->__toString();
+                } else {
+                    $gefVonLink = "";
                 }
 
                 // Description
@@ -141,6 +156,8 @@ class Quicktips
                     $type,
                     $title,
                     $link,
+                    $gefVonTitle,
+                    $gefVonLink,
                     $descr,
                     $details
                 );
