@@ -13,9 +13,9 @@
 		<div class="panel-body">
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.allgemein.1') !!}
-					<a id="settings-btn" class="mutelink btn btn-default" href="#">
+					<button id="settings-btn" class="btn btn-default">
 						<i class="fa fa-sliders" aria-hidden="true"></i>
-					</a>
+					</button>
 				</li>
 				{{-- <li>{!! trans('hilfe.allgemein.2') !!}</li> --}}
 				<li>{!! trans('hilfe.allgemein.3') !!}</li>
@@ -29,7 +29,7 @@
 		<div class="panel-body">
 			<p>{!! trans('hilfe.suchfokus.1') !!}</p>
 			<p>{!! trans('hilfe.suchfokus.2') !!}
-				<button id="addFocusBtn" class="btn btn-default" data-original-title="" title="">
+				<button id="addFocusBtn" class="btn btn-default">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 				</button>
 			</p>
@@ -102,7 +102,7 @@
 			@include('parts/fake-result')
 			<script type="text/javascript">
 				function setDummySearch(value) {
-					document.getElementById("dummy_search").innerHTML = value
+					document.getElementById("dummy-search").innerHTML = value
 				}
 			</script>
 			<div>
@@ -116,7 +116,7 @@
 				<p>{!! trans('hilfe.domains.showcase.menu.6') !!}</p>
 			</div>
 			<div>
-				<div class="well well-sm"><i>meine suche</i> <span id="dummy_search"></span></div>
+				<div class="well well-sm"><i>meine suche</i> <i id="dummy-search"></span></i>
 			</div>
 		</div>
 	</div>

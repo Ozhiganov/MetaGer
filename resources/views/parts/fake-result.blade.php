@@ -38,22 +38,22 @@
     <div class="options">
       <ul class="option-list list-unstyled small">
         <li class="">
-          <a class="saver" href="javascript:setDummySearch('wikipedia site:de.wikipedia.org wurde zum weiteren Filtern gespeichert')" data-tooltip="{{ trans('fake-result.options.save') }}">
+          <a class="saver" href="javascript:setDummySearch('wurde zum weiteren Filtern gespeichert')" data-tooltip="{{ trans('fake-result.options.save') }}">
             <i class="fa fa-floppy-o"></i> Ergebnis in Tab speichern.
           </a>
         </li>
         <li>
-          <a href="javascript:setDummySearch('wikipedia site:de.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.domain') }}">
+          <a href="javascript:setDummySearch('site:de.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.domain') }}">
             Auf dieser Domain neu suchen
           </a>
         </li>
         <li>
-          <a href="javascript:setDummySearch('wikipedia -site:de.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.subdomain') }}">
+          <a href="javascript:setDummySearch('-site:de.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.subdomain') }}">
             de.wikipedia.org ausblenden
           </a>
         </li>
         <li>
-          <a href="javascript:setDummySearch('wikipedia -site:*.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.blacklist') }}">
+          <a href="javascript:setDummySearch('-site:*.wikipedia.org')" data-tooltip="{{ trans('fake-result.options.blacklist') }}">
             *.wikipedia.org ausblenden
           </a>
         </li>

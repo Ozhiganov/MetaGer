@@ -22,7 +22,14 @@
         width: 50%;
         margin-top: 50px;
     }
-    @media print {
+}
+
+@media print {
+    .card-heavy {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    #donation-form {
         * {
             font-size: 14px !important;
         }

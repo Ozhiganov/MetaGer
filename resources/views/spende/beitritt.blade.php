@@ -101,6 +101,6 @@
 			<p>{{ trans('beitritt.anweisung.6') }}</p>
 		</div>
 	</div>
-	<button type="button" class="btn btn-lg btn-primary noprint" onclick="window.print();">{{ trans('beitritt.anweisung.7') }}</button>
+	<button type="button" class="noprint js-only btn btn-lg btn-primary" onclick="window.print();">{{ trans('beitritt.anweisung.7') }}</button>
 	<!-- <script src="{{ elixir('js/scriptJoinPage.js') }}"></script> -->
 @endsection
