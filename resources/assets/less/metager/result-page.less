@@ -4,13 +4,16 @@
 @import "./result-saver.less";
 @import "./result.less";
 @import "./product.less";
+@result-width: 700px;
+@quicktip-width: 500px;
+@results-margin-left: @resultpage-leftbox-big-screen-margin-left;
 #header-logo {
     z-index: 0;
     padding-right: 10px;
     h1 {
         .logo;
         margin: 0px;
-        font-size: 18px;
+        font-size: 22px;
         display: inline-block;
     }
 }
@@ -311,9 +314,6 @@ a {
     flex-direction: column;
 }
 
-@result-width: 700px;
-@quicktip-width: 500px;
-@results-margin-left: @resultpage-leftbox-big-screen-margin-left;
 #resultpage-container {
     width: @result-width + @quicktip-width;
     align-self: left;
