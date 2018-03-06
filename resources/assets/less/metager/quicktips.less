@@ -20,9 +20,7 @@
         background-color: white;
         details:not([open=""]) {
             .quicktip-summary p {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                .overflow-ellipsis;
             }
         }
         .quicktip-summary {
@@ -85,10 +83,6 @@
                 display: none;
                 font-size: 14px;
             }
-        }
-        .gefVon {
-            float: right;
-            font-size: 15px;
         }
         &[type=spruch] {
             order: 0;

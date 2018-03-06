@@ -55,6 +55,11 @@ body {
     }
 }
 
+.navbar,
+#navbar-static-pages {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
 
 /* General font sizing */
 
@@ -97,72 +102,36 @@ p {
 
 /* Logo */
 
-.logo h1,
-h1.mg-logo {
+.logo {
     color: rgb(255, 128, 0);
+    font-family: Liberation Sans, sans-serif;
+    font-style: italic;
     font-weight: bold;
+    white-space: nowrap;
 }
 
-#mglogo {
-    color: rgb(255, 128, 0);
+#startpage-logo {
+    .logo;
+    margin: 0px 0px 45px 0px;
+    white-space: nowrap;
     text-align: center;
     &>a {
+        .logo;
         display: block;
         text-decoration: none;
-        font-size: 1.1em;
-        font-family: Liberation Sans, sans-serif;
-        font-weight: bold;
-        font-style: italic;
-        font-size: 1.0em;
-        line-height: 1;
-        white-space: nowrap;
-        border-radius: .25em;
-        margin: 0 auto;
+        font-size: 75px;
+        @media(max-width: @screen-xs-max) {
+            font-size: 50px;
+        }
     }
 }
 
-.metager-logo {
-    height: 18px;
-    float: left;
-    margin: 6px;
-}
-
-.metager-searchinput {
-    height: 30px;
-    float: left;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857;
-    color: #555;
-    background-color: #FFF;
-    background-image: none;
-    border: 1px solid #CCC;
-    margin: 0px;
-}
-
-.metager-searchbutton {
-    height: 30px;
-    border-left: 0px none;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border: 1px solid #CCC;
-    padding: 6px 12px;
-    margin: 0px;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1;
-    white-space: nowrap;
-    color: #555;
-    text-align: center;
-    background-color: #EEE;
-}
-
-.logo {
-    height: 30px!important;
-    &>h1 {
+#subpage-logo {
+    padding: 5px 0;
+    a h1 {
+        .logo;
         font-size: 30px;
+        margin: 0;
     }
 }
 
@@ -171,8 +140,9 @@ h1.mg-logo {
 
 .mutelink {
     &,
-    &:focus,
+    &:hover,
     &:active,
+    &:focus,
     &:visited {
         color: inherit;
     }
@@ -198,77 +168,6 @@ summary {
     &::details-marker {
         display: none;
     }
-}
-
-
-/* New Feature Badge */
-
-.new-feature.badge {
-    background-color: @new-feature-badge-background-color;
-}
-
-
-/* Box to match Image size */
-
-.imagebox {
-    display: flex;
-    a {
-        display: flex;
-    }
-}
-
-
-/* Unsorted */
-
-.bold {
-    font-weight: bold;
-}
-
-.noprint {
-    @media print {
-        display: none!important;
-    }
-}
-
-.newpage {
-    page-break-after: always;
-}
-
-nav {
-    h1 {
-        margin: 0;
-        height: 100%;
-        padding-left: 20px;
-        padding-top: 8px;
-        font-family: sans-serif;
-        font-style: italic;
-        margin: 0;
-        font-weight: bold;
-        line-height: 1;
-        white-space: nowrap;
-    }
-    .navbar-brand>div.logo {
-        height: 100%;
-    }
-}
-
-.modal-content {
-    border-radius: 0;
-    -webkit-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
-    -moz-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
-    box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
-}
-
-label a {
-    color: inherit;
-    &:hover {
-        text-decoration: none;
-        color: inherit;
-    }
-}
-
-button {
-    border: none;
 }
 
 
@@ -322,6 +221,9 @@ button {
     }
 }
 
+
+/* For Containers that are supposed to split their content up into two columns */
+
 .two-col {
     >* {
         width: 50%;
@@ -336,7 +238,7 @@ button {
 
 /* Links */
 
-// Intern, aber anderes Design als die Startseite
+// Internal, but design differs from other pages
 .inlink {
     &:after {
         display: inline-block;
@@ -348,7 +250,7 @@ button {
     }
 }
 
-// Extern
+// External
 .outlink {
     &:after {
         display: inline-block;
@@ -357,5 +259,53 @@ button {
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         content: "\f08e";
+    }
+}
+
+
+/* Little helpers */
+
+.bold {
+    font-weight: bold;
+}
+
+.noprint {
+    @media print {
+        display: none!important;
+    }
+}
+
+.newpage {
+    page-break-after: always;
+}
+
+.disabled,
+.disabled * {
+    color: #aaa !important;
+    cursor: not-allowed !important;
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Unsorted */
+
+// Currently in use for the plugin modal
+.modal-content {
+    border-radius: 0;
+    -webkit-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    -moz-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+}
+
+label a {
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
     }
 }

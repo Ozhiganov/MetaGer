@@ -1,8 +1,12 @@
 <header>
 	<div id="research-bar">
 		<div id="header-logo">
-			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">MetaGer</h1></a>
-			<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}"><h1 class="mg-logo">M</h1></a>
+			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+				<h1>MetaGer</h1>
+			</a>
+			<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+				<h1>M</h1>
+			</a>
 		</div>
 		<div id="header-searchbar">
 			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])

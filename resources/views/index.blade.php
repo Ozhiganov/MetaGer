@@ -5,7 +5,7 @@
 @section('content')
 	@include('modals.create-focus-modal')
 	@include('modals.plugin-modal')
-	<h1 id="mglogo">
+	<h1 id="startpage-logo">
 		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a>
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
