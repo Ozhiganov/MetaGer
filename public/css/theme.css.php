@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/css");
-$color = "rgb(255, 128, 0)";
+$color = "@metager-orange";
 $colorRGBA = "rgba(255, 128, 0, 1)";
 if (isset($_GET['r']) && isset($_GET['g']) && isset($_GET['b']) && isset($_GET['a'])) {
     $color = "rgb(" . $_GET['r'] . "," . $_GET['g'] . "," . $_GET['b'] . ")";

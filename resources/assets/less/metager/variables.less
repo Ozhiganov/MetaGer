@@ -1,5 +1,6 @@
+// MetaGer Brand Color
 @metager-orange: rgb(255, 128, 0);
-// General
+// General Colors
 @color-white: white;
 @color-almost-white: mix(@color-white, @color-black, 90%);
 @color-light-grey: mix(@color-white, @color-black, 75%);
@@ -7,13 +8,14 @@
 @color-strong-grey: mix(@color-white, @color-black, 25%);
 @color-almost-black: mix(@color-white, @color-black, 10%);
 @color-black: black;
-//
+// General Background Color
 @background-color: white;
-//
+// Signal Colors
 @brand-success: #5cb85c;
 @brand-info: #FB0;
 @brand-warning: #f0ad4e;
 @brand-danger: #d9534f;
+//
 @body-bg: rgb(250, 250, 250);
 @input-border-focus: @metager-orange;
 @font-family-sans-serif: "Liberation Sans",
@@ -21,126 +23,34 @@
 Helvetica,
 Arial,
 sans-serif;
-// Global textual link color.
+// General textual link color.
 @link-color: @metager-orange;
-// static-pages.less
-@static-pages-color-white: @color-white;
-@static-pages-color-almost-white: @color-almost-white;
-@static-pages-color-light-grey: @color-light-grey;
-@static-pages-color-grey: @color-grey;
-@static-pages-color-strong-grey: @color-strong-grey;
-@static-pages-color-almost-black: @color-almost-black;
-@static-pages-color-black: @color-black;
-//
-@static-pages-spruch-color: #070;
-@static-pages-quicktip-aufruf-color: #fb0;
-@static-pages-quicktip-aufruf-background: #ff4000;
-// result-page-less
-@result-page-color-white: @color-white;
-@result-page-color-almost-white: @color-almost-white;
-@result-page-color-light-grey: @color-light-grey;
-@result-page-color-grey: @color-grey;
-@result-page-color-strong-grey: @color-strong-grey;
-@result-page-color-almost-black: @color-almost-black;
-@result-page-color-black: @color-black;
-//
-@result-page-body-background-color: @background-color;
-@result-page-a-hover-color: red;
-@result-page-a-visited-color: @metager-orange;
-@result-page-product-shop-color: green;
-// start-page.less
-@focus-hover-focus-edit-background-color: #e3e3e3;
-@focus-radio-checked-focus-label-focus-edit-background-color: #e3e3e3;
-@foki-edge-rounding: 7px;
-// settings.less
-@settings-abort-btn-color: white;
-// base.less
-@base-body-backround-color: @background-color;
-@base-aufruf-winter-color: #ab2121;
-@base-aufruf-winter-border-color: #953535;
-@base-aufruf-winter-btn-color: white;
-@base-aufruf-winter-btn-hover-background-color: #bd0d0d;
 
 /* Unsorted */
 
-@quicktip-background-color: @static-pages-color-white;
-@spruch-color: @static-pages-spruch-color;
-@spruch-border-left-color: @spruch-color;
-@spruch-author-color: @static-pages-color-grey;
-@metager-navbar-toggle-color: @static-pages-color-grey;
-@metager-navbar-toggle-background-color: @static-pages-color-white;
-@metager-navbar-toggle-border-color: @static-pages-color-almost-white;
-@metager-navbar-toggle-visited-color: @static-pages-color-grey;
-@metager-navbar-toggle-hover-background-color: @static-pages-color-almost-white;
-@toggle-nav-hide-or-metager-navbar-toggle-background-color: @metager-orange;
-@more-information-ul-li-color: @static-pages-color-grey;
-@more-information-h2-color: @static-pages-color-grey;
-@div-right-background-color: @static-pages-color-almost-white;
-@div-right-p-border-bottom-color: @static-pages-color-black;
-@quicktip-color: @static-pages-color-black;
-@quicktip-border-left-color: @static-pages-quicktip-aufruf-color;
-@quicktip-aufruf-color: @static-pages-quicktip-aufruf-background;
-@quicktip-aufruf-border-left-color: @quicktip-aufruf-color;
-@navbar-default-background-color: @static-pages-color-white;
-@mg-panel-background-color: @static-pages-color-white;
-@form-group-color: @static-pages-color-black;
-@metager-searchinput-color: @static-pages-color-strong-grey;
-@metager-searchinput-background-color: @static-pages-color-white;
-@metager-searchinput-border-color: @static-pages-color-almost-white;
-@metager-searchbutton-color: @static-pages-color-strong-grey;
-@metager-searchbutton-background-color: @static-pages-color-almost-white;
-@metager-searchbutton-border-color: @static-pages-color-almost-white;
-@modal-content-box-shadow-color: fade(@static-pages-color-black, 30%);
-@a-content-hidden-xs-color: @static-pages-color-almost-black;
-@section-box-shadow-color: fade(@static-pages-color-black, 55%);
-//
-@body-background-color: @base-body-backround-color;
-@aufruf-winter-a-normal-or-visited: @base-aufruf-winter-color;
-@aufruf-winter-aufruf-action-btn-color: @base-aufruf-winter-btn-color!important;
-@aufruf-winter-aufruf-action-btn-background-color: @base-aufruf-winter-color!important;
-@aufruf-winter-aufruf-action-btn-border-color: @base-aufruf-winter-border-color;
-@aufruf-winter-aufruf-action-btn-hover-background-color: @base-aufruf-winter-btn-hover-background-color !important;
-@aufruf-winter-aufruf-action-btn-hover-border-color: @base-aufruf-winter-border-color;
-@aufruf-winter-quicktip-border-color: @base-aufruf-winter-color!important;
-//
-@body-background-color: @result-page-body-background-color;
-@hostlabel-a-link-or-visited-color: @result-page-color-white;
-@hostlabel-background-color: @result-page-color-strong-grey;
-@navbar-resultpage-background-color: @result-page-color-white;
-@navbar-resultpage-ul-li-a-not-metager-navbar-toggle-color: @result-page-color-grey;
-@navbar-resultpage-ul-li-a-metager-dropdown-toggle-hover-or-focus-background-color: @result-page-color-almost-white;
-@research-a-color: @result-page-color-black;
-@content-wrapper-background-color: @result-page-color-white;
-@a-visited-color: @result-page-a-visited-color;
-@a-hover-color: @result-page-a-hover-color;
+@quicktip-background-color: @color-white;
+@navbar-default-background-color: @color-white;
+@form-group-color: @color-black;
+@modal-content-box-shadow-color: fade(@color-black, 30%);
+@a-content-hidden-xs-color: @color-almost-black;
+@section-box-shadow-color: fade(@color-black, 55%);
+@body-background-color: @background-color;
+@hostlabel-a-link-or-visited-color: @color-white;
+@hostlabel-background-color: @color-strong-grey;
+@navbar-resultpage-background-color: @color-white;
+@navbar-resultpage-ul-li-a-metager-dropdown-toggle-hover-or-focus-background-color: @color-almost-white;
+@research-a-color: @color-black;
+@content-wrapper-background-color: @color-white;
 @a-donation-normal-or-visited-color: inherit;
-@a-donation-hover-color: @result-page-a-hover-color;
-@resultpage-foki-or-foki-background-color: @result-page-color-white;
-@resultpage-foki-or-foki-li-a-color: @result-page-color-grey;
-@resultpage-foki-or-foki-li-active-a-color: @result-page-color-black;
-@resultpage-foki-or-foki-li-active-a-background-color: @result-page-color-white;
-@spruch-author-color: @result-page-color-strong-grey;
-@result-title-color: @result-page-color-black;
-@result-link-options-color: @result-page-color-strong-grey;
-@result-link-options-a-color: @result-page-color-strong-grey;
-@result-description-color: @result-page-color-black;
-@result-description-img-border-color: @result-page-color-almost-white;
-@result-hoster-color: @result-page-color-grey;
-@result-hoster-a-color: @result-page-color-strong-grey;
-@options-list-li-hover-background-color: @result-page-color-almost-white;
-@options-list-li-a-color: @result-page-color-strong-grey;
-@image-item-img-box-shadow-color: fade(@result-page-color-black, 30%);
-@searchplugin-a-color: @result-page-color-white;
-@product-border-color: @result-page-color-almost-white;
-@product-a-color: @result-page-color-strong-grey;
-@product-price-color: @result-page-color-strong-grey;
-@product-price-background-color: fade(@result-page-color-white, 90%);
-@product-shop-color: @result-page-product-shop-color;
-@lsprev-or-lsnext-i-background-color: @result-page-color-black;
-//
-@metager-dropdown-toggle-hover-or-focus-color: fade(@static-pages-color-black, 15%);
-@metager-dropdown-menu-background-color: @static-pages-color-white;
-@metager-dropdown-menu-box-shadow-color: fade(@static-pages-color-black, 17.5%);
-@metager-dropdown-menu-li-a-color: @static-pages-color-almost-black;
-@metager-dropdown-menu-li-a-hover-color: @static-pages-color-strong-grey;
-@metager-dropdown-menu-li-a-hover-background-color: @static-pages-color-almost-white;
+@spruch-author-color: @color-strong-grey;
+@result-description-color: @color-black;
+@result-description-img-border-color: @color-almost-white;
+@options-list-li-hover-background-color: @color-almost-white;
+@options-list-li-a-color: @color-strong-grey;
+@image-item-img-box-shadow-color: fade(@color-black, 30%);
+@searchplugin-a-color: @color-white;
+@product-border-color: @color-almost-white;
+@product-a-color: @color-strong-grey;
+@product-price-color: @color-strong-grey;
+@product-price-background-color: fade(@color-white, 90%);
+@lsprev-or-lsnext-i-background-color: @color-black;
