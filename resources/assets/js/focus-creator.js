@@ -30,7 +30,19 @@ function setDropdownListeners() {
       }
   });
   $(".focus-dropdown-toggle").change(function() {
-
+    var expanded = false;
+    $(".focus-dropdown-toggle").each(function() {
+      if($(this).is(':checked')) {
+        expanded = true;
+      }
+    });
+    if(expanded === true) {
+      $("#toggle-dropdowns-label").html(t('close-dropdowns') + ' <i class="fa fa-minus-square" aria-hidden="true"></i>');
+      $('input:checkbox#toggle-dropdowns').prop('checked', true);
+    } else {
+      $("#toggle-dropdowns-label").html(t('open-dropdowns') + ' <i class="fa fa-plus-square" aria-hidden="true"></i>');
+      $('input:checkbox#toggle-dropdowns').prop('checked', false);
+    }
   });
 }
 
