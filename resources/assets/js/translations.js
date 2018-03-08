@@ -21,7 +21,9 @@ var translations = {
     'result-saver.deleteAll': '<span class="hidden-xs">Ergebnisse</span> löschen</button>',
     'result-saver.save.this': 'ÖFFNEN',
     'result-saver.save.newtab': 'IN NEUEM TAB',
-    'result-saver.save.anonymous': 'ANONYM ÖFFNEN'
+    'result-saver.save.anonymous': 'ANONYM ÖFFNEN',
+    'close-dropdowns' : 'Alle zuklappen',
+    'open-dropdowns'  : 'Alle aufklappen'
   },
 
   'en': {
@@ -39,7 +41,9 @@ var translations = {
     'result-saver.deleteAll': 'delete <span class="hidden-xs">results</span>',
     'result-saver.save.this': 'OPEN',
     'result-saver.save.newtab': 'IN NEW TAB',
-    'result-saver.save.anonymous': 'OPEN ANONYMOUSLY'
+    'result-saver.save.anonymous': 'OPEN ANONYMOUSLY',
+    'close-dropdowns' : 'Collapse all',
+    'open-dropdowns'  : 'Expand all'
   },
 
   'es': {
