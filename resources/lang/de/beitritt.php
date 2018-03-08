@@ -21,7 +21,7 @@ return [
     'beitritt.12'   => 'Ja',
     'beitritt.13'   => 'Nein',
     'beitritt.14'   => 'Ort, Datum:',
-    'abbuchung.1'   => 'Unterschrift nach Ausdrucken des Formulars',
+    'unterschrift'  => 'Unterschrift nach Ausdrucken des Formulars',
     'abbuchung.2'   => 'Abbuchungsermächtigung',
     'abbuchung.3'   => 'Hiermit ermächtige ich den "SUMA-EV - Verein für freien Wissenszugang" den o.g. Mitgliedsbeitrag von meinem Konto abzubuchen.',
     'abbuchung.4'   => 'Name des Kontoinhabers:',

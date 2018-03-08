@@ -1,17 +1,51 @@
-.settings-btn {
-    margin: 5px;
-}
+/* Einstellungen */
 
-#settingsButtons {
+@settings-abort-btn-color: white;
+#settings-buttons {
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    a,
-    input {
-        margin-top: 25px;
+    justify-content: end;
+    >* {
+        margin: 10px;
+    }
+}
+
+#settings-selectors {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    >* {
+        padding: 10px;
+        width: 33%;
     }
 }
 
 #settings-abort-btn {
     color: @settings-abort-btn-color;
     margin-right: auto;
+}
+
+@media (max-width: @screen-xs-max) {
+    html,
+    body,
+    .wrapper,
+    #settings-buttons {
+        width: 100%;
+    }
+    #settings-buttons>* {
+        width: 100%;
+        margin: 10px 0px;
+        overflow: auto;
+    }
+    #settings-selectors {
+        justify-content: stretch;
+        >* {
+            width: 100%;
+            margin: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+        }
+    }
 }

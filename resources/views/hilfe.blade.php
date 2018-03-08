@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="alert alert-warning" role="alert">{!! trans('hilfe.achtung') !!}</div>
-	<h1>{!! trans('hilfe.title') !!}</h1>
+	<h1 class="page-title">{!! trans('hilfe.title') !!}</h1>
 	<h2>{!! trans('hilfe.einstellungen') !!}</h2>
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -13,11 +13,11 @@
 		<div class="panel-body">
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.allgemein.1') !!}
-					<a id="settings-btn" class="mutelink btn btn-default" href="#">
-						<i class="fa fa-cog" aria-hidden="true"></i>
-					</a>
+					<button id="settings-btn" class="btn btn-default">
+						<i class="fa fa-sliders" aria-hidden="true"></i>
+					</button>
 				</li>
-				<li>{!! trans('hilfe.allgemein.2') !!}</li>
+				{{-- <li>{!! trans('hilfe.allgemein.2') !!}</li> --}}
 				<li>{!! trans('hilfe.allgemein.3') !!}</li>
 			</ul>
 		</div>
@@ -29,7 +29,7 @@
 		<div class="panel-body">
 			<p>{!! trans('hilfe.suchfokus.1') !!}</p>
 			<p>{!! trans('hilfe.suchfokus.2') !!}
-				<button id="addFocusBtn" class="btn btn-default" data-original-title="" title="">
+				<button id="addFocusBtn" class="btn btn-default">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 				</button>
 			</p>
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 	<h2>{!! trans('hilfe.sucheingabe.title') !!}</h2>
-	<p>{!! trans('hilfe.sucheingabe.hint') !!}</p>
+	<div class="alert alert-warning" role="alert">{!! trans('hilfe.sucheingabe.hint') !!}</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">{!! trans('hilfe.stopworte.title') !!}</h3>
@@ -99,43 +99,10 @@
 				<div class="well well-sm">{!! trans('hilfe.domains.blacklist.example.6') !!}</div></li>
 			</ul>
 			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
-			<img id="exampleimg" src="/img/blacklist-tutorial-searchexample.png">
-			<p>{!! trans('hilfe.domains.showcase.explanation.2') !!}<p>
-			<div id="result_option_showcase" style="margin-top: -300px"></div>
-			<div style="margin-top: 315px; margin-bottom: 10px;">
-				<div class="popover fade bottom in" role="tooltip" style="top: auto; left: auto; display: block; position: relative">
-					<div class="arrow" style="left: 50%;"></div>
-					<h3 class="popover-title"><i class="fa fa-cog" aria-hidden="true"></i> Optionen</h3>
-					<div class="popover-content">
-						<ul class="options-list list-unstyled small">
-							<li>
-								<a href="#exampleimg">
-								<i class="glyphicon glyphicon-floppy-disk"></i>
-									Ergebnis in Tab speichern.
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia site:de.wikipedia.org')">
-									Suche auf dieser Domain neu starten
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia -site:de.wikipedia.org')">
-									de.wikipedia.org ausblenden
-								</a>
-							</li>
-							<li>
-								<a href="javascript:setDummySearch('wikipedia -site:*.wikipedia.org')">
-									*.wikipedia.org ausblenden
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			@include('parts/fake-result')
 			<script type="text/javascript">
 				function setDummySearch(value) {
-					document.getElementById("dummy_search").innerHTML = value
+					document.getElementById("dummy-search").innerHTML = value
 				}
 			</script>
 			<div>
@@ -149,7 +116,7 @@
 				<p>{!! trans('hilfe.domains.showcase.menu.6') !!}</p>
 			</div>
 			<div>
-				<div class="well well-sm"><i>meine suche</i> <span id="dummy_search"></span></div>
+				<div class="well well-sm"><i>meine suche</i> <i id="dummy-search"></span></i>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,57 @@
+/* Winter-Spendenaufruf */
+
+@base-aufruf-winter-color: #ab2121;
+@base-aufruf-winter-border-color: #953535;
+@base-aufruf-winter-btn-color: white;
+@base-aufruf-winter-btn-hover-background-color: #bd0d0d;
+//
+@aufruf-winter-a-normal-or-visited: @base-aufruf-winter-color;
+@aufruf-winter-aufruf-action-btn-color: @base-aufruf-winter-btn-color!important;
+@aufruf-winter-aufruf-action-btn-background-color: @base-aufruf-winter-color!important;
+@aufruf-winter-aufruf-action-btn-border-color: @base-aufruf-winter-border-color;
+@aufruf-winter-aufruf-action-btn-hover-background-color: @base-aufruf-winter-btn-hover-background-color !important;
+@aufruf-winter-aufruf-action-btn-hover-border-color: @base-aufruf-winter-border-color;
+@aufruf-winter-quicktip-border-color: @base-aufruf-winter-color!important;
+.aufruf-winter {
+    h1 {
+        font-size: 32px;
+        @media(max-width: @screen-md-max) {
+            .aufruf-winter h1 {
+                font-size: 27px;
+            }
+        }
+    }
+    a,
+    a:visited {
+        color: @aufruf-winter-a-normal-or-visited;
+    }
+    .aufruf-action-btn {
+        color: @aufruf-winter-aufruf-action-btn-color;
+        background-color: @aufruf-winter-aufruf-action-btn-background-color;
+        border-color: @aufruf-winter-aufruf-action-btn-border-color;
+    }
+    .aufruf-action-btn:hover {
+        background-color: @aufruf-winter-aufruf-action-btn-hover-background-color;
+        border-color: @aufruf-winter-aufruf-action-btn-hover-border-color;
+    }
+    &.mg-panel {
+        background-image: url("/img/snowflake.svg");
+        background-repeat: no-repeat;
+        background-position: right top;
+        background-size: 100px 100px;
+        @media(max-width: @screen-sm-max) {
+            background-size: 60px 60px;
+        }
+        @media(min-width: @screen-lg) {
+            width: 940px;
+        }
+    }
+    &.quicktip {
+        border-left: 3px solid @aufruf-winter-quicktip-border-color;
+    }
+    @media(max-width: @screen-md-max) {
+        .lead {
+            font-size: 18px;
+        }
+    }
+}

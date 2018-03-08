@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'von' => 'Werbung von',
+    'werbung' => 'Werbung',
+    'von' => 'von',
 ];

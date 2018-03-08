@@ -9,7 +9,7 @@ class ZitatController extends Controller
     public function zitatSuche(Request $request)
     {
         $validResults = [];
-        if ($request->has("q")) {
+        if ($request->filled("q")) {
             # The user searched for something
             $fileName    = storage_path() . "/app/public/zitate.txt";
             $fileContent = file_get_contents($fileName);

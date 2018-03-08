@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="alert alert-warning" role="alert">{!! trans('faq.achtung') !!}</div>
-	<h1>{!! trans('faq.title') !!}</h1>
+	<h1 class="page-title">{!! trans('faq.title') !!}</h1>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">{!! trans('faq.faq.1.h') !!}</h3>

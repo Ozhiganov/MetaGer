@@ -25,11 +25,16 @@ return [
     'focus-creator.delete'           => 'Suchfokus löschen',
     'focus-creator.focusname'        => 'Fokusname: ',
 
+    'slogan.title'                   => 'Besser&nbsp;suchen, schneller&nbsp;finden',
+    'slogan.1'                       => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach und selbstverständlich.<br>Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger <a href="/spende">Verein</a>: <a href="/beitritt">Werden Sie Mitglied</a>!',
+    'slogan.2'                       => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
+
+
     'sponsors.head.1'                => 'Weitere Informationen',
     'sponsors.head.2'                => 'Sponsoren',
-    'sponsors.woxikon'               => '<a href="http://www.tagesgeld.jetzt" class="mutelink" target="_blank" rel="noopener">Tagesgeld</a>',
-    'sponsors.gutscheine'            => '<a href="http://www.gutschein-magazin.de/" class="mutelink" target="_blank" rel="noopener">Aktuelle Gutscheine auf Gutschein-Magazin.de</a>',
-    'sponsors.seo'                   => '<a href="https://www.semtrix.de/seo-agentur/" class="mutelink" target="_blank" rel="noopener">SEO Agentur </a>',
+    'sponsors.woxikon'               => 'Tagesgeld jetzt!',
+    'sponsors.gutscheine'            => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
+    'sponsors.seo'                   => 'Suchmaschinenoptimierung',
 
     'about.title'                    => 'Über uns',
     'about.1.1'                      => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach & selbstverständlich.',
@@ -119,4 +124,8 @@ return [
     'plugin.vivaldi.8'               => 'MetaGer als Startseite im :browser einrichten',
     'plugin.vivaldi.9'               => 'Klicken Sie in Ihrem Browser oben links auf das rote Vivaldi Logo und wählen Sie zuerst "Werkzeuge", dann im Untermenü "Einstellungen".',
     'plugin.vivaldi.10'              => 'Tragen Sie im Feld "Startseite" "https://metager.de" ein.',
+
+    'tooltips.add-focus'                      => 'Suche anpassen',
+    'tooltips.edit-focus'                     => 'Aktuellen Fokus bearbeiten',
+    'tooltips.settings' => 'Allgemeine Einstellungen',
 ];

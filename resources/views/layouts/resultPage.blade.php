@@ -16,36 +16,26 @@
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/css/lightslider.css" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<meta name="referrer" content="origin">
-		@include('layouts.utility')
+		@include('parts.utility')
 	</head>
 	<body id="resultBody">
+		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
 		@if( !isset($suspendheader) )
+			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
-			<div class="tab-content container-fluid">
+			<div id="resultpage-container">
 				@yield('results')
 			</div>
 		@endif
-		<div id="feedback" style="width:50%;margin-left:25%;position: relative; top:10px;" class="alert alert-danger alert-dismissable">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  				<strong> {!! trans('metaGer.feedback') !!}<a href="{{URL::to('')}}/kontakt/{{base64_encode(Request::fullUrl())}}/" target="_blank">
-  					{!! trans('kontakt.form.1') !!}</a>
-  				</strong>
-		</div>
-		<footer>
-			<div class="row">
-				<div @if(LaravelLocalization::getCurrentLocale() === "de") class="col-xs-4"@else class="col-xs-6"@endif>
-					<a class="btn btn-default" href="/">{!! trans('resultPage.startseite') !!}</a>
-				</div>
-				<div @if(LaravelLocalization::getCurrentLocale() === "de") class="col-xs-4"@else class="col-xs-6"@endif>
-					<a class="btn btn-default" href="/impressum/">{!! trans('resultPage.impressum') !!}</a>
-				</div>
-			</div>
-		</footer>
+		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 		<script type="text/javascript" src="{{ mix('js/lib.js') }}"></script>
 		<script type="text/javascript" src="{{ mix('js/scriptResultPage.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/focus-creator.js') }}"></script>
 	</body>
 </html>
