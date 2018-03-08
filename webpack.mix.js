@@ -16,14 +16,15 @@ mix
   .less('resources/assets/less/metager/beitritt.less', 'public/css/beitritt.css')
   .less('resources/assets/less/utility.less', 'public/css/utility.css')
   // js
-  .scripts(['resources/assets/js/lib/jquery.js', 'resources/assets/js/lib/jquery-ui.min.js', 'resources/assets/js/lib/bootstrap.js', 'resources/assets/js/lib/lightslider.js',
+  .babel(['resources/assets/js/lib/jquery.js', 'resources/assets/js/lib/jquery-ui.min.js', 'resources/assets/js/lib/bootstrap.js', 'resources/assets/js/lib/lightslider.js',
     'resources/assets/js/lib/masonry.js', 'resources/assets/js/lib/imagesloaded.js', 'resources/assets/js/lib/openpgp.min.js', 'resources/assets/js/lib/iframeResizer.min.js',
-    'resources/assets/js/lib/md5.js'], 'public/js/lib.js')
-  .scripts(['resources/assets/js/scriptStartPage.js', 'resources/assets/js/result-saver.js'], 'public/js/scriptStartPage.js')
-  .scripts(['resources/assets/js/scriptResultPage.js', 'resources/assets/js/result-saver.js', 'resources/assets/js/translations.js'], 'public/js/scriptResultPage.js')
-  .scripts('resources/assets/js/searchbar.js', 'public/js/searchbar.js')
-  .scripts('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
+    'resources/assets/js/lib/md5.js'
+  ], 'public/js/lib.js')
+  .babel(['resources/assets/js/scriptStartPage.js', 'resources/assets/js/result-saver.js'], 'public/js/scriptStartPage.js')
+  .babel(['resources/assets/js/scriptResultPage.js', 'resources/assets/js/result-saver.js', 'resources/assets/js/translations.js'], 'public/js/scriptResultPage.js')
+  .babel('resources/assets/js/searchbar.js', 'public/js/searchbar.js')
+  .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
   // utility
-  .scripts(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
+  .babel(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
   .sourceMaps(false, 'inline-source-map')
   .version();
