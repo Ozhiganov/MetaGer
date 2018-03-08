@@ -1,7 +1,7 @@
 $(function () {
   setLabelText();
   setKeyListeners();
-  setDropdownListener();
+  setDropdownListeners();
 });
 
 /**
@@ -19,25 +19,26 @@ function setKeyListeners () {
   });
 }
 
-function setDropdownListener() {
-  $('input:checkbox#toggle-dropdowns').change(
-    function() {
+function setDropdownListeners() {
+  $('input:checkbox#toggle-dropdowns').change(function() {
       if($(this).is(':checked')) {
-        $("#toggle-dropdowns-label").html(t('close-dropdowns'));
+        $("#toggle-dropdowns-label").html(t('close-dropdowns') + ' <i class="fa fa-minus-square" aria-hidden="true"></i>');
         $(".focus-dropdown-toggle").prop('checked', true);
       } else {
-        $("#toggle-dropdowns-label").html(t('open-dropdowns'));
+        $("#toggle-dropdowns-label").html(t('open-dropdowns') + ' <i class="fa fa-plus-square" aria-hidden="true"></i>');
         $(".focus-dropdown-toggle").prop('checked', false);
       }
-    }
-  )
+  });
+  $(".focus-dropdown-toggle").change(function() {
+
+  });
 }
 
 function setLabelText() {
   if($('input:checkbox#toggle-dropdowns').is(':checked')) {
-    $("#toggle-dropdowns-label").html(t('close-dropdowns'));
+    $("#toggle-dropdowns-label").html(t('close-dropdowns') + ' <i class="fa fa-minus-square" aria-hidden="true"></i>');
   } else {
-    $("#toggle-dropdowns-label").html(t('open-dropdowns'));
+    $("#toggle-dropdowns-label").html(t('open-dropdowns') + ' <i class="fa fa-plus-square" aria-hidden="true"></i>');
   }
 }
 
