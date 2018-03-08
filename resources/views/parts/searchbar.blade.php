@@ -1,5 +1,5 @@
 {{-- Don't forget to @include('modals.create-focus-modal') --}}
-{{-- Don't forget <script type="text/javascript" src="{{ elixir('js/searchbar.js') }}"></script> --}}
+{{-- Don't forget <script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script> --}}
 <fieldset>
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class or ''}}">
