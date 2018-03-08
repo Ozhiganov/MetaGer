@@ -109,7 +109,7 @@ update(metager3.de):
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
-    - npm run prodution
+    - npm run production
     - php artisan migrate --force
     - if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
     - cd ~/
