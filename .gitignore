@@ -8,18 +8,10 @@ Homestead.yaml
 .orig
 .vscode
 langfiles.zip
-# The Files created by webpack in the build process
+# The Files created by Webpack in the build process
+/public/**/*.css
+/public/**/*.js
 /public/mix-manifest.json
-/public/build
-/public/js/lib.js
-/public/js/scriptStartPage.js
-/public/js/scriptResultPage.js
-/public/js/focus-creator.js
-/public/js/searchbar.js
-/public/js/utility.js
-/public/css/beitritt.css
-/public/css/themes/default.css
-/public/css/utility.css
 
 **/*.map
 /.buildpath

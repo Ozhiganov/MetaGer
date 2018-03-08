@@ -56,5 +56,5 @@
 			<input id="plugin" class="btn btn-primary" type="submit" value="{!! trans('settings.speichern.3') !!}">
 		</div>
 	</form>
-	<script src="{{ elixir('js/settings.js') }}"></script>
+	<script src="{{ mix('js/settings.js') }}"></script>
 @endsection

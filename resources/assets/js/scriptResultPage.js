@@ -11,8 +11,9 @@ $(document).ready(function () {
   if (localStorage.hasOwnProperty('param_sprueche')) {
     var sprueche = localStorage.getItem('param_sprueche') === 'on'; // check for sprueche local storage parameter
   } else {
-    var sprueche = getURLParameter('sprueche') === 'on'; // load the sprueche url parameter
+    var sprueche = getURLParameter('sprueche', 'on') === 'on'; // load the sprueche url parameter
   }
+
   var search = getMetaTag('q') || '';
   var locale = getMetaTag('l') || 'de';
   //loadQuicktips(search, locale, sprueche); // load the quicktips
@@ -24,8 +25,8 @@ function readLocaleFromUrl (defaultLocale) {
 }
 */
 
-function getURLParameter (name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+function getURLParameter (name, defaultValue) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || defaultValue;
 }
 
 function getMetaTag (name) {
@@ -66,7 +67,8 @@ function tabs () {
   });
 }
 
-function getDocumentReadyForUse (fokus, custom = false) {
+function getDocumentReadyForUse (fokus, custom) {
+  if (typeof custom == 'undefined') custom = false;
   activateJSOnlyContent();
   clickLog();
   popovers();
