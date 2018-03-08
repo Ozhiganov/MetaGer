@@ -39,8 +39,12 @@
                     }
                 }
             }
-            #toggle-dropdowns {
-                
+            #toggle-dropdowns-label {
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
             .focus-dropdown-toggle {
                 display: none;
@@ -52,14 +56,15 @@
                 }
                 &:checked {
                     &~.focus-dropdown-label::after {
-                        content: "🡡";
+                        content: " ➖ ";
                     }
                 }
             }
             .focus-dropdown-label {
+                cursor: pointer;
                 &::after {
                     font-size: 16px;
-                    content: "🡣";
+                    content: " ➕ ";
                     margin-left: 3px;
                 }
                 &~.row {

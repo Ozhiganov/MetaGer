@@ -17,8 +17,8 @@
 				</div>
 			</div>
 			<div class="modal-body">
-				<input type="hidden" id="toggle-dropdowns">
-				<label for="toggle=dropdowns" class="js-only"></label>
+				<input type="checkbox" class="hidden" id="toggle-dropdowns" checked>
+				<label id="toggle-dropdowns-label" for="toggle-dropdowns" class="js-only"></label>
 				<form id="customSearchForm" method="GET" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">
 					<input type="hidden" name="encoding" value="utf8">
