@@ -1,0 +1,314 @@
+/* Default Font */
+
+* {
+    font-family: Liberation Sans, sans-serif;
+}
+
+
+/* Main Containers */
+
+html,
+body,
+.content-wrapper {
+    width: 100%;
+}
+
+html {
+    min-height: 100%;
+    height: auto;
+    display: flex;
+}
+
+body {
+    flex-grow: 1;
+    background-image: inherit;
+    background-color: @body-background-color;
+    background-attachment: fixed;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0px 8px;
+    overflow: hidden;
+    main {
+        width: 100%;
+        max-width: 1000px;
+    }
+}
+
+.first-last-child-margin-fix() {
+    &:first-child {
+        margin-top: 0px;
+    }
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+.navbar,
+#navbar-static-pages {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* General font sizing */
+
+@default-font-size: 15px;
+h1 {
+    font-size: @default-font-size * 1.6;
+    .first-last-child-margin-fix;
+}
+
+h2 {
+    font-size: @default-font-size * 1.4;
+    .first-last-child-margin-fix;
+}
+
+h3 {
+    font-size: @default-font-size * 1.2;
+    .first-last-child-margin-fix;
+}
+
+p {
+    font-size: @default-font-size;
+    .first-last-child-margin-fix;
+}
+
+* {
+    font-size: @default-font-size;
+    .first-last-child-margin-fix;
+}
+
+.page-title {
+    font-size: @default-font-size * 3;
+    text-align: center;
+}
+
+.page-subtitle {
+    font-size: @default-font-size;
+    text-align: center;
+}
+
+
+/* Logo */
+
+.logo {
+    color: @metager-orange;
+    font-family: Liberation Sans, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#startpage-logo {
+    .logo;
+    margin: 0px 0px 45px 0px;
+    white-space: nowrap;
+    text-align: center;
+    &>a {
+        .logo;
+        display: block;
+        text-decoration: none;
+        font-size: 75px;
+        @media(max-width: @screen-xs-max) {
+            font-size: 50px;
+        }
+    }
+}
+
+#subpage-logo {
+    padding: 5px 0;
+    a h1 {
+        .logo;
+        font-size: 30px;
+        margin: 0;
+    }
+}
+
+
+/* Links that look like text */
+
+.mutelink {
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        color: inherit;
+    }
+}
+
+
+/* Summary Elements */
+
+summary {
+    cursor: pointer;
+    &::-webkit-details-marker {
+        display: none;
+    }
+    &::-moz-details-marker {
+        display: none;
+    }
+    &::-ms-details-marker {
+        display: none;
+    }
+    &::-o-details-marker {
+        display: none;
+    }
+    &::details-marker {
+        display: none;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+
+/* Tooltips 
+ * 
+ * Für alle Elemente mit einem "data-tooltip"-Attribut wird ein 
+ * Tooltip mit entsprechendem Inhalt unterhalb des Elements angezeigt
+ */
+
+*[data-tooltip] {
+    &:hover {
+        position: relative;
+        &:after {
+            opacity: 1;
+        }
+    }
+    &:after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        color: black;
+        background-color: white;
+        border: 2px solid @metager-orange;
+        border-radius: 6px;
+        padding: 3px 8px;
+        width: 200px;
+        white-space: pre-wrap;
+        font-size: 15px;
+        font-weight: normal;
+        text-decoration: none;
+        text-align: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    &.hide-tooltip-on-resultpage:after {
+        /* Auf kleinen Bildschirmen wird der Tooltip nicht angezeigt */
+        @media (max-width: 700px) {
+            display: none;
+        }
+    }
+    &.delayed:after {
+        transition-delay: 0.5s;
+    }
+    &.delayed-soft:after {
+        transition-delay: 0.2s;
+    }
+    &.delayed-strong:after {
+        transition-delay: 1s;
+    }
+}
+
+
+/* For Containers that are supposed to split their content up into two columns */
+
+.two-col {
+    >* {
+        width: 50%;
+        margin: 0;
+        float: left;
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+        }
+    }
+}
+
+
+/* Links */
+
+// Internal, but design differs from other pages
+.inlink {
+    &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f08e";
+    }
+}
+
+// External
+.outlink {
+    &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f08e";
+    }
+}
+
+
+/* Little helpers */
+
+.bold {
+    font-weight: bold;
+}
+
+.noprint {
+    @media print {
+        display: none!important;
+    }
+}
+
+.newpage {
+    page-break-after: always;
+}
+
+.disabled,
+.disabled * {
+    color: #aaa !important;
+    cursor: not-allowed !important;
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Unsorted */
+
+// Currently in use for the plugin modal
+.modal-content {
+    border-radius: 0;
+    -webkit-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    -moz-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+    box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+}
+
+label a {
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}

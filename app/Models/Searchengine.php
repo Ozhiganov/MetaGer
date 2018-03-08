@@ -23,7 +23,6 @@ abstract class Searchengine
     public $cached   = false;
 
     public $ip; # Die IP aus der metager
-    public $gefVon; # Der HTML-Code für die Verlinkung des Suchanbieters
     public $uses; # Die Anzahl der Nutzungen dieser Suchmaschine
     public $homepage; # Die Homepage dieser Suchmaschine
     public $name; # Der Name dieser Suchmaschine
@@ -71,7 +70,6 @@ abstract class Searchengine
 
         $this->useragent = $metager->getUserAgent();
         $this->ip        = $metager->getIp();
-        $this->gefVon    = "<a href=\"" . $this->homepage . "\" target=\"_blank\" rel=\"noopener\">" . $this->displayName . "</a>";
         $this->startTime = microtime();
 
         # Suchstring generieren
@@ -219,7 +217,6 @@ abstract class Searchengine
     {
         $number = Redis::hget('search.' . $this->hash, $this->name);
         if ($number === null) {
-            die("test");
             return null;
         } else {
             return pfsockopen($this->getHost() . ":" . $this->port . "/$number", $this->port, $errstr, $errno, 1);

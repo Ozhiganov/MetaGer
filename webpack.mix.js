@@ -1,15 +1,4 @@
-const {mix} = require('laravel-mix');
-
-mix.options({
-  postCss: [
-    require('postcss-discard-comments')({
-      removeAll: true
-    })
-  ],
-  uglify: {
-    topLevel: true
-  }
-});
+let mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -26,17 +15,15 @@ mix
   .less('resources/assets/less/default.less', 'public/css/themes/default.css')
   .less('resources/assets/less/metager/beitritt.less', 'public/css/beitritt.css')
   .less('resources/assets/less/utility.less', 'public/css/utility.css')
-  .styles(['resources/assets/css/material-default.css'], 'public/css/material-default.css')
-  .styles(['resources/assets/css/material-inverse.css'], 'public/css/material-inverse.css')
-  .scripts(['resources/assets/js/scriptSubPages.js', 'resources/assets/js/translations.js'], 'public/js/scriptSubPages.js')
-  .scripts(['resources/assets/js/results.js', 'resources/assets/js/scriptStartPage.js'], 'public/js/scriptStartPage.js')
-  .scripts(['resources/assets/js/results.js', 'resources/assets/js/scriptResultPage.js'], 'public/js/scriptResultPage.js')
-  .scripts(['resources/assets/js/utility.js'], 'public/js/utility.js')
-  .scripts(['resources/assets/js/scriptJoinPage.js'], 'public/js/scriptJoinPage.js')
-  .scripts(['resources/assets/js/editLanguage.js'], 'public/js/editLanguage.js')
-  .scripts(['resources/assets/js/settings.js'], 'public/js/settings.js')
-  .scripts(['resources/assets/js/widgets.js'], 'public/js/widgets.js')
+  // js
+  .scripts(['resources/assets/js/lib/jquery.js', 'resources/assets/js/lib/jquery-ui.min.js', 'resources/assets/js/lib/bootstrap.js', 'resources/assets/js/lib/lightslider.js',
+    'resources/assets/js/lib/masonry.js', 'resources/assets/js/lib/imagesloaded.js', 'resources/assets/js/lib/openpgp.min.js', 'resources/assets/js/lib/iframeResizer.min.js',
+    'resources/assets/js/lib/md5.js'], 'public/js/lib.js')
+  .scripts(['resources/assets/js/scriptStartPage.js', 'resources/assets/js/result-saver.js'], 'public/js/scriptStartPage.js')
+  .scripts(['resources/assets/js/scriptResultPage.js', 'resources/assets/js/result-saver.js', 'resources/assets/js/translations.js'], 'public/js/scriptResultPage.js')
+  .scripts('resources/assets/js/searchbar.js', 'public/js/searchbar.js')
+  .scripts('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
+  // utility
+  .scripts(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
   .sourceMaps(false, 'inline-source-map')
   .version();
-
-mix.combine(['resources/assets/js/lib/jquery.js', 'resources/assets/js/lib/bootstrap.js', 'resources/assets/js/lib/md5.js', 'resources/assets/js/lib/iframeResizer.min.js'], 'public/js/lib.js');

@@ -1,0 +1,36 @@
+/* Footer bar with logos and general links */
+
+footer {
+    padding: 5px 5px 15px 5px;
+    width: 100%;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-around;
+    white-space: pre-line;
+    align-items: center;
+    div {
+        text-align: center;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0px;
+        }
+    }
+    img {
+        max-width: 100%;
+    }
+    &.footer-resultpage {
+        justify-content: center;
+        a {
+            color: @color-black;
+        }
+    }
+    @media (max-width: @screen-xs-max) {
+        img {
+            display: none;
+        }
+    }
+    #info {
+        display: flex;
+        flex-direction: column;
+    }
+}

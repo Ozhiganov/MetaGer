@@ -1,4 +1,6 @@
-// General
+// MetaGer Brand Color
+@metager-orange: rgb(255, 128, 0);
+// General Colors
 @color-white: white;
 @color-almost-white: mix(@color-white, @color-black, 90%);
 @color-light-grey: mix(@color-white, @color-black, 75%);
@@ -6,44 +8,49 @@
 @color-strong-grey: mix(@color-white, @color-black, 25%);
 @color-almost-black: mix(@color-white, @color-black, 10%);
 @color-black: black;
+// General Background Color
+@background-color: white;
+// Signal Colors
+@brand-success: #5cb85c;
+@brand-info: #FB0;
+@brand-warning: #f0ad4e;
+@brand-danger: #d9534f;
 //
-@background-color: rgba(2, 93, 140, 3%);
-// static-pages.less
-@static-pages-color-white: @color-white;
-@static-pages-color-almost-white: @color-almost-white;
-@static-pages-color-light-grey: @color-light-grey;
-@static-pages-color-grey: @color-grey;
-@static-pages-color-strong-grey: @color-strong-grey;
-@static-pages-color-almost-black: @color-almost-black;
-@static-pages-color-black: @color-black;
-//
-@static-pages-spruch-color: #070;
-@static-pages-quicktip-aufruf-color: #fb0;
-@static-pages-quicktip-aufruf-background: #ff4000;
-// result-page-less
-@result-page-color-white: @color-white;
-@result-page-color-almost-white: @color-almost-white;
-@result-page-color-light-grey: @color-light-grey;
-@result-page-color-grey: @color-grey;
-@result-page-color-strong-grey: @color-strong-grey;
-@result-page-color-almost-black: @color-almost-black;
-@result-page-color-black: @color-black;
-//
-@result-page-body-background-color: @background-color;
-@result-page-a-hover-color: red;
-@result-page-a-visited-color: #792ea1;
-@result-page-product-shop-color: green;
-// start-page.less
-@focus-hover-focus-edit-background-color: #e3e3e3;
-@focus-radio-checked-focus-label-focus-edit-background-color: #e3e3e3;
-@anpassen-label-color: #333;
-@foki-edge-rounding: 7px;
-// settings.less
-@settings-abort-btn-color: white;
-// base.less
-@base-body-backround-color: @background-color;
-@base-aufruf-winter-color: #ab2121;
-@base-aufruf-winter-border-color: #953535;
-@base-aufruf-winter-btn-color: white;
-@base-aufruf-winter-btn-hover-background-color: #bd0d0d;
-@base-new-feature-badge-background-color: #f80;
+@body-bg: rgb(250, 250, 250);
+@input-border-focus: @metager-orange;
+@font-family-sans-serif: "Liberation Sans",
+"Helvetica Neue",
+Helvetica,
+Arial,
+sans-serif;
+// General textual link color.
+@link-color: @metager-orange;
+
+/* Unsorted */
+
+@quicktip-background-color: @color-white;
+@navbar-default-background-color: @color-white;
+@form-group-color: @color-black;
+@modal-content-box-shadow-color: fade(@color-black, 30%);
+@a-content-hidden-xs-color: @color-almost-black;
+@section-box-shadow-color: fade(@color-black, 55%);
+@body-background-color: @background-color;
+@hostlabel-a-link-or-visited-color: @color-white;
+@hostlabel-background-color: @color-strong-grey;
+@navbar-resultpage-background-color: @color-white;
+@navbar-resultpage-ul-li-a-metager-dropdown-toggle-hover-or-focus-background-color: @color-almost-white;
+@research-a-color: @color-black;
+@content-wrapper-background-color: @color-white;
+@a-donation-normal-or-visited-color: inherit;
+@spruch-author-color: @color-strong-grey;
+@result-description-color: @color-black;
+@result-description-img-border-color: @color-almost-white;
+@options-list-li-hover-background-color: @color-almost-white;
+@options-list-li-a-color: @color-strong-grey;
+@image-item-img-box-shadow-color: fade(@color-black, 30%);
+@searchplugin-a-color: @color-white;
+@product-border-color: @color-almost-white;
+@product-a-color: @color-strong-grey;
+@product-price-color: @color-strong-grey;
+@product-price-background-color: fade(@color-white, 90%);
+@lsprev-or-lsnext-i-background-color: @color-black;

@@ -11,6 +11,7 @@ class MetaGerSearch extends Controller
 {
     public function search(Request $request, MetaGer $metager)
     {
+
         $focus = $request->input("focus", "web");
         
         if ($focus === "maps") {
@@ -18,10 +19,11 @@ class MetaGerSearch extends Controller
             return redirect()->to('https://maps.metager.de/map/' . $searchinput . '/1240908.5493525574,6638783.2192695495,6');
         }
 
-        if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
+        /*if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
             $metager->parseFormData($request);
             return $metager->createView();
-        }
+        }*/
+
         #die($request->header('User-Agent'));
         $time = microtime();
         # Mit gelieferte Formulardaten parsen und abspeichern:
@@ -30,8 +32,15 @@ class MetaGerSearch extends Controller
         # Nach Spezialsuchen überprüfen:
         $metager->checkSpecialSearches($request);
 
-        # Alle Suchmaschinen erstellen
+        # Die Quicktips als Job erstellen
+        $quicktips = $metager->createQuicktips();
+
+        # Suche für alle zu verwendenden Suchmaschinen als Job erstellen, 
+        # auf Ergebnisse warten und die Ergebnisse laden
         $metager->createSearchEngines($request);
+
+        # Versuchen die Ergebnisse der Quicktips zu laden
+        $quicktipResults = $quicktips->loadResults();
 
         # Alle Ergebnisse vor der Zusammenführung ranken:
         $metager->rankAll();
@@ -40,7 +49,7 @@ class MetaGerSearch extends Controller
         $metager->prepareResults();
 
         # Die Ausgabe erstellen:
-        return $metager->createView();
+        return $metager->createView($quicktipResults);
     }
 
     public function botProtection($redirect)

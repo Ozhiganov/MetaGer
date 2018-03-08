@@ -1,83 +1,129 @@
-.searchform-bonus {
-    li {
-        margin: 5px;
-    }
-}
+/* Startseite */
 
-.settings-modal-buttons {
-    padding: 5px;
-    button {
-        margin: 5px
-    }
-}
-
-.startpage-foki,
-.foki {
+@search-bar-width: 1000px;
+//
+@focus-hover-focus-edit-background-color: #e3e3e3;
+@focus-radio-checked-focus-label-focus-edit-background-color: #e3e3e3;
+@foki-edge-rounding: 7px;
+.mg-panel {
+    flex-grow: 1;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    input {
-        visibility: hidden;
-        &+.custom-focus-label {
-            border-radius: @foki-edge-rounding 0px 0px @foki-edge-rounding;
-        }
-        &+.custom-focus-label+.custom-focus-edit {
-            margin-left: 5px;
-            display: inline-block;
-            border-radius: 0px @foki-edge-rounding @foki-edge-rounding 0px;
-        }
+    @media(max-width: @search-bar-width) {
+        width: 100%;
     }
-    label {
-        & span:not(.badge) {
-            background-color: transparent;
+    @media(min-width: @search-bar-width) {
+        width: @search-bar-width;
+    }
+    .settings-modal-buttons {
+        padding: 5px;
+        button {
+            margin: 5px
         }
     }
+    .startpage-foki,
+    .foki {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        input {
+            visibility: hidden;
+            &+.custom-focus-label {
+                border-radius: @foki-edge-rounding 0px 0px @foki-edge-rounding;
+            }
+            &+.custom-focus-label+.custom-focus-edit {
+                margin-left: 5px;
+                display: inline-block;
+                border-radius: 0px @foki-edge-rounding @foki-edge-rounding 0px;
+            }
+        }
+        label {
+            & span:not(.badge) {
+                background-color: transparent;
+            }
+        }
+    }
+    .focus {
+        margin: 0px;
+        &~.focus {
+            margin-left: 10px;
+        }
+        &:hover {
+            .focus-label,
+            .focus-edit {
+                cursor: pointer;
+                background-color: @focus-hover-focus-edit-background-color;
+            }
+        }
+    }
+    .focus-radio:checked {
+        &+.focus-label,
+        &+.focus-label+.focus-edit {
+            background-color: @focus-radio-checked-focus-label-focus-edit-background-color;
+        }
+    }
+    .focus-label,
+    .focus-edit {
+        margin: 0px;
+        border-radius: 7px;
+        padding: 7px;
+        font-weight: normal;
+    }
 }
 
-.focus {
-    margin: 0px;
-    &~.focus {
-        margin-left: 10px;
+#more-information {
+    flex-grow: 2;
+    padding-top: 50px;
+    display: flex;
+    @media(max-width: @screen-xs-max) {
+        flex-direction: column;
     }
-    &:hover {
-        .focus-label,
-        .focus-edit {
-            cursor: pointer;
-            background-color: @focus-hover-focus-edit-background-color;
+    #about-us {
+        max-width: 500px;
+        margin-right: 50px;
+        @media(max-width: @screen-xs-max) {
+            margin: 0px 8px;
+        }
+        h2 {
+            font-size: 21px;
+        }
+        p {
+            font-size: 15px;
+        }
+    }
+    #sponsors {
+        @media(max-width: @screen-xs-max) {
+            margin: 20px 5px;
+        }
+        h2 {
+            font-size: 21px;
+        }
+        ul {
+            padding: 0px;
+            text-align: left;
+            li.sponsor {
+                a {
+                    color: inherit;
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 15px;
+                    i {
+                        margin-left: 10px;
+                    }
+                }
+            }
         }
     }
 }
 
-.focus-radio:checked {
-    &+.focus-label,
-    &+.focus-label+.focus-edit {
-        background-color: @focus-radio-checked-focus-label-focus-edit-background-color;
-    }
-}
-
-.focus-label,
-.focus-edit {
-    margin: 0px;
-    border-radius: 7px;
-    padding: 7px;
-    font-weight: normal;
-}
-
-#about-us a:visited {
-    color: @link-color;
-}
-
-#anpassen-label a {
-    color: @anpassen-label-color;
-}
-
-#addFocusBtnDiv {
-    margin-left: 10px;
-}
-
-#settingsBtnDiv {
-    margin-left: 10px;
-    &>* {
-        vertical-align: middle;
+#spendenaufruf {
+    text-align: center;
+    a {
+        background-color: white;
+        display: inline-block;
+        width: 100%;
+        max-width: 770px;
+        margin-bottom: 10px;
     }
 }

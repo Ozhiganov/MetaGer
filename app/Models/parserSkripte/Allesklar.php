@@ -43,7 +43,7 @@ class Allesklar extends Searchengine
                         $link,
                         $link,
                         $descr,
-                        $this->gefVon,
+                        $this->displayName,$this->homepage,
                         $this->counter
                     );
                 } catch (\Exception $e) {

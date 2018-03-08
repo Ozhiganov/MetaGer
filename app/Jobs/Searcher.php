@@ -73,13 +73,14 @@ class Searcher implements ShouldQueue
                 $mission = $mission[1];
                 $poptime = microtime(true) - $time;
 
-                // The mission is a String which can be divided to retrieve two informations:
+                // The mission is a String which can be divided to retrieve three informations:
                 // 1. The Hash Value where the result should be stored
                 // 2. The Url to Retrieve
-                // These two informations are divided by a ";" in the mission string
+                // 3. The maximum time to take
+                // These three informations are divided by a ";" in the mission string
                 $mission = explode(";", $mission);
-                $hashValue = $mission[0];
-                $url = base64_decode($mission[1]);
+                $hashValue = $mission[0]; // The hash value for redis to store the results under
+                $url = base64_decode($mission[1]); // The url to fetch
                 $timeout = $mission[2]; // Timeout from the MetaGer process in ms
                 $medianFetchTime = $this->getFetchTime();   // The median Fetch time of the search engine in ms
                 Redis::hset('search.' . $hashValue, $this->name, "connected");
