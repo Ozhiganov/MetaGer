@@ -16,7 +16,7 @@ $(document).ready(function () {
 /**
  * Loads the user theme and stored settings from local storage
  */
-function loadLocalStorage () {
+function loadLocalStorage() {
   if (localStorage) {
     var theme = localStorage.getItem('theme');
     if (theme != null) {
@@ -34,7 +34,7 @@ function loadLocalStorage () {
 /**
  * Sets all action listeners for this page
  */
-function setActionListeners () {
+function setActionListeners() {
   $('button').on('shown.bs.popover', function () {
     $('#color-chooser a').click(function () {
       var theme = $(this).attr('data-rgba');
