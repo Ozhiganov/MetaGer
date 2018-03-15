@@ -22,6 +22,12 @@
 		@include('parts.utility')
 	</head>
 	<body id="resultBody">
+		@if(Request::getHttpHost() === "metager3.de")
+		<div class="alert alert-info" style="text-align: center; position: fixed; bottom: 0;">
+		Sie befinden sich auf einer MetaGer Testversion. Hier werden Features vor der Veröffentlichung getestet. Unter Umständen funktioniert hier nicht alles wie gewohnt.
+		Unsere stabile Version finden Sie <a href="https://metager.de" target="_self">hier</a>.
+		</div>
+		@endif
 		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
 		@if( !isset($suspendheader) )
 			@include('modals.create-focus-modal')
