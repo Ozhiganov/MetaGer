@@ -20,21 +20,18 @@ function setKeyListeners() {
 }
 
 function setDropdownListeners() {
+  // Listener for 'Open/Collapse all' label
   $("input:checkbox#toggle-dropdowns").change(function() {
     if ($(this).is(":checked")) {
-      $("#toggle-dropdowns-label").html(
-        t("close-dropdowns") +
-          ' <i class="fa fa-minus-square" aria-hidden="true"></i>'
-      );
+      // Open all dropdowns
       $(".focus-dropdown-toggle").prop("checked", true);
     } else {
-      $("#toggle-dropdowns-label").html(
-        t("open-dropdowns") +
-          ' <i class="fa fa-plus-square" aria-hidden="true"></i>'
-      );
+      // Close all dropdowns
       $(".focus-dropdown-toggle").prop("checked", false);
     }
+    setLabelText();
   });
+  // Change 'Open/Collapse' all when single dropdown is changed
   $(".focus-dropdown-toggle").change(function() {
     var expanded = false;
     $(".focus-dropdown-toggle").each(function() {
@@ -43,21 +40,16 @@ function setDropdownListeners() {
       }
     });
     if (expanded === true) {
-      $("#toggle-dropdowns-label").html(
-        t("close-dropdowns") +
-          ' <i class="fa fa-minus-square" aria-hidden="true"></i>'
-      );
       $("input:checkbox#toggle-dropdowns").prop("checked", true);
     } else {
-      $("#toggle-dropdowns-label").html(
-        t("open-dropdowns") +
-          ' <i class="fa fa-plus-square" aria-hidden="true"></i>'
-      );
       $("input:checkbox#toggle-dropdowns").prop("checked", false);
     }
+    setLabelText();
   });
 }
 
+//
+// Adjusts the 'Open/Colapse all' label
 function setLabelText() {
   if ($("input:checkbox#toggle-dropdowns").is(":checked")) {
     $("#toggle-dropdowns-label").html(
