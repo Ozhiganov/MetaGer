@@ -135,7 +135,6 @@
 @resultpage-leftbox-min-dist-top-bottom: 8px;
 @resultpage-leftbox-big-screen-margin-left: 50px;
 header {
-    padding-top: @resultpage-leftbox-min-dist-top-bottom;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -161,6 +160,7 @@ header {
     #research-bar {
         width: 100%;
         max-width: @resultpage-leftbox-max-width;
+        margin-top: @resultpage-leftbox-min-dist-top-bottom;
         padding: 0px 30px 0px 10px;
         background-color: white;
         border: 1px solid #ccc;
@@ -249,7 +249,6 @@ header:nth-child(1) {
         }
     }
 }
-
 
 /* Scrollbar Style */
 
