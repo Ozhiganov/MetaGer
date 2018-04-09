@@ -186,7 +186,7 @@ a {
 }
 
 .description-container {
-    margin: 0!important;
+    margin: 0 !important;
 }
 
 .options-list>li {
@@ -211,7 +211,6 @@ a {
     display: none;
 }
 
-
 /* Hier der Style für die Bilder */
 
 #fit-width .masonry {
@@ -233,7 +232,6 @@ a {
     display: flex;
     flex-wrap: wrap;
 }
-
 
 /* Placeholder für ladende Tabs */
 
@@ -284,7 +282,7 @@ a {
 }
 
 .lightslider {
-    overflow: visible!important;
+    overflow: visible !important;
 }
 
 #products {
@@ -317,7 +315,6 @@ a {
     }
 }
 
-
 /* New result style */
 
 .content-wrapper {
@@ -325,6 +322,8 @@ a {
     flex-direction: column;
 }
 
+@results-width-min: 500px;
+@quicktip-width-min: 400px;
 #resultpage-container {
     width: @result-width + @quicktip-width;
     align-self: left;
@@ -332,19 +331,6 @@ a {
     justify-content: left;
     margin-left: @results-margin-left;
     background-color: #FAFAFA;
-    @media (max-width: (2 * @results-margin-left + @result-width + @quicktip-width - 1px)) {
-        width: @result-width;
-        #additions-container {
-            display: none;
-            float: right;
-        }
-    }
-    @media (max-width: (2 * @results-margin-left + @result-width - 1px)) {
-        width: 100%;
-        justify-content: center;
-        margin: 0px;
-        padding: 0px @resultpage-leftbox-min-dist-left-right; // Verhindert, dass Text bei kleinen Bildschirmen an den Rand ragt
-    }
     #results-container {
         max-width: @result-width;
         width: 100%;
@@ -358,6 +344,36 @@ a {
         #search-settings {
             display: none;
         }
+    }
+    @media (max-width: (4 * @padding-small-default + @result-width + @quicktip-width - 1px)) {
+        width: 100%;
+        margin-left: 0px;
+        padding-left: @padding-small-default;
+        padding-right: @padding-small-default;
+        justify-content: center;
+        #results-container {
+            min-width: @results-width-min;
+        }
+        #additions-container {
+            width: 100%;
+            max-width: 500px;
+            min-width: @quicktip-width-min;
+            padding-left: 2 * @padding-small-default;
+        }
+    }
+    @media (max-width: (@results-width-min + @quicktip-width-min - 1px)) {
+        #results-container {
+            width: 100%;
+            max-width: auto;
+            min-width: auto;
+        }
+        #additions-container {
+            display: none;
+        }
+        width: 100%;
+        justify-content: center;
+        margin: 0px;
+        padding: 0px @resultpage-leftbox-min-dist-left-right; // Verhindert, dass Text bei kleinen Bildschirmen an den Rand ragt
     }
 }
 

@@ -131,8 +131,8 @@
 }
 
 @resultpage-leftbox-max-width: @result-width;
-@resultpage-leftbox-min-dist-left-right: 8px;
-@resultpage-leftbox-min-dist-top-bottom: 8px;
+@resultpage-leftbox-min-dist-left-right: @padding-small-default;
+@resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
 @resultpage-leftbox-big-screen-margin-left: 50px;
 header {
     display: -webkit-box;
@@ -147,7 +147,7 @@ header {
     width: @resultpage-leftbox-max-width + @resultpage-leftbox-big-screen-margin-left + 10;
     padding-left: @resultpage-leftbox-big-screen-margin-left;
     background-color: inherit;
-    @media (max-width: 799px) {
+    /*@media (max-width: 799px) {
         width: 100%;
         max-width: 799px;
         margin: 0px;
@@ -156,7 +156,7 @@ header {
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-    }
+    }*/
     #research-bar {
         width: 100%;
         max-width: @resultpage-leftbox-max-width;
@@ -180,6 +180,19 @@ header {
             margin: 0px @resultpage-leftbox-min-dist-left-right;
         }
     }
+    @media (max-width: (4 * @padding-small-default + @result-width + @quicktip-width - 1px)) {
+        padding-left: @padding-small-default;
+    }
+    @media (max-width: (@results-width-min + @quicktip-width-min - 1px)) {
+        width: 100%;
+        max-width: 700px;
+        margin: 0px;
+        padding: @padding-small-default;
+        #research-bar {
+            max-width: none;
+            margin: 0px;
+        }
+    }
 }
 
 header:nth-child(1) {
@@ -198,7 +211,24 @@ header:nth-child(1) {
     margin-left: @resultpage-leftbox-big-screen-margin-left;
     padding-top: 8px;
     width: @resultpage-leftbox-max-width;
-    @media (max-width: 799px) {
+    @media (max-width: (4 * @padding-small-default + @result-width + @quicktip-width - 1px)) {
+        margin-left: @padding-small-default;
+    }
+    @media (max-width: (@results-width-min + @quicktip-width-min - 1px)) {
+        width: 100%;
+        max-width: none;
+        margin: 0px;
+        padding: @padding-small-default;
+        .scrollbox {
+            max-width: none;
+            margin: 0px;
+            #foki-box {
+                max-width: none;
+                margin: 0px;
+            }
+        }
+    }
+    /*@media (max-width: 799px) {
         width: 100%;
         margin: 0px;
         display: -webkit-box;
@@ -208,7 +238,7 @@ header:nth-child(1) {
         -ms-flex-pack: center;
         justify-content: center;
         padding: @resultpage-leftbox-min-dist-top-bottom @resultpage-leftbox-min-dist-left-right 0px @resultpage-leftbox-min-dist-left-right;
-    }
+    }*/
     #foki-box {
         display: -webkit-box;
         display: -ms-flexbox;
