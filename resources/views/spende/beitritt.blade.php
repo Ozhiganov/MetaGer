@@ -58,6 +58,7 @@
 				<label for="ort">{{ trans('beitritt.beitritt.14') }}</label>
 				<input type="text" class="form-control beitritt-input" id="ort" placeholder="">
 			</div>
+			<br>
 			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
 		</div>
 	</div>
@@ -86,6 +87,7 @@
 		<div>
 			<label for="ort2">{{ trans('beitritt.abbuchung.8') }}</label>
 			<input type="text" class="form-control beitritt-input" id="ort2" placeholder="">
+			<br>
 			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
 		</div>
 		<hr>
