@@ -1,6 +1,6 @@
 <input id="sideBarToggle" style="display: none;" type="checkbox">
-<label id="openSidebar" role="button" for="sideBarToggle"></label>
-<div class="sideBar">
+<label id="openSidebar noprint" role="button" for="sideBarToggle"></label>
+<div class="sideBar noprint">
   <label id="closeSidebar" role="button" for="sideBarToggle"></label>
   <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
     <p>MetaGer</p>
