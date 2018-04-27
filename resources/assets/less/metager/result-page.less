@@ -325,7 +325,6 @@ a {
 @additions-width-min: 400px;
 @additions-width-max: 500px;
 #resultpage-container {
-    width: 100%;
     margin: @padding-small-default;
     display: grid;
     grid-template-columns: @results-width-max @additions-width-max;
@@ -336,11 +335,15 @@ a {
     align-items: stretch;
     /**/
     background-color: #FAFAFA;
-    #research-bar {
+    #research-bar-anchor {
         grid-area: searchbar;
+        transform: translate(0, 0); // Makes the fixed research-bar inside set its width relative to the width of this element
         /**/
         min-width: @results-width-min;
         max-width: @results-width-max;
+    }
+    #research-bar {
+        width: 100%;
     }
     #research-bar-placeholder {
         grid-area: searchbar;
@@ -375,6 +378,32 @@ a {
     @media (max-width: (@results-width-max + @additions-width-max + @padding-small-default * 4)) {
         grid-template-columns: 60fr 40fr;
         grid-template-areas: "searchbar ." "foki ." "results additions";
+    }
+    @media (max-width: (@results-width-min + @additions-width-min + @padding-small-default * 4)) {
+        grid-template-columns: 100fr;
+        grid-template-areas: "searchbar" "foki" "results";
+        #additions-container {
+            display: none;
+        }
+    }
+    @media (max-width: (@results-width-min + @padding-small-default * 2)) {
+        // Fixes the width on very small displays
+        // Without a set min-width the width is just set to fit the content
+        #research-bar-anchor {
+            min-width: 0px;
+        }
+        #research-bar-placeholder {
+            min-width: 0px;
+        }
+        #foki {
+            min-width: 0px;
+        }
+        #results-container {
+            min-width: 0px;
+        }
+        #additions-container {
+            min-width: 0px;
+        }
     }
 }
 
@@ -507,5 +536,22 @@ footer.resultPageFooter {
     margin-top: 20px;
     @media (max-width: (2 * @results-margin-left + @results-width-max - 1px)) {
         margin: 20px 0 0 0;
+    }
+}
+
+/* Searchbar Opener */
+
+#research-bar>.openSidebar {
+    display: none;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+@media(max-width: (@results-width-max + @padding-small-default * 2 + 60px)) {
+    #resultpage-container>.openSidebar {
+        display: none;
+    }
+    #research-bar>.openSidebar {
+        display: initial;
     }
 }
