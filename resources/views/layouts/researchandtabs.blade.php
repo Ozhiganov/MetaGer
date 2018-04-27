@@ -1,19 +1,23 @@
 <div id="resultpage-container">
-	<div id="research-bar">
-		<div id="header-logo">
-			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
-				<h1>MetaGer</h1>
-			</a>
-			<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
-				<h1>M</h1>
-			</a>
-		</div>
-		<div id="header-searchbar">
-			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+	<div id="research-bar-anchor">
+		<div id="research-bar">
+			<div id="header-logo">
+				<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+					<h1>MetaGer</h1>
+				</a>
+				<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+					<h1>M</h1>
+				</a>
+			</div>
+			<div id="header-searchbar">
+				@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+			</div>
+			@include('parts.sidebar-opener')
 		</div>
 	</div>
 	<div id="research-bar-placeholder">
 	</div>
+	@include('parts.sidebar-opener', ['class' => 'fixed'])
 	<div id="foki">
 		<div class="scrollbox">
 			<div class="foki-scrollfade-left"></div>
