@@ -63,7 +63,7 @@
 		</div>
 	</div>
 	<div class="card-heavy">
-		<div class="newpage"></div>
+		<div class="newpage noprint"></div>
 		<h1>{{ trans('beitritt.abbuchung.2') }}</h1>
 		<p>{{ trans('beitritt.abbuchung.3') }}</p>
 		<div class="beitritt-inputs">
