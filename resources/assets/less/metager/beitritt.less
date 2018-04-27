@@ -1,120 +1,121 @@
 /* Style für die Druckversion des Beitrittsformulars */
 
-#donation-form {
-    .beitritt-inputs {
-        display: flex;
-        flex-wrap: wrap;
-        >div {
-            width: 50%;
-            padding: 10px;
-        }
-        @media print {
-            padding: 0px;
-            flex-direction: column;
-            flex-wrap: nowrap;
-        }
+.beitritt-inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  > div {
+    width: 50%;
+    padding: 10px;
+    @media screen and (max-width: 600px) {
+      width: 100%;
     }
-    label {
-        font-weight: normal;
-    }
-    .signature {
-        border-top: 1px dashed black;
-        width: 50%;
-        margin-top: 50px;
-    }
+  }
+}
+
+label {
+  font-weight: normal;
+}
+
+.signature {
+  border-top: 1px dashed black;
+  width: 50%;
+  margin-top: 50px;
 }
 
 @media print {
-    .card-heavy {
-        border: none !important;
-        box-shadow: none !important;
+  .card-heavy {
+    border: none !important;
+    margin: 0px 0px 8px 0px !important;
+    padding: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    webkit-box-shadow: none !important;
+  }
+  .beitritt-inputs {
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+  }
+  h1 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  * {
+    font-size: 12px !important;
+  }
+  header {
+    display: none !important;
+  }
+  footer {
+    display: none !important;
+  }
+  hr {
+    display: none !important;
+  }
+  .help-block {
+    text-decoration: none;
+  }
+  input[type="text"],
+  input[type="email"] {
+    margin: 0px !important;
+    padding: 0px !important;
+    height: initial !important;
+    border: 0;
+  }
+  /* Passt die Größe der Radio-Buttons an
+     * Skalierung für Firefox, absolut für die anderen Browser 
+     */
+  input[type="radio"] {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+  }
+  /* Blendet die Placeholder aus */
+  input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: transparent !important;
+  }
+  input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: transparent !important;
+  }
+  input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent !important;
+  }
+  input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent !important;
+  }
+  .container {
+    width: auto !important;
+    margin: 0px;
+    padding: 0px;
+  }
+  .wrapper {
+    padding-top: 0 !important;
+  }
+  .sign {
+    margin-top: 10px;
+  }
+  .donation-amount-input {
+    padding-top: 5px;
+  }
+  .pagebreak {
+    page-break-before: always;
+  }
+  #spendenaufruf {
+    display: none !important;
+  }
+  .beitritt-formular-info {
+    * {
+      font-size: 7pt !important;
     }
-    #donation-form {
-        * {
-            font-size: 14px !important;
-        }
-        header {
-            display: none !important;
-        }
-        footer {
-            display: none !important;
-        }
-        h1 {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            font-size: 18px !important;
-        }
-        hr {
-            display: none !important;
-        }
-        label {
-            text-decoration: underline;
-        }
-        .help-block {
-            text-decoration: none;
-        }
-        input[type=text],
-        input[type=email] {
-            margin: 0px !important;
-            padding: 0px !important;
-            height: initial !important;
-            border: 0;
-        }
-        /* Passt die Größe der Radio-Buttons an
-         * Skalierung für Firefox, absolut für die anderen Browser 
-         */
-        input[type=radio] {
-            transform: scale(0.5);
-            width: 20px !important;
-            height: 20px !important;
-            margin-top: 0px !important;
-            padding-top: 0px !important;
-        }
-        /* Blendet die Placeholder aus */
-        input::-webkit-input-placeholder {
-            /* WebKit browsers */
-            color: transparent !important;
-        }
-        input:-moz-placeholder {
-            /* Mozilla Firefox 4 to 18 */
-            color: transparent !important;
-        }
-        input::-moz-placeholder {
-            /* Mozilla Firefox 19+ */
-            color: transparent !important;
-        }
-        input:-ms-input-placeholder {
-            /* Internet Explorer 10+ */
-            color: transparent !important;
-        }
-        .container {
-            width: auto !important;
-            margin: 0px;
-            padding: 0px;
-        }
-        .wrapper {
-            padding-top: 0 !important;
-        }
-        * {
-            font-size: 12px!important;
-        }
-        .sign {
-            margin-top: 10px;
-        }
-        .donation-amount-input {
-            padding-top: 5px;
-        }
-        .pagebreak {
-            page-break-before: always;
-        }
-        #spendenaufruf {
-            display: none !important;
-        }
-        .beitritt-formular-info {
-            margin-top: 50px;
-            * {
-                font-size: 7pt !important;
-            }
-        }
-    }
+  }
 }
