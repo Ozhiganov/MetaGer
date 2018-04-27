@@ -1,4 +1,4 @@
-<header>
+<div id="resultpage-container">
 	<div id="research-bar">
 		<div id="header-logo">
 			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
@@ -12,18 +12,17 @@
 			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
 		</div>
 	</div>
-</header>
-<div id="research-bar-placeholder"></div>
-<div id="foki">
-	<div class="scrollbox">
-		<div class="foki-scrollfade-left"></div>
-		<div id="foki-box">
-			@include('parts.foki')
-		</div>
-		<div class="foki-scrollfade-right"></div>
+	<div id="research-bar-placeholder">
 	</div>
-</div>
-<div id="resultpage-container">
+	<div id="foki">
+		<div class="scrollbox">
+			<div class="foki-scrollfade-left"></div>
+			<div id="foki-box">
+				@include('parts.foki')
+			</div>
+			<div class="foki-scrollfade-right"></div>
+		</div>
+	</div>
 	<div id="results-container">
 		@yield('results')
 	</div>

@@ -21,7 +21,7 @@
 			</span>
 		@endif
 	</div>
-	<div class="result-body">
+	<div class="resultpage-body">
 		@if( isset($result->logo) )
 			<div class="result-logo">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
