@@ -134,7 +134,25 @@ function clickLog () {
 
 function botProtection () {
   $(".result").find("a").click(function(){
-    $.post('/img/cat.jpg', { mm: $("meta[name=mm]").attr("content")});
+    var link = $(this).attr("href");
+    var newtab = false;
+    if($(this).attr("target") == "_blank"){
+      newtab = true;
+    }
+    $.ajax({
+      url: '/img/cat.jpg', 
+      type: "post",
+      data: { mm: $("meta[name=mm]").attr("content")},
+      timeout: 2000
+    })
+    .always(function(){
+      if(!newtab)
+        document.location.href = link;
+    });
+    if(!newtab)
+      return false;
+    else
+      return true;
   });
 }
 
