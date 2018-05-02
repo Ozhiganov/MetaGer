@@ -29,7 +29,7 @@ class HumanVerification
             return $next($request);
         }
 
-        $user = DB::table('humanverification')->where($id, $id)->first();
+        $user = DB::table('humanverification')->where('id', $id)->first();
         $createdAt = now();
         $unusedResultPages = 1;
         $locked = false;
