@@ -38,7 +38,7 @@ class HumanVerification
             DB::table('humanverification')->insert(
                 ['id' => $id, 'unusedResultPages' => 1, 'locked' => false, 'updated_at' => now()]
             );
-            $user = DB::table('humanverification')->where($id, $id)->first();
+            $user = DB::table('humanverification')->where('id', $id)->first();
         }else if($user->locked !== "1"){
             $unusedResultPages = intval($user->unusedResultPages);
             $unusedResultPages++;
