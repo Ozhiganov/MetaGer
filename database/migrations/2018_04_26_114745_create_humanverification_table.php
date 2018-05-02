@@ -14,10 +14,10 @@ class CreateHumanverificationTable extends Migration
     public function up()
     {
         Schema::create('humanverification', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->integer('unusedResultPages');
             $table->boolean('locked');
-            $table->date('updated_at');
+            $table->timestamp('updated_at');
         });
     }
 
