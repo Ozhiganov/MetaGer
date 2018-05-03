@@ -46,7 +46,7 @@ class HumanVerification
             #   50, 75, 85, >=90 => Captcha validated Result Pages
             # If the user shows activity on our result page the counter will be deleted
             # Maybe I'll add a ban if the user reaches 100
-            if($unusedResultPages === 50){
+            if($unusedResultPages === 50 || $unusedResultPages === 75 || $unusedResultPages === 85 || $unusedResultPages >= 90){
                 $locked = true;
             }
             DB::table('humanverification')->where('id', $id)->update(['unusedResultPages' => $unusedResultPages, 'locked' => $locked,  'updated_at' => $createdAt]);
