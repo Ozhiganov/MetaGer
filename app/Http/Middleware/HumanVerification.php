@@ -25,7 +25,7 @@ class HumanVerification
          * If someone that uses a bot finds this out we 
          * might have to change it at some point.
          */
-        if($request->filled('password') || $request->filled('key') || !env('BOT_PROTECTION', false)){
+        if($request->filled('password') || $request->filled('key') || $request->filled('appversion') || !env('BOT_PROTECTION', false)){
             return $next($request);
         }
 
