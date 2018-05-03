@@ -39,7 +39,7 @@ class HumanVerification
                 ['id' => $id, 'unusedResultPages' => 1, 'locked' => false, 'updated_at' => now()]
             );
             # Insert the URL the user tries to reach
-            DB::table('usedurls')->insert(['user_id' => $id, 'url' => $request->url()]);
+            DB::table('usedurls')->insert(['user_id' => $id, 'url' => url()->full()]);
             $user = DB::table('humanverification')->where('id', $id)->first();
         }else if($user->locked !== 1){
             $unusedResultPages = intval($user->unusedResultPages);
@@ -53,7 +53,7 @@ class HumanVerification
             }
             DB::table('humanverification')->where('id', $id)->update(['unusedResultPages' => $unusedResultPages, 'locked' => $locked,  'updated_at' => $createdAt]);
             # Insert the URL the user tries to reach
-            DB::table('usedurls')->insert(['user_id' => $id, 'url' => $request->url()]);
+            DB::table('usedurls')->insert(['user_id' => $id, 'url' => url()->full()]);
         }
         $request->request->add(['verification_id' => $id, 'verification_count' => $unusedResultPages]);
 
