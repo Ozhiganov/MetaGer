@@ -22,7 +22,7 @@ class HumanVerification extends Controller
                 $url = $request->input('url');
 
                 $user = DB::table('humanverification')->where('id', $id)->first();
-                if($user !== null && $user->locked === "1"){
+                if($user !== null && $user->locked === 1){
                     DB::table('humanverification')->where('id', $id)->update(['locked' => false]);
                     return redirect($url);
                 }else{
