@@ -25,7 +25,7 @@ class HumanVerification
          * If someone that uses a bot finds this out we 
          * might have to change it at some point.
          */
-        if($request->filled('password') || $request->filled('key') || !env('BOT_PROTECTION', false)){
+        if($request->filled('password') || $request->filled('key') || $request->filled('appversion') || !env('BOT_PROTECTION', false)){
             return $next($request);
         }
 
@@ -38,6 +38,8 @@ class HumanVerification
             DB::table('humanverification')->insert(
                 ['id' => $id, 'unusedResultPages' => 1, 'locked' => false, 'updated_at' => now()]
             );
+            # Insert the URL the user tries to reach
+            DB::table('usedurls')->insert(['user_id' => $id, 'url' => $request->url()]);
             $user = DB::table('humanverification')->where('id', $id)->first();
         }else if($user->locked !== 1){
             $unusedResultPages = intval($user->unusedResultPages);
@@ -46,10 +48,12 @@ class HumanVerification
             #   50, 75, 85, >=90 => Captcha validated Result Pages
             # If the user shows activity on our result page the counter will be deleted
             # Maybe I'll add a ban if the user reaches 100
-            if($unusedResultPages === 50){
+            if($unusedResultPages === 50 || $unusedResultPages === 75 || $unusedResultPages === 85 || $unusedResultPages >= 90){
                 $locked = true;
             }
             DB::table('humanverification')->where('id', $id)->update(['unusedResultPages' => $unusedResultPages, 'locked' => $locked,  'updated_at' => $createdAt]);
+            # Insert the URL the user tries to reach
+            DB::table('usedurls')->insert(['user_id' => $id, 'url' => $request->url()]);
         }
         $request->request->add(['verification_id' => $id, 'verification_count' => $unusedResultPages]);
 
