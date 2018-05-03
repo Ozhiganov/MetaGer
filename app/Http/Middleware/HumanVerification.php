@@ -25,7 +25,7 @@ class HumanVerification
          * If someone that uses a bot finds this out we 
          * might have to change it at some point.
          */
-        if($request->filled('password') || $request->filled('key')){
+        if($request->filled('password') || $request->filled('key') || !env('BOT_PROTECTION', false)){
             return $next($request);
         }
 
@@ -39,7 +39,7 @@ class HumanVerification
                 ['id' => $id, 'unusedResultPages' => 1, 'locked' => false, 'updated_at' => now()]
             );
             $user = DB::table('humanverification')->where('id', $id)->first();
-        }else if($user->locked !== "1"){
+        }else if($user->locked !== 1){
             $unusedResultPages = intval($user->unusedResultPages);
             $unusedResultPages++;
             # We have different security gates:
@@ -55,7 +55,7 @@ class HumanVerification
 
 
         # If the user is locked we will force a Captcha validation
-        if($user->locked === "1"){
+        if($user->locked === 1){
             return redirect('meta/verification/' . $id . '/' . urlencode(base64_encode(url()->full())));
         }
 
