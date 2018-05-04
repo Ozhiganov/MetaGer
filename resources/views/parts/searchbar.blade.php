@@ -5,7 +5,7 @@
 		<div class="searchbar {{$class or ''}}">
 			<div class="search-input-submit">
 				<div class="search-input">
-					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required="" @if($class=='startpage-searchbar') autofocus="" @endif autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required="" @if($class=='startpage-searchbar') autofocus="" @endif autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="1" autofocus>
 				</div>
 				<div class="search-submit" id="submit-inputgroup">
 					<button type="submit">
