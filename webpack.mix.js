@@ -12,9 +12,15 @@ let mix = require('laravel-mix');
  */
 
 mix
-  .less('resources/assets/less/default.less', 'public/css/themes/default.css')
-  .less('resources/assets/less/metager/beitritt.less', 'public/css/beitritt.css')
-  .less('resources/assets/less/utility.less', 'public/css/utility.css')
+  .less('resources/assets/less/default.less', 'public/css/themes/default.css', {
+    strictMath: true
+  })
+  .less('resources/assets/less/metager/beitritt.less', 'public/css/beitritt.css', {
+    strictMath: true
+  })
+  .less('resources/assets/less/utility.less', 'public/css/utility.css', {
+    strictMath: true
+  })
   // js
   .babel(['resources/assets/js/lib/jquery.js', 'resources/assets/js/lib/jquery-ui.min.js', 'resources/assets/js/lib/bootstrap.js', 'resources/assets/js/lib/lightslider.js',
     'resources/assets/js/lib/masonry.js', 'resources/assets/js/lib/imagesloaded.js', 'resources/assets/js/lib/openpgp.min.js', 'resources/assets/js/lib/iframeResizer.min.js',

@@ -1,11 +1,11 @@
 <div id="resultpage-container">
-	<div id="research-bar-anchor">
+	<div id="research-bar-container">
 		<div id="research-bar">
 			<div id="header-logo">
-				<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+				<a class="screen-large" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
 					<h1>MetaGer</h1>
 				</a>
-				<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+				<a class="screen-small" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
 					<h1>M</h1>
 				</a>
 			</div>

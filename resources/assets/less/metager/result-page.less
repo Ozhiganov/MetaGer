@@ -4,6 +4,9 @@
 @import "./result-saver.less";
 @import "./result.less";
 @import "./product.less";
+//
+@resultpage-background-color: #FAFAFA;
+//
 @results-margin-left: @resultpage-leftbox-big-screen-margin-left;
 //
 @result-page-body-background-color: @background-color;
@@ -16,6 +19,24 @@
 @a-hover-color: @result-page-a-hover-color;
 @a-donation-hover-color: @result-page-a-hover-color;
 @product-shop-color: @result-page-product-shop-color;
+//
+@results-width-min: 500px;
+@results-width-max: 700px;
+@additions-width-min: 400px;
+@additions-width-max: 500px;
+//
+@resultpage-breakpoint-large: (@results-width-max + @additions-width-max + @padding-small-default * 4);
+@resultpage-breakpoint-small: (@results-width-min + @additions-width-min + @padding-small-default * 4);
+//
+@resultpage-leftbox-max-width: @results-width-max;
+@resultpage-leftbox-min-dist-left-right: @padding-small-default;
+@resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
+@resultpage-leftbox-big-screen-margin-left: 50px;
+//
+@logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
+//
+@openSidebar-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
+//
 #header-logo {
     z-index: 0;
     padding-right: 10px;
@@ -25,12 +46,24 @@
         font-size: 22px;
         display: inline-block;
     }
+    .screen-small {
+        display: none;
+    }
+    .screen-large {}
+    @media (max-width: @logo-size-breakpoint) {
+        .screen-large {
+            display: none;
+        }
+        .screen-small {
+            display: initial;
+        }
+    }
 }
 
 body {
     &#resultpage-body {
         background-image: inherit;
-        background-color: #FAFAFA;
+        background-color: @resultpage-background-color;
     }
     &.quicktips {
         background-color: @quicktip-background-color;
@@ -320,10 +353,6 @@ a {
     flex-direction: column;
 }
 
-@results-width-min: 500px;
-@results-width-max: 700px;
-@additions-width-min: 400px;
-@additions-width-max: 500px;
 #resultpage-container {
     margin: @padding-small-default;
     display: grid;
@@ -334,33 +363,26 @@ a {
     justify-items: stretch;
     align-items: stretch;
     /**/
-    background-color: #FAFAFA;
-    #research-bar-anchor {
+    background-color: @resultpage-background-color;
+    #research-bar-container {
         grid-area: searchbar;
-        transform: translate(0, 0); // Makes the fixed research-bar inside set its width relative to the width of this element
         /**/
-        min-width: @results-width-min;
-        max-width: @results-width-max;
-    }
-    #research-bar {
-        width: 100%;
+        width: @results-width-max + @padding-small-default * 2;
+        max-width: @results-width-max + @padding-small-default * 2;
     }
     #research-bar-placeholder {
         grid-area: searchbar;
         /**/
-        min-width: @results-width-min;
         max-width: @results-width-max;
     }
     #foki {
         grid-area: foki;
         /**/
-        min-width: @results-width-min;
         max-width: @results-width-max;
     }
     #results-container {
         grid-area: results;
         /**/
-        min-width: @results-width-min;
         max-width: @results-width-max;
         .alert {
             margin: @padding-small-default 0px;
@@ -369,80 +391,68 @@ a {
     #additions-container {
         grid-area: additions;
         /**/
-        min-width: @additions-width-min;
+        //min-width: @additions-width-min;
         max-width: @additions-width-max;
         #search-settings {
             display: none;
         }
     }
-    @media (max-width: (@results-width-max + @additions-width-max + @padding-small-default * 4)) {
-        grid-template-columns: 60fr 40fr;
+    @media (max-width: @resultpage-breakpoint-large) {
+        #research-bar-container {
+            width: ~"calc(60% - 1px)";
+        }
+        grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
         grid-template-areas: "searchbar ." "foki ." "results additions";
     }
-    @media (max-width: (@results-width-min + @additions-width-min + @padding-small-default * 4)) {
-        grid-template-columns: 100fr;
+    @media (max-width: @resultpage-breakpoint-small) {
+        #research-bar-container {
+            width: 100%;
+        }
+        grid-template-columns: 100%;
         grid-template-areas: "searchbar" "foki" "results";
         #additions-container {
             display: none;
         }
     }
-    @media (max-width: (@results-width-min + @padding-small-default * 2)) {
-        // Fixes the width on very small displays
-        // Without a set min-width the width is just set to fit the content
-        #research-bar-anchor {
-            min-width: 0px;
-        }
-        #research-bar-placeholder {
-            min-width: 0px;
-        }
-        #foki {
-            min-width: 0px;
-        }
-        #results-container {
-            min-width: 0px;
-        }
-        #additions-container {
-            min-width: 0px;
-        }
-    }
 }
 
-@resultpage-leftbox-max-width: @results-width-max;
-@resultpage-leftbox-min-dist-left-right: @padding-small-default;
-@resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
-@resultpage-leftbox-big-screen-margin-left: 50px;
-#research-bar {
+#research-bar-container {
     position: fixed;
     z-index: 100;
-    width: @resultpage-leftbox-max-width;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-bottom: 2px solid @metager-orange;
-    box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-    display: flex;
-    align-items: center;
-    padding: 4px;
-    .resultpage-searchbar {
-        .search-input-submit .search-input input {
-            border-bottom: 1px solid #ccc;
-        }
-        @media (max-width: @screen-xs-max) {
-            .search-focus-selector {
-                border-top: none;
-                border-radius: 5px;
+    top: 0;
+    left: 0;
+    background-color: @resultpage-background-color;
+    padding: 8px 8px 0px 8px;
+    #research-bar {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-bottom: 2px solid @metager-orange;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        .resultpage-searchbar {
+            .search-input-submit .search-input input {
+                border-bottom: 1px solid #ccc;
             }
-            .search-input-submit {
-                border-radius: 5px;
-            }
-            >* {
-                border-radius: 5px;
-                min-height: 40px;
-                &:not(:first-child) {
-                    border-left: 1px solid #aaa;
+            @media (max-width: @openSidebar-breakpoint) {
+                .search-focus-selector {
+                    border-top: none;
+                    border-radius: 5px;
                 }
-            }
-            *:not(.search-submit) {
-                width: 100%;
+                .search-input-submit {
+                    border-radius: 5px;
+                }
+                >* {
+                    border-radius: 5px;
+                    min-height: 40px;
+                    &:not(:first-child) {
+                        border-left: 1px solid #aaa;
+                    }
+                }
+                *:not(.search-submit) {
+                    width: 100%;
+                }
             }
         }
     }
@@ -547,7 +557,7 @@ footer.resultPageFooter {
     margin-left: 20px;
 }
 
-@media(max-width: (@results-width-max + @padding-small-default * 2 + 60px)) {
+@media(max-width: @openSidebar-breakpoint) {
     #resultpage-container>.openSidebar {
         display: none;
     }
