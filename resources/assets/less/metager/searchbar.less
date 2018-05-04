@@ -24,9 +24,6 @@
         display: -ms-flexbox;
         display: flex;
         max-width: 600px;
-        @media (max-width: @screen-xs-max) {
-            max-width: initial;
-        }
     }
     .search-input {
         -webkit-box-flex: 1;
@@ -79,6 +76,9 @@
     }
     .search-input-submit {
         border-radius: 5px;
+        @media (max-width: @screen-xs-max) {
+            max-width: initial;
+        }
     }
     .search-submit {
         border-left: 1px solid #aaa;
