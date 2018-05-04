@@ -7,7 +7,7 @@
 				<div class="search-input">
 					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required="" @if($class=='startpage-searchbar') autofocus="" @endif autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
 					<button class="hidden" id="search-delete-btn" type="button">
-						<i class="fa fa-eraser" aria-hidden="true"></i>
+						&#xd7;
 					</button>
 				</div>
 				<div class="search-submit" id="submit-inputgroup">
