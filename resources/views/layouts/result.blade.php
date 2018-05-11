@@ -50,13 +50,13 @@
 	</div>
 	<div class="result-footer">
 		<a class="result-open" href="{{ $result->link }}" target="_self" rel="noopener">
-			ÖFFNEN
+			{!! trans('result.options.7') !!}
 		</a>
 		<a class="result-open-newtab" href="{{ $result->link }}" target="_blank" rel="noopener">
-			IN NEUEM TAB
+			{!! trans('result.options.6') !!}
 		</a>
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-			ANONYM ÖFFNEN
+			{!! trans('result.options.5') !!}
 		</a>
 		<label class="open-result-options" for="result-toggle-{{$result->number}}" role="button">
 			MEHR

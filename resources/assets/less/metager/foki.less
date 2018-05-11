@@ -12,8 +12,8 @@
     display: none;
     position: fixed;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     min-height: 100%;
     width: 100%;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .7)), to(rgba(0, 0, 0, .7)));
@@ -39,6 +39,13 @@
                     }
                 }
             }
+            #toggle-dropdowns-label {
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
             .focus-dropdown-toggle {
                 display: none;
                 &:not(:checked) {
@@ -49,15 +56,17 @@
                 }
                 &:checked {
                     &~.focus-dropdown-label::after {
-                        content: "🡡";
+                        content: " ➖ ";
                     }
                 }
             }
             .focus-dropdown-label {
+                cursor: pointer;
                 &::after {
                     font-size: 16px;
-                    content: "🡣";
+                    content: " ➕ ";
                     margin-left: 3px;
+                    vertical-align: middle;
                 }
                 &~.row {
                     -webkit-transition: max-height 0.4s ease;
