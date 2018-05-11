@@ -32,5 +32,6 @@ mix
   .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
   // utility
   .babel(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
+  .babel('resources/assets/js/scriptJoinPage.js', 'public/js/scriptJoinPage.js')
   .sourceMaps(false, 'inline-source-map')
   .version();
