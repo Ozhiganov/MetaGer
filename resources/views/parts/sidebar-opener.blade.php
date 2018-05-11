@@ -1,0 +1,1 @@
+<label class="openSidebar {{$class or ''}}" role="button" for="sideBarToggle"></label>

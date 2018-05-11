@@ -4,8 +4,9 @@
 @import "./result-saver.less";
 @import "./result.less";
 @import "./product.less";
-@result-width: 700px;
-@quicktip-width: 500px;
+//
+@resultpage-background-color: #FAFAFA;
+//
 @results-margin-left: @resultpage-leftbox-big-screen-margin-left;
 //
 @result-page-body-background-color: @background-color;
@@ -18,6 +19,24 @@
 @a-hover-color: @result-page-a-hover-color;
 @a-donation-hover-color: @result-page-a-hover-color;
 @product-shop-color: @result-page-product-shop-color;
+//
+@results-width-min: 500px;
+@results-width-max: 700px;
+@additions-width-min: 400px;
+@additions-width-max: 500px;
+//
+@resultpage-breakpoint-large: (@results-width-max + @additions-width-max + @padding-small-default * 4);
+@resultpage-breakpoint-small: (@results-width-min + @additions-width-min + @padding-small-default * 4);
+//
+@resultpage-leftbox-max-width: @results-width-max;
+@resultpage-leftbox-min-dist-left-right: @padding-small-default;
+@resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
+@resultpage-leftbox-big-screen-margin-left: 50px;
+//
+@logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
+//
+@openSidebar-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
+//
 #header-logo {
     z-index: 0;
     padding-right: 10px;
@@ -27,12 +46,24 @@
         font-size: 22px;
         display: inline-block;
     }
+    .screen-small {
+        display: none;
+    }
+    .screen-large {}
+    @media (max-width: @logo-size-breakpoint) {
+        .screen-large {
+            display: none;
+        }
+        .screen-small {
+            display: initial;
+        }
+    }
 }
 
 body {
-    &#resultBody {
+    &#resultpage-body {
         background-image: inherit;
-        background-color: #FAFAFA;
+        background-color: @resultpage-background-color;
     }
     &.quicktips {
         background-color: @quicktip-background-color;
@@ -186,7 +217,7 @@ a {
 }
 
 .description-container {
-    margin: 0!important;
+    margin: 0 !important;
 }
 
 .options-list>li {
@@ -211,7 +242,6 @@ a {
     display: none;
 }
 
-
 /* Hier der Style für die Bilder */
 
 #fit-width .masonry {
@@ -233,7 +263,6 @@ a {
     display: flex;
     flex-wrap: wrap;
 }
-
 
 /* Placeholder für ladende Tabs */
 
@@ -284,7 +313,7 @@ a {
 }
 
 .lightslider {
-    overflow: visible!important;
+    overflow: visible !important;
 }
 
 #products {
@@ -317,7 +346,6 @@ a {
     }
 }
 
-
 /* New result style */
 
 .content-wrapper {
@@ -326,37 +354,178 @@ a {
 }
 
 #resultpage-container {
-    width: @result-width + @quicktip-width;
-    align-self: left;
-    display: flex;
-    justify-content: left;
-    margin-left: @results-margin-left;
-    background-color: #FAFAFA;
-    @media (max-width: (2 * @results-margin-left + @result-width + @quicktip-width - 1px)) {
-        width: @result-width;
-        #additions-container {
-            display: none;
-            float: right;
-        }
+    margin: @padding-small-default;
+    display: grid;
+    grid-template-columns: @results-width-max @additions-width-max;
+    grid-template-areas: "searchbar ." "foki ." "results additions";
+    grid-column-gap: (@padding-small-default * 2);
+    grid-row-gap: @padding-small-default;
+    justify-items: stretch;
+    align-items: stretch;
+    /**/
+    background-color: @resultpage-background-color;
+    #research-bar-container {
+        grid-area: searchbar;
+        /**/
+        width: (@results-width-max + @padding-small-default * 2);
+        max-width: (@results-width-max + @padding-small-default * 2);
     }
-    @media (max-width: (2 * @results-margin-left + @result-width - 1px)) {
-        width: 100%;
-        justify-content: center;
-        margin: 0px;
-        padding: 0px @resultpage-leftbox-min-dist-left-right; // Verhindert, dass Text bei kleinen Bildschirmen an den Rand ragt
+    #research-bar-placeholder {
+        grid-area: searchbar;
+        /**/
+        max-width: @results-width-max;
+    }
+    #foki {
+        grid-area: foki;
+        /**/
+        max-width: @results-width-max;
     }
     #results-container {
-        max-width: @result-width;
-        width: 100%;
+        grid-area: results;
+        /**/
+        max-width: @results-width-max;
         .alert {
-            margin: 8px 0px;
+            margin: @padding-small-default 0px;
         }
     }
     #additions-container {
-        padding-left: 50px;
-        width: @quicktip-width;
+        grid-area: additions;
+        /**/
+        //min-width: @additions-width-min;
+        max-width: @additions-width-max;
         #search-settings {
             display: none;
+        }
+    }
+    @media (max-width: @resultpage-breakpoint-large) {
+        @supports (display: grid) {
+            #research-bar-container {
+                width: ~"calc(60% - 1px)";
+            }
+            grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
+            grid-template-areas: "searchbar ." "foki ." "results additions";
+        }
+    }
+    @media (max-width: @resultpage-breakpoint-small) {
+        #research-bar-container {
+            width: 100%;
+        }
+        grid-template-columns: 100%;
+        grid-template-areas: "searchbar" "foki" "results";
+        #additions-container {
+            display: none;
+        }
+    }
+}
+
+#research-bar-container {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: @resultpage-background-color;
+    padding: 8px 8px 0px 8px;
+    #research-bar {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-bottom: 2px solid @metager-orange;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        .resultpage-searchbar {
+            .search-input-submit .search-input input {
+                border-bottom: 1px solid #ccc;
+            }
+            @media (max-width: @openSidebar-breakpoint) {
+                .search-focus-selector {
+                    border-top: none;
+                    border-radius: 5px;
+                }
+                .search-input-submit {
+                    border-radius: 5px;
+                }
+                >* {
+                    border-radius: 5px;
+                    min-height: 40px;
+                    &:not(:first-child) {
+                        border-left: 1px solid #aaa;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#foki {
+    display: flex;
+    justify-content: left;
+    /*
+    @media (max-width: (@results-width-min + @additions-width-min - 1px)) {
+        width: 100%;
+        max-width: none;
+        margin: 0px;
+        padding: @padding-small-default;
+        .scrollbox {
+            max-width: none;
+            margin: 0px;
+            #foki-box {
+                max-width: none;
+                margin: 0px;
+            }
+        }
+    }
+    @media (max-width: (4 * @padding-small-default + @results-width-max + @additions-width-max - 1px)) {
+        padding-left: @padding-small-default;
+    }
+    @media (max-width: (@results-width-min + @additions-width-min - 1px)) {
+        width: 100%;
+        max-width: 700px;
+        margin: 0px;
+        padding: @padding-small-default;
+        #research-bar {
+            max-width: none;
+            margin: 0px;
+        }
+    }
+    */
+    #foki-box {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        width: 100%;
+        max-width: @resultpage-leftbox-max-width;
+        background-color: white;
+        border: 1px solid #ccc;
+        -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        overflow-x: visible;
+        padding: 10px;
+        @media (max-width: 700px) {
+            overflow-x: auto;
+        }
+        &>div {
+            padding: 0px 10px;
+            &>a {
+                color: black;
+            }
+            &.active>a {
+                border-bottom: 1px solid @metager-orange;
+                color: @metager-orange;
+            }
+            &:last-child {
+                padding-right: 20px
+            }
+        }
+        .edit-focus {
+            margin-left: 7px;
+        }
+        /* Scrollbar Style */
+        &::-webkit-scrollbar {
+            height: 0px;
+            /* remove scrollbar space */
+            background: transparent;
+            /* optional: just make scrollbar invisible */
         }
     }
 }
@@ -374,7 +543,43 @@ footer.resultPageFooter {
     max-width: 700px;
     margin-left: 50px;
     margin-top: 20px;
-    @media (max-width: (2 * @results-margin-left + @result-width - 1px)) {
+    @media (max-width: (2 * @results-margin-left + @results-width-max - 1px)) {
         margin: 20px 0 0 0;
+    }
+}
+
+/* Searchbar Opener */
+
+#research-bar>.openSidebar {
+    display: none;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+@media(max-width: @openSidebar-breakpoint) {
+    #resultpage-container>.openSidebar {
+        display: none;
+    }
+    #research-bar>.openSidebar {
+        display: initial;
+    }
+}
+
+/* Style-fixes for browsers that do not support grid layout */
+
+#resultpage-container {
+    #results-container {
+        float: left;
+        @media (max-width: @resultpage-breakpoint-small) {
+            float:none;
+        }
+    }
+    #additions-container {
+        float: left;
+        margin-left: 20px;
+        @supports (display: grid) {
+            float: none;
+            margin-left: 0px;
+        }
     }
 }
