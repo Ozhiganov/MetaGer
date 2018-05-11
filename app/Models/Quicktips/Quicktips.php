@@ -173,7 +173,6 @@ class Quicktips
 
     public function normalize_search($search)
     {
-        $search = str_replace(' ', '+', $search);
-        return $search;
+        return urlencode($search);
     }
 }
