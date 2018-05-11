@@ -16,7 +16,7 @@ $(document).ready(function () {
 
   var search = getMetaTag('q') || '';
   var locale = getMetaTag('l') || 'de';
-  //loadQuicktips(search, locale, sprueche); // load the quicktips
+// loadQuicktips(search, locale, sprueche) // load the quicktips
 });
 
 /*
@@ -65,6 +65,7 @@ function tabs () {
       getDocumentReadyForUse(fokus);
     }
   });
+  $('#search-delete-btn').removeClass('hidden');
 }
 
 function getDocumentReadyForUse (fokus, custom) {
@@ -85,11 +86,11 @@ function getDocumentReadyForUse (fokus, custom) {
 }
 
 function addListeners () {
-  $('#reset').attr('type', 'button').click(resetSearchbar);
+  $('#search-delete-btn').click(resetSearchbar);
 }
 
 function resetSearchbar () {
-  $('#eingabeTop').val('');
+  $('.search-input input').val('').focus();
 }
 
 function pluginInfo () {
@@ -133,23 +134,23 @@ function clickLog () {
 }
 
 function botProtection () {
-  $(".result").find("a").click(function(){
-    var link = $(this).attr("href");
+  $('.result').find('a').click(function () {
+    var link = $(this).attr('href');
     var newtab = false;
-    if($(this).attr("target") == "_blank"){
+    if ($(this).attr('target') == '_blank') {
       newtab = true;
     }
     $.ajax({
-      url: '/img/cat.jpg', 
-      type: "post",
-      data: { mm: $("meta[name=mm]").attr("content")},
+      url: '/img/cat.jpg',
+      type: 'post',
+      data: { mm: $('meta[name=mm]').attr('content')},
       timeout: 2000
     })
-    .always(function(){
-      if(!newtab)
-        document.location.href = link;
-    });
-    if(!newtab)
+      .always(function () {
+        if (!newtab)
+          document.location.href = link;
+      });
+    if (!newtab)
       return false;
     else
       return true;
@@ -286,7 +287,6 @@ function fokiChanger () {
     });
   });
 })(jQuery);
-
 
 /**
  * Loads the content for a given fokus
