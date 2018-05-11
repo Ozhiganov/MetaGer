@@ -398,11 +398,13 @@ a {
         }
     }
     @media (max-width: @resultpage-breakpoint-large) {
-        #research-bar-container {
-            width: ~"calc(60% - 1px)";
+        @supports (display: grid) {
+            #research-bar-container {
+                width: ~"calc(60% - 1px)";
+            }
+            grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
+            grid-template-areas: "searchbar ." "foki ." "results additions";
         }
-        grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
-        grid-template-areas: "searchbar ." "foki ." "results additions";
     }
     @media (max-width: @resultpage-breakpoint-small) {
         #research-bar-container {
@@ -563,5 +565,24 @@ footer.resultPageFooter {
     }
     #research-bar>.openSidebar {
         display: initial;
+    }
+}
+
+/* Style-fixes for browsers that do not support grid layout */
+
+#resultpage-container {
+    #results-container {
+        float: left;
+        @media (max-width: @resultpage-breakpoint-small) {
+            float:none;
+        }
+    }
+    #additions-container {
+        float: left;
+        margin-left: 20px;
+        @supports (display: grid) {
+            float: none;
+            margin-left: 0px;
+        }
     }
 }
