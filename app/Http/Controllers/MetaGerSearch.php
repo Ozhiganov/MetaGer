@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App;
 use App\MetaGer;
 use Illuminate\Http\Request;
-use LaravelLocalization;
 
 class MetaGerSearch extends Controller
 {
@@ -13,15 +12,15 @@ class MetaGerSearch extends Controller
     {
 
         $focus = $request->input("focus", "web");
-        
+
         if ($focus === "maps") {
             $searchinput = $request->input('eingabe', '');
             return redirect()->to('https://maps.metager.de/map/' . $searchinput . '/1240908.5493525574,6638783.2192695495,6');
         }
 
         /*if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
-            $metager->parseFormData($request);
-            return $metager->createView();
+        $metager->parseFormData($request);
+        return $metager->createView();
         }*/
 
         #die($request->header('User-Agent'));
@@ -35,7 +34,7 @@ class MetaGerSearch extends Controller
         # Die Quicktips als Job erstellen
         $quicktips = $metager->createQuicktips();
 
-        # Suche für alle zu verwendenden Suchmaschinen als Job erstellen, 
+        # Suche für alle zu verwendenden Suchmaschinen als Job erstellen,
         # auf Ergebnisse warten und die Ergebnisse laden
         $metager->createSearchEngines($request);
 
@@ -62,7 +61,7 @@ class MetaGerSearch extends Controller
 
     public function get($url)
     {
-	   $ctx = stream_context_create(array('http'=>array('timeout' => 2,)));
+        $ctx = stream_context_create(array('http' => array('timeout' => 2)));
         return file_get_contents($url, false, $ctx);
     }
 

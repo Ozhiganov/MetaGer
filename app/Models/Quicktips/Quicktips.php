@@ -13,6 +13,7 @@ class Quicktips
     use DispatchesJobs;
 
     const QUICKTIP_URL = "https://quicktips.metager3.de/quicktips.xml";
+    //const QUICKTIP_URL = "http://localhost:63825/quicktips.xml";
     const QUICKTIP_NAME = "quicktips";
     const CACHE_DURATION = 60;
 
@@ -25,7 +26,7 @@ class Quicktips
 
     public function startSearch($search, $locale, $max_time)
     {
-        $url = self::QUICKTIP_URL . "?search=" . $search . "&locale=" . $locale;
+        $url = self::QUICKTIP_URL . "?search=" . $this->normalize_search($search) . "&locale=" . $locale;
 
         $hash = md5($url);
 
@@ -82,6 +83,7 @@ class Quicktips
         Redis::hdel('search.' . $hash, self::QUICKTIP_NAME);
         Cache::put($hash, $body, self::CACHE_DURATION);
         #}
+
         if ($body !== "") {
             return $body;
         } else {
@@ -167,5 +169,10 @@ class Quicktips
             Log::error("A problem occurred parsing quicktips");
             return [];
         }
+    }
+
+    public function normalize_search($search)
+    {
+        return urlencode($search);
     }
 }
