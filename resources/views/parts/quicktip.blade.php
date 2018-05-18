@@ -40,15 +40,27 @@
   </details>
 @else
   <div class="quicktip-summary">
-    @if ($quicktip->title != "")
-      <h1>
-        @if ($quicktip->link != "")
-          <a href="{{ $quicktip->link }}">{{ $quicktip->title }}</a>
-        @else
-          {{ $quicktip->title }}
+    <div class="quicktip-headline">
+      @if ($quicktip->title != "")
+        <h1 class="quicktip-title">
+          @if ($quicktip->link != "")
+            <a href="{{ $quicktip->link }}">{{ $quicktip->title }}</a>
+          @else
+            {{ $quicktip->title }}
+          @endif
+        </h1>
+        <div class="space-taker"></div>
+        @if ($quicktip->gefVonLink != "")
+          <a class="quicktip-hoster" href="{{ $quicktip->gefVonLink }}" target="_blank" rel="noopener">
+            @if ($quicktip->gefVonTitle != "")
+              {{ $quicktip->gefVonTitle }}
+            @else
+              {{ $quicktip->gefVonTitle }}
+            @endif
+          </a>
         @endif
-      </h1>
-    @endif
+      @endif
+    </div>
     <p>{!! $quicktip->descr !!}</p>
   </div>
 @endif
