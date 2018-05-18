@@ -1,29 +1,32 @@
-<header>
-	<div id="research-bar">
-		<div id="header-logo">
-			<a class="hidden-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
-				<h1>MetaGer</h1>
-			</a>
-			<a class="visible-xs" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
-				<h1>M</h1>
-			</a>
-		</div>
-		<div id="header-searchbar">
-			@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
-		</div>
-	</div>
-</header>
-<div id="research-bar-placeholder"></div>
-<div id="foki">
-	<div class="scrollbox">
-		<div class="foki-scrollfade-left"></div>
-		<div id="foki-box">
-			@include('parts.foki')
-		</div>
-		<div class="foki-scrollfade-right"></div>
-	</div>
-</div>
 <div id="resultpage-container">
+	<div id="research-bar-container">
+		<div id="research-bar">
+			<div id="header-logo">
+				<a class="screen-large" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+					<h1>MetaGer</h1>
+				</a>
+				<a class="screen-small" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+					<h1>M</h1>
+				</a>
+			</div>
+			<div id="header-searchbar">
+				@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
+			</div>
+			@include('parts.sidebar-opener')
+		</div>
+	</div>
+	<div id="research-bar-placeholder">
+	</div>
+	@include('parts.sidebar-opener', ['class' => 'fixed'])
+	<div id="foki">
+		<div class="scrollbox">
+			<div class="foki-scrollfade-left"></div>
+			<div id="foki-box">
+				@include('parts.foki')
+			</div>
+			<div class="foki-scrollfade-right"></div>
+		</div>
+	</div>
 	<div id="results-container">
 		@yield('results')
 	</div>

@@ -12,7 +12,7 @@
       de.wikipedia.org
     </a>
   </div>
-  <div class="result-body">
+  <div class="resultpage-body">
     <div class="result-description" data-tooltip="{{ trans('fake-result.description') }}">
       Wikipedia ist ein Projekt zum Aufbau einer Enzyklopädie aus freien Inhalten, zu denen du sehr gern beitragen kannst. Seit Mai 2001 sind 2.150.918 Artikel in ...
     </div>
