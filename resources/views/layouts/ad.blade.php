@@ -14,7 +14,7 @@
 				{{ $ad->anzeigeLink }}
 			</a>
 		</div>
-		<div class="result-body">
+		<div class="resultpage-body">
 			<div class="result-description">
 				{{ $ad->descr }}
 			</div>
