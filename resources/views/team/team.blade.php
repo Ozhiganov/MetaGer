@@ -3,8 +3,8 @@
 @section('title', $title )
 
 @section('content')
+	<h1 class="page-title">Team</h1>
 	<div class="card-heavy">
-		<h1>Team</h1>
 		<ul class="dotlist">
 			<li>
 				<p><a href="https://de.wikipedia.org/wiki/Wolfgang_Sander-Beuermann" target="_blank" rel="noopener">Sander-Beuermann, Wolfgang</a>, Dr.-Ing. - {!! trans('team.role.1') !!} -
