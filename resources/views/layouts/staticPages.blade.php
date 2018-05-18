@@ -42,6 +42,7 @@
 			@yield('homeIcon')
 		</header>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
+		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<div class="wrapper">
 			<main class="mg-panel">
 				@if (isset($success))

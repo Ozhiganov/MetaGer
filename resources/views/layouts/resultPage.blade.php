@@ -23,7 +23,7 @@
 		<meta name="referrer" content="origin">
 		@include('parts.utility')
 	</head>
-	<body id="resultBody">
+	<body id="resultpage-body">
 		@if(Request::getHttpHost() === "metager3.de")
 		<div class="alert alert-info" style="text-align: center; position: fixed; bottom: 0;">
 		Sie befinden sich auf einer MetaGer Testversion. Hier werden Features vor der Veröffentlichung getestet. Unter Umständen funktioniert hier nicht alles wie gewohnt.
