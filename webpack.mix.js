@@ -12,6 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix
+  // css
   .less('resources/assets/less/default.less', 'public/css/themes/default.css', {
     strictMath: true
   })
@@ -30,8 +31,11 @@ mix
   .babel(['resources/assets/js/scriptResultPage.js', 'resources/assets/js/result-saver.js', 'resources/assets/js/translations.js'], 'public/js/scriptResultPage.js')
   .babel('resources/assets/js/searchbar.js', 'public/js/searchbar.js')
   .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
+  .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
   // utility
   .babel(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
-  .babel('resources/assets/js/scriptJoinPage.js', 'public/js/scriptJoinPage.js')
+  .babel('resources/assets/js/widgets.js', 'public/js/widgets.js')
+  // source maps
   .sourceMaps(false, 'inline-source-map')
+  // versioning
   .version();
