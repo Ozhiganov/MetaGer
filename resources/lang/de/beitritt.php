@@ -2,6 +2,7 @@
 
 return [
     'heading.1'     => 'SUMA-EV Aufnahmeantrag',
+    'heading.2'     => 'Im folgenden erheben wir Daten, die erforderlich sind und Daten, die Sie uns freiwillig mitteilen können. Für die Verwaltung der Mitgliedschaft mindestens erforderliche Daten sind: Name, Vorname, (gegebenenfalls Firmenname), postalische Adresse (ladungsfähige Anschrift). Diese Daten, aber auch die nicht erforderlichen, vernichten wir zwei Jahre nach Beendigung der Mitgliedschaft. Sollten Sie sich entscheiden, uns eine Abbuchungserlaubnis für ihr Konto zu erteilen, legen wir mit Hilfe dieser Daten eine automatische Abbuchung bei unserer Bank an (GLS-Bank) und verwahren die Papierunterlage getrennt von Ihren anderen persönlichen Daten in einem sicheren Schrank. Wir behalten diese Daten, um eine Abbuchungserlaubnis nachweisen zu können. Wenn Sie einer Abbuchung widersprechen und damit eine Rückbuchung veranlassen, endet Ihre Mitgliedschaft mit sofortiger Wirkung.',
     'beitritt.1'    => 'Hiermit erkläre ich,',
     'placeholder.1' => 'Name, Vorname',
     'beitritt.2'    => 'für die Firma:',
