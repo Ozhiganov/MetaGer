@@ -23,9 +23,7 @@
 			<li>{!! trans('app.maps.list.1') !!}</li>
 			<li>{!! trans('app.maps.list.2') !!}</li>
 		</ul>
-	</div>
-	<div class="card-heavy">
-		<h2>{{ trans('app.head.4') }}</h2>
+		<h3>{{ trans('app.head.4') }}</h3>
 		<p>{{ trans('app.installation.1') }}</p>
 		<p>{{ trans('app.installation.2') }}</p>
 		<ol>

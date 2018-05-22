@@ -4,7 +4,6 @@
     font-family: Liberation Sans, sans-serif;
 }
 
-
 /* Main Containers */
 
 html,
@@ -60,22 +59,21 @@ body {
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
-
 /* General font sizing */
 
 @default-font-size: 15px;
 h1 {
-    font-size: @default-font-size * 1.6;
+    font-size: (@default-font-size * 1.6);
     .first-last-child-margin-fix;
 }
 
 h2 {
-    font-size: @default-font-size * 1.4;
+    font-size: (@default-font-size * 1.4);
     .first-last-child-margin-fix;
 }
 
 h3 {
-    font-size: @default-font-size * 1.2;
+    font-size: (@default-font-size * 1.2);
     .first-last-child-margin-fix;
 }
 
@@ -90,7 +88,7 @@ p {
 }
 
 .page-title {
-    font-size: @default-font-size * 3;
+    font-size: (@default-font-size * 3);
     text-align: center;
 }
 
@@ -98,7 +96,6 @@ p {
     font-size: @default-font-size;
     text-align: center;
 }
-
 
 /* Logo */
 
@@ -135,7 +132,6 @@ p {
     }
 }
 
-
 /* Links that look like text */
 
 .mutelink {
@@ -147,7 +143,6 @@ p {
         color: inherit;
     }
 }
-
 
 /* Summary Elements */
 
@@ -172,7 +167,6 @@ summary {
         outline: none;
     }
 }
-
 
 /* Tooltips 
  * 
@@ -224,7 +218,6 @@ summary {
     }
 }
 
-
 /* For Containers that are supposed to split their content up into two columns */
 
 .two-col {
@@ -237,7 +230,6 @@ summary {
         }
     }
 }
-
 
 /* Links */
 
@@ -265,7 +257,6 @@ summary {
     }
 }
 
-
 /* Little helpers */
 
 .bold {
@@ -274,7 +265,7 @@ summary {
 
 .noprint {
     @media print {
-        display: none!important;
+        display: none !important;
     }
 }
 
@@ -294,6 +285,12 @@ summary {
     white-space: nowrap;
 }
 
+/* Button */
+
+button {
+    border: none;
+    background-color: transparent;
+}
 
 /* Unsorted */
 
