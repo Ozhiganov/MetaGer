@@ -7,7 +7,7 @@
 //
 @resultpage-background-color: #FAFAFA;
 //
-@results-margin-left: @resultpage-leftbox-big-screen-margin-left;
+@results-margin-left: 16px;
 //
 @result-page-body-background-color: @background-color;
 @result-page-a-hover-color: red;
@@ -31,7 +31,6 @@
 @resultpage-leftbox-max-width: @results-width-max;
 @resultpage-leftbox-min-dist-left-right: @padding-small-default;
 @resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
-@resultpage-leftbox-big-screen-margin-left: 50px;
 //
 @logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
 //
@@ -355,6 +354,7 @@ a {
 
 #resultpage-container {
     margin: @padding-small-default;
+    margin-left: @results-margin-left;
     display: grid;
     grid-template-columns: @results-width-max @additions-width-max;
     grid-template-areas: "searchbar ." "foki ." "results additions";
@@ -366,9 +366,6 @@ a {
     background-color: @resultpage-background-color;
     #research-bar-container {
         grid-area: searchbar;
-        /**/
-        width: (@results-width-max + @padding-small-default * 2);
-        max-width: (@results-width-max + @padding-small-default * 2);
     }
     #research-bar-placeholder {
         grid-area: searchbar;
@@ -399,17 +396,12 @@ a {
     }
     @media (max-width: @resultpage-breakpoint-large) {
         @supports (display: grid) {
-            #research-bar-container {
-                width: ~"calc(60% - 1px)";
-            }
             grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
             grid-template-areas: "searchbar ." "foki ." "results additions";
         }
     }
     @media (max-width: @resultpage-breakpoint-small) {
-        #research-bar-container {
-            width: 100%;
-        }
+        margin-left: @padding-small-default;
         grid-template-columns: 100%;
         grid-template-areas: "searchbar" "foki" "results";
         #additions-container {
@@ -419,12 +411,24 @@ a {
 }
 
 #research-bar-container {
+    margin-left: (@results-margin-left - @padding-small-default);
     position: fixed;
     z-index: 100;
     top: 0;
     left: 0;
     background-color: @resultpage-background-color;
-    padding: 8px 8px 0px 8px;
+    padding: @padding-small-default @padding-small-default 0px @padding-small-default;
+    width: (@results-width-max + 2 * @padding-small-default);
+    max-width: (@results-width-max + 2 * @padding-small-default);
+    @media (max-width: @resultpage-breakpoint-large) {
+        @supports (display: grid) {
+            width: ~"calc(60% - 6px)";
+        }
+    }
+    @media (max-width: @resultpage-breakpoint-small) {
+        width: 100%;
+        margin-left: 0px;
+    }
     #research-bar {
         background-color: white;
         border: 1px solid #ccc;
