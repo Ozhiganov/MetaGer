@@ -25,8 +25,4 @@
 			<li>{!! trans('datenschutz.policy.19') !!}</li>
 		</ul>
 	</div>
-	<div class="card-heavy">
-		<h1>{!! trans('datenschutz.twitter') !!}</h2>
-		<pre>@include('datenschutz/twitter-comments')</pre>
-	</div>
 @endsection
