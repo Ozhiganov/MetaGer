@@ -3,8 +3,8 @@
 @section('title', $title )
 
 @section('content')
+	<h1 class="page-title">{!! trans('kontakt.headline.1') !!}</h1>
 	<div class="card-heavy">
-		<h1>{!! trans('kontakt.headline.1') !!}</h1>
 		<h2>{!! trans('kontakt.form.1') !!}</h2>
 		<p>{!! trans('kontakt.form.2') !!}</p>
 		@if(isset($formerrors))
