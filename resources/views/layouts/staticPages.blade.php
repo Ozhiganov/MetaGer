@@ -42,7 +42,7 @@
 		</header>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
-		<div class="wrapper">
+		<div class="wrapper {{$page or ''}}">
 			<main class="mg-panel">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
