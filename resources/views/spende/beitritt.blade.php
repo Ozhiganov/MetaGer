@@ -10,7 +10,11 @@
 <form id="donation-form">
 	<div class="card-heavy">
 		<h1>{{ trans('beitritt.heading.1') }}</h1>
-		<h3>{{ trans('beitritt.heading.2') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.1') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.2') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.3') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.4') }}</h3>
+		<h3>{!! trans('beitritt.ansprache.5') !!}</h3>
 		<div class="beitritt-inputs">
 			<div>
 				<label for="name">{{ trans('beitritt.beitritt.1') }}</label>
