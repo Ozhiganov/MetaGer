@@ -2,6 +2,11 @@
 
 return [
     "heading.1"	=>	"SUMA-EV membership application ",
+    'ansprache.1'   => 'Thank you for considering joining SUMA-EV. By applying, you choose to take a more active role in representing the values we stand for. Reinforcing and developing our rights is only possible together. To complete your application it is required to make some choices and sign this form. What happens with your data?',
+    'ansprache.2'   => 'Some of the following fields are required, others are optional.',
+    'ansprache.3'   => 'For maintenance reasons underlined data needs to be entered. If you should ever withdraw your membership, all data will be destroyed at the latest 2 years after your withdrawal.',
+    'ansprache.4'   => 'The form containing the debit authorization is used for creating an automatic debit entry (GLS-Bank) and is stored seperately from your other personal data. We keep this data for evidence of your authorization. Of course, this data will be deleted as well, should you ever cancel your membership.',
+    'ansprache.5'   => 'Bezüglich der Erfassung, des Speicherns und der Verwendung Ihrer Daten durch uns stehen Ihnen Rechte zu, die Sie in unserer <a href="https://metager.de/datenschutz#ihrerechte">Datenschutzerklärung</a> nachlesen können.',
     "beitritt.1"	=>	"I hereby declare,",
     "placeholder.1"	=>	"last name, first name",
     "beitritt.2"	=>	"for the company:",
