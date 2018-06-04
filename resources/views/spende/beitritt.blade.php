@@ -24,28 +24,27 @@
 		</div>
 		<div class="beitritt-inputs">
 			<div>
-				<label for="funktion">{{ trans('beitritt.beitritt.3') }}</label>
-				<input type="text" class="form-control beitritt-input" name="name" placeholder="{{trans('beitritt.placeholder.3')}}" required>
+				<label class="beitritt-required-info" for="name">{{ trans('beitritt.beitritt.3') }}</label>
+				<input type="text" class="form-control beitritt-input" id="name" placeholder="{{trans('beitritt.placeholder.3')}}" required>
 			</div>
 			<div>
-				<label for="email">{{ trans('beitritt.beitritt.4') }}</label>
-				<input type="email" class="form-control beitritt-input" name="firma" placeholder="">
+				<label class="beitritt-required-info" for="firma">{{ trans('beitritt.beitritt.4') }}</label>
+				<input type="text" class="form-control beitritt-input" id="firma" placeholder="{{trans('beitritt.placeholder.4')}}">
 			</div>
 			<div>
-				<label for="homepage">{{ trans('beitritt.beitritt.5') }}</label>
-				<input type="text" class="form-control beitritt-input" name="funktion" placeholder="">
+				<label for="funktion">{{ trans('beitritt.beitritt.5') }}</label>
+				<input type="text" class="form-control beitritt-input" id="funktion" placeholder="{{trans('beitritt.placeholder.5')}}">
 			</div>
 			<div>
-				<label for="telefon">{{ trans('beitritt.beitritt.6') }}</label>
-				<input type="text" class="form-control beitritt-input" name="adresse" placeholder="{{trans('beitritt.placeholder.6')}}" required>
+				<label for="webpage">{{ trans('beitritt.beitritt.11') }}</label>
+				<input type="text" class="form-control beitritt-input" name="webpage"></div>
+			<div>
+				<label class="beitritt-required-info" for="adresse">{{ trans('beitritt.beitritt.6') }}</label>
+				<input type="text" class="form-control beitritt-input" id="adresse" placeholder="{{trans('beitritt.placeholder.6')}}" required>
 			</div>
 			<div>
-				<p>{{ trans('beitritt.beitritt.10') }}</p>
-				<input type="email" class="form-control beitritt-input" name="email" required>
-			</div>
-			<div>
-				<p>{{ trans('beitritt.beitritt.11') }}</p>
-				<input type="text" class="form-control beitritt-input" name="webpage">
+				<label class="beitritt-required-info" for="email">{{ trans('beitritt.beitritt.10') }}</label>
+				<input type="email" class="form-control beitritt-input" id="email" required>
 			</div>
 		</div>
 		<div>
@@ -60,6 +59,7 @@
 				<label for="beitrag">{{ trans('beitritt.beitritt.12') }}</label>
 				<input type="text" class="form-control beitritt-input" id="beitrag" placeholder="">
 				<label for="beitrag">{{ trans('beitritt.beitritt.13') }}</label>
+				<p>{{ trans('beitritt.beitritt.15')}}</p>
 			</div>
 			<br>
 			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
@@ -71,20 +71,20 @@
 		<p>{{ trans('beitritt.abbuchung.3') }}</p>
 		<div class="beitritt-inputs">
 			<div>
-				<label for="kontoname">{{ trans('beitritt.abbuchung.4') }}</label>
-				<input type="text" class="form-control beitritt-input" name="kontoname" placeholder="">
+				<label class="beitritt-required-info" for="kontoname">{{ trans('beitritt.abbuchung.4') }}</label>
+				<input type="text" class="form-control beitritt-input" id="kontoname" placeholder="">
 			</div>
 			<div>
-				<label for="bankverbindung">{{ trans('beitritt.abbuchung.5') }}</label>
-				<input type="text" class="form-control beitritt-input" name="bankverbindung" placeholder="">
+				<label class="beitritt-required-info" for="bankverbindung">{{ trans('beitritt.abbuchung.5') }}</label>
+				<input type="text" class="form-control beitritt-input" id="bankverbindung" placeholder="">
 			</div>
 			<div>
-				<label for="iban">{{ trans('beitritt.abbuchung.6') }}</label>
-				<input type="text" class="form-control beitritt-input" name="iban" maxlength="22" placeholder="">
+				<label class="beitritt-required-info" for="iban">{{ trans('beitritt.abbuchung.6') }}</label>
+				<input type="text" class="form-control beitritt-input" id="iban" maxlength="22" placeholder="">
 			</div>
 			<div>
-				<label for="bic">{{ trans('beitritt.abbuchung.7') }}</label>
-				<input type="text" class="form-control beitritt-input" name="bic" placeholder="">
+				<label class="beitritt-required-info" for="bic">{{ trans('beitritt.abbuchung.7') }}</label>
+				<input type="text" class="form-control beitritt-input" id="bic" placeholder="">
 			</div>
 		</div>
 		<div>
