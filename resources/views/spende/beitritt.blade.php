@@ -10,54 +10,56 @@
 <form id="donation-form">
 	<div class="card-heavy">
 		<h1>{{ trans('beitritt.heading.1') }}</h1>
-		<h3>{{ trans('beitritt.heading.2') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.1') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.2') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.3') }}</h3>
+		<h3>{{ trans('beitritt.ansprache.4') }}</h3>
+		<h3>{!! trans('beitritt.ansprache.5') !!}</h3>
+		<div>
+			<label>{{ trans('beitritt.beitritt.1') }}</label>
+			<br>
+			<input type="radio" name="membershipType"> {{ trans('beitritt.radioperson') }}
+			<input type="radio" name="membershipType"> {{ trans('beitritt.radiofirma') }}
+			{{ trans('beitritt.beitritt.2') }}
+		</div>
 		<div class="beitritt-inputs">
 			<div>
-				<label for="name">{{ trans('beitritt.beitritt.1') }}</label>
-				<input type="text" class="form-control beitritt-input" name="name" placeholder="{{trans('beitritt.placeholder.1')}}" required>
+				<label class="beitritt-required-info" for="name">{{ trans('beitritt.beitritt.3') }}</label>
+				<input type="text" class="form-control beitritt-input" id="name" placeholder="{{trans('beitritt.placeholder.3')}}" required>
 			</div>
 			<div>
-				<label for="firma">{{ trans('beitritt.beitritt.2') }}</label>
-				<input type="text" class="form-control beitritt-input" name="firma" placeholder="{{trans('beitritt.placeholder.2')}}">
+				<label class="beitritt-required-info" for="firma">{{ trans('beitritt.beitritt.4') }}</label>
+				<input type="text" class="form-control beitritt-input" id="firma" placeholder="{{trans('beitritt.placeholder.4')}}">
 			</div>
 			<div>
-				<label for="funktion">{{ trans('beitritt.beitritt.3') }}</label>
-				<input type="text" class="form-control beitritt-input" name="funktion" placeholder="{{trans('beitritt.placeholder.3')}}">
+				<label for="funktion">{{ trans('beitritt.beitritt.5') }}</label>
+				<input type="text" class="form-control beitritt-input" id="funktion" placeholder="{{trans('beitritt.placeholder.5')}}">
 			</div>
 			<div>
-				<label for="adresse">{{ trans('beitritt.beitritt.4') }}</label>
-				<input type="text" class="form-control beitritt-input" name="adresse" placeholder="{{trans('beitritt.placeholder.4')}}" required>
+				<label for="webpage">{{ trans('beitritt.beitritt.11') }}</label>
+				<input type="text" class="form-control beitritt-input" name="webpage"></div>
+			<div>
+				<label class="beitritt-required-info" for="adresse">{{ trans('beitritt.beitritt.6') }}</label>
+				<input type="text" class="form-control beitritt-input" id="adresse" placeholder="{{trans('beitritt.placeholder.6')}}" required>
 			</div>
 			<div>
-				<label for="email">{{ trans('beitritt.beitritt.5') }}</label>
-				<input type="email" class="form-control beitritt-input" name="email" placeholder="">
-			</div>
-			<div>
-				<label for="homepage">{{ trans('beitritt.beitritt.6') }}</label>
-				<input type="text" class="form-control beitritt-input" name="homepage" placeholder="http://">
-			</div>
-			<div>
-				<label for="telefon">{{ trans('beitritt.beitritt.7') }}</label>
-				<input type="text" class="form-control beitritt-input" name="telefon" placeholder="{{trans('beitritt.placeholder.7')}}">
+				<label class="beitritt-required-info" for="email">{{ trans('beitritt.beitritt.10') }}</label>
+				<input type="email" class="form-control beitritt-input" id="email" required>
 			</div>
 		</div>
 		<div>
-			<p>{{ trans('beitritt.beitritt.8') }}</p>
-			<input type="text" class="form-control beitritt-input" name="betrag" required>
-			<p> {{ trans('beitritt.beitritt.9') }}</p>
+			<p>{!! trans('beitritt.ansprache.6') !!}</p>
+			<p>{!! trans('beitritt.ansprache.7') !!}</p>
+			<input type="radio" name="veröffentlichung" checked> {{ trans('beitritt.radiozustimmung') }}
+			<input type="radio" name="veröffentlichung"> {{ trans('beitritt.radioablehnung') }}
 		</div>
 		<div>
-			<p>{{ trans('beitritt.beitritt.10') }}</p>
-			<p>{{ trans('beitritt.beitritt.11') }}</p>
-		</div>
-		<div>
-			<input type="radio" name="veröffentlichung" checked> {{ trans('beitritt.beitritt.12') }}
-			<input type="radio" name="veröffentlichung"> {{ trans('beitritt.beitritt.13') }}
-		</div>
-		<div>
+			<p>{{ trans('beitritt.ansprache.8') }}
 			<div>
-				<label for="ort">{{ trans('beitritt.beitritt.14') }}</label>
-				<input type="text" class="form-control beitritt-input" id="ort" placeholder="">
+				<label for="beitrag">{{ trans('beitritt.beitritt.12') }}</label>
+				<input type="text" class="form-control beitritt-input" id="beitrag" placeholder="">
+				<label for="beitrag">{{ trans('beitritt.beitritt.13') }}</label>
+				<p>{{ trans('beitritt.beitritt.15')}}</p>
 			</div>
 			<br>
 			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
@@ -69,25 +71,23 @@
 		<p>{{ trans('beitritt.abbuchung.3') }}</p>
 		<div class="beitritt-inputs">
 			<div>
-				<label for="kontoname">{{ trans('beitritt.abbuchung.4') }}</label>
-				<input type="text" class="form-control beitritt-input" name="kontoname" placeholder="">
+				<label class="beitritt-required-info" for="kontoname">{{ trans('beitritt.abbuchung.4') }}</label>
+				<input type="text" class="form-control beitritt-input" id="kontoname" placeholder="">
 			</div>
 			<div>
-				<label for="bankverbindung">{{ trans('beitritt.abbuchung.5') }}</label>
-				<input type="text" class="form-control beitritt-input" name="bankverbindung" placeholder="">
+				<label class="beitritt-required-info" for="bankverbindung">{{ trans('beitritt.abbuchung.5') }}</label>
+				<input type="text" class="form-control beitritt-input" id="bankverbindung" placeholder="">
 			</div>
 			<div>
-				<label for="iban">{{ trans('beitritt.abbuchung.6') }}</label>
-				<input type="text" class="form-control beitritt-input" name="iban" maxlength="22" placeholder="">
+				<label class="beitritt-required-info" for="iban">{{ trans('beitritt.abbuchung.6') }}</label>
+				<input type="text" class="form-control beitritt-input" id="iban" maxlength="22" placeholder="">
 			</div>
 			<div>
-				<label for="bic">{{ trans('beitritt.abbuchung.7') }}</label>
-				<input type="text" class="form-control beitritt-input" name="bic" placeholder="">
+				<label class="beitritt-required-info" for="bic">{{ trans('beitritt.abbuchung.7') }}</label>
+				<input type="text" class="form-control beitritt-input" id="bic" placeholder="">
 			</div>
 		</div>
 		<div>
-			<label for="ort2">{{ trans('beitritt.abbuchung.8') }}</label>
-			<input type="text" class="form-control beitritt-input" id="ort2" placeholder="">
 			<br>
 			<p class="signature">{{ trans('beitritt.unterschrift') }}</p>
 		</div>
