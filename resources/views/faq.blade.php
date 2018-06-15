@@ -23,6 +23,14 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
+			<h3 class="panel-title">{!! trans('faq.faq.2.1.h') !!}</h3>
+		</div>
+		<div class="panel-body">
+			<p>{!! trans('faq.faq.2.1.b') !!}</p>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
 			<h3 class="panel-title">{!! trans('faq.faq.3.h') !!}</h3>
 		</div>
 		<div class="panel-body">
