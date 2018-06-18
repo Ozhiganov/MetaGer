@@ -76,13 +76,8 @@
 		</div>
 		<div>
 			<div class="card-medium">
-				<h3>{!! trans('spende.bitcoins.1') !!}</h3>
-				{!! trans('spende.bitcoins.2') !!}<br/>
-				<a href="bitcoin:174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V">174SDRNZqM2WNobHhCDqD1VXbnZYFXNf8V</a>
+			<p>{!! trans('spende.lastschrift.10') !!}</p>
 			</div>
 		</div>
-	</div>
-	<div class="card-heavy">
-		<p>{!! trans('spende.lastschrift.10') !!}</p>
 	</div>
 @endsection
