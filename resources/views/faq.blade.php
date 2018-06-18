@@ -16,6 +16,14 @@
 	</section>
 	<section>
 		<div class="panel-heading">
+			<h3>{!! trans('faq.faq.2.1.h') !!}</h3>
+		</div>
+		<div class="panel-body">
+			<p>{!! trans('faq.faq.2.1.b') !!}</p>
+		</div>
+	</section>
+	<section>
+		<div class="panel-heading">
 			<h3>{!! trans('faq.faq.4.h') !!}</h3>
 		</div>
 		<div class="panel-body">
