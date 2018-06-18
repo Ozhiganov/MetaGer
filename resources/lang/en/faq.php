@@ -7,6 +7,8 @@ return [
     "faq.1.b"	=>	"MetaGer is primarily a <a href=\"https://en.wikipedia.org/wiki/Metasearch_engine\" target=\"_blank\" rel=\"noopener\">meta search engine</a>. Besides that MetaGer maintains a number of specialized crawlers and indexers of its own.",
     "faq.2.h"	=>	"Which search engines are meta-crawled by MetaGer?",
     "faq.2.b"	=>	"You can find a list at our \"customize\" menu on the MetaGer homepage.",
+    'faq.2.1.h'   => 'How does MetaGer query other search engines while preserving user anonymity?',
+    'faq.2.1.b'   => 'Since MetaGer is a meta-search engine, every search request you send to us will be stripped of information which could lead to your identification before being sent to e.g. Yahoo. Yahoo will send their response to us which we will then forward to you. This is how we handle every search request sent to us, no matter which one of the offered search engines you use. By doing this we commit ourselves to guarantee your privacy and do not save any personal data. It is possible to verify this, since the source code of MetaGer has been released under a free license <a href="https://gitlab.metager3.de/open-source/MetaGer">(https://gitlab.metager3.de/open-source/MetaGer)</a>.',
     "faq.3.h"	=>	"Why does MetaGer has no button \"search using all search engines\"?",
     "faq.3.b"	=>	"The reason is, that the requirements of a search are often not suitable for this. Example: For a search for scientific results it makes no sense to search with a product search engine.",
     "faq.4.h"	=>	"Why don't you metacrawl search engine XY anymore?",
