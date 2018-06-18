@@ -7,8 +7,6 @@ return [
     "bankinfo.2"                => "SUMA-EV IBAN: DE64 4306 0967 4075 0332 01 BIC: GENODEM1GLS (No. de cuenta: 4075 0332 01, BLZ: 43060967) GLS Gemeinschaftsbank, Bochum",
     "bankinfo.3"                => "En caso que quiere un recibo de donación, por favor ponga su correo electrónico y su dirección completa en el formulario de transferencia.",
     "paypal.1"                  => "Cómodo con Paypal ,<br> incluso con tarjeta de crédito y sin registrarse.",
-    "bitcoins.1"                => "o con Bitcoin <br> seguro y con seudónimo.",
-    "bitcoins.2"                => "Nuestra dirección de Bitcoin:",
     "lastschrift.1"             => "Donaciones con procedimiento de nota de cargo:",
     "lastschrift.2"             => "Simplemente llena el formulario con sus datos bancarios y el monto deseado. Nosotros entonces cargamos su cuenta acuerdo a los datos proporcionados.",
     "lastschrift.3"             => "Por favor ponga su nombre:",
