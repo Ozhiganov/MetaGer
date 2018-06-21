@@ -1194,7 +1194,7 @@ class MetaGer
     private function searchCheckStopwords($request)
     {
         // matches '[... ]-test[ ...]'
-        while (preg_match("/(^|.+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|[^\s]+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
             $this->stopWords[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
