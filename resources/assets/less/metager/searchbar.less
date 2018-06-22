@@ -29,7 +29,7 @@
         max-width: 600px;
         .search-key {
             display: flex;
-            border-right: 1px solid @startpage-border-color;
+            z-index: 1;
             #input-key {
                 margin: 0;
                 padding: 0px;
@@ -114,6 +114,9 @@
         border-radius: 5px;
         @media (max-width: @screen-xs-max) {
             max-width: initial;
+        }
+        .search-key {
+            border-right: 1px solid @startpage-border-color;
         }
         .search-submit {
             border-left: 1px solid #aaa;
