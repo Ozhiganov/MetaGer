@@ -5,14 +5,19 @@ footer {
     width: 100%;
     background-color: inherit;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     white-space: pre-line;
     align-items: center;
     div {
-        text-align: center;
-        margin-left: 10px;
-        &:first-child {
-            margin-left: 0px;
+        display: flex;
+        flex-direction: row;
+        &>* {
+            padding: 0px 10px;
+            border-left: 1px solid #aaa;
+        }
+        &>:first-child {
+            border-left: none;
         }
     }
     img {
@@ -28,9 +33,5 @@ footer {
         img {
             display: none;
         }
-    }
-    #info {
-        display: flex;
-        flex-direction: column;
     }
 }

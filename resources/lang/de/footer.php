@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'sumaev.1' => 'MetaGer wird entwickelt und betrieben vom ',
-    'sumaev.2' => 'SUMA-EV - Verein für freien Wissenszugang.',
+    'sumaev.1' => 'Ein Projekt des',
+    'sumaev.2' => 'SUMA-EV',
 ];
