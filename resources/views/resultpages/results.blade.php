@@ -4,7 +4,7 @@
 	@if($mobile)
 		@include('layouts.ad', ['ad' => $metager->popAd()])
 	@else
-		@for($i = 0; $i <= 2; $i++)
+		@for($i = 0; $i < 2; $i++)
 			@include('layouts.ad', ['ad' => $metager->popAd()])
 		@endfor
 	@endif
