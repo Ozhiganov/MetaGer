@@ -1,4 +1,4 @@
-@extends('layouts.indexPage')
+@extends('layouts.staticPages', ['page' => 'startpage'])
 
 @section('title', $title )
 
@@ -9,6 +9,9 @@
 		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a>
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
+	<div>
+		
+	</div>
 	<script type="text/javascript" src="{{ mix('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
 @endsection
