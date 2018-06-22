@@ -109,12 +109,15 @@ p {
 
 #startpage-logo {
     .logo;
+    display: flex;
+    justify-content: center;
     margin: 0px 0px 45px 0px;
     white-space: nowrap;
     text-align: center;
     &>a {
         .logo;
         display: block;
+        width: fit-content;
         text-decoration: none;
         font-size: 75px;
         @media(max-width: @screen-xs-max) {
@@ -175,8 +178,8 @@ summary {
  */
 
 *[data-tooltip] {
+    position: relative;
     &:hover {
-        position: relative;
         &:after {
             opacity: 1;
         }
