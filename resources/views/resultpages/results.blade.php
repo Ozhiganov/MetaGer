@@ -1,5 +1,3 @@
-@include('parts.errors')
-@include('parts.warnings')
 <div id="results">
 	@if($mobile)
 		@include('layouts.ad', ['ad' => $metager->popAd()])
@@ -23,6 +21,3 @@
 	@endforeach
 	@include('parts.pager')
 </div>
-@if( $metager->showQuicktips() )
-	<div id="quicktips"></div>
-@endif
