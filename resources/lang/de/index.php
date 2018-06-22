@@ -41,6 +41,7 @@ return [
     'about.2.1'                      => 'Wir arbeiten nicht gewinnorientiert, wir sind ein <a href="/spende">gemeinnütziger Verein</a>: <a href="/beitritt">Werden Sie Mitglied!</a>',
     'about.3.1'                      => '',
 
+    'key.placeholder'                => 'Mitglieder Key eingeben',
     'placeholder'                    => 'MetaGer: Sicher suchen & finden, Privatsphäre schützen',
 
     'plugin.head.1'                  => 'MetaGer zum Firefox hinzufügen',
