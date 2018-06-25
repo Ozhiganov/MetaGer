@@ -1,9 +1,9 @@
 <input type="checkbox" id="show-create-focus" class="hidden">
-<div id="create-focus-modal" tab-index="-1" role="dialog">
-	<div id="foki-modal-dialog">
-		<div id="foki-modal-content">
-			<div id="foki-modal-header">
-				<label type="button" id="close-create-focus" role= "button" for="show-create-focus"></label>
+<div class="metager-modal" id="create-focus-modal" tab-index="-1" role="dialog">
+	<div class="metager-modal-dialog">
+		<div class="metager-modal-content">
+			<div class="metager-modal-header">
+				<label type="button" class="close-metager-modal" role= "button" for="show-create-focus"></label>
 				<h4>
 					@lang("index.focus-creator.head")
 				</h4>
