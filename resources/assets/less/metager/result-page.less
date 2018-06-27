@@ -378,7 +378,7 @@ a {
         /**/
         max-width: @results-width-max;
         .alert {
-            margin: @padding-small-default 0px;
+            margin-bottom: @padding-small-default;
         }
     }
     #additions-container {
@@ -541,7 +541,6 @@ a {
 
 footer.resultPageFooter {
     max-width: 700px;
-    margin-left: 50px;
     margin-top: 20px;
     @media (max-width: (2 * @results-margin-left + @results-width-max - 1px)) {
         margin: 20px 0 0 0;
@@ -582,4 +581,11 @@ footer.resultPageFooter {
             margin-left: 0px;
         }
     }
+}
+
+/* Style for resultpage container without any header content */
+
+#resultpage-container-noheader {
+    #resultpage-container;
+    grid-template-areas: "results";
 }

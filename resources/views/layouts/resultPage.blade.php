@@ -34,8 +34,12 @@
 			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
-			<div id="resultpage-container">
-				@yield('results')
+			<div id="resultpage-container-noheader">
+				<div id="results-container">
+					@include('parts.errors')
+					@include('parts.warnings')
+					@yield('results')
+				</div>
 			</div>
 		@endif
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
