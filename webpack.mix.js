@@ -35,6 +35,7 @@ mix
   // utility
   .babel(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
   .babel('resources/assets/js/widgets.js', 'public/js/widgets.js')
+  .babel('resources/assets/js/scriptJoinPage.js', 'public/js/scriptJoinPage.js')
   // source maps
   .sourceMaps(false, 'inline-source-map')
   // versioning
