@@ -21,7 +21,7 @@ return [
     'focus-creator.head'             => 'Eigene Suche erstellen',
     'focus-creator.description'      => 'Suchen Sie sich aus unseren Suchmaschinen Ihre eigene Suche zusammen.',
     'focus-creator.name-placeholder' => 'Name der eigenen Suche',
-    'focus-creator.save'             => 'Eigene Suche speichern',
+    'focus-creator.save'             => 'Eigene Suche durchführen',
     'focus-creator.delete'           => 'Eigene Suche löschen',
     'focus-creator.focusname'        => 'Suchname: ',
 
