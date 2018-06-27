@@ -20,10 +20,10 @@ return [
 
     'focus-creator.head'             => 'Eigene Suche erstellen',
     'focus-creator.description'      => 'Suchen Sie sich aus unseren Suchmaschinen Ihre eigene Suche zusammen.',
-    'focus-creator.name-placeholder' => 'Name des Suchfokus',
-    'focus-creator.save'             => 'Suchfokus speichern',
-    'focus-creator.delete'           => 'Suchfokus löschen',
-    'focus-creator.focusname'        => 'Fokusname: ',
+    'focus-creator.name-placeholder' => 'Name der eigenen Suche',
+    'focus-creator.save'             => 'Eigene Suche speichern',
+    'focus-creator.delete'           => 'Eigene Suche löschen',
+    'focus-creator.focusname'        => 'Suchname: ',
 
     'slogan.title'                   => 'Besser&nbsp;suchen, schneller&nbsp;finden',
     'slogan.1'                       => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach und selbstverständlich.<br>Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger <a href="/spende">Verein</a>: <a href="/beitritt">Werden Sie Mitglied</a>!',
