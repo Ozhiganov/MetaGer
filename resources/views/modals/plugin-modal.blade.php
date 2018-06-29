@@ -1,11 +1,11 @@
-<input type="checkbox" id="show-plugin-modal" class="hidden">
+<input type="checkbox" id="plugin-modal-checkbox" class="hidden">
 <div class="metager-modal" id="plugin-modal" tab-index="-1" role="dialog">
 		<div class="metager-modal-dialog ">
 			<div class="metager-modal-content">
 				<div class="metager-modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<label type="button" for="plugin-modal-checkbox" class="close">
 						<span aria-hidden="true">&times;</span>
-					</button>
+</label>
 					<h4>
 						@if ($browser === 'Firefox' || $browser === 'Mozilla')
 							{{ trans('index.plugin.head.1') }}
