@@ -21,7 +21,7 @@
 			</span>
 		@endif
 	</div>
-	<div class="resultpage-body">
+	<div class="result-body">
 		@if( isset($result->logo) )
 			<div class="result-logo">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
@@ -30,22 +30,20 @@
 			</div>
 		@endif
 		@if( $result->image !== "" )
-			<div class="result-image result-description">
+			<div class="result-image">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
+					<img src="{{ $metager->getImageProxyLink($result->image) }}" alt="" />
 				</a>
-				{!! $result->descr !!}
+			</div>
+		@endif
+		@if( $metager->getFokus() == "nachrichten" )
+			<div class="result-description">
+				<span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}
 			</div>
 		@else
-			@if( $metager->getFokus() == "nachrichten" )
-				<div class="result-description">
-					<span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}
-				</div>
-			@else
-				<div class="result-description">
-					{{ $result->descr }}
-				</div>
-			@endif
+			<div class="result-description">
+				{!! $result->descr !!}
+			</div>
 		@endif
 	</div>
 	<div class="result-footer">

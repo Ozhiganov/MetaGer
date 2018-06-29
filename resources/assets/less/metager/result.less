@@ -50,10 +50,18 @@
             }
         }
     }
-    .resultpage-body {
+    .result-body {
         margin-top: 10px;
         width: 90%;
+        display: flex;
         text-align: justify;
+        .result-image {
+            & img {
+                height: 150px;
+                padding: 0px 10px;
+                max-width: 100%;
+            }
+        }
         .result-description {
             margin-bottom: 3px;
             word-break: break-word;
@@ -78,11 +86,6 @@
                 max-height: 200px;
                 border: solid 1px @result-description-img-border-color;
             }
-        }
-        .result-image>img {
-            height: 100px;
-            padding: 10px;
-            max-width: 100%;
         }
     }
     .result-footer {
