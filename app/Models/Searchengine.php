@@ -93,7 +93,7 @@ abstract class Searchengine
 
     abstract public function loadResults($result);
 
-    # ???
+    # Standardimplementierung der getNext Funktion, damit diese immer verwendet werden kann
     public function getNext(MetaGer $metager, $result)
     {
 
