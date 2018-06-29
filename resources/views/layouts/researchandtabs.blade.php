@@ -31,9 +31,6 @@
 		@include('parts.errors')
 		@include('parts.warnings')
 		@yield('results')
-		@if( $metager->showQuicktips() )
-			<div id="quicktips"></div>
-		@endif
 	</div>
 	<div id="additions-container">
 		<div id="search-settings">

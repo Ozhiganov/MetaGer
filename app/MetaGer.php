@@ -197,7 +197,8 @@ class MetaGer
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
                         ->with('browser', (new Agent())->browser())
-                        ->with('quicktips', $quicktipResults);
+                        ->with('quicktips', $quicktipResults)
+                        ->with('resultcount', count($this->results));
                     break;
             }
         }
@@ -385,7 +386,6 @@ class MetaGer
                 $this->ads[] = $ad;
             }
         }
-
     }
 
     public function parseAdgoal($results)
@@ -1284,8 +1284,8 @@ class MetaGer
             if ($result->isValid($this)) {
                 $results[] = $result;
             }
-
         }
+        $this->results = $results;
     }
 
     public function atLeastOneSearchengineSelected(Request $request)
