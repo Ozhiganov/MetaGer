@@ -1,17 +1,33 @@
 $(function () {
   loadLocalStorage();
+  setActionListenersSearchbar();
 });
+
+function setActionListenersSearchbar() {
+  $('#input-key').keydown(saveKey);
+}
+
+function saveKey() {
+  var key = $('#input-key').val();
+  localStorage.setItem('key', key);
+}
+
+function loadKey() {
+  var key = localStorage.getItem('key');
+  $('#input-key').val(key);
+}
 
 /**
  * Loads the user theme and stored settings from local storage
  */
-function loadLocalStorage () {
+function loadLocalStorage() {
   if (localStorage) {
     setSettings();
+    loadKey();
   }
 }
 
-function setSettings () {
+function setSettings() {
   var acceptedParams = ['autocomplete', 'key', 'lang', 'newtab', 'sprueche'];
   for (var key in localStorage) {
     var value = localStorage.getItem(key);
