@@ -5,6 +5,9 @@
 				@if(stripos($result->anzeigeLink, "twitter.com") !== false)
 					<i class="fa fa-twitter" aria-hidden="true"></i>
 				@endif
+				@if( isset($result->price) && $result->price != 0)
+					<span class="result-price">{!! $result->price_text !!}</span>
+				@endif
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					{!! $result->titel !!}
 				</a>
@@ -21,7 +24,7 @@
 			</span>
 		@endif
 	</div>
-	<div class="resultpage-body">
+	<div class="result-body">
 		@if( isset($result->logo) )
 			<div class="result-logo">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
@@ -30,22 +33,20 @@
 			</div>
 		@endif
 		@if( $result->image !== "" )
-			<div class="result-image result-description">
+			<div class="result-image">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
 				</a>
-				{!! $result->descr !!}
+			</div>
+		@endif
+		@if( $metager->getFokus() == "nachrichten" )
+			<div class="result-description">
+				<span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}
 			</div>
 		@else
-			@if( $metager->getFokus() == "nachrichten" )
-				<div class="result-description">
-					<span class="date">{{ isset($result->additionalInformation["date"])?date("Y-m-d H:i:s", $result->additionalInformation["date"]):"" }}</span> {{ $result->descr }}
-				</div>
-			@else
-				<div class="result-description">
-					{{ $result->descr }}
-				</div>
-			@endif
+			<div class="result-description">
+				{!! $result->descr !!}
+			</div>
 		@endif
 	</div>
 	<div class="result-footer">
