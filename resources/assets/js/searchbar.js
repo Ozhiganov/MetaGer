@@ -4,7 +4,8 @@ $(function () {
 });
 
 function setActionListenersSearchbar() {
-  $('#input-key').keydown(saveKey);
+  $('#input-key').change(saveKey);
+  $('#input-lang').change(saveLang);
 }
 
 function saveKey() {
@@ -14,7 +15,21 @@ function saveKey() {
 
 function loadKey() {
   var key = localStorage.getItem('key');
-  $('#input-key').val(key);
+  if (key != null) {
+    $('#input-key').val(key);
+  }
+}
+
+function saveLang() {
+  var key = $('#input-lang').val();
+  localStorage.setItem('lang', key);
+}
+
+function loadLang() {
+  var key = localStorage.getItem('lang');
+  if (key != null) {
+    $('#input-lang').val(key);
+  }
 }
 
 /**
@@ -24,6 +39,7 @@ function loadLocalStorage() {
   if (localStorage) {
     setSettings();
     loadKey();
+    loadLang();
   }
 }
 
