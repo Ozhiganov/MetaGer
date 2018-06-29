@@ -8,8 +8,8 @@
 		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a>
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
-	<div>
-	<label for="show-plugin-modal" role="button" class="btn btn-default" title="MetaGer zu Ihrem Browser hinzufügen"><i class="fa fa-plug" aria-hidden="true"></i> MetaGer-Plugin hinzufügen</a>
+	<div id="show-plugin-modal">
+		<label for="plugin-modal-checkbox" role="button" class="btn btn-default open-plugin-modal" title="MetaGer zu Ihrem Browser hinzufügen"><i class="fa fa-plug" aria-hidden="true"></i> MetaGer-Plugin hinzufügen</a>
 	</div>
 	<script type="text/javascript" src="{{ mix('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
