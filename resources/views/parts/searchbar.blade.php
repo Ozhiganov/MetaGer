@@ -4,14 +4,25 @@
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class or ''}}">
 			<div class="search-input-submit">
-				<div class="search-key">
-					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}">
-					<label id="key-label" for="input-key">
+				<div id="search-lang">
+					<select id="input-lang" name="lang">
+						<option value="all">Alle Sprachen</option>
+						@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+							<option value="{{$localeCode}}">{{{ $properties['native'] }}}</option>
+						@endforeach
+					</select>
+					<label id="lang-label" for="input-lang" data-tooltip="{{ trans ('index.lang.tooltip') }}">
+						<i class="fa fa-globe" aria-hidden="true"></i>
+					</label>
+				</div>
+				<div id="search-key">
+					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}" tabindex="1">
+					<label id="key-label" for="input-key" data-tooltip="{{ trans ('index.key.tooltip') }}">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</label>
 				</div>
 				<div class="search-input">
-					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="1">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
 					<button class="hidden" id="search-delete-btn" type="button">
 						&#xd7;
 					</button>
