@@ -65,7 +65,20 @@ class Result
         $this->partnershop = isset($additionalInformation["partnershop"]) ? $additionalInformation["partnershop"] : false;
         $this->image = isset($additionalInformation["image"]) ? $additionalInformation["image"] : "";
         $this->price = isset($additionalInformation["price"]) ? $additionalInformation["price"] : 0;
+        $this->price_text = $this->price_to_text($this->price);
         $this->additionalInformation = $additionalInformation;
+    }
+
+    private function price_to_text($price)
+    {
+        $euros = $price / 100;
+        $cents = $price % 100;
+        $price_text = $euros . ',';
+        if ($cents < 10) {
+            $price_text .= '0';
+        }
+        $price_text .= $cents . ' €';
+        return $price_text;
     }
 
     /* Ranked das Ergebnis nach folgenden Aspekten:
