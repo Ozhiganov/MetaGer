@@ -5,6 +5,9 @@
 				@if(stripos($result->anzeigeLink, "twitter.com") !== false)
 					<i class="fa fa-twitter" aria-hidden="true"></i>
 				@endif
+				@if( isset($result->price) && $result->price != 0)
+					<span class="result-price">{!! $result->price_text !!}</span>
+				@endif
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 					{!! $result->titel !!}
 				</a>
@@ -32,7 +35,7 @@
 		@if( $result->image !== "" )
 			<div class="result-image">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-					<img src="{{ $metager->getImageProxyLink($result->image) }}" alt="" />
+					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
 				</a>
 			</div>
 		@endif
