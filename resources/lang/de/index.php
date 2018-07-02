@@ -44,6 +44,8 @@ return [
     'key.placeholder'                => 'Mitglieder Key eingeben',
     'placeholder'                    => 'MetaGer: Sicher suchen & finden, Privatsphäre schützen',
 
+    'plugin.open-modal'              => 'MetaGer-Plugin hinzufügen',
+    'plugin.open-modal.title'        => 'MetaGer zu Ihren Browser hinzufügen',
     'plugin.head.1'                  => 'MetaGer zum Firefox hinzufügen',
     'plugin.head.2'                  => 'MetaGer zum Chrome hinzufügen',
     'plugin.head.3'                  => 'MetaGer zum Opera hinzufügen',

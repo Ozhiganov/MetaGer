@@ -9,7 +9,7 @@
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
 	<div id="show-plugin-modal">
-		<label for="plugin-modal-checkbox" role="button" class="btn btn-default open-plugin-modal" title="MetaGer zu Ihrem Browser hinzufügen"><i class="fa fa-plug" aria-hidden="true"></i> MetaGer-Plugin hinzufügen</a>
+		<label for="plugin-modal-checkbox" role="button" class="btn btn-default open-plugin-modal" title="{{ trans('index.plugin.open-modal.title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin.open-modal') }}</a>
 	</div>
 	<script type="text/javascript" src="{{ mix('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
