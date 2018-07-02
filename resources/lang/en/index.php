@@ -38,6 +38,8 @@ return [
 
     "placeholder"	=>	"MetaGer: Privacy Protected Search & Find",
 
+    'plugin.open-modal'  => 'Install MetaGer-Plugin',
+    'plugin.open-modal.title'  => 'Add the MetaGer-Plugin to your browser',
     "plugin.head.1"	=>	"Add MetaGer to your Firefox",
     "plugin.head.2"	=>	"Add MetaGer to your Chrome",
     "plugin.head.3"	=>	"Add MetaGer to your Opera",
@@ -48,7 +50,7 @@ return [
     "plugin.head.8"	=>	"Add MetaGer to your Firefox Focus",
     "plugin.head.info"	=>	"(selected search preferences will be used)",
 
-    'plugin.firefox.plugin'          => 'You can download the plugin for FireFox <a href="https://addons.mozilla.org/en-GB/firefox/addon/metager-suche/?src=search" target="_blank">here</a>. Using the plugin allows you to keep your search settings even when deleting your history data. Alternatively you can set MetaGer as your default search engine:',
+    'plugin.firefox.plugin'          => 'You can download the plugin for Firefox <a href="https://addons.mozilla.org/en-GB/firefox/addon/metager-suche/?src=search" target="_blank">here</a>. Using the plugin allows you to keep your search settings even when deleting your history data. Alternatively you can set MetaGer as your default search engine:',
     "plugin.firefox.1"	=>	"Click on the magnifying glass with the small green \"+\" and then on \"Add MetaGer..\" (picture 1)",
     "plugin.firefox.2"	=>	"Now right click on the new MetaGer Logo in the List and select \"Make MetaGer the default search engine\" (picture2)",
     "plugin.firefox.3"	=>	"Use MetaGer as start page in :browser",
