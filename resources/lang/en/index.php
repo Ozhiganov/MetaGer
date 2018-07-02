@@ -26,10 +26,10 @@ return [
     "focus-creator.focusname"	=>	"Focus:",
 
     "sponsors.head.1"	=>	"Further Information",
-    "sponsors.head.2"	=>	"Protect Yourself",
-    "sponsors.woxikon"	=>	"Use MetaGer against Snoopers:",
-    "sponsors.seo"	=>	"Click results by \"open anonymously\"",
-    "sponsors.gutscheine"	=>	"and you are fully protected.",
+    "sponsors.head.2"	=>	"Sponsors",
+    'sponsors.woxikon'    => 'Tagesgeld jetzt!',
+    'sponsors.gutscheine' => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
+    'sponsors.seo'        => 'Suchmaschinenoptimierung',
 
     "about.title"	=>	"About Us",
     "about.1.1"	=>	"We provide <a href=\"/en/datenschutz\">privacy & data protection.</a>",
