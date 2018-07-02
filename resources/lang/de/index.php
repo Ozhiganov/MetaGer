@@ -46,6 +46,8 @@ return [
     'key.tooltip'                    => 'Mitglieder Key eingeben',
     'placeholder'                    => 'MetaGer: Sicher suchen & finden, Privatsphäre schützen',
 
+    'plugin.open-modal'              => 'MetaGer-Plugin hinzufügen',
+    'plugin.open-modal.title'        => 'MetaGer zu Ihren Browser hinzufügen',
     'plugin.head.1'                  => 'MetaGer zum Firefox hinzufügen',
     'plugin.head.2'                  => 'MetaGer zum Chrome hinzufügen',
     'plugin.head.3'                  => 'MetaGer zum Opera hinzufügen',
@@ -56,6 +58,7 @@ return [
     'plugin.head.8'                  => 'MetaGer zum Firefox Klar hinzufügen',
     'plugin.head.info'               => '(aktuelle Sucheinstellungen werden übernommen)',
 
+    'plugin.firefox.plugin'          => 'Das Plugin für Firefox können Sie <a href="https://addons.mozilla.org/de/firefox/addon/metager-suche/?src=search" target="_blank">hier</a> herunterladen. Dadurch bleiben Ihre Sucheinstellungen jederzeit erhalten. Alternativ können Sie MetaGer auch als Standardsuchmaschine einrichten:',
     'plugin.firefox.1'               => 'Klicken Sie in Ihrem Browser oben rechts im Suchfeld auf die Lupe mit dem kleinen "+" und dann auf "MetaGer hinzufügen" (siehe Bild)',
     'plugin.firefox.2'               => 'Klicken Sie nun mit der rechten Maustaste auf das neue MetaGer Logo in der Liste und auf "als Standard Suchmaschine verwenden" (siehe Bild)',
     'plugin.firefox.3'               => 'MetaGer als Startseite im :browser einrichten',
