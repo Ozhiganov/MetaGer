@@ -20,7 +20,7 @@
 						@elseif ($browser === 'Safari')
 							{{ trans('index.plugin.head.6') }}
 						@elseif ($browser === 'Vivaldi')
-							{{ trans('index.plugin.head.6') }}
+							{{ trans('index.plugin.head.7') }}
 						@else
 							$(".seperator").addClass("hidden");
 						@endif
