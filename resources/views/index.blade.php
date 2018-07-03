@@ -26,7 +26,7 @@
 			<h2>{{ trans('index.sponsors.head.2') }}</h2>
 			<ul class="startpage">
 				<li class="sponsor">
-					<a href="http://www.tagesgeld.jetzt" target="_blank" rel="noopener"><p>@lang('index.sponsors.woxikon')</p> <i class="fa fa-external-link"></i></a>
+					<a href="https://b-ceed.de/weihnachtsfeiern-ideen/ " target="_blank" rel="noopener"><p>@lang('index.sponsors.woxikon')</p> <i class="fa fa-external-link"></i></a>
 				</li>
 				<li class="sponsor">
 					<a href="http://www.gutschein-magazin.de/" target="_blank" rel="noopener"><p>@lang('index.sponsors.seo')</p> <i class="fa fa-external-link"></i></a>
