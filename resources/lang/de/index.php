@@ -32,7 +32,7 @@ return [
 
     'sponsors.head.1'                => 'Weitere Informationen',
     'sponsors.head.2'                => 'Sponsoren',
-    'sponsors.woxikon'               => 'Tagesgeld jetzt!',
+    'sponsors.woxikon'               => 'Weihnachtsfeier',
     'sponsors.gutscheine'            => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
     'sponsors.seo'                   => 'Suchmaschinenoptimierung',
 
