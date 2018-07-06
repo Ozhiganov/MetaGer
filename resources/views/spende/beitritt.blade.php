@@ -37,7 +37,7 @@
 			</div>
 			<div>
 				<label for="webpage">{{ trans('beitritt.beitritt.11') }}</label>
-				<input type="text" class="form-control beitritt-input" name="webpage"></div>
+				<input type="text" class="form-control beitritt-input" id="webpage"></div>
 			<div>
 				<label class="beitritt-required-info" for="adresse">{{ trans('beitritt.beitritt.6') }}</label>
 				<input type="text" class="form-control beitritt-input" id="adresse" placeholder="{{trans('beitritt.placeholder.6')}}" required>
