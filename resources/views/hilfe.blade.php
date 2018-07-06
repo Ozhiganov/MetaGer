@@ -80,7 +80,7 @@
 				<p>{!! trans('hilfe.domains.showcase.menu.6') !!}</p>
 			</div>
 			<div>
-				<div class="search-example"><i>meine suche</i> <i id="dummy-search"></span></i>
+				<div class="search-example"><i>meine suche</i> <i id="dummy-search"></i></div>
 			</div>
 		</div>
 	</section>
