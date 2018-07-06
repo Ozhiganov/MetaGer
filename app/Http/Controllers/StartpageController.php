@@ -51,7 +51,8 @@ class StartpageController extends Controller
             ->with('time', $request->input('param_time', '1500'))
             ->with('request', $request->input('request', 'GET'))
             ->with('option_values', $option_values)
-            ->with('autocomplete', $autocomplete);
+            ->with('autocomplete', $autocomplete)
+            ->with('pluginmodal', $request->input('plugin-modal', 'off'));
     }
 
     public function loadPage($subpage)
@@ -115,6 +116,7 @@ class StartpageController extends Controller
             view('plugin')
                 ->with('link', $link)
                 ->with('params', $params)
+                ->with('hostname', gethostname())
                 ->with('request', $request), "200");
         $response->header('Content-Type', "application/xml");
         return $response;
