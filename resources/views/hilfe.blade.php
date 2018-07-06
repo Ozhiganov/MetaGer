@@ -64,7 +64,7 @@
 			</ul>
 			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
 			@include('parts/fake-result')
-			<script type="text/javascript">
+			<script>
 				function setDummySearch(value) {
 					document.getElementById("dummy-search").innerHTML = value
 				}

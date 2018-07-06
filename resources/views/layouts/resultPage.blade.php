@@ -44,9 +44,9 @@
 		@endif
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
-		<script type="text/javascript" src="{{ mix('js/lib.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/scriptResultPage.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/focus-creator.js') }}"></script>
+		<script src="{{ mix('js/lib.js') }}"></script>
+		<script src="{{ mix('js/scriptResultPage.js') }}"></script>
+		<script src="{{ mix('js/focus-creator.js') }}"></script>
+		<script src="{{ mix('js/searchbar.js') }}"></script>
 	</body>
 </html>

@@ -45,5 +45,5 @@
 		<p>{!! trans('kontakt.letter.2') !!}</p>
 		<address>{!! trans('kontakt.letter.3') !!}</address>
 	</div>
-	<script type="text/javascript" src="{{ mix('js/lib.js') }}"></script>
+	<script src="{{ mix('js/lib.js') }}"></script>
 @endsection

@@ -6,7 +6,7 @@
 
 @section('content')
 	<link type="text/css" rel="stylesheet" href="{{ mix('/css/beitritt.css') }}" />	
-	<script type="text/javascript" src="{{ mix('js/scriptJoinPage.js') }}"></script>
+	<script src="{{ mix('js/scriptJoinPage.js') }}"></script>
 <form id="donation-form">
 	<div class="card-heavy">
 		<h1>{{ trans('beitritt.heading.1') }}</h1>
