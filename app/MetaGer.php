@@ -198,7 +198,8 @@ class MetaGer
                         ->with('metager', $this)
                         ->with('browser', (new Agent())->browser())
                         ->with('quicktips', $quicktipResults)
-                        ->with('resultcount', count($this->results));
+                        ->with('resultcount', count($this->results))
+                        ->with('focus', $this->fokus);
                     break;
             }
         }
