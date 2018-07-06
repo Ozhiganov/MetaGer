@@ -115,6 +115,7 @@ class StartpageController extends Controller
             view('plugin')
                 ->with('link', $link)
                 ->with('params', $params)
+                ->with('hostname', gethostname())
                 ->with('request', $request), "200");
         $response->header('Content-Type', "application/xml");
         return $response;
