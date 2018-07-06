@@ -9,7 +9,7 @@
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
 	<div id="show-plugin-modal">
-		<label for="plugin-modal-checkbox" role="button" class="btn btn-default open-plugin-modal" title="{{ trans('index.plugin.open-modal.title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin.open-modal') }}</label>
+		<label for="plugin-modal-checkbox" class="btn btn-default open-plugin-modal" title="{{ trans('index.plugin.open-modal.title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin.open-modal') }}</label>
 	</div>
 	<script type="text/javascript" src="{{ mix('js/scriptStartPage.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>

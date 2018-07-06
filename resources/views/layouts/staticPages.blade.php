@@ -2,7 +2,6 @@
 <html lang="{!! trans('staticPages.meta.language') !!}">
 	<head>
 		<meta charset="utf-8" />
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>@yield('title')</title>
 		<meta name="description" content="{!! trans('staticPages.meta.Description') !!}" />
 		<meta name="keywords" content="{!! trans('staticPages.meta.Keywords') !!}" />
@@ -10,9 +9,7 @@
 		<meta name="robots" content="index,follow" />
 		<meta name="revisit-after" content="7 days" />
 		<meta name="audience" content="all" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-		<meta rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{{ trans('staticPages.opensearch') }}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
