@@ -11,7 +11,7 @@
 		<p>{!! trans('datenschutz.general.3') !!}</p>
 	</div>
 	<div class="card-heavy">
-		<h1>{!! trans('datenschutz.policy.1') !!}</h2>
+		<h1>{!! trans('datenschutz.policy.1') !!}</h1>
 		<ul class="dotlist">
 			<li>{!! trans('datenschutz.policy.2') !!}</li>
 			<li>{!! trans('datenschutz.policy.5') !!}</li>
