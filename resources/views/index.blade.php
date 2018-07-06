@@ -11,8 +11,8 @@
 	<div id="show-plugin-modal">
 		<label for="plugin-modal-checkbox" class="btn btn-default open-plugin-modal" title="{{ trans('index.plugin.open-modal.title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin.open-modal') }}</label>
 	</div>
-	<script type="text/javascript" src="{{ mix('js/scriptStartPage.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('js/searchbar.js') }}"></script>
+	<script src="{{ mix('js/scriptStartPage.js') }}"></script>
+	<script src="{{ mix('js/searchbar.js') }}"></script>
 @endsection
 
 @section('optionalContent')
