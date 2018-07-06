@@ -25,9 +25,9 @@
 			<p>{!! trans('hilfe.mehrwortsuche.2') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.mehrwortsuche.3') !!}</li>
-				<div class = "search-example">"der" "runde" "tisch"</div>
+				<div class = "search-example">{!! trans('hilfe.mehrwortsuche.3.example') !!}</div>
 				<li>{!! trans('hilfe.mehrwortsuche.4') !!}</li>
-				<div class = "search-example">"der runde tisch"</div>
+				<div class = "search-example">{!! trans('hilfe.mehrwortsuche.4.example') !!}</div>
 			</ul>
 		</div>
 	</section>
@@ -37,9 +37,9 @@
 			<p>{!! trans('hilfe.grossklein.1') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.grossklein.2') !!}</li>
-				<div class="search-example">{!! trans('hilfe.grossklein.3') !!}</div>
-				<li>{!! trans('hilfe.grossklein.4') !!}</li>
-				<div class="search-example">{!! trans('hilfe.grossklein.5') !!}</div>
+				<div class="search-example">{!! trans('hilfe.grossklein.2.example') !!}</div>
+				<li class="nodot">{!! trans('hilfe.grossklein.3') !!}</li>
+				<div class="search-example">{!! trans('hilfe.grossklein.3.example') !!}</div>
 			</ul>
 		</div>
 	</section>
@@ -48,19 +48,21 @@
 		<div>
 			<p>{!! trans('hilfe.domains.sitesearch.explanation') !!}</p>
 			<ul class="dotlist">
-				<li>{!! trans('hilfe.domains.sitesearch.example.1') !!}
-				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.2') !!}</div></li>
-				<li>{!! trans('hilfe.domains.sitesearch.example.3') !!}
-				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.4') !!}</div></li>
+				<li>{!! trans('hilfe.domains.sitesearch.example.1') !!}</li>
+				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.2') !!}</div>
+				<li>{!! trans('hilfe.domains.sitesearch.example.3') !!}</li>
+				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.4') !!}</div>
 			</ul>
 			<p>{!! trans('hilfe.domains.blacklist.explanation') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.domains.blacklist.example.1') !!}</li>
-				<li>{!! trans('hilfe.domains.blacklist.example.2') !!}
-				<div class="search-example">{!! trans('hilfe.domains.blacklist.example.3') !!}</div>
-				{!! trans('hilfe.domains.blacklist.example.4') !!}</li>
-				<li>{!! trans('hilfe.domains.blacklist.example.5') !!}
-				<div class="search-example">{!! trans('hilfe.domains.blacklist.example.6') !!}</div></li>
+				<ul>
+					<li>{!! trans('hilfe.domains.blacklist.example.2') !!}</li>
+					<div class="search-example">{!! trans('hilfe.domains.blacklist.example.3') !!}</div>
+					<li class="nodot">{!! trans('hilfe.domains.blacklist.example.4') !!}</li>
+					<li>{!! trans('hilfe.domains.blacklist.example.5') !!}</li>
+					<div class="search-example">{!! trans('hilfe.domains.blacklist.example.6') !!}</div>
+				</ul>
 			</ul>
 			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
 			@include('parts/fake-result')
@@ -107,6 +109,7 @@
 		</div>
 	</section>
 	<h2 id="dienste">{!! trans('hilfe.dienste') !!}</h2>
+	<h3><i class="fa fa-angle-double-right"></i> {!! trans('hilfe.dienste.kostenlos') !!}</h3>
 	<section>
 		<div id="mg-app" style="margin-top: -100px"></div>
 		<div style="margin-top: 100px"></div>
@@ -141,7 +144,6 @@
 			<p>{!! trans('hilfe.urlshort.1') !!}</p>
 		</div>
 	</section>
-	<h3><i class="fa fa-angle-double-right"></i> {!! trans('hilfe.dienste.kostenlos') !!}</h3>
 	<h2>{!! trans('hilfe.datenschutz.title') !!}</h2>
 	<section>
 		<h3>{!! trans('hilfe.datenschutz.faktencheck.heading') !!}</h3>

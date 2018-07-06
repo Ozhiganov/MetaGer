@@ -49,6 +49,9 @@
 						<input type="hidden" name={{ $fp }} value="on">
 					@endforeach
 				@endif
+				@if (isset($focus) && !empty($focus))
+					<input type="hidden" name="focus" value={{ $focus }}>
+				@endif
 				@if (isset($theme))
 					<input type="hidden" name="theme" value={{ $theme }}>
 					@endif

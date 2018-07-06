@@ -1,11 +1,11 @@
-<input type="checkbox" id="plugin-modal-checkbox" class="hidden">
+<input type="checkbox" id="plugin-modal-checkbox" class="hidden" @if( isset($pluginmodal) && $pluginmodal == 'on') checked @endif>
 <div class="metager-modal" id="plugin-modal" role="dialog">
 		<div class="metager-modal-dialog ">
 			<div class="metager-modal-content">
 				<div class="metager-modal-header">
 					<label for="plugin-modal-checkbox" class="close">
 						<span aria-hidden="true">&times;</span>
-</label>
+					</label>
 					<h4>
 						@if ($browser === 'Firefox' || $browser === 'Mozilla')
 							{{ trans('index.plugin.head.1') }}
