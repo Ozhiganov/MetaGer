@@ -59,7 +59,7 @@
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 			{!! trans('result.options.5') !!}
 		</a>
-		<label class="open-result-options" for="result-toggle-{{$result->number}}" role="button">
+		<label class="open-result-options" for="result-toggle-{{$result->number}}">
 			MEHR
 		</label>
 	</div>
