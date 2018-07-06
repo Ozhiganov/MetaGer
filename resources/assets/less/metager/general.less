@@ -100,6 +100,7 @@ p {
 a {
     font-size: 100%;
 }
+
 /* Logo */
 
 .logo {
@@ -192,6 +193,7 @@ summary {
         position: absolute;
         top: 100%;
         left: 0;
+        z-index: 1;
         color: black;
         background-color: white;
         border: 2px solid @metager-orange;
@@ -206,6 +208,7 @@ summary {
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.3s ease;
+        text-transform: initial; // Resets specific styles
     }
     &.hide-tooltip-on-resultpage:after {
         /* Auf kleinen Bildschirmen wird der Tooltip nicht angezeigt */
@@ -314,4 +317,8 @@ label a {
         text-decoration: none;
         color: inherit;
     }
+}
+
+li.nodot {
+    list-style-type: none;
 }
