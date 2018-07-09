@@ -11,9 +11,9 @@
 		<meta name="mm" content="{{ Request::input('verification_id') }}" />
 		<meta name="mn" content="{{ Request::input('verification_count') }}" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
-		<meta http-equiv="language" content="{!! trans('staticPages.meta.language') !!}" />
-		<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+		<meta http-equiv="Cache-control" content="no-cache" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta lang="{!! trans('staticPages.meta.language') !!}" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
