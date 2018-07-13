@@ -28,7 +28,7 @@
       ANONYM ÖFFNEN
     </a>
     <div class="open-result-options">
-      <label for="result-toggle-1" data-tooltip="{{ trans('fake-result.options.more') }}">
+      <label class="navigation-element" for="result-toggle-1" data-tooltip="{{ trans('fake-result.options.more') }}">
         MEHR
       </label>
     </div>
