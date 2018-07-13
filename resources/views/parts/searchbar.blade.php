@@ -13,6 +13,7 @@
 					</select>
 					<label id="lang-label" for="input-lang" data-tooltip="{{ trans ('index.lang.tooltip') }}">
 						<i class="fa fa-globe" aria-hidden="true"></i>
+						<span id="lang-label-code"></span>
 					</label>
 				</div>
 				<div id="search-key">

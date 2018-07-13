@@ -62,7 +62,7 @@ function setActionListeners() {
 /**
  * Loads stored settings from local storage
  */
-function setSettings () {
+function setSettings() {
   if ($('fieldset#foki.mobile').length) {
     $('fieldset.mobile input#bilder').val('angepasst');
     $('fieldset.mobile input#bilder').prop('checked', true);
@@ -156,7 +156,7 @@ var isChrome = !!window.chrome && !!window.chrome.webstore;
 var isBlink = (isChrome || isOpera) && !!window.CSS;
 // Prüft, ob der URL-Parameter "usage" auf "once" gesetzt ist.
 
-function loadSavedResults () {
+function loadSavedResults() {
   var results = new Results();
   if (results.length > 0) {
     var html = $('\
