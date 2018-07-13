@@ -17,6 +17,7 @@
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<meta name="referrer" content="origin">
+		<meta name="age-meta-label" content="age=18"/>
 		@include('parts.utility')
 	</head>
 	<body id="resultpage-body">

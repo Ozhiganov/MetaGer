@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- age classification (age-label.com) -->
+<!-- label generator: age-label.com -->
+<age-declaration>
+  <ageblock-basic>
+    <age-issuer>metager.de</age-issuer>
+    <last-change>2018-07-06</last-change>
+    <country>de</country>
+    <label-version>1.0</label-version>
+    <revisit-after>1days</revisit-after>
+  </ageblock-basic>
+  <ageblock-labeltype>
+    <httpheader>false</httpheader>
+    <htmlmeta>true</htmlmeta>
+    <label-z>false</label-z>
+    <xmlfile>true</xmlfile>
+    <default-age>0</default-age>
+    <alternate>https://www.metager.de/jugendschutz</alternate>
+  </ageblock-labeltype>
+  <ageblock-labeltype-definition>
+    <labeltype-htmlmeta-definition>
+      <label class="name1">
+        <scope>*.metager.de</scope>
+        <scope>*.metager3.de</scope>
+      </label>
+    </labeltype-htmlmeta-definition>
+    <labeltype-xmlfile>
+      <label class="website">
+        <age>0</age>
+        <min-age>0</min-age>
+        <default-age>0</default-age>
+        <scope>*.metager.de</scope>
+        <scope>*.metager3.de</scope>
+      </label>
+    </labeltype-xmlfile>
+  </ageblock-labeltype-definition>
+</age-declaration>
