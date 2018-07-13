@@ -16,7 +16,7 @@
 			<div class="card-medium">
 				<h3 id="lastschrift">{!! trans('spende.lastschrift.1') !!}</h3>
 				<p>{!! trans('spende.lastschrift.2') !!}</p>
-				<form id="donate" role="form" method="POST">
+				<form id="donate" method="POST">
 					<input type="hidden" name="dt" value="{{ md5(date('Y') . date('m') . date('d')) }}">
 					<div class="form-group donation-form-group">
 						<label for="Name">{!! trans('spende.lastschrift.3') !!}</label>
