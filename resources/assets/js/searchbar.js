@@ -1,6 +1,7 @@
 $(function () {
   loadLocalStorage();
   setActionListenersSearchbar();
+  updateLangLabelCode();
 });
 
 function setActionListenersSearchbar() {
@@ -21,14 +22,15 @@ function loadKey() {
 }
 
 function saveLang() {
-  var key = $('#input-lang').val();
-  localStorage.setItem('lang', key);
+  var lang = $('#input-lang').val();
+  localStorage.setItem('lang', lang);
+  updateLangLabelCode(lang);
 }
 
 function loadLang() {
-  var key = localStorage.getItem('lang');
-  if (key != null) {
-    $('#input-lang').val(key);
+  var lang = localStorage.getItem('lang');
+  if (lang != null) {
+    $('#input-lang').val(lang);
   }
 }
 
@@ -68,4 +70,11 @@ function setSettings() {
   if (requestMethod !== null && (requestMethod === 'GET' || requestMethod === 'POST')) {
     $('#searchForm').attr('method', requestMethod);
   }
+}
+
+function updateLangLabelCode(langcode = null) {
+  if (!langcode) {
+    var langcode = localStorage.getItem('lang');
+  }
+  $('#lang-label-code').html(langcode);
 }
