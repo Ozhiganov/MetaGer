@@ -9,7 +9,7 @@
 		<h1>{!! trans('spende.headline.1') !!}</h1>
 		<h2 class="subheading">{!! trans('spende.headline.2') !!}</h2>
 		<p>{!! trans('spende.about.2') !!}</p>
-		<p><i class="fa fa-info fa-fw fa-lg" aria-hidden="true"></i><u>{!! trans('spende.bankinfo.3') !!}</u></p>
+		<p><i class="fa fa-info fa-fw fa-lg" aria-hidden="true"></i>{!! trans('spende.bankinfo.3') !!}</p>
 	</div>
 	<div class="two-col">
 		<div>
@@ -40,7 +40,7 @@
 					</div>
 					<div class="form-group donation-form-group">
 						<label for="msg">{!! trans('spende.lastschrift.8.message')!!}</label>
-						<label for="msg"><u>{!! trans('spende.bankinfo.3')!!}</u></label>
+						<p>{!! trans('spende.bankinfo.3')!!}</p>
 						<textarea class="form-control" id="msg" name="Nachricht" placeholder="{!! trans('spende.lastschrift.8.message.placeholder') !!}">{{ old('Nachricht') }}</textarea>
 					</div>
 					<button type="submit" form="donate" class="btn btn-default">{!! trans('spende.lastschrift.9') !!}</button>
