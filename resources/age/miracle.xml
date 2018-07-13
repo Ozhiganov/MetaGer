@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <label xmlns="http://www.miracle-label.eu/ns/2.0/">
+    <age-declaration>
+      <issuer>
+        <age-issuer>metager.de</age-issuer>
+        <last-change>2018-07-06</last-change>
+        <country>
+          <country-code>all</country-code>
+        </country>
+        <custom></custom>
+      </issuer>
+      <scope>
+        <scope-urls>
+          <scope-url class="web-url">*.metager.de/*</scope-url>
+          <scope-url class="web-url">*.metager3.de/*</scope-url>
+        </scope-urls>
+      </scope>
+      <rating>
+        <age>0</age>
+      </rating>
+    </age-declaration>
+  </label>

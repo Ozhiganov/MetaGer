@@ -130,6 +130,23 @@ Route::group(
 
         Route::get('zitat-suche', 'ZitatController@zitatSuche');
 
+        Route::get('jugendschutz', function () {
+            return view('jugendschutz')
+                ->with('title', trans('titles.jugendschutz'));
+        });
+
+        Route::get('age.xml', function () {
+            $response = Response::make(file_get_contents(resource_path('age/age.xml')));
+            $response->header('Content-Type', "application/xml");
+            return $response;
+        });
+
+        Route::get('age-de.xml', function () {
+            $response = Response::make(file_get_contents(resource_path('age/age-de.xml')));
+            $response->header('Content-Type', "application/xml");
+            return $response;
+        });
+
         Route::group([/*'middleware' => ['referer.check'],*/ 'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get','post'], 'count', 'AdminInterface@count');
