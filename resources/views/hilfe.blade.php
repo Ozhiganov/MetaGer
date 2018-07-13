@@ -13,7 +13,7 @@
 			<p>{!! trans('hilfe.stopworte.1') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.stopworte.2') !!}</li>
-				<div class="search-example">{!! trans('hilfe.stopworte.3') !!}</div>
+				<li class="nodot"><div class="search-example">{!! trans('hilfe.stopworte.3') !!}</div></li>
 			</ul>
 		</div>
 	</section>
@@ -25,9 +25,9 @@
 			<p>{!! trans('hilfe.mehrwortsuche.2') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.mehrwortsuche.3') !!}</li>
-				<div class = "search-example">{!! trans('hilfe.mehrwortsuche.3.example') !!}</div>
+				<li class="nodot"><div class = "search-example">{!! trans('hilfe.mehrwortsuche.3.example') !!}</div></li>
 				<li>{!! trans('hilfe.mehrwortsuche.4') !!}</li>
-				<div class = "search-example">{!! trans('hilfe.mehrwortsuche.4.example') !!}</div>
+				<li class="nodot"><div class = "search-example">{!! trans('hilfe.mehrwortsuche.4.example') !!}</div></li>
 			</ul>
 		</div>
 	</section>
@@ -37,9 +37,9 @@
 			<p>{!! trans('hilfe.grossklein.1') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.grossklein.2') !!}</li>
-				<div class="search-example">{!! trans('hilfe.grossklein.2.example') !!}</div>
+				<li class="nodot"><div class="search-example">{!! trans('hilfe.grossklein.2.example') !!}</div></li>
 				<li class="nodot">{!! trans('hilfe.grossklein.3') !!}</li>
-				<div class="search-example">{!! trans('hilfe.grossklein.3.example') !!}</div>
+				<li class="nodot"><div class="search-example">{!! trans('hilfe.grossklein.3.example') !!}</div></li>
 			</ul>
 		</div>
 	</section>
@@ -49,24 +49,26 @@
 			<p>{!! trans('hilfe.domains.sitesearch.explanation') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.domains.sitesearch.example.1') !!}</li>
-				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.2') !!}</div>
+				<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.sitesearch.example.2') !!}</div></li>
 				<li>{!! trans('hilfe.domains.sitesearch.example.3') !!}</li>
-				<div class="search-example">{!! trans('hilfe.domains.sitesearch.example.4') !!}</div>
+				<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.sitesearch.example.4') !!}</div></li>
 			</ul>
 			<p>{!! trans('hilfe.domains.blacklist.explanation') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.domains.blacklist.example.1') !!}</li>
-				<ul>
-					<li>{!! trans('hilfe.domains.blacklist.example.2') !!}</li>
-					<div class="search-example">{!! trans('hilfe.domains.blacklist.example.3') !!}</div>
-					<li class="nodot">{!! trans('hilfe.domains.blacklist.example.4') !!}</li>
-					<li>{!! trans('hilfe.domains.blacklist.example.5') !!}</li>
-					<div class="search-example">{!! trans('hilfe.domains.blacklist.example.6') !!}</div>
-				</ul>
+				<li class="nodot">
+					<ul>
+						<li>{!! trans('hilfe.domains.blacklist.example.2') !!}</li>
+						<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.blacklist.example.3') !!}</div></li>
+						<li class="nodot">{!! trans('hilfe.domains.blacklist.example.4') !!}</li>
+						<li>{!! trans('hilfe.domains.blacklist.example.5') !!}</li>
+						<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.blacklist.example.6') !!}</div></li>
+					</ul>
+				</li>
 			</ul>
 			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
 			@include('parts/fake-result')
-			<script type="text/javascript">
+			<script>
 				function setDummySearch(value) {
 					document.getElementById("dummy-search").innerHTML = value
 				}
@@ -82,7 +84,7 @@
 				<p>{!! trans('hilfe.domains.showcase.menu.6') !!}</p>
 			</div>
 			<div>
-				<div class="search-example"><i>meine suche</i> <i id="dummy-search"></span></i>
+				<div class="search-example"><i>meine suche</i> <i id="dummy-search"></i></div>
 			</div>
 		</div>
 	</section>
@@ -92,7 +94,7 @@
 			<p>{!! trans('hilfe.urls.explanation') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.urls.example.1') !!}</li>
-				<div class = "search-example">{!! trans('hilfe.urls.example.2') !!}</div>
+				<li class="nodot"><div class = "search-example">{!! trans('hilfe.urls.example.2') !!}</div></li>
 			</ul>
 		</div>
 	</section>

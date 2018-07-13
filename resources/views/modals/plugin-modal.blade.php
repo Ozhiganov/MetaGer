@@ -1,9 +1,9 @@
 <input type="checkbox" id="plugin-modal-checkbox" class="hidden" @if( isset($pluginmodal) && $pluginmodal == 'on') checked @endif>
-<div class="metager-modal" id="plugin-modal" tab-index="-1" role="dialog">
+<div class="metager-modal" id="plugin-modal" role="dialog">
 		<div class="metager-modal-dialog ">
 			<div class="metager-modal-content">
 				<div class="metager-modal-header">
-					<label type="button" for="plugin-modal-checkbox" class="close">
+					<label for="plugin-modal-checkbox" class="close">
 						<span aria-hidden="true">&times;</span>
 					</label>
 					<h4>

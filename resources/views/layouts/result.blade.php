@@ -19,7 +19,7 @@
 		</a>
 		@if( isset($result->partnershop) && $result->partnershop === TRUE )
 			<span class="partnershop-info">
-				<img src="/img/boosticon.png" height="13" alt="">
+				<img src="/img/boosticon.png" height="13" alt="Partnershops">
 				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">{!! trans('result.options.4') !!}</a>
 			</span>
 		@endif
@@ -59,7 +59,7 @@
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 			{!! trans('result.options.5') !!}
 		</a>
-		<label class="open-result-options" for="result-toggle-{{$result->number}}" role="button">
+		<label class="open-result-options" for="result-toggle-{{$result->number}}">
 			MEHR
 		</label>
 	</div>

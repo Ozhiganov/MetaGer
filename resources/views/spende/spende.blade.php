@@ -70,7 +70,7 @@
 					<input name="tax" value="0" type="hidden">
 					<input name="lc" value="DE" type="hidden">
 					<input name="bn" value="PP-DonationsBF" type="hidden">
-					<input src="/img/paypalspenden.gif" name="submit" width="120px" alt="{!! trans('spende.paypal.2') !!}" type="image">
+					<input src="/img/paypalspenden.gif" name="submit" width="120" alt="{!! trans('spende.paypal.2') !!}" type="image">
 				</form>
 			</div>
 		</div>
