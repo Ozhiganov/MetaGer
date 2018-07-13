@@ -3,7 +3,7 @@
 	<div class="metager-modal-dialog">
 		<div class="metager-modal-content">
 			<div class="metager-modal-header">
-				<label class="close-metager-modal" for="show-create-focus"></label>
+				<label class="close-metager-modal navigation-element" for="show-create-focus"></label>
 				<h4>
 					@lang("index.focus-creator.head")
 				</h4>
