@@ -19,7 +19,7 @@
 		</a>
 		@if( isset($result->partnershop) && $result->partnershop === TRUE )
 			<span class="partnershop-info">
-				<img src="/img/boosticon.png" height="13" alt="">
+				<img src="/img/boosticon.png" height="13" alt="Partnershops">
 				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">{!! trans('result.options.4') !!}</a>
 			</span>
 		@endif

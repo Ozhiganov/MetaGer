@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{!! trans('staticPages.meta.language') !!}">
 	<head>
+		<meta charset="utf-8">
 		<title>{{ $eingabe }} - MetaGer</title>
 		<link href="/favicon.ico" rel="icon" type="image/x-icon" />
 		<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -10,9 +11,6 @@
 		<meta name="l" content="{{ LaravelLocalization::getCurrentLocale() }}" />
 		<meta name="mm" content="{{ Request::input('verification_id') }}" />
 		<meta name="mn" content="{{ Request::input('verification_count') }}" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Cache-control" content="no-cache" />
-		<meta http-equiv="pragma" content="no-cache" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
@@ -42,7 +40,7 @@
 			</div>
 		@endif
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
-		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
+		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" alt=""/>
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}"></script>
 		<script src="{{ mix('js/focus-creator.js') }}"></script>
