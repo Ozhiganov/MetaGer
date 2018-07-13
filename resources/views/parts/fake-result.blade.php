@@ -39,7 +39,7 @@
       <ul class="option-list list-unstyled small">
         <li class="">
           <a class="saver" href="javascript:setDummySearch('wurde zum weiteren Filtern gespeichert')" data-tooltip="{{ trans('fake-result.options.save') }}">
-            <i class="fa fa-floppy-o"></i> Ergebnis in Tab speichern.
+            <i class="fa fa-floppy-o"></i> Ergebnis speichern.
           </a>
         </li>
         <li>
