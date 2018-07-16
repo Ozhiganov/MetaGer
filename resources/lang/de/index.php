@@ -67,7 +67,7 @@ return [
 
     'plugin.firefox-klar.1'          => 'Öffnen Sie die Einstellungen Ihres Browsers über das Zahnrad (unter Android <i class="fa fa-ellipsis-v"></i>) rechts neben der Suchleiste',
     'plugin.firefox-klar.2'          => 'Klicken Sie unter dem Menüpunkt "Suche" auf "Suchmaschine". Aktuell wird die voreingestellte Suchmaschine angezeigt (siehe Bild)',
-    'plugin.firefox-klar.3'          => 'Klicken Sie auf "Weitere Suchmaschine hinzufügen" und füllen Sie die Felder wie im Bild aus.',
+    'plugin.firefox-klar.3'          => 'Klicken Sie auf "Weitere Suchmaschine hinzufügen" und füllen Sie die Felder aus. Als Such-String geben Sie „<kbd>https://metager.de/meta/meta.ger3?focus=web&encoding=utf8&lang=all&eingabe=%s</kbd>“ an.',
     'plugin.firefox-klar.4'          => 'Achten Sie hierbei darauf, dass sich keine Leerzeichen am Ende des Suchstrings "einschleichen", da Firefox Klar die Speicherung der Einstellung sonst verweigert.',
 
     'plugin.chrome.1'                => 'Klicken Sie in Ihrem Chrome oben rechts auf <i class="fa fa-ellipsis-v"></i> und im folgenden Menü auf "Einstellungen", um die Einstellungen Ihres Chromes zu öffnen.',
