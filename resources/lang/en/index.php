@@ -25,6 +25,10 @@ return [
     "focus-creator.delete"	=>	"Delete search focus",
     "focus-creator.focusname"	=>	"Focus:",
 
+    'slogan.title'                   => 'MetaGer: Privacy protected Search and Find',
+    'slogan.1'=> 'We provide privacy & data protection and we are a non profit NGO. <a href="/beitritt">Become a member</a> oder <a href="/spende">donate</a>! Our source code is open:<a href="https://gitlab.metager3.de/open-source/MetaGer"</a>' ,
+    'slogan.2'                       => 'You keep a neutral view on the web by using MetaGer',
+
     "sponsors.head.1"	=>	"Further Information",
     "sponsors.head.2"	=>	"Sponsors",
     'sponsors.woxikon'    => 'Tagesgeld jetzt!',
@@ -35,6 +39,10 @@ return [
     "about.1.1"	=>	"We provide <a href=\"/en/datenschutz\">privacy & data protection.</a>",
     "about.2.1"	=>	"We are a <a href=\"/en/spende\">non profit NGO</a>. <a href=\"https://gitlab.metager3.de/open-source/MetaGer\" target=\"_blank\">Our source code is open:</a>",
     "about.3.1"	=>	"Everyone might check our data protection & privacy features.",
+
+     'lang.tooltip'                   => 'Language',
+    'key.placeholder'                => 'Insert member key',
+    'key.tooltip'                    => 'Insert member key',
 
     "placeholder"	=>	"MetaGer: Privacy Protected Search & Find",
 
@@ -122,5 +130,8 @@ return [
     "plugin.vivaldi.7"	=>	"Click \"Add\".",
     "plugin.vivaldi.8"	=>	"Set MetaGer.de as the start page of your web browser :browser",
     "plugin.vivaldi.9"	=>	"Click the red logo \"Vivaldi\" at the top left of your web browser. Then select \"Tools / Preferences\"",
-    "plugin.vivaldi.10"	=>	"Enter \"https://metager.de\" into the field \"Start page\""
+    "plugin.vivaldi.10"	=>	"Enter \"https://metager.de\" into the field \"Start page\"",
+    'tooltips.add-focus'                      => 'Adjust search',
+    'tooltips.edit-focus'                     => 'Change the actual focus',
+    'tooltips.settings' => 'Common settings',
 ];

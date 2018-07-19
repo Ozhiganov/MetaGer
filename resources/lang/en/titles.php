@@ -19,5 +19,6 @@ return [
     "languages"	=>	"translation tool - MetaGer",
     "languages.edit"	=>	"Edit language files - MetaGer",
     "app"	=>	"Apps - MetaGer",
-    "faktencheck"	=>	"Fact-checks versus fake news"
+    "faktencheck"	=>	"Fact-checks versus fake news",
+    'jugendschutz'   => 'Youth protection'
 ];
