@@ -36,5 +36,6 @@ return [
     "telefonnummer"	=>	"phone number",
     "iban"	=>	"IBAN/account number",
     "bic"	=>	"BIC/bank code",
+    'betrag'                    => 'Amount',
     "danke.message"	=>	"Your message"
 ];
