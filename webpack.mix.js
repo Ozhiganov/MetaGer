@@ -32,6 +32,7 @@ mix
   .babel('resources/assets/js/searchbar.js', 'public/js/searchbar.js')
   .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
   .babel('resources/assets/js/focus-creator.js', 'public/js/focus-creator.js')
+  .babel('resources/assets/js/editLanguage.js', 'public/js/editLanguage.js')
   // utility
   .babel(['resources/assets/js/utility.js', 'resources/assets/js/translations.js'], 'public/js/utility.js')
   .babel('resources/assets/js/widgets.js', 'public/js/widgets.js')
