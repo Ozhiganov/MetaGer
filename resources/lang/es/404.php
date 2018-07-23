@@ -2,5 +2,5 @@
 
 return [
     "title"	=>	"Error 404, página no econtrada",
-    "text"	=>	"Eventualmente ha usado un link antiguo o erróneo "
+    "text"	=>	"Tal vez ha introdujado un link antiguo o erróneo "
 ];
