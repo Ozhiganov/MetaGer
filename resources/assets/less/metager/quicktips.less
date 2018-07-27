@@ -85,43 +85,8 @@
                 font-size: 14px;
             }
         }
-        &[type=spruch] {
-            order: 0;
-            p {
-                display: flex;
-                flex-direction: column;
-                text-align: justify;
-                .author {
-                    color: #404040;
-                    font-style: italic;
-                    align-self: flex-end;
-                }
-            }
-        }
-        &[type=duckDuckGo-bang] {
-            order: 1;
-            .bang-btn {
-                width: 100%;
-                margin-top: 5px;
-                color: #fff;
-                background-color: #286992;
-                font-size: 16px;
-            }
-        }
-        &[type=wikipedia] {
-            order: 2;
-        }
-        &[type=dictCC] {
-            order: 3;
-        }
-        &[type=tip] {
-            order: 4;
-        }
-        &[type=ad] {
-            order: 5;
-        }
         &[type=spendenaufruf] {
-            order: 6;
+            order: 0;
             border: none;
             box-shadow: none;
             background-color: inherit;
@@ -141,6 +106,41 @@
                     }
                 }
             }
+        }
+        &[type=spruch] {
+            order: 1;
+            p {
+                display: flex;
+                flex-direction: column;
+                text-align: justify;
+                .author {
+                    color: #404040;
+                    font-style: italic;
+                    align-self: flex-end;
+                }
+            }
+        }
+        &[type=duckDuckGo-bang] {
+            order: 2;
+            .bang-btn {
+                width: 100%;
+                margin-top: 5px;
+                color: #fff;
+                background-color: #286992;
+                font-size: 16px;
+            }
+        }
+        &[type=wikipedia] {
+            order: 3;
+        }
+        &[type=dictCC] {
+            order: 4;
+        }
+        &[type=tip] {
+            order: 5;
+        }
+        &[type=ad] {
+            order: 6;
         }
     }
 }
