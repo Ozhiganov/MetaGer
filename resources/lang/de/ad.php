@@ -2,5 +2,5 @@
 
 return [
     'werbung' => 'Werbung',
-    'von' => 'von',
+    'von'     => 'von',
 ];
