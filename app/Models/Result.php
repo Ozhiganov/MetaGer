@@ -71,7 +71,7 @@ class Result
 
     private function price_to_text($price)
     {
-        $euros = $price / 100;
+        $euros = floor($price / 100);
         $cents = $price % 100;
         $price_text = $euros . ',';
         if ($cents < 10) {
@@ -284,7 +284,7 @@ class Result
             strpos($this->strippedHost, "www.ladenpreis.net") === false &&
             strpos($this->strippedHost, "ncbi.nlm.nih.gov") === false &&
             strpos($this->strippedHost, "www.onenewspage.com") === false &&
-            $this->gefVon !== "Shopzilla" ){
+            $this->gefVon !== "Shopzilla") {
             $count = $metager->getHostCount($this->strippedHost);
             if ($count >= 3) {
                 return false;
