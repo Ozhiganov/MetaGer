@@ -11,11 +11,9 @@
 //
 @result-page-body-background-color: @background-color;
 @result-page-a-hover-color: red;
-@result-page-a-visited-color: @metager-orange;
 @result-page-product-shop-color: green;
 //
 @body-background-color: @result-page-body-background-color;
-@a-visited-color: @result-page-a-visited-color;
 @a-hover-color: @result-page-a-hover-color;
 @a-donation-hover-color: @result-page-a-hover-color;
 @product-shop-color: @result-page-product-shop-color;
@@ -162,7 +160,7 @@ nav .input-group {
 
 a {
     &:visited {
-        color: @a-visited-color;
+        color: @link-color;
     }
     &:hover {
         text-decoration: none;
@@ -510,8 +508,8 @@ a {
                 color: black;
             }
             &.active>a {
-                border-bottom: 1px solid @metager-orange;
-                color: @metager-orange;
+                border-bottom: 1px solid black;
+                color: black;
             }
             &:last-child {
                 padding-right: 20px

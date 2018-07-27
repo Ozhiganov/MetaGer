@@ -41,7 +41,7 @@
           <a class="outlink" href="https://gitlab.metager3.de/open-source/MetaGer" tabindex="233">{{ trans('sidebar.nav24') }}</a>
         </li>
         <li>
-          <a class="outlink" href="http://forum.suma-ev.de/viewtopic.php?f=3&amp;t=43" tabindex="234">{{ trans('sidebar.nav14') }}</a>
+          <a class="outlink" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/tor/") }}" tabindex="234">{{ trans('sidebar.nav14') }}</a>
         </li>
       </ul>
     </li>
