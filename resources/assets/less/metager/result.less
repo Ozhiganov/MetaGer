@@ -21,7 +21,7 @@
                 .result-price {
                     padding: 0px 10px;
                     color: white;
-                    background-color: #ff8000;
+                    background-color: #666699;
                     border-radius: 3px;
                 }
                 a {
@@ -108,16 +108,7 @@
         &>*:not(:first-child) {
             margin-left: 20px;
         }
-        .result-open {
-            &,
-            &:active,
-            &:hover,
-            &:focus,
-            &:visited {
-                color: #ff8000;
-                font-size: @result-font-small;
-            }
-        }
+        .result-open,
         .result-open-newtab {
             &,
             &:active,
@@ -128,7 +119,6 @@
                 font-size: @result-font-small;
                 text-decoration: none;
             }
-            margin-left: 25px;
         }
         @media (max-width: 499px) {
             .result-open-newtab {
