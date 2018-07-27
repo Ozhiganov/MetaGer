@@ -89,7 +89,6 @@
             order: 0;
             border: none;
             box-shadow: none;
-            color: #ff8000;
             background-color: inherit;
             .quicktip-summary {
                 display: flex;
@@ -102,7 +101,7 @@
                     margin: 5px;
                     .spendenaufruf-btn {
                         color: white;
-                        background-color: #ff8000;
+                        background-color: @link-color;
                         font-size: 16px;
                     }
                 }
@@ -110,9 +109,7 @@
         }
         &[type=spruch] {
             order: 1;
-            border-left: 3px solid #070;
             p {
-                color: #070;
                 display: flex;
                 flex-direction: column;
                 text-align: justify;
