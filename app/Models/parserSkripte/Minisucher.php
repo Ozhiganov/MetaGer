@@ -60,12 +60,12 @@ class Minisucher extends Searchengine
                 $subcollection = $result->xpath('//doc/str[@name="subcollection"]')[0]->__toString();
 
                 if(!$subcollection) {
-                    $gefVon = "<a href=\"https://metager.de\" target=\"_blank\" rel=\"noopener\">Minisucher: $minism </a>";
+                    $gefVon = "Minisucher: $minism";
                 } else {
                     $minism = array_map('strtolower', explode(', ', $minism));
                     $subcollection = array_map('strtolower', explode(' ', $subcollection));
                     $result = implode(', ', array_intersect($subcollection, $minism));
-                    $gefVon = "<a href=\"https://metager.de\" target=\"_blank\" rel=\"noopener\">Minisucher: $result </a>";
+                    $gefVon = "Minisucher: $result";
                 }
                 
                 $this->results[] = new \App\Models\Result(
