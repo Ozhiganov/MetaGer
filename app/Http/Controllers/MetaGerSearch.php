@@ -6,6 +6,9 @@ use App;
 use App\MetaGer;
 use Illuminate\Http\Request;
 
+const TIP_SERVER = 'https://quicktips.metager3.de/tips.xml';
+#const TIP_SERVER = 'http://localhost:63825/tips.xml';
+
 class MetaGerSearch extends Controller
 {
     public function search(Request $request, MetaGer $metager)
@@ -69,5 +72,27 @@ class MetaGerSearch extends Controller
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
+    }
+
+    public function tips(Request $request)
+    {
+        $tips_text = file_get_contents(TIP_SERVER);
+        $tips = [];
+        try {
+            $tips_xml = simplexml_load_string($tips_text);
+
+            $tips_xml->registerXPathNamespace('mg', 'http://metager.de/tips/');
+            $tips_xml = $tips_xml->xpath('mg:tip');
+            foreach ($tips_xml as $tip_xml) {
+                $tips[] = $tip_xml->__toString();
+            }
+        } catch (\Exception $e) {
+            Log::error("A problem occurred loading tips from the tip server.");
+            Log::error($e->getMessage());
+            abort(500);
+        }
+        return view('tips')
+            ->with('title', trans('tips.title'))
+            ->with('tips', $tips);
     }
 }
