@@ -29,16 +29,16 @@
           <a class="inlink" href="https://metager.de/klassik/asso/" tabindex="228">{{ trans('sidebar.nav11') }}</a>
         </li>
         <li>
-          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/app/") }}" tabindex="230">@lang('sidebar.nav25')</a>
+          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/app/") }}" tabindex="229">@lang('sidebar.nav25')</a>
         </li>
         <li>
-          <a class="inlink" href="https://metager.to/" tabindex="231">{{ trans('sidebar.nav13') }}</a>
+          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/tips/") }}" tabindex="230">{{ trans('sidebar.titles.tips') }}</a>
         </li>
         <li>
-          <a class="inlink" href="https://maps.metager.de" target="_blank" tabindex="232">Maps.MetaGer.de</a>
+          <a class="inlink" href="https://maps.metager.de" target="_blank" tabindex="231">Maps.MetaGer.de</a>
         </li>
         <li>
-          <a class="outlink" href="https://gitlab.metager3.de/open-source/MetaGer" tabindex="233">{{ trans('sidebar.nav24') }}</a>
+          <a class="outlink" href="https://gitlab.metager3.de/open-source/MetaGer" tabindex="232">{{ trans('sidebar.nav24') }}</a>
         </li>
         <li>
           <a class="outlink" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/tor/") }}" tabindex="234">{{ trans('sidebar.nav14') }}</a>
