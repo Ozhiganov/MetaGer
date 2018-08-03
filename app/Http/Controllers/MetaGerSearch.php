@@ -6,8 +6,8 @@ use App;
 use App\MetaGer;
 use Illuminate\Http\Request;
 
-#const TIP_SERVER = 'https://quicktips.metager3.de/tips.xml';
-const TIP_SERVER = 'http://localhost:63825/tips.xml';
+const TIP_SERVER = 'https://quicktips.metager3.de/tips.xml';
+#const TIP_SERVER = 'http://localhost:63825/tips.xml';
 
 class MetaGerSearch extends Controller
 {
