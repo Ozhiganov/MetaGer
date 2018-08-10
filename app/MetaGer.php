@@ -3,12 +3,12 @@ namespace App;
 
 use App;
 use Cache;
+use Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
 use LaravelLocalization;
 use Log;
-use Carbon;
 use Predis\Connection\ConnectionException;
 
 class MetaGer
@@ -53,6 +53,7 @@ class MetaGer
     protected $domainsBlacklisted = [];
     protected $urlsBlacklisted = [];
     protected $url;
+    protected $fullUrl;
     protected $languageDetect;
     protected $verificationId;
     protected $verificationCount;
@@ -306,7 +307,12 @@ class MetaGer
         }
 
         if (count($this->results) <= 0) {
-            $this->errors[] = trans('metaGer.results.failed');
+            if (strlen($this->site) > 0) {
+                $no_sitesearch_query = str_replace(urlencode("site:" . $this->site), "", $this->fullUrl);
+                $this->errors[] = trans('metaGer.results.failedSitesearch', ['altSearch' => $no_sitesearch_query]);
+            } else {
+                $this->errors[] = trans('metaGer.results.failed');
+            }
         }
 
         if ($this->canCache() && isset($this->next) && count($this->next) > 0 && count($this->results) > 0) {
@@ -453,10 +459,11 @@ class MetaGer
         return $results;
     }
 
-    public function humanVerification($results){
+    public function humanVerification($results)
+    {
         # Let's check if we need to implement a redirect for human verification
-        if($this->verificationCount > 10){
-            foreach($results as $result){
+        if ($this->verificationCount > 10) {
+            foreach ($results as $result) {
                 $link = $result->link;
                 $day = Carbon::now()->day;
                 $pw = md5($this->verificationId . $day . $link . env("PROXY_PASSWORD"));
@@ -464,7 +471,7 @@ class MetaGer
                 $result->link = $url;
             }
             return $results;
-        }else{
+        } else {
             return $results;
         }
     }
@@ -941,6 +948,7 @@ class MetaGer
             $request->replace($input);
         }
         $this->url = $request->url();
+        $this->fullUrl = $request->fullUrl();
         # Zunächst überprüfen wir die eingegebenen Einstellungen:
         # Fokus
         $this->fokus = $request->input('focus', 'web');
@@ -955,7 +963,7 @@ class MetaGer
         }
         # Sucheingabe
         $this->eingabe = trim($request->input('eingabe', ''));
-        $this->q       = $this->eingabe;
+        $this->q = $this->eingabe;
         # IP
         $this->ip = $request->ip();
         # Unser erster Schritt wird sein, IP-Adresse und USER-Agent zu anonymisieren, damit
@@ -1230,7 +1238,7 @@ class MetaGer
         $tmp = $this->q;
         // matches '[... ]"test satz"[ ...]'
         while (preg_match("/(^|.+\s)\"(.+)\"(?:\s(.+)|($))/si", $tmp, $match)) {
-            $tmp             = $match[1] . $match[3];
+            $tmp = $match[1] . $match[3];
             $this->phrases[] = $match[2];
         }
         foreach ($this->phrases as $phrase) {
