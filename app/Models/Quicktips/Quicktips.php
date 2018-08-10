@@ -136,6 +136,14 @@ class Quicktips
                     $gefVonLink = "";
                 }
 
+                $quicktip_xml->registerXPathNamespace('mg', 'http://metager.de/opensearch/quicktips/');
+                $author = $quicktip_xml->xpath('mg:author');
+                if (sizeof($author) > 0) {
+                    $author = $author[0]->__toString();
+                } else {
+                    $author = "";
+                }
+
                 // Description
                 $descr = $quicktip_xml->content->__toString();
 
@@ -160,6 +168,7 @@ class Quicktips
                     $link,
                     $gefVonTitle,
                     $gefVonLink,
+                    $author,
                     $descr,
                     $details
                 );

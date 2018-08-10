@@ -117,30 +117,41 @@
                     color: #404040;
                     font-style: italic;
                     align-self: flex-end;
+                    quotes: '„' '”';
+                    &:before {
+                        content: open-quote;
+                    }
+                    &:after {
+                        content: close-quote;
+                    }
+                }
+                .author {
+                    color: #404040;
+                    font-style: italic;
+                    float: right;
                 }
             }
-        }
-        &[type=duckDuckGo-bang] {
-            order: 2;
-            .bang-btn {
-                width: 100%;
-                margin-top: 5px;
-                color: #fff;
-                background-color: #286992;
-                font-size: 16px;
+            &[type=duckDuckGo-bang] {
+                order: 2;
+                .bang-btn {
+                    width: 100%;
+                    margin-top: 5px;
+                    color: #fff;
+                    background-color: #286992;
+                    font-size: 16px;
+                }
+            }
+            &[type=wikipedia] {
+                order: 3;
+            }
+            &[type=dictCC] {
+                order: 4;
+            }
+            &[type=tip] {
+                order: 5;
+            }
+            &[type=ad] {
+                order: 6;
             }
         }
-        &[type=wikipedia] {
-            order: 3;
-        }
-        &[type=dictCC] {
-            order: 4;
-        }
-        &[type=tip] {
-            order: 5;
-        }
-        &[type=ad] {
-            order: 6;
-        }
     }
-}
