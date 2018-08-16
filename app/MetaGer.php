@@ -3,12 +3,12 @@ namespace App;
 
 use App;
 use Cache;
+use Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
 use LaravelLocalization;
 use Log;
-use Carbon;
 use Predis\Connection\ConnectionException;
 
 class MetaGer
@@ -453,10 +453,11 @@ class MetaGer
         return $results;
     }
 
-    public function humanVerification($results){
+    public function humanVerification($results)
+    {
         # Let's check if we need to implement a redirect for human verification
-        if($this->verificationCount > 10){
-            foreach($results as $result){
+        if ($this->verificationCount > 10) {
+            foreach ($results as $result) {
                 $link = $result->link;
                 $day = Carbon::now()->day;
                 $pw = md5($this->verificationId . $day . $link . env("PROXY_PASSWORD"));
@@ -464,7 +465,7 @@ class MetaGer
                 $result->link = $url;
             }
             return $results;
-        }else{
+        } else {
             return $results;
         }
     }
@@ -955,7 +956,7 @@ class MetaGer
         }
         # Sucheingabe
         $this->eingabe = trim($request->input('eingabe', ''));
-        $this->q       = $this->eingabe;
+        $this->q = $this->eingabe;
         # IP
         $this->ip = $request->ip();
         # Unser erster Schritt wird sein, IP-Adresse und USER-Agent zu anonymisieren, damit
@@ -1083,19 +1084,37 @@ class MetaGer
 
     public function checkSpecialSearches(Request $request)
     {
+        $this->searchCheckPhrase();
         $this->searchCheckSitesearch($request);
         $this->searchCheckHostBlacklist($request);
         $this->searchCheckDomainBlacklist($request);
         $this->searchCheckUrlBlacklist();
-        $this->searchCheckPhrase();
         $this->searchCheckStopwords($request);
         $this->searchCheckNoSearch();
+    }
+
+    private function searchCheckPhrase()
+    {
+        $p = "";
+        $tmp = $this->q;
+        // matches '[... ]"test satz"[ ...]'
+        while (preg_match("/(^|.*?\s)\"(\S+)\"(\s.*|$)/si", $tmp, $match)) {
+            $tmp = $match[1] . $match[3];
+            $this->phrases[] = $match[2];
+        }
+        foreach ($this->phrases as $phrase) {
+            $p .= "\"$phrase\", ";
+        }
+        $p = rtrim($p, ", ");
+        if (sizeof($this->phrases) > 0) {
+            $this->warnings[] = trans('metaGer.formdata.phrase', ['phrase' => $p]);
+        }
     }
 
     private function searchCheckSitesearch($request)
     {
         // matches '[... ]site:test.de[ ...]'
-        while (preg_match("/(^|.+\s)site:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)site:(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->site = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1108,7 +1127,7 @@ class MetaGer
     private function searchCheckHostBlacklist($request)
     {
         // matches '[... ]-site:test.de[ ...]'
-        while (preg_match("/(^|.+\s)-site:([^\s\*]\S*)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-site:([^\*\s]\S*)(\s.*|$)/si", $this->q, $match)) {
             $this->hostBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1143,7 +1162,7 @@ class MetaGer
     private function searchCheckDomainBlacklist($request)
     {
         // matches '[... ]-site:*.test.de[ ...]'
-        while (preg_match("/(^|.+\s)-site:\*\.(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-site:(\*\.\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->domainBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1177,7 +1196,7 @@ class MetaGer
     private function searchCheckUrlBlacklist()
     {
         // matches '[... ]-site:*.test.de[ ...]'
-        while (preg_match("/(^|.+\s)-url:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-url:(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->urlBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1195,7 +1214,7 @@ class MetaGer
     private function searchCheckStopwords($request)
     {
         // matches '[... ]-test[ ...]'
-        while (preg_match("/(^|[^\s]+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->stopWords[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1221,24 +1240,6 @@ class MetaGer
             }
             $stopwordsString = rtrim($stopwordsString, ", ");
             $this->warnings[] = trans('metaGer.formdata.stopwords', ['stopwords' => $stopwordsString]);
-        }
-    }
-
-    private function searchCheckPhrase()
-    {
-        $p = "";
-        $tmp = $this->q;
-        // matches '[... ]"test satz"[ ...]'
-        while (preg_match("/(^|.+\s)\"(.+)\"(?:\s(.+)|($))/si", $tmp, $match)) {
-            $tmp             = $match[1] . $match[3];
-            $this->phrases[] = $match[2];
-        }
-        foreach ($this->phrases as $phrase) {
-            $p .= "\"$phrase\", ";
-        }
-        $p = rtrim($p, ", ");
-        if (sizeof($this->phrases) > 0) {
-            $this->warnings[] = trans('metaGer.formdata.phrase', ['phrase' => $p]);
         }
     }
 
