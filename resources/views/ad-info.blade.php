@@ -8,8 +8,8 @@
 		<h2>Warum wir Werbung zeigen</h2>
 		<p>MetaGer ist nicht einfach nur eine Webseite, sondern ein ganzer Service der gepflegt, gewartet und ständig verbessert  werden muss. Dabei entstehen laufende Kosten, die sich derzeit nicht alleine durch Mitgliedsbeiträge und Spenden decken lassen. Deshalb zeigen wir zusätzlich zu unseren Suchergebnissen auch Werbeergebnisse an, die möglichst gut zur Suche passen. Zusätzlich finden sich auf unserer Startseite Sponsorenlinks von ausgewählten Firmen.</p>
         <p>MetaGer wird betrieben und stetig weiterentwickelt vom SUMA-EV - Verein für freien Wissenszugang. Der SUMA-EV ist ein als gemeinnützig anerkannter Verein und erhält keine öffentlichen Fördergelder. Deshalb sind wir auf ihre Mithilfe angewiesen.</p>
-        <span>~ Hier grafik mit benötigten Mitgliedern / Spenden für Werbefreiheit einfügen ~</span>
-        <p>Helfen Sie uns jetzt dieses Ziel zu erreichen:<p>
+        {{-- <span>~ Hier grafik mit benötigten Mitgliedern / Spenden für Werbefreiheit einfügen ~</span> --}}
+        {{-- <p>Helfen Sie uns jetzt dieses Ziel zu erreichen:<p> --}}
         <ul>
             <li><a href="http://www.suma-ev.de/unterstuetzung/beitrittsformular.html">Mitglied im SUMA-EV werden</a> (<a href="http://www.suma-ev.de/mitglieder/index.html">Liste der Mitglieder</a>)</li>
             <li><a href="http://www.suma-ev.de/unterstuetzung/index.html">MetaGer fördern</a></li>
