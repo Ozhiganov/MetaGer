@@ -102,7 +102,7 @@ Route::group(
                 ->with('navbarFocus', 'hilfe');
         });
 
-        Route::get('hilfe/faktencheck', function(){
+        Route::get('hilfe/faktencheck', function () {
             return view('faktencheck')
                 ->with('title', trans('titles.faktencheck'))
                 ->with('navbarFocus', 'hilfe');
@@ -135,6 +135,11 @@ Route::group(
                 ->with('title', trans('titles.jugendschutz'));
         });
 
+        Route::get('ad-info', function () {
+            return view('ad-info')
+                ->with('title', trans('titles.ad-info'));
+        });
+
         Route::get('age.xml', function () {
             $response = Response::make(file_get_contents(resource_path('age/age.xml')));
             $response->header('Content-Type', "application/xml");
@@ -147,9 +152,9 @@ Route::group(
             return $response;
         });
 
-        Route::group([/*'middleware' => ['referer.check'],*/ 'prefix' => 'admin'], function () {
+        Route::group([/*'middleware' => ['referer.check'],*/'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
-            Route::match(['get','post'], 'count', 'AdminInterface@count');
+            Route::match(['get', 'post'], 'count', 'AdminInterface@count');
             Route::get('check', 'AdminInterface@check');
             Route::get('engines', 'AdminInterface@engines');
         });
@@ -159,7 +164,7 @@ Route::group(
         Route::match(['get', 'post'], 'meta/meta.ger3', 'MetaGerSearch@search')->middleware('humanverification');
         Route::post('img/cat.jpg', 'HumanVerification@remove');
         Route::get('r/metager/{mm}/{pw}/{url}', ['as' => 'humanverification', 'uses' => 'HumanVerification@removeGet']);
-        
+
         Route::get('meta/picture', 'Pictureproxy@get');
         Route::get('clickstats', 'LogController@clicklog');
         Route::get('pluginClose', 'LogController@pluginClose');
@@ -195,7 +200,7 @@ Route::group(
                 return response()->download($filePath, "MetaGer-release.apk");
             });
             Route::get('maps', function () {
-                $filePath     = env('maps_app');
+                $filePath = env('maps_app');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Cache-Control', 'public')
@@ -205,7 +210,7 @@ Route::group(
             });
 
             Route::get('maps/version', function () {
-                $filePath     = env('maps_version');
+                $filePath = env('maps_version');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Content-Type', 'text/plain');
