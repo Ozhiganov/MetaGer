@@ -1162,7 +1162,7 @@ class MetaGer
     private function searchCheckDomainBlacklist($request)
     {
         // matches '[... ]-site:*.test.de[ ...]'
-        while (preg_match("/(^|.*?\s)-site:(\*\.\S+)(\s.*|$)/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-site:\*\.(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->domainBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
