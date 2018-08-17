@@ -20,5 +20,6 @@ return [
     'languages.edit' => 'Sprachdateien bearbeiten - MetaGer',
     'app'            => 'Apps - MetaGer',
     'faktencheck'    => 'Fakten-Prüfung contra Fake-News',
-    'jugendschutz'   => 'Jugendschutz'
+    'jugendschutz'   => 'Jugendschutz',
+    'ad-info'        => 'Werbung bei MetaGer',
 ];
