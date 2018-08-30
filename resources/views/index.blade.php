@@ -25,15 +25,11 @@
 		<div id="sponsors">
 			<h2>{{ trans('index.sponsors.head.2') }}</h2>
 			<ul class="startpage">
+				@foreach(DB::table('sponsorenlinks')->where('langcode', 'de')->orderByRaw('LENGTH(linktext)', 'ASC')->get() as $link)
 				<li class="sponsor">
-					<a href="https://www.semtrix.de/seo-agentur/" target="_blank" rel="noopener"><p>@lang('index.sponsors.woxikon')</p> <i class="fa fa-external-link"></i></a>
+					<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link"></i></a>
 				</li>
-				<li class="sponsor">
-					<a href="https://b-ceed.de/weihnachtsfeiern-ideen/" target="_blank" rel="noopener"><p>@lang('index.sponsors.seo')</p> <i class="fa fa-external-link"></i></a>
-				</li>
-				<li class="sponsor">
-					<a href="https://www.stern.de/vergleich/kredit/" target="_blank" rel="noopener"><p>@lang('index.sponsors.gutscheine')</p> <i class="fa fa-external-link"></i></a>
-				</li>
+				@endforeach
 			</ul>
 		</div>
 	</div>
