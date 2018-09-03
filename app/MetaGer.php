@@ -258,6 +258,7 @@ class MetaGer
 
         # Human Verification
         $this->results = $this->humanVerification($this->results);
+        $this->ads = $this->humanVerification($this->ads);
 
         $counter = 0;
         $firstRank = 0;
@@ -453,19 +454,21 @@ class MetaGer
         return $results;
     }
 
-    public function humanVerification($results)
-    {
+    public function humanVerification($results){
         # Let's check if we need to implement a redirect for human verification
-        if ($this->verificationCount > 10) {
-            foreach ($results as $result) {
+        if($this->verificationCount > 10){
+            foreach($results as $result){
                 $link = $result->link;
                 $day = Carbon::now()->day;
                 $pw = md5($this->verificationId . $day . $link . env("PROXY_PASSWORD"));
-                $url = route('humanverification', ['mm' => $this->verificationId, 'pw' => $pw, "url" => urlencode(base64_encode($link))]);
+                $url = route('humanverification', ['mm' => $this->verificationId, 'pw' => $pw, "url" => urlencode(str_replace("/", "<<SLASH>>", base64_encode($link)))]);
+                $proxyPw = md5($this->verificationId . $day . $result->proxyLink . env("PROXY_PASSWORD"));
+                $proxyUrl = route('humanverification', ['mm' => $this->verificationId, 'pw' => $proxyPw, "url" => urlencode(str_replace("/", "<<SLASH>>", base64_encode($result->proxyLink)))]);
                 $result->link = $url;
+                $result->proxyLink = $proxyUrl;
             }
             return $results;
-        } else {
+        }else{
             return $results;
         }
     }
