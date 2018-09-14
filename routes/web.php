@@ -164,6 +164,7 @@ Route::group(
         Route::match(['get', 'post'], 'meta/meta.ger3', 'MetaGerSearch@search')->middleware('humanverification');
         Route::post('img/cat.jpg', 'HumanVerification@remove');
         Route::get('r/metager/{mm}/{pw}/{url}', ['as' => 'humanverification', 'uses' => 'HumanVerification@removeGet']);
+        Route::post('img/dog.jpg', 'HumanVerification@whitelist');
 
         Route::get('meta/picture', 'Pictureproxy@get');
         Route::get('clickstats', 'LogController@clicklog');

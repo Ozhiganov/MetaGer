@@ -9,6 +9,7 @@
     <p>Sollten Sie diese Nachricht häufiger sehen oder handelt es sich dabei um einen Irrtum, schicken Sie uns gerne eine Nachricht über unser <a href="/kontakt">Kontaktformular</a>.</p>
     <p>Nennen Sie uns in diesem Fall bitte unbedingt folgende Vorgangsnummer: {{ $id }}
     <p>Wir schauen uns den Vorgang dann gerne im Detail an.</p>
+    <p>Bitte geben SIe die Buchstaben aus dem Bild in die Eingabebox ein und bestätigen Sie mit OK um zur Ergebnisseite zu gelangen.</p>
     <form method="post" action="{{ route('verification', ['id' => $id]) }}">
         <input type="hidden" name="url" value="{!! $url !!}">
         <input type="hidden" name="id" value="{{ $id }}">
@@ -16,7 +17,7 @@
         @if(isset($errorMessage))
         <p><font color="red">{{$errorMessage}}</font></p>
         @endif
-        <p><input type="text" name="captcha"></p>
-        <p><button type="submit" name="check">OK</button></p>
+        <p><input type="text" class="form-control" name="captcha" placeholder="Captcha eingeben"  autofocus></p>
+        <p><button type="submit" class="btn btn-success" name="check">OK</button></p>
     </form>
 @endsection
