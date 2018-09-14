@@ -9,8 +9,8 @@
 		<meta name="p" content="{{ getmypid() }}" />
 		<meta name="q" content="{{ $eingabe }}" />
 		<meta name="l" content="{{ LaravelLocalization::getCurrentLocale() }}" />
-		<meta name="mm" content="{{ Request::input('verification_id') }}" />
-		<meta name="mn" content="{{ Request::input('verification_count') }}" />
+		<meta name="mm" content="{{ $metager->getVerificationId() }}" />
+		<meta name="mn" content="{{ $metager->getVerificationCount() }}" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
