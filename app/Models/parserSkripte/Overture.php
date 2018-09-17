@@ -25,10 +25,10 @@ class Overture extends Searchengine
 
             $results = $content->xpath('//Results/ResultSet[@id="inktomi"]/Listing');
             foreach ($results as $result) {
-                $title       = $result["title"];
-                $link        = $result->{"ClickUrl"}->__toString();
+                $title = $result["title"];
+                $link = $result->{"ClickUrl"}->__toString();
                 $anzeigeLink = $result["siteHost"];
-                $descr       = $result["description"];
+                $descr = $result["description"];
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -36,7 +36,8 @@ class Overture extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName,$this->homepage,
+                    $this->displayName,
+                    $this->homepage,
                     $this->counter
                 );
             }
@@ -44,10 +45,10 @@ class Overture extends Searchengine
             # Nun noch die Werbeergebnisse:
             $ads = $content->xpath('//Results/ResultSet[@id="searchResults"]/Listing');
             foreach ($ads as $ad) {
-                $title       = $ad["title"];
-                $link        = $ad->{"ClickUrl"}->__toString();
+                $title = $ad["title"];
+                $link = $ad->{"ClickUrl"}->__toString();
                 $anzeigeLink = $ad["siteHost"];
-                $descr       = $ad["description"];
+                $descr = $ad["description"];
                 $this->counter++;
                 $this->ads[] = new \App\Models\Result(
                     $this->engine,
@@ -55,7 +56,7 @@ class Overture extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName,$this->homepage,
+                    $this->displayName, $this->homepage,
                     $this->counter
                 );
             }
@@ -87,9 +88,9 @@ class Overture extends Searchengine
         // Yahoo liefert, wenn es keine weiteren Ergebnisse hat immer wieder die gleichen Ergebnisse
         // Wir müssen also überprüfen, ob wir am Ende der Ergebnisse sind
         $resultCount = $content->xpath('//Results/ResultSet[@id="inktomi"]/MetaData/TotalHits');
-        $results     = $content->xpath('//Results/ResultSet[@id="inktomi"]/Listing');
+        $results = $content->xpath('//Results/ResultSet[@id="inktomi"]/Listing');
         if (isset($resultCount[0]) && sizeof($results) > 0) {
-            $resultCount      = intval($resultCount[0]->__toString());
+            $resultCount = intval($resultCount[0]->__toString());
             $lastResultOnPage = intval($results[sizeof($results) - 1]["rank"]);
             if ($resultCount <= $lastResultOnPage) {
                 return;
@@ -111,9 +112,9 @@ class Overture extends Searchengine
         }
 
         # Erstellen des neuen Suchmaschinenobjekts und anpassen des GetStrings:
-        $next            = new Overture(simplexml_load_string($this->engine), $metager);
+        $next = new Overture(simplexml_load_string($this->engine), $metager);
         $next->getString = preg_replace("/&Keywords=.*?&/si", "&", $next->getString) . "&" . $nextArgs;
-        $next->hash      = md5($next->host . $next->getString . $next->port . $next->name);
-        $this->next      = $next;
+        $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+        $this->next = $next;
     }
 }

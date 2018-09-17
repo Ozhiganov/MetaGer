@@ -10,12 +10,12 @@ class FokiLoader
     {
         $sumaFile = "";
         if (App::isLocale('en')) {
-            $sumaFile = config_path() . "/sumas.xml";
+            $sumaFile = config_path() . "/sumasEn.xml";
         } else {
             $sumaFile = config_path() . "/sumas.xml";
         }
 
-        $xml   = simplexml_load_file($sumaFile);
+        $xml = simplexml_load_file($sumaFile);
         $sumas = $xml->xpath("suma");
 
         $foki = [];
@@ -24,13 +24,13 @@ class FokiLoader
                 if (isset($suma['type'])) {
                     $f = explode(",", $suma['type']->__toString());
                     foreach ($f as $tmp) {
-                        $displayName                             = $suma['displayName']->__toString();
-                        $url                                     = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
+                        $displayName = $suma['displayName']->__toString();
+                        $url = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
                         $foki[$tmp][$suma['name']->__toString()] = ['displayName' => $displayName, 'url' => $url];
                     }
                 } else {
-                    $displayName                                 = $suma['displayName']->__toString();
-                    $url                                         = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
+                    $displayName = $suma['displayName']->__toString();
+                    $url = isset($suma['homepage']) ? $suma['homepage']->__toString() : "https://metager.de";
                     $foki["andere"][$suma['name']->__toString()] = ['displayName' => $displayName, 'url' => $url];
                 }
             }
