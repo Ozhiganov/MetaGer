@@ -934,7 +934,7 @@ class MetaGer
 
     public function parseFormData(Request $request)
     {
-        $this->request = $request;
+        
         # Sichert, dass der request in UTF-8 formatiert ist
         if ($request->input('encoding', 'utf8') !== "utf8") {
             # In früheren Versionen, als es den Encoding Parameter noch nicht gab, wurden die Daten in ISO-8859-1 übertragen
@@ -1051,6 +1051,8 @@ class MetaGer
         $this->verificationId = $request->input('verification_id', null);
         $this->verificationCount = intval($request->input('verification_count', '0'));
         $this->apiKey = $request->input('key', '');
+        // Remove Inputs that are not used
+        $this->request = $request->replace($request->except(['verification_id', 'uid', 'verification_count']));
 
         $this->validated = false;
         if (isset($this->password)) {
@@ -1491,6 +1493,14 @@ class MetaGer
     }
 
 # Einfache Getter
+
+    public function getVerificationId() {
+        return $this->verificationId;
+    }
+
+    public function getVerificationCount() {
+        return $this->verificationCount;
+    }
 
     public function getSite()
     {

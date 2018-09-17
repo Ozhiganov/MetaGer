@@ -13,6 +13,8 @@ if (isset($_SERVER["HTTP_FORWARDED"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"])
     unset($_SERVER["HTTP_FORWARDED"]);
 }
 
+$_SERVER["AGENT"] = $_SERVER["HTTP_USER_AGENT"];
+
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
     $agentPieces = explode(" ", $_SERVER['HTTP_USER_AGENT']);
 
