@@ -34,6 +34,7 @@ class MetaGer
     protected $warnings = [];
     protected $errors = [];
     protected $addedHosts = [];
+    protected $availableFoki = [];
     protected $startCount = 0;
     protected $canCache = false;
     # Daten über die Abfrage$
@@ -525,6 +526,20 @@ class MetaGer
         $overtureEnabled = false;
         $sumaCount = 0;
 
+        /*
+        * Erstellt eine Liste mit Foki, die verfügbar sind
+        */
+        $this->availableFoki = [];
+        foreach ($sumas as $suma) {
+            $foki = explode(",", trim($suma["type"]));
+            foreach ($foki as $fokus) {
+                if (!empty($fokus)) {
+                    $this->availableFoki[$fokus] = "available";
+                }
+
+            }
+        }
+
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
 
         # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
@@ -646,7 +661,7 @@ class MetaGer
     public function sumaIsSelected($suma, $request, $custom)
     {
         if ($custom) {
-            if ($request->filled("engine_" . $suma["name"])) {
+            if ($request->filled("engine_" . strtolower($suma["name"]))) {
                 return true;
             }
         } else {
@@ -950,7 +965,7 @@ class MetaGer
         $this->fokus = $request->input('focus', 'web');
         # Suma-File
         if (App::isLocale("en")) {
-            $this->sumaFile = config_path() . "/sumas.xml";
+            $this->sumaFile = config_path() . "/sumasEn.xml";
         } else {
             $this->sumaFile = config_path() . "/sumas.xml";
         }
@@ -1560,6 +1575,12 @@ class MetaGer
     {
         return $this->lang;
     }
+
+    public function getAvailableFoki()
+    {
+        return $this->availableFoki;
+    }
+
 
     public function getSprueche()
     {
