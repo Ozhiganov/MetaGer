@@ -15,12 +15,12 @@ abstract class Searchengine
     public $ch; # Curl Handle zum erhalten der Ergebnisse
     public $getString = ""; # Der String für die Get-Anfrage
     public $engine; # Die ursprüngliche Engine XML
-    public $enabled  = true; # true, wenn die Suchmaschine nicht explizit disabled ist
-    public $results  = []; # Die geladenen Ergebnisse
-    public $ads      = []; # Die geladenen Werbungen
+    public $enabled = true; # true, wenn die Suchmaschine nicht explizit disabled ist
+    public $results = []; # Die geladenen Ergebnisse
+    public $ads = []; # Die geladenen Werbungen
     public $products = []; # Die geladenen Produkte
-    public $loaded   = false; # wahr, sobald die Ergebnisse geladen wurden
-    public $cached   = false;
+    public $loaded = false; # wahr, sobald die Ergebnisse geladen wurden
+    public $cached = false;
 
     public $ip; # Die IP aus der metager
     public $uses; # Die Anzahl der Nutzungen dieser Suchmaschine
@@ -32,9 +32,9 @@ abstract class Searchengine
     public $hash; # Der Hash-Wert dieser Suchmaschine
 
     public $fp; # Wird für Artefakte benötigt
-    public $socketNumber    = null; # Wird für Artefakte benötigt
-    public $counter         = 0; # Wird eventuell für Artefakte benötigt
-    public $write_time      = 0; # Wird eventuell für Artefakte benötigt
+    public $socketNumber = null; # Wird für Artefakte benötigt
+    public $counter = 0; # Wird eventuell für Artefakte benötigt
+    public $write_time = 0; # Wird eventuell für Artefakte benötigt
     public $connection_time = 0; # Wird eventuell für Artefakte benötigt
 
     public function __construct(\SimpleXMLElement $engine, MetaGer $metager)
@@ -69,7 +69,7 @@ abstract class Searchengine
         }
 
         $this->useragent = $metager->getUserAgent();
-        $this->ip        = $metager->getIp();
+        $this->ip = $metager->getIp();
         $this->startTime = microtime();
 
         # Suchstring generieren
@@ -84,10 +84,10 @@ abstract class Searchengine
         } else {
             $q = $metager->getQ();
         }
-        $this->getString  = $this->generateGetString($q, $metager->getUrl(), $metager->getLanguage(), $metager->getCategory());
-        $this->hash       = md5($this->host . $this->getString . $this->port . $this->name);
+        $this->getString = $this->generateGetString($q, $metager->getUrl(), $metager->getLanguage(), $metager->getCategory());
+        $this->hash = md5($this->host . $this->getString . $this->port . $this->name);
         $this->resultHash = $metager->getHashCode();
-        $this->canCache   = $metager->canCache();
+        $this->canCache = $metager->canCache();
         if (!isset($this->additionalHeaders)) {$this->additionalHeaders = "";}
     }
 
@@ -114,13 +114,13 @@ abstract class Searchengine
             // With <ResultHash> being the Hash Value where the fetcher will store the result.
             // and <URL to fetch> being the full URL to the searchengine
             $url = "";
-            if($this->port === "443"){
+            if ($this->port === "443") {
                 $url = "https://";
-            }else{
+            } else {
                 $url = "http://";
             }
             $url .= $this->host;
-            if($this->port !== 80 && $this->port !== 443){
+            if ($this->port !== 80 && $this->port !== 443) {
                 $url .= ":" . $this->port;
             }
             $url .= $this->getString;
@@ -132,27 +132,27 @@ abstract class Searchengine
             Redis::rpush($this->name . ".queue", $mission);
 
             /**
-            * We have Searcher processes running for MetaGer
-            * Each Searcher is dedicated to one specific Searchengine and fetches it's results.
-            * We can have multiple Searchers for each engine, if needed.
-            * At this point we need to decide, whether we need to start a new Searcher process or
-            * if we have enough of them running.
-            * The information for that is provided through the redis system. Each running searcher 
-            * gives information how long it has waited to be given the last fetcher job.
-            * The longer this time value is, the less frequent the search engine is used and the less
-            * searcher of that type we need.
-            * But if it's too low, i.e. 100ms, then the searcher is near to it's full workload and needs assistence.
-            **/
+             * We have Searcher processes running for MetaGer
+             * Each Searcher is dedicated to one specific Searchengine and fetches it's results.
+             * We can have multiple Searchers for each engine, if needed.
+             * At this point we need to decide, whether we need to start a new Searcher process or
+             * if we have enough of them running.
+             * The information for that is provided through the redis system. Each running searcher
+             * gives information how long it has waited to be given the last fetcher job.
+             * The longer this time value is, the less frequent the search engine is used and the less
+             * searcher of that type we need.
+             * But if it's too low, i.e. 100ms, then the searcher is near to it's full workload and needs assistence.
+             **/
             $needSearcher = false;
             $searcherData = Redis::hgetall($this->name . ".stats");
 
             // We now have an array of statistical data from the searchers
             // Each searcher has one entry in it.
-            // So if it's empty, then we have currently no searcher running and 
+            // So if it's empty, then we have currently no searcher running and
             // of course need to spawn a new one.
-            if(sizeof($searcherData) === 0){
+            if (sizeof($searcherData) === 0) {
                 $needSearcher = true;
-            }else{
+            } else {
                 // There we go:
                 // There's at least one Fetcher running for this search engine.
                 // Now we have to check if the current count is enough to fetch all the
@@ -160,18 +160,18 @@ abstract class Searchengine
                 // Let's hardcode a minimum of 100ms between every search job.
                 // First calculate the median of all Times
                 $median = 0;
-                foreach($searcherData as $pid => $data){
+                foreach ($searcherData as $pid => $data) {
                     $data = explode(";", $data);
                     $median += floatval($data[1]);
                 }
                 $median /= sizeof($searcherData);
-                if($median < .1){
+                if ($median < .1) {
                     $needSearcher = true;
                 }
             }
-            if($needSearcher && Redis::get($this->name) !== "locked"){
+            if ($needSearcher && Redis::get($this->name) !== "locked") {
                 Redis::set($this->name, "locked");
-                $this->dispatch(new Searcher($this->name));
+                $this->dispatch(new Searcher($this->name, $this->user, $this->password));
             }
         }
     }
@@ -203,7 +203,8 @@ abstract class Searchengine
         $this->enabled = true;
     }
 
-    public function setResultHash($hash){
+    public function setResultHash($hash)
+    {
         $this->resultHash = $hash;
     }
 
