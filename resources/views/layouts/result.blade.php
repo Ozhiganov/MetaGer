@@ -9,7 +9,7 @@
 					<span class="result-price">{!! $result->price_text !!}</span>
 				@endif
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-					{{ $result->number }}. {!! $result->titel !!}
+					{!! $result->titel !!}
 				</a>
 			</h2>
 			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ $result->gefVon }}</a>
