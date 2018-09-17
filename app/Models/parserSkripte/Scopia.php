@@ -17,7 +17,10 @@ class Scopia extends Searchengine
     public function loadResults($result)
     {
         $result = html_entity_decode($result);
-        $result = str_replace("&", "&amp;", $result);
+        $result = preg_replace("/<description>(.*?)<\/description>/si", "<description><![CDATA[ $1 ]]></description>", $result);
+        $result = preg_replace("/<title>(.*?)<\/title>/si", "<title><![CDATA[ $1 ]]></title>", $result);
+        $result = preg_replace("/<url>(.*?)<\/url>/si", "<url><![CDATA[ $1 ]]></url>", $result);
+
         try {
 
             $content = simplexml_load_string($result);
@@ -38,7 +41,8 @@ class Scopia extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->gefVon,
+                    $this->displayName,
+                    $this->homepage,
                     $this->counter
                 );
             }

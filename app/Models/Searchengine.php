@@ -31,6 +31,9 @@ abstract class Searchengine
     public $startTime; # Die Zeit der Erstellung dieser Suchmaschine
     public $hash; # Der Hash-Wert dieser Suchmaschine
 
+    private $user; # Username für HTTP-Auth (falls angegeben)
+    private $password; # Passwort für HTTP-Auth (falls angegeben)
+
     public $fp; # Wird für Artefakte benötigt
     public $socketNumber = null; # Wird für Artefakte benötigt
     public $counter = 0; # Wird eventuell für Artefakte benötigt
