@@ -33,15 +33,12 @@ class HumanVerification extends Controller
                     ->with('id', $id)
                     ->with('url', $url)
                     ->with('image', $captcha["img"])
-                    ->with('errorMessage', 'Bitte Captcha eingeben:');
+                    ->with('errorMessage', 'Fehler: Falsches Captcha eingegeben!');
             } else {
-
-                # The Captcha was correct. We can remove the key from the user
-                DB::table('humanverification')->where('uid', $id)->update(['lockedKey' => "", 'whitelistCounter' => 0]);
-
                 # If we can unlock the Account of this user we will redirect him to the result page
                 if ($user !== null && $user->locked === 1) {
-                    DB::table('humanverification')->where('uid', $id)->update(['locked' => false]);
+                    # The Captcha was correct. We can remove the key from the user
+                    DB::table('humanverification')->where('uid', $id)->update(['locked' => false, 'lockedKey' => "", 'whitelist' => 1]);
                     return redirect($url);
                 } else {
                     return redirect('/');
@@ -102,7 +99,7 @@ class HumanVerification extends Controller
 
         if ($user->whitelist === 1) {
             if (
-                DB::table('humanverification')->where('uid', $uid)->where('updated_at', '<', Carbon::NOW()->subSeconds(2))->update(['unusedResultPages' => 0])
+                DB::table('humanverification')->where('uid', $uid)->update(['unusedResultPages' => 0])
                 === 1
             ) {
                 DB::table('usedurls')->where('uid', $uid)->delete();
