@@ -298,10 +298,6 @@ class MetaGer
 
         }
 
-        if (LaravelLocalization::getCurrentLocale() === "en") {
-            $this->ads = [];
-        }
-
         if ($this->validated) {
             $this->ads = [];
             $this->maps = false;
