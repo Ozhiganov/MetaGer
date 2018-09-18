@@ -1,36 +1,37 @@
-$(function () {
+$(function() {
   loadLocalStorage();
   setActionListenersSearchbar();
   updateLangLabelCode();
 });
 
 function setActionListenersSearchbar() {
-  $('#input-key').change(saveKey);
-  $('#input-lang').change(saveLang);
+  $("#input-key").change(saveKey);
+  $("#input-lang").change(saveLang);
 }
 
 function saveKey() {
-  var key = $('#input-key').val();
-  localStorage.setItem('key', key);
+  var key = $("#input-key").val();
+  localStorage.setItem("key", key);
 }
 
 function loadKey() {
-  var key = localStorage.getItem('key');
+  var key = localStorage.getItem("key");
   if (key != null) {
-    $('#input-key').val(key);
+    $("#input-key").val(key);
   }
 }
 
 function saveLang() {
-  var lang = $('#input-lang').val();
-  localStorage.setItem('lang', lang);
+  var lang = $("#input-lang").val();
+  if (lang != "all") localStorage.setItem("lang", lang);
+  else localStorage.removeItem("lang");
   updateLangLabelCode(lang);
 }
 
 function loadLang() {
-  var lang = localStorage.getItem('lang');
+  var lang = localStorage.getItem("lang");
   if (lang != null) {
-    $('#input-lang').val(lang);
+    $("#input-lang").val(lang);
   }
 }
 
@@ -46,12 +47,12 @@ function loadLocalStorage() {
 }
 
 function setSettings() {
-  var acceptedParams = ['autocomplete', 'key', 'lang', 'newtab', 'sprueche'];
+  var acceptedParams = ["autocomplete", "key", "lang", "newtab", "sprueche"];
   for (var key in localStorage) {
     var value = localStorage.getItem(key);
     var accepted = false;
     for (var i in acceptedParams) {
-      if (key === 'param_' + acceptedParams[i]) {
+      if (key === "param_" + acceptedParams[i]) {
         accepted = true;
       }
     }
@@ -61,20 +62,26 @@ function setSettings() {
       var existing = $('.search-hidden input[name="' + key + '"]');
       if (existing.length === 0) {
         // if none exist, create a new one
-        $('.search-hidden').append('<input type="hidden" name="' + key + '" value="' + value + '">');
+        $(".search-hidden").append(
+          '<input type="hidden" name="' + key + '" value="' + value + '">'
+        );
       }
     }
   }
   // Change the request method to the given parameter
-  var requestMethod = localStorage.getItem('request');
-  if (requestMethod !== null && (requestMethod === 'GET' || requestMethod === 'POST')) {
-    $('#searchForm').attr('method', requestMethod);
+  var requestMethod = localStorage.getItem("request");
+  if (
+    requestMethod !== null &&
+    (requestMethod === "GET" || requestMethod === "POST")
+  ) {
+    $("#searchForm").attr("method", requestMethod);
   }
 }
 
 function updateLangLabelCode(langcode = null) {
   if (!langcode) {
-    var langcode = localStorage.getItem('lang');
+    var langcode = localStorage.getItem("lang");
   }
-  $('#lang-label-code').html(langcode);
+  if (langcode == "all") langcode = "";
+  $("#lang-label-code").html(langcode);
 }
