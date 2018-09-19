@@ -13,7 +13,6 @@
 		<meta name="mn" content="{{ $metager->getVerificationCount() }}" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
-		<link type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<meta name="referrer" content="origin">
@@ -43,8 +42,8 @@
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" alt=""/>
 		<script src="{{ mix('js/lib.js') }}"></script>
-		<script src="{{ mix('js/scriptResultPage.js') }}"></script>
-		<script src="{{ mix('js/focus-creator.js') }}"></script>
-		<script src="{{ mix('js/searchbar.js') }}"></script>
+		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
+		<script src="{{ mix('js/focus-creator.js') }}" defer></script>
+		<script src="{{ mix('js/searchbar.js') }}" defer></script>
 	</body>
 </html>
