@@ -20,6 +20,12 @@ Route::group(
 
         Route::get('/', 'StartpageController@loadStartPage');
 
+        Route::get('asso', 'Assoziator@asso'/*function(){
+            return view('assoziator.asso')
+                ->with('title', trans('titles.asso'))
+                ->with('navbarFocus', 'dienste');
+        }*/);
+
         Route::get('img/piwik.png', 'ImageController@generateImage');
 
         Route::get('impressum', function () {
