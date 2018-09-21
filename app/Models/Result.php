@@ -35,11 +35,12 @@ class Result
         $this->titel = strip_tags(trim($titel));
         $this->link = trim($link);
         $this->anzeigeLink = trim($anzeigeLink);
+        $this->anzeigeLink = preg_replace("/(http[s]{0,1}:\/\/){0,1}(www\.){0,1}/si", "", $this->anzeigeLink);
         $this->descr = strip_tags(trim($descr), '<p>');
         $this->descr = preg_replace("/\n+/si", " ", $this->descr);
         $this->longDescr = $this->descr;
-        if (strlen($this->descr) > 250) {
-            $this->descr = wordwrap($this->descr, 250);
+        if (strlen($this->descr) > 150) {
+            $this->descr = wordwrap($this->descr, 150);
             $this->descr = substr($this->descr, 0, strpos($this->descr, "\n"));
 
         }
