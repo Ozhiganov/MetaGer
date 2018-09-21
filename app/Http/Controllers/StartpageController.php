@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
-use Response;
 use LaravelLocalization;
+use Response;
 
 class StartpageController extends Controller
 {
@@ -20,7 +20,7 @@ class StartpageController extends Controller
     public function loadStartPage(Request $request)
     {
         $focusPages = [];
-        $theme      = "default";
+        $theme = "default";
 
         $optionParams = ['param_sprueche', 'param_newtab', 'param_maps', 'param_autocomplete', 'param_lang', 'param_key'];
         $option_values = [];
@@ -33,12 +33,12 @@ class StartpageController extends Controller
         }
 
         $autocomplete = 'on';
-        if(in_array('autocomplete', array_keys($option_values))) {
+        if (in_array('autocomplete', array_keys($option_values))) {
             $autocomplete = $option_values['autocomplete'];
         }
 
         $lang = LaravelLocalization::getCurrentLocale();
-        if ($lang === 'de') {
+        if ($lang === 'de' || $lang === "en") {
             $lang = 'all';
         }
 
@@ -78,9 +78,9 @@ class StartpageController extends Controller
 
     public function loadPlugin($params, $locale = "de")
     {
-        $params   = unserialize(base64_decode($params));
+        $params = unserialize(base64_decode($params));
         $requests = $params;
-        $params   = [];
+        $params = [];
         foreach ($requests as $key => $value) {
             if (strpos($key, "param_") === 0) {
                 $key = substr($key, strpos($key, "param_") + 6);
@@ -135,12 +135,12 @@ class StartpageController extends Controller
 
     public function berlin(Request $request)
     {
-        $link     = "";
+        $link = "";
         $password = "";
         if ($request->filled('eingabe')) {
             $password = getenv('berlin');
             $password = md5($request->input('eingabe') . " -host:userpage.fu-berlin.de" . $password);
-            $link     = "/meta/meta.ger3?eingabe=" . $request->input('eingabe') . " -host:userpage.fu-berlin.de&focus=web&password=" . $password . "&encoding=utf8&lang=all&site=fu-berlin.de&quicktips=off&out=results-with-style";
+            $link = "/meta/meta.ger3?eingabe=" . $request->input('eingabe') . " -host:userpage.fu-berlin.de&focus=web&password=" . $password . "&encoding=utf8&lang=all&site=fu-berlin.de&quicktips=off&out=results-with-style";
         }
         return view('berlin')
             ->with('title', 'Testseite für die FU-Berlin')

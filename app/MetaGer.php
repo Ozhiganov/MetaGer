@@ -34,6 +34,7 @@ class MetaGer
     protected $warnings = [];
     protected $errors = [];
     protected $addedHosts = [];
+    protected $availableFoki = [];
     protected $startCount = 0;
     protected $canCache = false;
     # Daten über die Abfrage$
@@ -259,6 +260,7 @@ class MetaGer
 
         # Human Verification
         $this->results = $this->humanVerification($this->results);
+        $this->ads = $this->humanVerification($this->ads);
 
         $counter = 0;
         $firstRank = 0;
@@ -295,10 +297,6 @@ class MetaGer
                 $result->color = "#000000";
             }
 
-        }
-
-        if (LaravelLocalization::getCurrentLocale() === "en") {
-            $this->ads = [];
         }
 
         if ($this->validated) {
@@ -467,8 +465,11 @@ class MetaGer
                 $link = $result->link;
                 $day = Carbon::now()->day;
                 $pw = md5($this->verificationId . $day . $link . env("PROXY_PASSWORD"));
-                $url = route('humanverification', ['mm' => $this->verificationId, 'pw' => $pw, "url" => urlencode(base64_encode($link))]);
+                $url = route('humanverification', ['mm' => $this->verificationId, 'pw' => $pw, "url" => urlencode(str_replace("/", "<<SLASH>>", base64_encode($link)))]);
+                $proxyPw = md5($this->verificationId . $day . $result->proxyLink . env("PROXY_PASSWORD"));
+                $proxyUrl = route('humanverification', ['mm' => $this->verificationId, 'pw' => $proxyPw, "url" => urlencode(str_replace("/", "<<SLASH>>", base64_encode($result->proxyLink)))]);
                 $result->link = $url;
+                $result->proxyLink = $proxyUrl;
             }
             return $results;
         } else {
@@ -527,6 +528,20 @@ class MetaGer
         $enabledSearchengines = [];
         $overtureEnabled = false;
         $sumaCount = 0;
+
+        /*
+        * Erstellt eine Liste mit Foki, die verfügbar sind
+        */
+        $this->availableFoki = [];
+        foreach ($sumas as $suma) {
+            $foki = explode(",", trim($suma["type"]));
+            foreach ($foki as $fokus) {
+                if (!empty($fokus)) {
+                    $this->availableFoki[$fokus] = "available";
+                }
+
+            }
+        }
 
         $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
 
@@ -649,7 +664,7 @@ class MetaGer
     public function sumaIsSelected($suma, $request, $custom)
     {
         if ($custom) {
-            if ($request->filled("engine_" . $suma["name"])) {
+            if ($request->filled("engine_" . strtolower($suma["name"]))) {
                 return true;
             }
         } else {
@@ -937,7 +952,7 @@ class MetaGer
 
     public function parseFormData(Request $request)
     {
-        $this->request = $request;
+        
         # Sichert, dass der request in UTF-8 formatiert ist
         if ($request->input('encoding', 'utf8') !== "utf8") {
             # In früheren Versionen, als es den Encoding Parameter noch nicht gab, wurden die Daten in ISO-8859-1 übertragen
@@ -954,7 +969,7 @@ class MetaGer
         $this->fokus = $request->input('focus', 'web');
         # Suma-File
         if (App::isLocale("en")) {
-            $this->sumaFile = config_path() . "/sumas.xml";
+            $this->sumaFile = config_path() . "/sumasEn.xml";
         } else {
             $this->sumaFile = config_path() . "/sumas.xml";
         }
@@ -1055,6 +1070,8 @@ class MetaGer
         $this->verificationId = $request->input('verification_id', null);
         $this->verificationCount = intval($request->input('verification_count', '0'));
         $this->apiKey = $request->input('key', '');
+        // Remove Inputs that are not used
+        $this->request = $request->replace($request->except(['verification_id', 'uid', 'verification_count']));
 
         $this->validated = false;
         if (isset($this->password)) {
@@ -1091,19 +1108,37 @@ class MetaGer
 
     public function checkSpecialSearches(Request $request)
     {
+        $this->searchCheckPhrase();
         $this->searchCheckSitesearch($request);
         $this->searchCheckHostBlacklist($request);
         $this->searchCheckDomainBlacklist($request);
         $this->searchCheckUrlBlacklist();
-        $this->searchCheckPhrase();
         $this->searchCheckStopwords($request);
         $this->searchCheckNoSearch();
+    }
+
+    private function searchCheckPhrase()
+    {
+        $p = "";
+        $tmp = $this->q;
+        // matches '[... ]"test satz"[ ...]'
+        while (preg_match("/(^|.*?\s)\"(\S+)\"(\s.*|$)/si", $tmp, $match)) {
+            $tmp = $match[1] . $match[3];
+            $this->phrases[] = $match[2];
+        }
+        foreach ($this->phrases as $phrase) {
+            $p .= "\"$phrase\", ";
+        }
+        $p = rtrim($p, ", ");
+        if (sizeof($this->phrases) > 0) {
+            $this->warnings[] = trans('metaGer.formdata.phrase', ['phrase' => $p]);
+        }
     }
 
     private function searchCheckSitesearch($request)
     {
         // matches '[... ]site:test.de[ ...]'
-        while (preg_match("/(^|.+\s)site:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)site:(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->site = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1116,7 +1151,7 @@ class MetaGer
     private function searchCheckHostBlacklist($request)
     {
         // matches '[... ]-site:test.de[ ...]'
-        while (preg_match("/(^|.+\s)-site:([^\s\*]\S*)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-site:([^\*\s]\S*)(\s.*|$)/si", $this->q, $match)) {
             $this->hostBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1151,7 +1186,7 @@ class MetaGer
     private function searchCheckDomainBlacklist($request)
     {
         // matches '[... ]-site:*.test.de[ ...]'
-        while (preg_match("/(^|.+\s)-site:\*\.(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-site:\*\.(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->domainBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1185,7 +1220,7 @@ class MetaGer
     private function searchCheckUrlBlacklist()
     {
         // matches '[... ]-site:*.test.de[ ...]'
-        while (preg_match("/(^|.+\s)-url:(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
+        while (preg_match("/(^|.*?\s)-url:(\S+)(\s.*|$)/si", $this->q, $match)) {
             $this->urlBlacklist[] = $match[2];
             $this->q = $match[1] . $match[3];
         }
@@ -1202,11 +1237,18 @@ class MetaGer
 
     private function searchCheckStopwords($request)
     {
+        $oldQ = $this->q;
         // matches '[... ]-test[ ...]'
-        while (preg_match("/(^|[^\s]+\s)-(\S+)(?:\s(.+)|($))/si", $this->q, $match)) {
-            $this->stopWords[] = $match[2];
-            $this->q = $match[1] . $match[3];
+        $words = preg_split("/\s+/si",$this->q);
+        $newQ = "";
+        foreach($words as $word){
+            if(strpos($word, "-") === 0 && strlen($word) > 1){
+                $this->stopWords[] = substr($word, 1);
+            }else{
+                $newQ .= " " . $word;
+            }
         }
+        $this->q = trim($newQ);
         # Overwrite Setting if submitted via Parameter
         if ($request->has('stop')) {
             $this->stopWords = [];
@@ -1220,6 +1262,7 @@ class MetaGer
             } else {
                 $this->stopWords[] = $stop;
             }
+            $this->q = $oldQ;
         }
         // print the stopwords as a user warning
         if (sizeof($this->stopWords) > 0) {
@@ -1229,24 +1272,6 @@ class MetaGer
             }
             $stopwordsString = rtrim($stopwordsString, ", ");
             $this->warnings[] = trans('metaGer.formdata.stopwords', ['stopwords' => $stopwordsString]);
-        }
-    }
-
-    private function searchCheckPhrase()
-    {
-        $p = "";
-        $tmp = $this->q;
-        // matches '[... ]"test satz"[ ...]'
-        while (preg_match("/(^|.+\s)\"(.+)\"(?:\s(.+)|($))/si", $tmp, $match)) {
-            $tmp = $match[1] . $match[3];
-            $this->phrases[] = $match[2];
-        }
-        foreach ($this->phrases as $phrase) {
-            $p .= "\"$phrase\", ";
-        }
-        $p = rtrim($p, ", ");
-        if (sizeof($this->phrases) > 0) {
-            $this->warnings[] = trans('metaGer.formdata.phrase', ['phrase' => $p]);
         }
     }
 
@@ -1488,6 +1513,14 @@ class MetaGer
 
 # Einfache Getter
 
+    public function getVerificationId() {
+        return $this->verificationId;
+    }
+
+    public function getVerificationCount() {
+        return $this->verificationCount;
+    }
+
     public function getSite()
     {
         return $this->site;
@@ -1546,6 +1579,12 @@ class MetaGer
     {
         return $this->lang;
     }
+
+    public function getAvailableFoki()
+    {
+        return $this->availableFoki;
+    }
+
 
     public function getSprueche()
     {

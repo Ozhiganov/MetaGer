@@ -23,7 +23,7 @@
 					</label>
 				</div>
 				<div class="search-input">
-					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
 					<button class="hidden" id="search-delete-btn" type="button">
 						&#xd7;
 					</button>
@@ -45,7 +45,7 @@
 					<input type="hidden" name="time" value={{ $time }}>
 				@endif
 				@if (isset($focusPages) && !empty($focusPages))
-					<input type="hidden" name="focus" value="focus_custom">	
+					<input type="hidden" name="focus" value="focus_custom">
 					@foreach ($focusPages as $fp)
 						<input type="hidden" name={{ $fp }} value="on">
 					@endforeach
