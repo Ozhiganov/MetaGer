@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sumas>
-	<!-- Eine ausführliche Beschreibung der verwendeten Attribute gibt es unter: https://gitlab.metager3.de/open-source/MetaGer/wikis/sumas-xml 
-	<suma
-		name="suchmaschine"
-		host="www.suchmaschine.de"
-		skript="/suche/"
-		formData="sprache=de&amp;sortieren=true&amp;queue=&lt;&lt;QUERY&gt;&gt;"
-		package="suchmaschine"
-		displayName="Meine Suchmaschine"
-		homepage="www.suchmaschine.de/welcome"
-		port="443"
-		inputEncoding="Latin1"
-		userSelectable="1"
-		type="web, nachrichten"
-		engineBoost="1.2"
-		additionalHeaders="$#!#$"
-		disabled="0"
-		hasSiteSearch="1"
-		cacheDuration="60"
-	></suma>
-	-->
-	<suma
-		name="BASE"
-		host="baseapi.ub.uni-bielefeld.de"
-		skript="/cgi-bin/BaseHttpSearchInterface.fcgi"
-		formData="func=PerformSearch&amp;query=&lt;&lt;QUERY&gt;&gt;"
-		package="BASE"
-		displayName="BASE"
-		homepage="http://www.base-search.net/"
-		port="80"
-		userSelectable="1"
-		type="web,wissenschaft"
-	></suma>
+	<suma name="mnogosearch" host="mg3.suma-ev.de" skript="/cgi-bin/search.cgi" formData="q=&lt;&lt;QUERY&gt;&gt;&amp;cs=utf-8&amp;ps=20" package="mnogosearch" type="web" port="80" userSelectable="1" displayName="Wikis" outputEncoding="Latin1"/>
+	<suma name="BASE" host="baseapi.ub.uni-bielefeld.de" skript="/cgi-bin/BaseHttpSearchInterface.fcgi" formData="func=PerformSearch&amp;query=&lt;&lt;QUERY&gt;&gt;" package="BASE" port="80" formDataEn="func=PerformSearch&amp;query=&lt;&lt;QUERY&gt;&gt;" displayName="BASE" userSelectable="1" type="wissenschaft" homepage="http://www.base-search.net/"/>
+	<suma name="blogsearch" host="blogsuche.suma-ev.de" skript="/blogsearch/xmlout.php" formData="search=&lt;&lt;QUERY&gt;&gt;&amp;length=400&amp;rows=50&amp;category=&lt;&lt;CATEGORY&gt;&gt;" package="blogsearch" port="80" inputEncoding="utf8" displayName="Blogsuche" userSelectable="1" type="andere" engineBoost="0.2" homepage="http://blogsuche.suma-ev.de/blogsearch/index.php"/>
 </sumas>
