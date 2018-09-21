@@ -8,9 +8,10 @@
 						{{ $ad->titel }}
 					</a>
 				</h2>
-				<a class="ad-label" href="{{ $ad->gefVonLink }}" target="_blank" rel="noopener">Werbung von {!! $ad->gefVon !!}</a>
+				<a class="ad-label" href="{{ $ad->gefVonLink }}" target="_blank" rel="noopener">{!! $ad->gefVon !!}</a>
 			</div>
 			<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
+				<span class="advertisement-mark">Anzeige</span>
 				{{ $ad->anzeigeLink }}
 			</a>
 		</div>
