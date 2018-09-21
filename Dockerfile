@@ -14,13 +14,14 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     nodejs \
     libpng-dev \
+    unzip \
     npm
 RUN npm install gulp -g
 
 COPY . /app
 WORKDIR app
 RUN mv config/sumas.xml.example config/sumas.xml && mv .env.example .env
-RUN composer install
+RUN composer install --no-plugins --no-scripts
 RUN npm install
 RUN npm run dev
 
