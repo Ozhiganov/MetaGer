@@ -13,7 +13,6 @@ class Assoziator extends Controller
             return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/asso'));
         }
 
-        /*
         $url = "https://metager.de/meta/meta.ger3?eingabe=" . urlencode($eingabe) . "&out=atom10";
 
         $ch = curl_init();
@@ -41,12 +40,9 @@ class Assoziator extends Controller
 
         if($responseCode !== 200)
             abort(500, "Server currently not available");
-        */
 
-        $response = file_get_contents(storage_path("app/public/results.xml"));
 
         $response = preg_replace("/^<\?.*\?>/s", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>", $response);
-        #die(var_dump($response));
         $content = simplexml_load_string($response);
 
         $words = [];
@@ -85,6 +81,8 @@ class Assoziator extends Controller
         unset($words[ucfirst($eingabe)]);
         unset($words["de"]);
         unset($words["com"]);
+        unset($words["wiki"]);
+        unset($words["Wiki"]);
 
         // Remove Stopwords
         $stopWords = file(storage_path('app/public/stopwords.txt'));
@@ -96,6 +94,23 @@ class Assoziator extends Controller
             unset($words[ucfirst($stopWord)]);
         }
 
+        $wordCount = 0;
+
+        $i = 1;
+        $max = 60;
+        foreach($words as $key => $value){
+            if($i > $max)
+                unset($words[$key]);
+            $wordCount += $value;
+            $i++;
+        }
+
+        return view('assoziator.asso')
+            ->with('title', trans('titles.asso'))
+            ->with('navbarFocus', 'dienste')
+            ->with('words', $words)
+            ->with('keywords', $eingabe)
+            ->with('wordCount', $wordCount);
 
         die(var_dump($words));
     }
