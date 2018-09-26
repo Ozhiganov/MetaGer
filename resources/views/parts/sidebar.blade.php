@@ -26,7 +26,7 @@
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/zitat-suche/") }}" tabindex="227">{{ trans('sidebar.nav22') }}</a>
         </li>
         <li>
-          <a class="inlink" href="https://metager.de/klassik/asso/" tabindex="228">{{ trans('sidebar.nav11') }}</a>
+          <a href="{{ action('Assoziator@asso') }}" tabindex="228">{{ trans('sidebar.nav11') }}</a>
         </li>
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/app/") }}" tabindex="229">@lang('sidebar.nav25')</a>

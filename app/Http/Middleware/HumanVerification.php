@@ -126,7 +126,8 @@ class HumanVerification
         } catch (\Illuminate\Database\QueryException $e) {
             // Failure in contacting metager3.de
         }
-        $request->request->add(['verification_id' => $uid, 'verification_count' => $unusedResultPages]);
+        if(isset($uid) && isset($unusedResultPages))
+            $request->request->add(['verification_id' => $uid, 'verification_count' => $unusedResultPages]);
         return $next($request);
     }
 }
