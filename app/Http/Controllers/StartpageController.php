@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use LaravelLocalization;
 use Response;
+use DB;
+use Log;
 
 class StartpageController extends Controller
 {
@@ -41,6 +43,14 @@ class StartpageController extends Controller
         if ($lang === 'de' || $lang === "en") {
             $lang = 'all';
         }
+        
+        # Sponsorenlinks
+        $sponsors = [];
+        try{
+            $sponsors = DB::table('sponsorenlinks')->where('langcode', 'de')->orderByRaw('LENGTH(linktext)', 'ASC')->get();
+        } catch(\Illuminate\Database\QueryException $e){
+            Log::info($e);
+        }
 
         return view('index')
             ->with('title', trans('titles.index'))
@@ -52,6 +62,7 @@ class StartpageController extends Controller
             ->with('request', $request->input('request', 'GET'))
             ->with('option_values', $option_values)
             ->with('autocomplete', $autocomplete)
+            ->with('sponsors', $sponsors)
             ->with('pluginmodal', $request->input('plugin-modal', 'off'));
     }
 
