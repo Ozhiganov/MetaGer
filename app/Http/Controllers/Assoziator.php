@@ -76,9 +76,14 @@ class Assoziator extends Controller
         }
         arsort($words);
 
-        unset($words[$eingabe]);
-        unset($words[strtolower($eingabe)]);
-        unset($words[ucfirst($eingabe)]);
+        $eingabeWords = explode(" ", $eingabe);
+        foreach($eingabeWords as $eingabeWord){
+            unset($words[$eingabeWord]);
+            unset($words[strtolower($eingabeWord)]);
+            unset($words[ucfirst($eingabeWord)]);
+            unset($words[strtoupper($eingabeWord)]);
+        }
+        
         unset($words["de"]);
         unset($words["com"]);
         unset($words["wiki"]);
