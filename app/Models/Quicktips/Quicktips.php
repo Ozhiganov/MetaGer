@@ -12,9 +12,9 @@ class Quicktips
 {
     use DispatchesJobs;
 
-    const QUICKTIP_URL = "https://quicktips.metager3.de/quicktips.xml";
-    //const QUICKTIP_URL = "http://localhost:63825/quicktips.xml";
-    const QUICKTIP_NAME = "quicktips";
+    //const QUICKTIP_URL = "https://quicktips.metager3.de/quicktips.xml";
+    const QUICKTIP_URL   = "http://localhost:63825/quicktips.xml";
+    const QUICKTIP_NAME  = "quicktips";
     const CACHE_DURATION = 60;
 
     private $hash;
@@ -69,7 +69,7 @@ class Quicktips
     public function loadResults()
     {
         $resultsRaw = $this->retrieveResults($this->hash);
-        $results = $this->parseResults($resultsRaw);
+        $results    = $this->parseResults($resultsRaw);
         return $results;
     }
 
@@ -140,14 +140,14 @@ class Quicktips
                 $descr = $quicktip_xml->content->__toString();
 
                 // Details
-                $details = [];
+                $details       = [];
                 $details_xpath = $quicktip_xml->xpath('mg:details');
                 if (sizeof($details_xpath) > 0) {
                     foreach ($details_xpath[0] as $detail_xml) {
                         $details_title = $detail_xml->title->__toString();
-                        $details_link = $detail_xml->url->__toString();
+                        $details_link  = $detail_xml->url->__toString();
                         $details_descr = $detail_xml->text->__toString();
-                        $details[] = new \App\Models\Quicktips\Quicktip_detail(
+                        $details[]     = new \App\Models\Quicktips\Quicktip_detail(
                             $details_title,
                             $details_link,
                             $details_descr
