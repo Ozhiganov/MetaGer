@@ -6,8 +6,7 @@ use App;
 use App\MetaGer;
 use Illuminate\Http\Request;
 
-const TIP_SERVER = 'https://quicktips.metager3.de/tips.xml';
-#const TIP_SERVER = 'http://localhost:63825/tips.xml';
+const TIP_SERVER = 'http://localhost:63825/tips.xml';
 
 class MetaGerSearch extends Controller
 {
@@ -77,7 +76,7 @@ class MetaGerSearch extends Controller
     public function tips(Request $request)
     {
         $tips_text = file_get_contents(TIP_SERVER);
-        $tips = [];
+        $tips      = [];
         try {
             $tips_xml = simplexml_load_string($tips_text);
 
