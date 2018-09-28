@@ -140,12 +140,6 @@
 			<p>{!! trans('hilfe.widget.1') !!}</p>
 		</div>
 	</section>
-	<section>
-		<h3>{!! trans('hilfe.urlshort.title') !!}</h3>
-		<div>
-			<p>{!! trans('hilfe.urlshort.1') !!}</p>
-		</div>
-	</section>
 	<h2>{!! trans('hilfe.datenschutz.title') !!}</h2>
 	<section>
 		<h3>{!! trans('hilfe.datenschutz.faktencheck.heading') !!}</h3>
