@@ -12,7 +12,6 @@ class Quicktips
 {
     use DispatchesJobs;
 
-    //const QUICKTIP_URL = "https://quicktips.metager3.de/quicktips.xml";
     const QUICKTIP_URL   = "http://localhost:63825/quicktips.xml";
     const QUICKTIP_NAME  = "quicktips";
     const CACHE_DURATION = 60;
