@@ -41,8 +41,8 @@ return [
     'about.3.1' => '',
 
     'lang.tooltip' => 'Ergebnissprache wählen',
-    'key.placeholder' => 'Mitglieder Key eingeben',
-    'key.tooltip' => 'Mitglieder Key eingeben',
+    'key.placeholder' => 'Mitglieder-Key eingeben',
+    'key.tooltip' => 'Mitglieder-Key eingeben',
     'placeholder' => 'MetaGer: Sicher suchen & finden, Privatsphäre schützen',
 
     'plugin.open-modal' => 'MetaGer-Plugin hinzufügen',
