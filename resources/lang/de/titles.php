@@ -22,4 +22,5 @@ return [
     'faktencheck'    => 'Fakten-Prüfung contra Fake-News',
     'jugendschutz'   => 'Jugendschutz',
     'ad-info'        => 'Werbung bei MetaGer',
+    'asso'           => 'Assoziator - MetaGer',
 ];
