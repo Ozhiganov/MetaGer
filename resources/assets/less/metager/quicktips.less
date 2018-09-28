@@ -4,142 +4,151 @@
 @quicktip-font-medium: @result-font-medium;
 @quicktip-font-small: @result-font-small;
 #quicktips {
-  display: flex;
-  flex-direction: column;
-  .quicktip {
-    .card-light;
-    position: relative;
-    details[open=""] .quicktip-extender {
-      animation-name: quicktip-extender-turn;
-      animation-fill-mode: forwards;
-    }
-    margin: 10px 0px;
-    padding: 10px 10px 10px 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    background-color: white;
-    details:not([open=""]) {
-      .quicktip-summary p {
-        .overflow-ellipsis;
-      }
-    }
-    .quicktip-summary {
-      .quicktip-headline {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        .quicktip-title,
-        .quicktip-title a {
-          flex-grow: 0;
-          margin: 0px 0px 5px 0px;
-          font-size: 13px;
-          display: flex;
-          justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    .quicktip {
+        .card-light;
+        position: relative;
+        details[open=""] .quicktip-extender {
+            animation-name: quicktip-extender-turn;
+            animation-fill-mode: forwards;
         }
-        .space-taker {
-          flex-grow: 1;
-        }
-        .quicktip-hoster {
-          flex-grow: 0;
-          font-size: @quicktip-font-small;
-          color: #808080;
-          white-space: nowrap;
-        }
-        .quicktip-extender {
-          flex-grow: 0;
-          color: #777;
-          font-size: 20px;
-          height: 20px;
-          font-size: @quicktip-font-large;
-        }
-        > * {
-          margin: 0px 5px;
-          &:first-child {
-            margin-left: 0px;
-          }
-          &:last-child {
-            margin-right: 0px;
-          }
-        }
-      }
-      .result-hoster {
-        font-size: @result-font-small;
-        margin-left: 20px;
-        color: #808080;
-        white-space: nowrap;
-      }
-      p {
-        font-size: 13px;
-      }
-    }
-    .quicktip-detail {
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
-      h2 {
         margin: 10px 0px;
-        font-size: 16px;
-      }
-      p {
-        display: none;
-        font-size: 14px;
-      }
-    }
-    &[type="spendenaufruf"] {
-      order: 100;
-      border: none;
-      box-shadow: none;
-      background-color: inherit;
-      .quicktip-summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        h1 {
-          margin: 0px;
-        }
-        p {
-          margin: 5px;
-          .spendenaufruf-btn {
-            color: white;
-            background-color: @link-color;
-            font-size: 16px;
-          }
-        }
-      }
-    }
-    &[type="spruch"] {
-      order: 1;
-      p {
-        display: flex;
-        flex-direction: column;
-        text-align: justify;
-        .author {
-          color: #404040;
-          font-style: italic;
-          align-self: flex-end;
-        }
-      }
-    }
-    &[type="duckDuckGo-bang"] {
-      order: 2;
-      .bang-btn {
+        padding: 10px 10px 10px 10px;
         width: 100%;
-        margin-top: 5px;
-        color: #fff;
-        background-color: #286992;
-        font-size: 16px;
-      }
+        border: 1px solid #ccc;
+        background-color: white;
+        details:not([open=""]) {
+            .quicktip-summary p {
+                .overflow-ellipsis;
+            }
+        }
+        .quicktip-summary {
+            .quicktip-headline {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .quicktip-title,
+                .quicktip-title a {
+                    flex-grow: 0;
+                    margin: 0px 0px 5px 0px;
+                    font-size: 13px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .space-taker {
+                    flex-grow: 1;
+                }
+                .quicktip-hoster {
+                    flex-grow: 0;
+                    font-size: @quicktip-font-small;
+                    color: #808080;
+                    white-space: nowrap;
+                }
+                .quicktip-extender {
+                    flex-grow: 0;
+                    color: #777;
+                    font-size: 20px;
+                    height: 20px;
+                    font-size: @quicktip-font-large;
+                }
+                >* {
+                    margin: 0px 5px;
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+                    &:last-child {
+                        margin-right: 0px;
+                    }
+                }
+            }
+            .result-hoster {
+                font-size: @result-font-small;
+                margin-left: 20px;
+                color: #808080;
+                white-space: nowrap;
+            }
+            p {
+                font-size: 13px;
+            }
+        }
+        .quicktip-detail {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            h2 {
+                margin: 10px 0px;
+                font-size: 16px;
+            }
+            p {
+                display: none;
+                font-size: 14px;
+            }
+        }
+        &[type="spendenaufruf"] {
+            order: 100;
+            border: none;
+            box-shadow: none;
+            background-color: inherit;
+            .quicktip-summary {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h1 {
+                    margin: 0px;
+                }
+                p {
+                    margin: 5px;
+                    .spendenaufruf-btn {
+                        color: white;
+                        background-color: @link-color;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        &[type="spruch"] {
+            order: 1;
+            .quicktip-summary {
+                display: flex;
+                flex-direction: column;
+                p {
+                    text-align: justify;
+                    font-style: italic;
+                    quotes: '„' '”';
+                    &:before {
+                        content: open-quote;
+                    }
+                    &:after {
+                        content: close-quote;
+                    }
+                }
+                .author {
+                    color: #404040;
+                    align-self: flex-end;
+                }
+            }
+        }
+        &[type="duckDuckGo-bang"] {
+            order: 2;
+            .bang-btn {
+                width: 100%;
+                margin-top: 5px;
+                color: #fff;
+                background-color: #286992;
+                font-size: 16px;
+            }
+        }
+        &[type="wikipedia"] {
+            order: 3;
+        }
+        &[type="dictCC"] {
+            order: 4;
+        }
+        &[type="tip"] {
+            order: 5;
+        }
+        &[type="ad"] {
+            order: 6;
+        }
     }
-    &[type="wikipedia"] {
-      order: 3;
-    }
-    &[type="dictCC"] {
-      order: 4;
-    }
-    &[type="tip"] {
-      order: 5;
-    }
-    &[type="ad"] {
-      order: 6;
-    }
-  }
 }

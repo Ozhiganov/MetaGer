@@ -24,6 +24,9 @@
         <i class="quicktip-extender fa fa-chevron-down"></i>
       </div>
       <p class="quicktip-description">{!! $quicktip->descr !!}</p>
+      @if ($quicktip->author != "")
+      <span class="author">{{ $quicktip->author }}</span>
+      @endif
     </summary>
     @foreach ($quicktip->details as $detail)
       <div class="quicktip-detail">
@@ -62,5 +65,8 @@
       @endif
     </div>
     <p>{!! $quicktip->descr !!}</p>
+    @if ($quicktip->author != "")
+    <span class="author">{{ $quicktip->author }}</span>
+    @endif
   </div>
 @endif
