@@ -5,24 +5,63 @@
 @section('navbarFocus.datenschutz', 'class="active"')
 
 @section('content')
-	<div class="card-heavy">
-		<h1>{!! trans('datenschutz.head') !!}</h1>
-		<p>{!! trans('datenschutz.general.1') !!}</p>
-		<p>{!! trans('datenschutz.general.3') !!}</p>
-	</div>
-	<div class="card-heavy">
-		<h1>{!! trans('datenschutz.policy.1') !!}</h1>
-		<ul class="dotlist">
-			<li>{!! trans('datenschutz.policy.2') !!}</li>
-			<li>{!! trans('datenschutz.policy.5') !!}</li>
-			<li>{!! trans('datenschutz.policy.6') !!}</li>
-			<li>{!! trans('datenschutz.policy.7') !!}</li>
-			<li>{!! trans('datenschutz.policy.9') !!}</li>
-			<li>{!! trans('datenschutz.policy.10') !!}</li>
-			<li>{!! trans('datenschutz.policy.13') !!}</li>
-			<li>{!! trans('datenschutz.policy.17') !!}</li>
-			<li>{!! trans('datenschutz.policy.18') !!}</li>
-			<li>{!! trans('datenschutz.policy.19') !!}</li>
-		</ul>
-	</div>
+<style>
+main {
+    font-size: 10pt;
+    hyphens:auto;
+    counter-reset: kontext 0 datum 0;
+    text-align: justify;
+}
+
+h1 {
+    font-size: 18pt;
+}
+
+.kontext > h1::before {
+  counter-increment: kontext;
+  content: "K" counter(kontext) " ";
+  font-weight: normal;
+}
+
+.datum > h1::before {
+  counter-increment: datum;
+  content: "D" counter(datum) " ";
+  font-weight: normal;
+}
+
+.kontext h1 {
+   font-size: 16pt;
+   margin-bottom: inherit;
+}
+.kontext h2 {
+   font-size: 14pt;
+   margin-bottom: inherit;
+}
+.datum h1 {
+   font-size: 12pt;
+   margin-bottom: inherit;
+}
+.datum h2 {
+   font-size: 11pt;
+   margin-bottom: inherit;
+   margin-top: 5pt;
+}
+
+.kontext-list {
+    list-style: none;
+}
+.datum-list {
+    list-style: none;
+}
+
+samp {
+    hyphens:none;
+    font-size: 8pt;
+}
+</style>
+    @if (LaravelLocalization::getCurrentLocale() == "de")
+        @include('datenschutz.german')
+	@else
+        @include('datenschutz.english')
+	@endif
 @endsection

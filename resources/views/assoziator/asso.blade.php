@@ -24,7 +24,7 @@
 	</style>
 	<h1 class="page-title">{{ trans('asso.head.1') }}</h1>
 	<div class="card-heavy">
-		<p>{{ trans('asso.1.1') }} <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/') }}" target="_blank">{{ trans('asso.1.2') }}</a>.</p>
+		<p>{{ trans('asso.1.1') }} <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/datenschutz') }}" target="_blank">{{ trans('asso.1.2') }}</a>.</p>
 		
 		<form method="post">
 			<div class="input-group">
