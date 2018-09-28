@@ -108,14 +108,12 @@
         }
         &[type="spruch"] {
             order: 1;
-            p {
+            .quicktip-summary {
                 display: flex;
                 flex-direction: column;
-                text-align: justify;
-                .author {
-                    color: #404040;
+                p {
+                    text-align: justify;
                     font-style: italic;
-                    align-self: flex-end;
                     quotes: '„' '”';
                     &:before {
                         content: open-quote;
@@ -126,31 +124,31 @@
                 }
                 .author {
                     color: #404040;
-                    font-style: italic;
-                    float: right;
+                    align-self: flex-end;
                 }
-            }
-            &[type="duckDuckGo-bang"] {
-                order: 2;
-                .bang-btn {
-                    width: 100%;
-                    margin-top: 5px;
-                    color: #fff;
-                    background-color: #286992;
-                    font-size: 16px;
-                }
-            }
-            &[type="wikipedia"] {
-                order: 3;
-            }
-            &[type="dictCC"] {
-                order: 4;
-            }
-            &[type="tip"] {
-                order: 5;
-            }
-            &[type="ad"] {
-                order: 6;
             }
         }
+        &[type="duckDuckGo-bang"] {
+            order: 2;
+            .bang-btn {
+                width: 100%;
+                margin-top: 5px;
+                color: #fff;
+                background-color: #286992;
+                font-size: 16px;
+            }
+        }
+        &[type="wikipedia"] {
+            order: 3;
+        }
+        &[type="dictCC"] {
+            order: 4;
+        }
+        &[type="tip"] {
+            order: 5;
+        }
+        &[type="ad"] {
+            order: 6;
+        }
     }
+}
