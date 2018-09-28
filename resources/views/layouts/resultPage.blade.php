@@ -21,9 +21,8 @@
 	</head>
 	<body id="resultpage-body">
 		@if(Request::getHttpHost() === "metager3.de")
-		<div class="alert alert-info" style="text-align: center; position: fixed; bottom: 0;">
-		Sie befinden sich auf einer MetaGer Testversion. Hier werden Features vor der Veröffentlichung getestet. Unter Umständen funktioniert hier nicht alles wie gewohnt.
-		Unsere stabile Version finden Sie <a href="https://metager.de" target="_self">hier</a>.
+		<div class="alert alert-info metager3-unstable-warning-resultpage">
+			{!! @trans('resultPage.metager3') !!}
 		</div>
 		@endif
 		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
