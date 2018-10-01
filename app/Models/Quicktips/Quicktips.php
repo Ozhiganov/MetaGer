@@ -12,7 +12,7 @@ class Quicktips
 {
     use DispatchesJobs;
 
-    const QUICKTIP_URL   = "http://localhost:63825/1.1.0/quicktips.xml";
+    const QUICKTIP_URL   = "http://localhost:63825/1.1/quicktips.xml";
     const QUICKTIP_NAME  = "quicktips";
     const CACHE_DURATION = 60;
 
