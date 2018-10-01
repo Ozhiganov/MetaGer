@@ -92,7 +92,7 @@ class MetaGer
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
-    public function createView($quicktipResults = null)
+    public function createView($quicktipResults = [])
     {
         # Hiermit werden die evtl. ausgewählten SuMas extrahiert, damit die Input-Boxen richtig gesetzt werden können
         $focusPages = [];
