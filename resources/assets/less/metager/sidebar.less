@@ -36,6 +36,8 @@
             }
             &>i.fa {
                 width: 30px;
+                text-align: center;
+                margin-right: 7px;
             }
         }
         &>label {
@@ -52,7 +54,7 @@
             }
         }
     }
-    .metager-dropdown-menu {
+    .metager-dropdown-content {
         min-width: 160px;
         max-height: 0px;
         text-align: left;
@@ -113,7 +115,7 @@
     input.sidebarCheckbox {
         display: none;
         &:checked {
-            &~.metager-dropdown-menu {
+            &~.metager-dropdown-content {
                 max-height: 1000px;
                 padding: 5px 0px 0px 0px;
             }
@@ -124,13 +126,17 @@
             }
         }
         &:not(:checked) {
-            &~.metager-dropdown-menu {
+            &~.metager-dropdown-content {
                 padding: 0px 0;
             }
         }
     }
     input#nav0:checked~& {
         border-left: 1px solid LightGray;
+    }
+    hr {
+        margin: 0px;
+        border-color: #e0e0e0;
     }
 }
 
@@ -174,7 +180,7 @@ input#sidebarToggle:checked {
             max-height: 1000px;
         }
     }
-    ul.metager-dropdown-menu {
+    ul.metager-dropdown-content {
         position: inherit;
         width: 100%;
     }
