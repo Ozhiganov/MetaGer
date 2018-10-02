@@ -33,7 +33,7 @@
     <hr>
     <li>
       <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/spende/") }}" tabindex="202">
-        <i class="fa fa-money" aria-hidden="true"></i>
+        <i class="fa fa-donate" aria-hidden="true"></i>
         <span>{{ trans('sidebar.nav2') }}</span>
       </a>
     </li>
@@ -47,7 +47,7 @@
     <li class="metager-dropdown">
       <input id="contactToggle" class="sidebarCheckbox" type="checkbox">
       <label for="contactToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationKontakt" tabindex="219">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <i class="fa fa-comments" aria-hidden="true"></i>
         <span>{{ trans('sidebar.nav18') }}</span>
         <span class="caret"></span>
       </label>
