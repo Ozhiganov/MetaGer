@@ -1,10 +1,9 @@
-<input id="sideBarToggle" style="display: none;" type="checkbox">
-<div class="sideBar">
-  <label class="navigation-element" id="closeSidebar" for="sideBarToggle"></label>
+<input id="sidebarToggle" class="hidden" type="checkbox">
+<div class="sidebar">
   <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
     <p>MetaGer</p>
   </a>
-  <ul id="metager-static-nav-list" class="list-inline pull-right">
+  <ul class="sidebar-list">
     <li @if ( !isset($navbarFocus) || $navbarFocus === 'suche') class="active" @endif >
       <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}" tabindex="200" id="navigationSuche">
         <i class="fa fa-search" aria-hidden="true"></i>
@@ -12,7 +11,7 @@
       </a>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'dienste') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <input id="servicesToggle" class="sideBarCheckbox" type="checkbox">
+      <input id="servicesToggle" class="sidebarCheckbox" type="checkbox">
         <label for="servicesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" tabindex="225">
           <i class="fa fa-wrench" aria-hidden="true"></i>
           <span>&nbsp;{{ trans('sidebar.nav15') }}</span>
@@ -52,7 +51,7 @@
       </a>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'hilfe') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <input id="helpToggle" class="sideBarCheckbox" type="checkbox">
+      <input id="helpToggle" class="sidebarCheckbox" type="checkbox">
       <label for="helpToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationHilfe" tabindex="216">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
         <span>&nbsp;{{ trans('sidebar.nav20') }}</span>
@@ -68,7 +67,7 @@
       </ul>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'foerdern') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <input id="donationToggle" class="sideBarCheckbox" type="checkbox">
+      <input id="donationToggle" class="sidebarCheckbox" type="checkbox">
       <label for="donationToggle" class="metager-dropdown-toggle navigation-element" tabindex="201">
         <i class="fa fa-money" aria-hidden="true"></i>
         <span>&nbsp;{{ trans('sidebar.nav16') }}</span>
@@ -92,7 +91,7 @@
       </ul>
     </li>
     <li @if (isset($navbarFocus) && $navbarFocus === 'kontakt') class="metager-dropdown active" @else class="metager-dropdown" @endif >
-      <input id="contactToggle" class="sideBarCheckbox" type="checkbox">
+      <input id="contactToggle" class="sidebarCheckbox" type="checkbox">
       <label for="contactToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationKontakt" tabindex="219">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span>&nbsp;{{ trans('sidebar.nav18') }}</span>
@@ -117,7 +116,7 @@
       </ul>
     </li>
     <li class="metager-dropdown">
-      <input id="languagesToggle" class="sideBarCheckbox" type="checkbox">
+      <input id="languagesToggle" class="sidebarCheckbox" type="checkbox">
       <label for="languagesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationSprache" tabindex="235">
         <i class="fa fa-globe" aria-hidden="true"></i>
         <span>&nbsp;{{ trans('sidebar.nav19') }} ({{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }})</span>
