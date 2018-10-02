@@ -1,42 +1,42 @@
 /* Navigations-Seitenleiste */
 
-.sideBar {
+.sidebar {
+    border-left: 1px solid #ccc;
+    box-shadow: 0px 1px 1.5px 1px #c0c0c0;
+    /**/
     position: fixed;
     display: block;
     top: 0px;
     right: -270px;
     width: 270px;
     height: 100%;
-    padding-top: 70px;
+    padding-top: 55px;
     overflow: hidden;
     overflow-y: auto;
-    z-index: 999;
+    z-index: 1;
     background-color: white;
     transition: 0.5s;
     border-left: none;
-    &>label#closeSidebar {
-        position: absolute;
-        font-size: 36px;
-        top: 0px;
-        right: 20px;
-        color: grey;
-        &:after {
-            content: "×";
-        }
-        &:hover {
-            color: @metager-orange;
-        }
-    }
     &>ul {
-        padding-top: 20%;
+        padding-top: 20px;
+        padding-left: 0;
+        list-style: none;
+        margin-left: -5px;
     }
-    #metager-static-nav-list>li {
+    .sidebar-list>li {
         width: 100%;
-        padding-top: 3%;
-        padding-bottom: 3%;
-        border-bottom: 1px solid LightGray;
+        padding: 10px 0px;
         &:hover {
             background-color: @color-almost-white;
+        }
+        &>label,
+        &>a {
+            &:focus {
+                outline: none;
+            }
+            &>i.fa {
+                width: 30px;
+            }
         }
         &>label {
             font-size: 16px;
@@ -57,19 +57,17 @@
         max-height: 0px;
         text-align: left;
         list-style-type: none;
-        z-index: 1000;
-        float: left;
+        z-index: 3;
         overflow: hidden;
         transition: 0.5s ease;
         &>li>a {
             display: block;
-            font-size: 12px;
-            padding: 3px 20px;
+            font-size: 13px;
+            padding: 6px 20px;
             width: 100%;
             clear: both;
             font-weight: normal;
             line-height: 1.42857143;
-            border-top: 1px solid LightGray;
             margin-left: 2px;
             &:hover {
                 text-decoration: none;
@@ -112,12 +110,12 @@
         left: 90%;
         margin-top: 8px;
     }
-    input.sideBarCheckbox {
+    input.sidebarCheckbox {
         display: none;
         &:checked {
             &~.metager-dropdown-menu {
                 max-height: 1000px;
-                padding: 5px 0;
+                padding: 5px 0px 0px 0px;
             }
             &~label>.caret {
                 border-top: 0 solid;
@@ -136,9 +134,14 @@
     }
 }
 
-input#sideBarToggle:checked {
-    &~.sideBar {
+input#sidebarToggle:checked {
+    &~.sidebar {
         right: 0px;
+    }
+    &~.openSidebar {
+        &:after {
+            content: "×";
+        }
     }
 }
 
@@ -147,7 +150,7 @@ input#sideBarToggle:checked {
         position: fixed;
         top: 23px;
         right: 25px;
-        z-index: 998;
+        z-index: 2;
     }
     font-size: 36px;
     line-height: 23px;
@@ -163,13 +166,13 @@ input#sideBarToggle:checked {
 }
 
 @media (max-width: @screen-xs-max) {
-    .sideBar {
+    .sidebar {
         right: -90%;
         width: 90%;
         overflow: auto;
-    }
-    #metager-static-nav-list:target {
-        max-height: 1000px;
+        .sidebar-list {
+            max-height: 1000px;
+        }
     }
     ul.metager-dropdown-menu {
         position: inherit;
