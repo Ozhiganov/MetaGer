@@ -65,11 +65,21 @@ class Quicktips
         }
     }
 
+    /**
+     * Load the current Quicktip results
+     * 1. Retrieve the raw results
+     * 2. Parse the results
+     * Returns an empty array if no results are found
+     */
     public function loadResults()
     {
         $resultsRaw = $this->retrieveResults($this->hash);
-        $results    = $this->parseResults($resultsRaw);
-        return $results;
+        if ($resultsRaw) {
+            $results = $this->parseResults($resultsRaw);
+            return $results;
+        } else {
+            return [];
+        }
     }
 
     public function retrieveResults($hash)
