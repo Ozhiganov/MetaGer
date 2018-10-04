@@ -7,6 +7,7 @@ use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\ServiceProvider;
 use Queue;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
