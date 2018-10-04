@@ -27,7 +27,6 @@ Route::group(
         });
         Route::post('asso', 'Assoziator@asso');
 
-        Route::get('img/piwik.png', 'ImageController@generateImage');
 
         Route::get('impressum', function () {
             return view('impressum')
