@@ -44,6 +44,19 @@
       </a>
     </li>
     <hr>
+    <li>
+      <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/app/") }}" tabindex="229">
+        <i class="fa fa-mobile-alt" aria-hidden="true"></i>
+        <span>@lang('sidebar.nav25')</span>
+      </a>
+    </li>
+    <li>
+      <a class="inlink" href="https://maps.metager.de" target="_blank" tabindex="231">
+        <i class="fa fa-map" aria-hidden="true"></i>
+        <span>Maps.MetaGer.de</span>
+      </a>
+    </li>
+    <hr>
     <li class="metager-dropdown">
       <input id="contactToggle" class="sidebarCheckbox" type="checkbox">
       <label for="contactToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationKontakt" tabindex="219">
@@ -84,13 +97,7 @@
           <a href="{{ action('Assoziator@asso') }}" tabindex="228">{{ trans('sidebar.nav11') }}</a>
         </li>
         <li>
-          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/app/") }}" tabindex="229">@lang('sidebar.nav25')</a>
-        </li>
-        <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/tips/") }}" tabindex="230">{{ trans('sidebar.titles.tips') }}</a>
-        </li>
-        <li>
-          <a class="inlink" href="https://maps.metager.de" target="_blank" tabindex="231">Maps.MetaGer.de</a>
         </li>
         <li>
           <a class="outlink" href="https://gitlab.metager3.de/open-source/MetaGer" tabindex="232">{{ trans('sidebar.nav24') }}</a>
