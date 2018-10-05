@@ -12,12 +12,11 @@
 			<div id="header-searchbar">
 				@include('parts.searchbar', ['class' => 'resultpage-searchbar', 'request' => Request::method()])
 			</div>
-			@include('parts.sidebar-opener')
+			<div class="sidebar-opener-placeholder"></div>
 		</div>
 	</div>
 	<div id="research-bar-placeholder">
 	</div>
-	@include('parts.sidebar-opener', ['class' => 'fixed'])
 	<div id="foki">
 		<div class="scrollbox">
 			<div class="foki-scrollfade-left"></div>
