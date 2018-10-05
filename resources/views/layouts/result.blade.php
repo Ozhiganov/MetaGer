@@ -14,12 +14,16 @@
 			</h2>
 			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ $result->gefVon }}</a>
 		</div>
-		@if( isset($result->partnershop) && $result->partnershop === TRUE )
-			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener"><span class="partnershop-info">{!! trans('result.options.4') !!}</span></a>
-		@endif
-		<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-			{{ $result->anzeigeLink }}
-		</a>
+		<div class="result-subheadline">
+			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+				{{ $result->anzeigeLink }}
+			</a>
+			@if( isset($result->partnershop) && $result->partnershop === TRUE)
+				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/partnershops") }}" target="_blank" rel="noopener">
+					<span class="partnershop-info">{!! trans('result.options.4') !!}</span>
+				</a>
+			@endif
+		</div>
 	</div>
 	<div class="result-body">
 		@if( isset($result->logo) )
