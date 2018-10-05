@@ -8,9 +8,11 @@
       </h2>
       <a class="result-hoster" href="javascript:void(0);" data-tooltip="{{ trans('fake-result.link') }}">MetaGer</a>
     </div>
-    <a class="result-link" href="javascript:void(0);" data-tooltip="{{ trans('fake-result.link') }}">
-      de.wikipedia.org
-    </a>
+		<div class="result-subheadline">
+      <a class="result-link" href="javascript:void(0);" data-tooltip="{{ trans('fake-result.link') }}">
+        de.wikipedia.org
+      </a>
+    </div>
   </div>
   <div class="resultpage-body">
     <div class="result-description" data-tooltip="{{ trans('fake-result.description') }}">
