@@ -163,7 +163,7 @@ function loadSavedResults() {
     <div class="focus">\
       <input id="savedResults" class="focus-radio hide" name="focus" value="container" form="searchForm" type="radio" required="">\
       <label id="saved-results-label" class="focus-label" for="savedResults">\
-        <span class="glyphicon glyphicon-floppy-disk"></span>\
+        <i class="fas fa-save"></i>\
         <span class="content">gespeicherte Ergebnisse</span>\
         <span class="badge">' + results.length + '</span>\
       </label>\

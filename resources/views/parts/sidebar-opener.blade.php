@@ -1,1 +1,1 @@
-<label class="openSidebar navigation-element {{$class or ''}}" for="sideBarToggle"></label>
+<label class="openSidebar navigation-element {{$class or ''}}" for="sidebarToggle"></label>
