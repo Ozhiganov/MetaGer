@@ -7,7 +7,7 @@
 .result {
     .card;
     margin: @resultpage-leftbox-min-dist-top-bottom 0px @resultpage-leftbox-min-dist-top-bottom 0px;
-    padding: 15px;
+    padding: 8px 15px 5px 15px;
     width: 100%;
     .result-header {
         display: flex;
@@ -74,12 +74,14 @@
                 }
             }
             span.partnershop-info {
+                background-color: white;
+                color: #333;
+                text-shadow: none;
+                font-weight: inherit;
+                border: #333333b3 solid 1px;
+                padding: 2px;
                 margin-left: 20px;
-                background-color: #0d9c0d;
-                color: white;
-                padding: 3px;
                 border-radius: 4px;
-                font-weight: bold;
                 font-size: 10px;
                 margin-right: 10px;
             }
@@ -129,7 +131,7 @@
         }
     }
     .result-footer {
-        margin-top: 10px;
+        margin-top: 5px;
         display: flex;
         flex-wrap: wrap;
         &>*:not(:first-child) {
@@ -179,6 +181,11 @@
             }
         }
     }
+    
+    .result-footer * {
+        font-size: 10px !important;
+    }
+    
     &.ad .ad-label {
         &,
         & a,
