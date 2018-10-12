@@ -7,9 +7,8 @@
 				<div id="search-lang">
 					<select id="input-lang" name="lang">
 						<option value="all">Alle Sprachen</option>
-						@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-							<option value="{{$localeCode}}">{{{ $properties['native'] }}}</option>
-						@endforeach
+						<option value="de">Deutsch</option>
+						<option value="en">English</option>
 					</select>
 					<label id="lang-label" for="input-lang" data-tooltip="{{ trans ('index.lang.tooltip') }}">
 						<i class="fa fa-globe" aria-hidden="true"></i>
