@@ -146,20 +146,22 @@ input#sidebarToggle:checked {
     &~.sidebar {
         right: 0px;
     }
-    &~.openSidebar {
+    &~.sidebar-opener {
         &:after {
             content: "×";
         }
     }
 }
 
-.openSidebar {
-    &.fixed {
-        position: fixed;
-        top: 23px;
-        right: 25px;
-        z-index: 20;
-    }
+// Top right starting position of the sidebar icon
+@sidebar-opener-top: 23px;
+@sidebar-opener-right: 25px;
+.sidebar-opener {
+    position: fixed;
+    top: @sidebar-opener-top;
+    right: @sidebar-opener-right;
+    margin: 0px;
+    z-index: 20;
     font-size: 36px;
     line-height: 23px;
     border-radius: 5px;
@@ -181,21 +183,26 @@ input#sidebarToggle:checked {
 @media (max-width: @screen-xs-max) {
     .sidebar {
         padding-top: 15px;
+        right: -90%;
+        width: 90%;
+        overflow: auto;
+        .sidebar-list {
+            max-height: 1000px;
+        }
         .sidebar-logo {
             display: none;
-        }
-        .sidebar {
-            right: -90%;
-            width: 90%;
-            overflow: auto;
-            .sidebar-list {
-                max-height: 1000px;
-            }
         }
         ul.metager-dropdown-content {
             position: inherit;
             width: 100%;
         }
+    }
+    .sidebar-opener {
+        // Make the open and close button bigger, so it is easier to hit
+        @sidebar-opener-mobile-magnification: 10px;
+        margin: @sidebar-opener-mobile-magnification;
+        top: (@sidebar-opener-top - @sidebar-opener-mobile-magnification);
+        right: (@sidebar-opener-right - @sidebar-opener-mobile-magnification);
     }
     .sidebar-opener-placeholder {
         display: initial;

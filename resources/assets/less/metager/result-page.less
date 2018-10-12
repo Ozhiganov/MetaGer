@@ -32,7 +32,7 @@
 //
 @logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
 //
-@openSidebar-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
+@sidebar-opener-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
 //
 #header-logo {
     z-index: 0;
@@ -438,7 +438,7 @@ a {
             .search-input-submit .search-input input {
                 border-bottom: 1px solid #ccc;
             }
-            @media (max-width: @openSidebar-breakpoint) {
+            @media (max-width: @sidebar-opener-breakpoint) {
                 .search-focus-selector {
                     border-top: none;
                     border-radius: 5px;
@@ -550,17 +550,17 @@ footer.resultPageFooter {
 
 /* Searchbar Opener */
 
-#research-bar>.openSidebar {
+#research-bar>.sidebar-opener {
     display: none;
     margin-right: 10px;
     margin-left: 20px;
 }
 
-@media(max-width: @openSidebar-breakpoint) {
-    #resultpage-container>.openSidebar {
+@media(max-width: @sidebar-opener-breakpoint) {
+    #resultpage-container>.sidebar-opener {
         display: none;
     }
-    #research-bar>.openSidebar {
+    #research-bar>.sidebar-opener {
         display: initial;
     }
 }
