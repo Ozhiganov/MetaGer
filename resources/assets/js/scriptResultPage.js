@@ -105,20 +105,6 @@ function pluginInfo() {
   }
 }
 
-function theme() {
-  if (localStorage) {
-    var theme = localStorage.getItem('theme');
-    if (theme != null) {
-      if ((theme.match(/,/g) || []).length != 3) {
-        localStorage.removeItem('theme');
-      } else {
-        theme = theme.split(',');
-        $('#theme').attr('href', '/css/theme.css.php?r=' + theme[0] + '&g=' + theme[1] + '&b=' + theme[2] + '&a=' + theme[3]);
-      }
-    }
-  }
-}
-
 function botProtection() {
   $('.result').find('a').click(function () {
     var link = $(this).attr('href');
@@ -127,11 +113,13 @@ function botProtection() {
       newtab = true;
     }
     $.ajax({
-      url: '/img/cat.jpg',
-      type: 'post',
-      data: { mm: $('meta[name=mm]').attr('content') },
-      timeout: 2000
-    })
+        url: '/img/cat.jpg',
+        type: 'post',
+        data: {
+          mm: $('meta[name=mm]').attr('content')
+        },
+        timeout: 2000
+      })
       .always(function () {
         if (!newtab)
           document.location.href = link;

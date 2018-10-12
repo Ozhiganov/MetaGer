@@ -17,18 +17,7 @@ $(document).ready(function () {
  * Loads the user theme and stored settings from local storage
  */
 function loadLocalStorage() {
-  if (localStorage) {
-    var theme = localStorage.getItem('theme');
-    if (theme != null) {
-      if ((theme.match(/,/g) || []).length != 3) {
-        localStorage.removeItem('theme');
-      } else {
-        theme = theme.split(',');
-        $('#theme').attr('href', '/css/theme.css.php?r=' + theme[0] + '&g=' + theme[1] + '&b=' + theme[2] + '&a=' + theme[3]);
-      }
-    }
-    setSettings();
-  }
+  setSettings();
 }
 
 /**
