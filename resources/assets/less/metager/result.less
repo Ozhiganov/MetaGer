@@ -7,10 +7,13 @@
 .result {
     .card;
     margin: @resultpage-leftbox-min-dist-top-bottom 0px @resultpage-leftbox-min-dist-top-bottom 0px;
-    padding: 15px;
+    padding: 8px 15px 5px 15px;
     width: 100%;
     .result-header {
+        display: flex;
+        flex-wrap: wrap;
         .result-headline {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             .result-title {
@@ -43,26 +46,42 @@
                 white-space: nowrap;
             }
         }
-        .result-link {
-            .overflow-ellipsis;
-            display: block;
-            font-size: @result-font-small;
-            width: fit-content;
-            max-width: 100%;
-            &,
-            &:active,
-            &:hover,
-            &:focus,
-            &:visited {
-                font-size: @result-font-url;
-                text-decoration: none;
+        .result-subheadline {
+            width: 100%;
+            display: flex;
+            .result-link {
+                .overflow-ellipsis;
+                display: block;
+                font-size: @result-font-small;
+                width: fit-content;
+                max-width: 100%;
+                &,
+                &:active,
+                &:hover,
+                &:focus,
+                &:visited {
+                    font-size: @result-font-url;
+                    text-decoration: none;
+                }
+                span.advertisement-mark {
+                    background-color: #0d9c0d;
+                    color: white;
+                    padding: 3px;
+                    border-radius: 4px;
+                    font-weight: bold;
+                    font-size: 10px;
+                    margin-right: 10px;
+                }
             }
-            span.advertisement-mark {
-                background-color: #0d9c0d;
-                color: white;
-                padding: 3px;
+            span.partnershop-info {
+                background-color: white;
+                color: #333;
+                text-shadow: none;
+                font-weight: inherit;
+                border: 1px solid #686868 ;
+                padding: 2px;
+                margin-left: 20px;
                 border-radius: 4px;
-                font-weight: bold;
                 font-size: 10px;
                 margin-right: 10px;
             }
@@ -112,7 +131,7 @@
         }
     }
     .result-footer {
-        margin-top: 10px;
+        margin-top: 5px;
         display: flex;
         flex-wrap: wrap;
         &>*:not(:first-child) {
@@ -162,6 +181,11 @@
             }
         }
     }
+    
+    .result-footer * {
+        font-size: 10px !important;
+    }
+    
     &.ad .ad-label {
         &,
         & a,

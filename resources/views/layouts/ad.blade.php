@@ -10,10 +10,12 @@
 				</h2>
 				<a class="ad-label" href="{{ $ad->gefVonLink }}" target="_blank" rel="noopener">{!! $ad->gefVon !!}</a>
 			</div>
-			<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
-				<span class="advertisement-mark">Anzeige</span>
-				{{ $ad->anzeigeLink }}
-			</a>
+			<div class="result-subheadline">
+				<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
+					<span class="advertisement-mark">Anzeige</span>
+					{{ $ad->anzeigeLink }}
+				</a>
+			</div>
 		</div>
 		<div class="result-body">
 			<div class="result-description">

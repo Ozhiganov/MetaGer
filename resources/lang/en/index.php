@@ -41,8 +41,8 @@ return [
     "about.3.1"	=>	"Everyone might check our data protection & privacy features.",
 
      'lang.tooltip'                   => 'Language',
-    'key.placeholder'                => 'Insert member key',
-    'key.tooltip'                    => 'Insert member key',
+    'key.placeholder'                => 'Enter member key',
+    'key.tooltip'                    => 'Enter member key',
 
     "placeholder"	=>	"MetaGer: Privacy Protected Search & Find",
 

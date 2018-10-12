@@ -256,7 +256,9 @@ class MetaGer
         $this->results = $newResults;
 
         #Adgoal Implementation
-        $this->results = $this->parseAdgoal($this->results);
+        if (!$this->apiAuthorized) {
+            $this->results = $this->parseAdgoal($this->results);
+        }
 
         # Human Verification
         $this->results = $this->humanVerification($this->results);
@@ -1371,12 +1373,10 @@ class MetaGer
                 IP-Adress older than one day stored on our servers. (Except the ones who got banned in that short period of course) ;-)
                  */
                 $logEntry .= " ip=" . $this->request->ip();
-                $logEntry .= " pid=" . getmypid();
                 $logEntry .= " ref=" . $this->request->header('Referer');
                 $logEntry .= " time=" . round((microtime(true) - $this->starttime), 2) . " serv=" . $this->fokus;
                 $logEntry .= " interface=" . LaravelLocalization::getCurrentLocale();
                 $logEntry .= " sprachfilter=" . $this->lang;
-                $logEntry .= " search=" . $this->eingabe;
 
                 # 2 Arten von Logs in einem wird die Anzahl der Abfragen an eine Suchmaschine gespeichert und in der anderen
                 # die Anzahl, wie häufig diese Ergebnisse geliefert hat.
