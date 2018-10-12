@@ -19,7 +19,7 @@
 		@include('parts.utility')
 	</head>
 	<body id="resultpage-body">
-		@if(Request::getHttpHost() === "metager3.de")
+		@if(Request::getHttpHost() === "metager3.de" || TRUE)
 		<div class="alert alert-info metager3-unstable-warning-resultpage">
 			{!! @trans('resultPage.metager3') !!}
 		</div>

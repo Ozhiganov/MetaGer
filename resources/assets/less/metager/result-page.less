@@ -591,19 +591,28 @@ footer.resultPageFooter {
     grid-template-areas: "results";
 }
 
-.metager3-unstable-warning-resultpage {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 0px;
-    width: 100%;
-}
-
 .metager3-unstable-warning {
     text-align: center;
     position: fixed;
-    top: 0;
     width: 100%;
-    padding-right: 60px;
-    padding-left: 150px;
+    padding: 15px;
+    @media (max-width: @screen-xs-max) {
+        padding: 5px;
+    }
+}
+
+.metager3-unstable-warning-static-pages {
+    .metager3-unstable-warning;
+    top: 0;
+    padding-right: 50px;
+    @media (max-width: @screen-xs-max) {
+        padding: 5px;
+        padding-right: 50px;
+    }
+}
+
+.metager3-unstable-warning-resultpage {
+    .metager3-unstable-warning;
+    bottom: 0;
+    margin-bottom: 0px;
 }
