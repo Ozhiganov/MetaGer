@@ -98,8 +98,8 @@ class MetaGer
         $focusPages = [];
 
         foreach ($this->request->all() as $key => $value) {
-            if ($value === 'on') {
-                $focusPages[] = str_replace('param_', '', str_replace('engine_', '', $key));
+            if (starts_with($key, 'engine_') && $value === 'on') {
+                $focusPages[] = $key;
             }
         }
 
