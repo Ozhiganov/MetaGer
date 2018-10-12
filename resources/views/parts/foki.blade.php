@@ -23,6 +23,6 @@
 </div>
 <div class="search-option-frame hide-tooltip-on-resultpage" data-tooltip="@lang("index.focus-creator.head")">
 	<label class="navigation-element" for="show-create-focus">
-		<i class="fa fa-sliders"></i>
+		<i class="fa fa-sliders-h"></i>
 	</label>
 </div>
