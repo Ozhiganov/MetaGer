@@ -32,15 +32,15 @@ class Ebay extends Searchengine
                 $time        = $result->{"listingInfo"}->{"endTime"}->__toString();
                 $time        = date(DATE_RFC2822, strtotime($time));
                 $price       = intval($result->{"sellingStatus"}->{"convertedCurrentPrice"}->__toString()) * 100;
-                $descr       = "<p>Preis: " . $result->{"sellingStatus"}->{"convertedCurrentPrice"}->__toString() . " €</p>";
-                $descr .= "<p>Versandkosten: " . $result->{"shippingInfo"}->{"shippingServiceCost"}->__toString() . " €</p>";
+                $descr       = "Preis: " . $result->{"sellingStatus"}->{"convertedCurrentPrice"}->__toString() . " €";
+                $descr .= ", Versandkosten: " . $result->{"shippingInfo"}->{"shippingServiceCost"}->__toString() . " €";
                 if (isset($result->{"listingInfo"}->{"listingType"})) {
-                    $descr .= "<p>Auktionsart: " . $result->{"listingInfo"}->{"listingType"}->__toString() . "</p>";
+                    $descr .= ", Auktionsart: " . $result->{"listingInfo"}->{"listingType"}->__toString();
                 }
 
-                $descr .= "<p>Auktionsende: " . $time . "</p>";
+                $descr .= ", Auktionsende: " . $time;
                 if (isset($result->{"primaryCategory"}->{"categoryName"})) {
-                    $descr .= "<p class=\"text-muted\">Kategorie: " . $result->{"primaryCategory"}->{"categoryName"}->__toString() . "</p>";
+                    $descr .= ", Kategorie: " . $result->{"primaryCategory"}->{"categoryName"}->__toString();
                 }
 
                 $image = $result->{"galleryURL"}->__toString();
