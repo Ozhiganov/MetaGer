@@ -27,7 +27,7 @@
 			<ul class="startpage">
 				@foreach($sponsors as $link)
 				<li class="sponsor">
-					<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link"></i></a>
+					<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
 				</li>
 				@endforeach
 			</ul>

@@ -55,6 +55,5 @@
 		<footer class="footer-text">
 		<a href="https://metager.de/impressum" target="_blank">Impressum</a>
 		</footer>
-		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" />
 	</body>
 </html>

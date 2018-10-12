@@ -40,7 +40,6 @@
 			</div>
 		@endif
 		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
-		<img src="{{ action('ImageController@generateImage')}}?site={{ urlencode(url()->current()) }}" class="hidden" alt=""/>
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
 		<script src="{{ mix('js/focus-creator.js') }}" defer></script>
