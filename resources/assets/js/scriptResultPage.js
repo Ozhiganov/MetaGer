@@ -76,7 +76,6 @@ function getDocumentReadyForUse(fokus, custom) {
   if (custom) initialLoadContent(fokus);
   // pagination()
   tabs();
-  theme();
   fokiChanger();
   pluginInfo();
   $('iframe:not(.resized)').iFrameResize();
