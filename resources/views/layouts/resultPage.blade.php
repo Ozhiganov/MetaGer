@@ -14,7 +14,6 @@
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
-		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<meta name="referrer" content="origin">
 		<meta name="age-meta-label" content="age=18"/>
 		@include('parts.utility')

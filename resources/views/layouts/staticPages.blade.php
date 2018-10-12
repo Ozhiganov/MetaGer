@@ -16,7 +16,6 @@
 		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/utility.css') }}" />
-		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/utility.js') }}"></script>
 		@if (isset($css))
