@@ -2,7 +2,7 @@
 
 return [
     'options.headline' => 'Optionen',
-    'options.savetab' => 'Ergebnis speichern.',
+    'options.savetab' => 'Ergebnis speichern',
     'options.1' => 'Auf dieser Domain neu suchen',
     'options.2' => ':host ausblenden',
     'options.3' => '*.:domain ausblenden',
