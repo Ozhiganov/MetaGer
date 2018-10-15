@@ -13,7 +13,7 @@
 		<link href="/favicon.ico" rel="icon" type="image/x-icon" />
 		<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{{ trans('staticPages.opensearch') }}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
-		<link type="text/css" rel="stylesheet" href="/fonts/liberation-fonts/liberation-fonts.css" />
+		<link type="text/css" rel="stylesheet" href="/fonts/arimo/stylesheet.css" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/utility.css') }}" />
 		<script src="{{ mix('js/lib.js') }}"></script>
