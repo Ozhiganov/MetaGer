@@ -195,7 +195,6 @@
             </article>
             <article class="kontext">
                 <h1>Using the citation search</h1>
-                    Der eingegebene Suchbegriff wird genutzt, um in der Zitat-Datenbank nach Ergebnissen zu suchen.
                     The entered search term is used to search for results in the citation database. In contrast to the <a href="#search-request">web search</a> with MetaGer, it is not necessary to pass the search term on to third parties, as the citation database is located on our server. Other data will not be stored or shared.
             </article>
             <article class="kontext">
