@@ -19,7 +19,7 @@
 				<a href="mailto:manuela.branz@suma-ev.de">manuela.branz@suma-ev.de</a></p>
 			</li>
 			<li>
-				<p>Pfennig, Dominik - {!! trans('team.role.4') !!} - {!! trans('team.role.1') !!}
+				<p>Hebeler, Dominik - {!! trans('team.role.4') !!} - {!! trans('team.role.1') !!}
 				<a href="mailto:dominik@suma-ev.de">dominik@suma-ev.de</a></p>
 			</li>
 			<li>
