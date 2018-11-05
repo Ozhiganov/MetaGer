@@ -29,7 +29,7 @@
 		@endif
 	</head>
 	<body>
-		@if(Request::getHttpHost() === "metager3.de" || TRUE)
+		@if(Request::getHttpHost() === "metager3.de")
 		<div class="alert alert-info metager3-unstable-warning-static-pages">
 			{!! @trans('resultPage.metager3') !!}
 		</div>
