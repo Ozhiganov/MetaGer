@@ -5,15 +5,13 @@
 @import "./result.less";
 @import "./product.less";
 //
-@resultpage-background-color: #FAFAFA;
+@resultpage-background-color: @background-color;
 //
 @results-margin-left: 16px;
 //
-@result-page-body-background-color: @background-color;
 @result-page-a-hover-color: red;
 @result-page-product-shop-color: green;
 //
-@body-background-color: @result-page-body-background-color;
 @a-hover-color: @result-page-a-hover-color;
 @a-donation-hover-color: @result-page-a-hover-color;
 @product-shop-color: @result-page-product-shop-color;
@@ -33,6 +31,17 @@
 @logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
 //
 @sidebar-opener-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
+//
+@quicktip-background-color: @color-white;
+@hostlabel-a-link-or-visited-color: @color-white;
+@hostlabel-background-color: @color-strong-grey;
+@a-donation-normal-or-visited-color: inherit;
+@spruch-author-color: @color-strong-grey;
+@options-list-li-hover-background-color: @color-almost-white;
+@options-list-li-a-color: @color-strong-grey;
+@image-item-img-box-shadow-color: fade(@color-black, 30%);
+@searchplugin-a-color: @color-white;
+@lsprev-or-lsnext-i-background-color: @color-black;
 //
 #header-logo {
     z-index: 0;
