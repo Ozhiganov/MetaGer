@@ -1,8 +1,5 @@
 /* Rules for specific elements */
 
-@navbar-default-background-color: @color-white;
-@form-group-color: @color-black;
-@a-content-hidden-xs-color: @color-almost-black;
 ul.startpage {
     list-style-type: none;
 }
@@ -33,7 +30,7 @@ textarea#message {
 }
 
 .navbar-default {
-    background-color: @navbar-default-background-color;
+    background-color: @color-white;
     border-radius: 0;
 }
 
@@ -45,7 +42,7 @@ textarea#message {
 .form-group {
     font-family: sans-serif;
     font-size: 16px;
-    color: @form-group-color;
+    color: @color-black;
     background-color: transparent;
     text-align: center;
 }
@@ -94,7 +91,7 @@ i.fa {
 }
 
 a.content.hidden-xs {
-    color: @a-content-hidden-xs-color;
+    color: @color-almost-black;
 }
 
 .navbar-brand {
@@ -165,38 +162,6 @@ fieldset input[type=text] {
     overflow: visible;
 }
 
-main {
-    ul li:not(.lslide) {
-        margin: 0 10px;
-    }
-    fieldset {
-        border: 0;
-    }
-}
-
-.panel-title {
-    font-weight: bold;
-}
-
-.fake-result {
-    *:hover {
-        overflow: visible !important;
-    }
-    .result-footer {
-        overflow: hidden;
-        align-items: center;
-    }
-    .open-result-options label {
-        padding: 10px;
-        border: 2px dashed red;
-        border-radius: 100%;
-        color: black;
-        font-size: 14px;
-        text-decoration: none;
-        font-weight: normal;
-    }
-}
-
 .hilfe,
 .faq {
     section {
@@ -209,6 +174,24 @@ main {
             background-color: #eee;
             border-radius: 5px;
             padding: 10px;
+        }
+    }
+    .fake-result {
+        *:hover {
+            overflow: visible !important;
+        }
+        .result-footer {
+            overflow: hidden;
+            align-items: center;
+        }
+        .open-result-options label {
+            padding: 10px;
+            border: 2px dashed red;
+            border-radius: 100%;
+            color: black;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: normal;
         }
     }
 }

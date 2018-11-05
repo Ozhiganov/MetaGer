@@ -43,7 +43,7 @@
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<div class="wrapper {{$page or ''}}">
-			<main class="mg-panel">
+			<main id="main-content">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
 				@endif
@@ -58,7 +58,9 @@
 				@endif
 				@yield('content')
 			</main>
-			@yield('optionalContent')
+			<div id="additional-content">
+				@yield('additional-content')
+			</div>
 		</div>
 		@if (isset($page) && $page === 'startpage')
 			@include('parts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
