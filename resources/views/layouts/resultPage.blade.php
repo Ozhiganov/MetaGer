@@ -12,6 +12,9 @@
 		<meta name="mm" content="{{ $metager->getVerificationId() }}" />
 		<meta name="mn" content="{{ $metager->getVerificationCount() }}" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/fonts/arimo/stylesheet.css" />
 		<meta name="referrer" content="origin">

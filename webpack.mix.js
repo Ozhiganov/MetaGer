@@ -12,14 +12,27 @@ let mix = require("laravel-mix");
  */
 
 mix
+  /*
+  @import "./font-awesome/fontawesome.less";
+  @import "./font-awesome/solid.less";
+  @import "./bootstrap/bootstrap.less";
+  */
   // css
   .less("resources/assets/less/default.less", "public/css/themes/default.css", {
     strictMath: true
   })
+  .less("resources/assets/less/font-awesome/fontawesome.less", "public/css/fontawesome.css", {
+    strictMath: true
+  })
+  .less("resources/assets/less/font-awesome/solid.less", "public/css/fontawesome-solid.css", {
+    strictMath: true
+  })
+  .less("resources/assets/less/bootstrap/bootstrap.less", "public/css/bootstrap.css", {
+    strictMath: true
+  })
   .less(
     "resources/assets/less/metager/beitritt.less",
-    "public/css/beitritt.css",
-    {
+    "public/css/beitritt.css", {
       strictMath: true
     }
   )
