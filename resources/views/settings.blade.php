@@ -2,10 +2,6 @@
 
 @section('title', $title )
 
-@section('stylesheets')
-	<link type="text/css" rel="stylesheet" href="{{ mix('css/settings.css') }}" />
-@endsection
-
 @section('content')
 	<form id="settings-form" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}" method="get">
 		<h1>{!! trans('settings.head.1') !!}</h1>
