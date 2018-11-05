@@ -14,12 +14,8 @@
 		<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{{ trans('staticPages.opensearch') }}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="/fonts/arimo/stylesheet.css" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/metager.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/utility.css') }}" />
-		@yield('stylesheets')
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/utility.js') }}"></script>
 		@if (isset($css))

@@ -1,4 +1,3 @@
-<link type="text/css" rel="stylesheet" href="{{ mix('css/sidebar.css') }}" />
 <input id="sidebarToggle" class="hidden" type="checkbox">
 <div class="sidebar">
   <a class="sidebar-logo" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
