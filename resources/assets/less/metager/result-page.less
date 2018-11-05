@@ -1,48 +1,32 @@
-/* Ergebnisseite */
-
 @import "./quicktips.less";
 @import "./result-saver.less";
 @import "./result.less";
 @import "./product.less";
-//
+/* Variables */
+
+// Background color
 @resultpage-background-color: @background-color;
-//
+// Margin to the left of the results
 @results-margin-left: 16px;
-//
-@result-page-a-hover-color: red;
-@result-page-product-shop-color: green;
-//
-@a-hover-color: @result-page-a-hover-color;
-@a-donation-hover-color: @result-page-a-hover-color;
-@product-shop-color: @result-page-product-shop-color;
-//
+// Min and max widths of the 2 resultpage columns
 @results-width-min: 500px;
 @results-width-max: 700px;
 @additions-width-min: 400px;
 @additions-width-max: 500px;
-//
-@resultpage-breakpoint-large: (@results-width-max + @additions-width-max + @padding-small-default * 4);
-@resultpage-breakpoint-small: (@results-width-min + @additions-width-min + @padding-small-default * 4);
-//
-@resultpage-leftbox-max-width: @results-width-max;
-@resultpage-leftbox-min-dist-left-right: @padding-small-default;
-@resultpage-leftbox-min-dist-top-bottom: @padding-small-default;
-//
+// Breakpoints for the 2 resultpage columns
+@resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 4);
+@resultpage-breakpoint-min: (@results-width-min + @additions-width-min + @padding-small-default * 4);
+@product-shop-color: green;
+// The point upon which a .screen-large logo is displayed
 @logo-size-breakpoint: (@results-width-min + @padding-small-default * 2);
-//
+// The point upon which the sidebar opener switches place
 @sidebar-opener-breakpoint: (@results-width-max + @padding-small-default * 2 + 60px);
-//
+// Quicktip background color
 @quicktip-background-color: @color-white;
-@hostlabel-a-link-or-visited-color: @color-white;
-@hostlabel-background-color: @color-strong-grey;
-@a-donation-normal-or-visited-color: inherit;
+// Color of the Spruch author
 @spruch-author-color: @color-strong-grey;
-@options-list-li-hover-background-color: @color-almost-white;
-@options-list-li-a-color: @color-strong-grey;
-@image-item-img-box-shadow-color: fade(@color-black, 30%);
-@searchplugin-a-color: @color-white;
-@lsprev-or-lsnext-i-background-color: @color-black;
-//
+/* Styles */
+
 #header-logo {
     z-index: 0;
     padding-right: 10px;
@@ -55,7 +39,6 @@
     .screen-small {
         display: none;
     }
-    .screen-large {}
     @media (max-width: @logo-size-breakpoint) {
         .screen-large {
             display: none;
@@ -105,17 +88,6 @@ body {
     padding-top: 10px;
 }
 
-.hostlabel {
-    display: none;
-    position: relative;
-    margin-top: -14px;
-    background-color: @hostlabel-background-color;
-    a:link,
-    a:visited {
-        color: @hostlabel-a-link-or-visited-color;
-    }
-}
-
 .img:hover .hostlabel {
     display: block;
 }
@@ -133,7 +105,7 @@ body {
 .alert ul {
     list-style-type: none;
     padding-left: 49px;
-    @media (max-width: @screen-xs-max) {
+    @media (max-width: @screen-mobile) {
         padding-left: 0px;
     }
 }
@@ -171,20 +143,10 @@ nav .input-group {
 }
 
 a {
-    &:visited {
-        color: @link-color;
-    }
-    &:hover {
-        text-decoration: none;
-        color: @a-hover-color;
-    }
     &#donation {
         &,
         &:visited {
-            color: @a-donation-normal-or-visited-color;
-        }
-        &:hover {
-            color: @a-donation-hover-color;
+            color: inherit;
         }
     }
 }
@@ -229,24 +191,6 @@ a {
     margin: 0 !important;
 }
 
-.options-list>li {
-    &:hover {
-        background-color: @options-list-li-hover-background-color;
-    }
-    &>a {
-        color: @options-list-li-a-color;
-        white-space: nowrap;
-        display: block;
-        padding: 5px 14px;
-    }
-    input[type=submit] {
-        width: 100%;
-        background-color: transparent;
-        border: 0;
-        margin: 5px 0;
-    }
-}
-
 .js-only {
     display: none;
 }
@@ -263,7 +207,7 @@ a {
     margin-bottom: 10px;
     margin: 5px;
     .img {
-        box-shadow: 0px 0px 10px 2px @image-item-img-box-shadow-color;
+        box-shadow: 0px 0px 10px 2px fade(@color-black, 30%);
     }
 }
 
@@ -299,6 +243,8 @@ a {
     }
 }
 
+/*
+@searchplugin-a-color: @color-white;
 #searchplugin {
     display: none;
     position: fixed;
@@ -320,6 +266,7 @@ a {
         display: initial;
     }
 }
+*/
 
 #products {
     width: 100%;
@@ -331,7 +278,7 @@ a {
 
 .lSPrev>i,
 .lSNext>i {
-    background-color: @lsprev-or-lsnext-i-background-color;
+    background-color: @color-black;
     padding: 5px;
 }
 
@@ -400,13 +347,13 @@ a {
             display: none;
         }
     }
-    @media (max-width: @resultpage-breakpoint-large) {
+    @media (max-width: @resultpage-breakpoint-max) {
         @supports (display: grid) {
             grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
             grid-template-areas: "searchbar ." "foki ." "results additions";
         }
     }
-    @media (max-width: @resultpage-breakpoint-small) {
+    @media (max-width: @resultpage-breakpoint-min) {
         margin-left: @padding-small-default;
         grid-template-columns: 100%;
         grid-template-areas: "searchbar" "foki" "results";
@@ -426,12 +373,12 @@ a {
     padding: @padding-small-default @padding-small-default 0px @padding-small-default;
     width: (@results-width-max + 2 * @padding-small-default);
     max-width: (@results-width-max + 2 * @padding-small-default);
-    @media (max-width: @resultpage-breakpoint-large) {
+    @media (max-width: @resultpage-breakpoint-max) {
         @supports (display: grid) {
             width: ~"calc(60% - 6px)";
         }
     }
-    @media (max-width: @resultpage-breakpoint-small) {
+    @media (max-width: @resultpage-breakpoint-min) {
         width: 100%;
         margin-left: 0px;
     }
@@ -470,41 +417,12 @@ a {
 #foki {
     display: flex;
     justify-content: left;
-    /*
-    @media (max-width: (@results-width-min + @additions-width-min - 1px)) {
-        width: 100%;
-        max-width: none;
-        margin: 0px;
-        padding: @padding-small-default;
-        .scrollbox {
-            max-width: none;
-            margin: 0px;
-            #foki-box {
-                max-width: none;
-                margin: 0px;
-            }
-        }
-    }
-    @media (max-width: (4 * @padding-small-default + @results-width-max + @additions-width-max - 1px)) {
-        padding-left: @padding-small-default;
-    }
-    @media (max-width: (@results-width-min + @additions-width-min - 1px)) {
-        width: 100%;
-        max-width: 700px;
-        margin: 0px;
-        padding: @padding-small-default;
-        #research-bar {
-            max-width: none;
-            margin: 0px;
-        }
-    }
-    */
     #foki-box {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         width: 100%;
-        max-width: @resultpage-leftbox-max-width;
+        max-width: @results-width-max;
         background-color: white;
         border: 1px solid #ccc;
         -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
@@ -579,7 +497,7 @@ footer.resultPageFooter {
 #resultpage-container {
     #results-container {
         float: left;
-        @media (max-width: @resultpage-breakpoint-small) {
+        @media (max-width: @resultpage-breakpoint-min) {
             float:none;
         }
     }

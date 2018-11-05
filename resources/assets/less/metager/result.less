@@ -1,14 +1,12 @@
-/* Ergebnis */
-
 @result-font-large: 18px;
 @result-font-medium: 16px;
 @result-font-url: 14px;
 @result-font-small: 12px;
 @result-description-color: @color-black;
-@result-description-img-border-color: @color-almost-white;
+@result-image-border-color: @color-almost-white;
 .result {
     .card;
-    margin: @resultpage-leftbox-min-dist-top-bottom 0px @resultpage-leftbox-min-dist-top-bottom 0px;
+    margin: @padding-small-default 0px;
     padding: 8px 15px 5px 15px;
     width: 100%;
     .result-header {
@@ -128,7 +126,7 @@
                 width: auto;
                 max-width: 120px;
                 max-height: 200px;
-                border: solid 1px @result-description-img-border-color;
+                border: solid 1px @result-image-border-color;
             }
         }
     }
