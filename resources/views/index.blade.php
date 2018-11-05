@@ -2,6 +2,10 @@
 
 @section('title', $title )
 
+@section('stylesheets')
+	<link type="text/css" rel="stylesheet" href="{{ mix('css/start-page.css') }}" />
+@endsection
+
 @section('content')
 	@include('modals.plugin-modal')
 	<h1 id="startpage-logo">
