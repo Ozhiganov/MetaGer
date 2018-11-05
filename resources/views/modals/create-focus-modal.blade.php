@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="{{ mix('css/modals.css') }}" />
 <input type="checkbox" id="show-create-focus" class="hidden">
 <div class="metager-modal" id="create-focus-modal" role="dialog">
 	<div class="metager-modal-dialog">
@@ -22,7 +23,7 @@
 				<form id="customSearchForm" method="GET" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 					<input type="hidden" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif">
 					<input type="hidden" name="encoding" value="utf8">
-					<input type="hidden" name="focus" value="focus_custom">																			
+					<input type="hidden" name="focus" value="focus_custom">
 					@foreach( App\Http\Controllers\FokiLoader::loadFoki() as $fokus => $sumas )
 						<div class="headingGroup {{ $fokus }}">
 							<input type="checkbox" id="toggle-{{ $fokus }}-dropdown" class="focus-dropdown-toggle" checked>

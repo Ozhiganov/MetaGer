@@ -1,3 +1,5 @@
+
+<link type="text/css" rel="stylesheet" href="{{ mix('css/modals.css') }}" />
 <input type="checkbox" id="plugin-modal-checkbox" class="hidden" @if( isset($pluginmodal) && $pluginmodal == 'on') checked @endif>
 <div class="metager-modal" id="plugin-modal" role="dialog">
 		<div class="metager-modal-dialog ">
