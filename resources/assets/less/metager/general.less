@@ -132,6 +132,12 @@ body {
     text-align: center;
 }
 
+.subheading {
+    font-size: 20px;
+    margin: 20px 0px;
+    white-space: pre-wrap;
+}
+
 a {
     font-size: 100%;
     color: @link-color;
@@ -142,6 +148,10 @@ a {
         text-decoration: none;
         color: @a-hover-color;
     }
+}
+
+i.fa {
+    background-color: transparent;
 }
 
 /* Logo */
@@ -360,6 +370,30 @@ li.nodot {
 button {
     border: none;
     background-color: transparent;
+}
+
+/* Lists with dots */
+
+.dotlist {
+    list-style-type: disc;
+    text-align: left;
+    li {
+        margin-bottom: 5px !important;
+    }
+}
+
+/* Code */
+
+code {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Adresses */
+
+address {
+    white-space: pre;
 }
 
 /* Unknown Uses */

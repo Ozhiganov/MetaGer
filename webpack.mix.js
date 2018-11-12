@@ -18,7 +18,7 @@ mix
   @import "./bootstrap/bootstrap.less";
   */
   // css
-  .less("resources/assets/less/default.less", "public/css/themes/default.css", {
+  .less("resources/assets/less/metager.less", "public/css/themes/metager.css", {
     strictMath: true
   })
   .less("resources/assets/less/font-awesome/fontawesome.less", "public/css/fontawesome.css", {
