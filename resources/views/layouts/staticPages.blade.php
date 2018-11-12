@@ -17,7 +17,7 @@
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/metager.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/utility.css') }}" />
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/utility.js') }}"></script>
