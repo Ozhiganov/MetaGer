@@ -5,7 +5,7 @@
 @section('content')
 	<h1 class="page-title">{!! trans('impressum.title') !!}</h1>
 	<div class="card-heavy">
-		<h2 class="subheading">{!! trans('impressum.headline.1') !!}</h2>
+		<h2 class="wrap">{!! trans('impressum.headline.1') !!}</h2>
 		<p>{!! trans('impressum.info.1') !!}</p>
 		<address>{!! trans('impressum.info.2') !!}</address>
 		<address>{!! trans('impressum.info.3') !!}</address>
