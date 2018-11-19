@@ -7,7 +7,7 @@
         <div>
     <h1>Person responsible and contact person</h1>
 		MetaGer and related services are operated by <a href="https://suma-ev.de/impressum.html">SUMA-EV</a>, which is also the author of this statement. By "we" in this statement usually SUMA-EV is meant.
-		<br />Our contact details can be found in our <a href="https://suma-ev.de/impressum.html">imprint</a>. We can be reached by e-mail at <a href="mailto:office@suma-ev.de">office@suma-ev.de</a>.
+		<br />Our contact details can be found in our <a href="https://suma-ev.de/impressum.html">site notice</a>. We can be reached by e-mail at <a href="mailto:office@suma-ev.de">office@suma-ev.de</a>.
 		</div>
     <div>
     <h1>Principles</h1>
@@ -40,7 +40,7 @@
 													   </li>
 												</ol>
 												<h2>Which rights do I have as a user?</h2>
-												Since the full form of the Internet Protocol address is personal, you have the following rights in particular: 
+												Since the full form of the Internet Protocol address is personal, you have the following rights in particular:
 													<a href="#ihrerechte">View rights</a>
                         </article>
                     </li>
@@ -186,7 +186,7 @@
             </article>
             <article class="kontext">
                 <h1>Use of the anonymizing proxy</h1>
-                When using the anonymizing proxy, the following data is generated: 
+                When using the anonymizing proxy, the following data is generated:
                 <ol>
                     <br/>
                     <li><a href="#ip-address">IP-Adress</a>: Will not be stored or shared.</li>
@@ -199,11 +199,11 @@
             </article>
             <article class="kontext">
                 <h1>Use of the associator</h1>
-                    The associator uses the search term to determine and display the terms associated therewith. Other data will not be stored or shared. 
+                    The associator uses the search term to determine and display the terms associated therewith. Other data will not be stored or shared.
             </article>
             <article class="kontext">
                 <h1>Use of the MetaGer app</h1>
-                   Use of the MetaGer app is the same as using MetaGer via a web browser. 
+                   Use of the MetaGer app is the same as using MetaGer via a web browser.
             </article>
             <article class="kontext">
                 <h1>Use of the MetaGer plugin</h1>
@@ -239,7 +239,7 @@
             </article>
             <li><b>Right to deletion:</b></li>
             <article class="kontext">
-            In accordance with Art. 17 GDPR 
+            In accordance with Art. 17 GDPR
             </article>
             <li><b>Right to restriction of processing:</b></li>
             <article class="kontext">
