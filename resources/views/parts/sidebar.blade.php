@@ -88,13 +88,16 @@
         </label>
       <ul class="metager-dropdown-content">
         <li>
-          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/widget/") }}" tabindex="226">{{ trans('sidebar.nav10') }}</a>
+          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/plugin/") }}" tabindex="226">{{ trans('sidebar.plugin') }}</a>
         </li>
         <li>
-          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/zitat-suche/") }}" tabindex="227">{{ trans('sidebar.nav22') }}</a>
+          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/widget/") }}" tabindex="227">{{ trans('sidebar.nav10') }}</a>
         </li>
         <li>
-          <a href="{{ action('Assoziator@asso') }}" tabindex="228">{{ trans('sidebar.nav11') }}</a>
+          <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/zitat-suche/") }}" tabindex="228">{{ trans('sidebar.nav22') }}</a>
+        </li>
+        <li>
+          <a href="{{ action('Assoziator@asso') }}" tabindex="229">{{ trans('sidebar.nav11') }}</a>
         </li>
         <li>
           <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/tips/") }}" tabindex="230">{{ trans('sidebar.titles.tips') }}</a>

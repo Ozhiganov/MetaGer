@@ -1,5 +1,7 @@
 <?php
 
+use Jenssegers\Agent\Agent;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,13 +22,12 @@ Route::group(
 
         Route::get('/', 'StartpageController@loadStartPage');
 
-        Route::get('asso', function(){
+        Route::get('asso', function () {
             return view('assoziator.asso')
                 ->with('title', trans('titles.asso'))
                 ->with('navbarFocus', 'dienste');
         });
         Route::post('asso', 'Assoziator@asso');
-
 
         Route::get('impressum', function () {
             return view('impressum')
@@ -158,6 +159,14 @@ Route::group(
             return $response;
         });
 
+        Route::get('plugin', function () {
+            return view('plugin-page')
+                ->with('title', trans('titles.plugin'))
+                ->with('navbarFocus', 'dienste')
+                ->with('browser', (new Agent())->browser())
+                ->with('request', $this->input('request', 'GET'));
+        });
+
         Route::group([/*'middleware' => ['referer.check'],*/'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get', 'post'], 'count', 'AdminInterface@count');
@@ -207,7 +216,7 @@ Route::group(
                 return response()->download($filePath, "MetaGer-release.apk");
             });
             Route::get('maps', function () {
-                $filePath = env('maps_app');
+                $filePath     = env('maps_app');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Cache-Control', 'public')
@@ -217,7 +226,7 @@ Route::group(
             });
 
             Route::get('maps/version', function () {
-                $filePath = env('maps_version');
+                $filePath     = env('maps_version');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Content-Type', 'text/plain');
