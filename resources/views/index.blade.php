@@ -23,7 +23,7 @@
 			<p>{!! trans('index.slogan.2') !!}</p>
 		</div>
 		<div id="sponsors">
-			<h2>{{ trans('index.sponsors.head.2') }}</h2>
+			<h2>{{ trans('index.sponsors.head') }}</h2>
 			<ul class="startpage">
 				@foreach($sponsors as $link)
 				<li class="sponsor">
