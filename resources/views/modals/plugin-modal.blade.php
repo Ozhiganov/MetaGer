@@ -31,8 +31,8 @@
 					@if ($browser === 'Firefox' || $browser === 'Mozilla')
 						<h4>{!! trans('index.plugin.firefox.plugin') !!}</h4>
 						<ol>
-							<li>{{ trans('index.plugin.firefox.1') }}<img src="/img/Firefox.png" width="100%" /></li>
-							<li>{{ trans('index.plugin.firefox.2') }}<img src="/img/Firefox_Standard.png" width="100%" /></li>
+							<li>{!! trans('index.plugin.firefox.1') !!}<img src="/img/Firefox.png" width="100%" /></li>
+							<li>{!! trans('index.plugin.firefox.2') !!}<img src="/img/Firefox_Standard.png" width="100%" /></li>
 						</ol>
 						<hr />
 						<h4>{!! trans('index.plugin.firefox.3', ['browser' => $browser]) !!}</h4>
