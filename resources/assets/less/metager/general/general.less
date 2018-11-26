@@ -1,7 +1,10 @@
 /* Default Font */
 
+@modal-content-box-shadow-color: fade(@color-black, 30%);
+@body-background-color: @background-color;
+@a-hover-color: red;
 body {
-    font-family: Arimo, Liberation Sans, sans-serif;
+    font-family: @metager-font;
 }
 
 /* Main Containers */
@@ -45,6 +48,46 @@ body {
     }
 }
 
+.navbar,
+#navbar-static-pages {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Scrollbox Style */
+
+@scrollfade-color: white;
+.scrollbox {
+    position: relative;
+    width: 100%;
+    max-width: @results-width-max;
+    .scrollfade- {
+        &left,
+        &right {
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            top: 1px;
+            pointer-events: none;
+        }
+        &left {
+            background: -webkit-gradient(linear, left top, right top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
+            background: linear-gradient(to right, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
+            left: 1px;
+        }
+        &right {
+            background: -webkit-gradient(linear, right top, left top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
+            background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
+            right: 1px;
+        }
+    }
+    .search-option-frame {
+        position: relative;
+    }
+}
+
+/* General font sizing */
+
+@default-font-size: 15px;
 .first-last-child-margin-fix() {
     &:first-child {
         margin-top: 0px;
@@ -54,14 +97,6 @@ body {
     }
 }
 
-.navbar,
-#navbar-static-pages {
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
-}
-
-/* General font sizing */
-
-@default-font-size: 15px;
 h1 {
     font-size: (@default-font-size * 1.6);
     .first-last-child-margin-fix;
@@ -97,8 +132,26 @@ body {
     text-align: center;
 }
 
+.subheading {
+    font-size: 20px;
+    margin: 20px 0px;
+    white-space: center;
+}
+
 a {
     font-size: 100%;
+    color: @link-color;
+    &:visited {
+        color: @link-color;
+    }
+    &:hover {
+        text-decoration: none;
+        color: @a-hover-color;
+    }
+}
+
+i.fa {
+    background-color: transparent;
 }
 
 /* Logo */
@@ -124,7 +177,7 @@ a {
         width: fit-content;
         text-decoration: none;
         font-size: 75px;
-        @media(max-width: @screen-xs-max) {
+        @media(max-width: @screen-mobile) {
             font-size: 50px;
         }
     }
@@ -132,10 +185,18 @@ a {
 
 #subpage-logo {
     padding: 5px 0;
-    a h1 {
-        .logo;
-        font-size: 30px;
-        margin: 0;
+    .navbar-brand {
+        .noprint;
+        line-height: 100% !important;
+        padding: 0;
+        position: absolute;
+        z-index: 5;
+        left: 10px;
+        h1 {
+            .logo;
+            font-size: 30px;
+            margin: 0;
+        }
     }
 }
 
@@ -177,8 +238,8 @@ summary {
 
 /* Tooltips 
  * 
- * Für alle Elemente mit einem "data-tooltip"-Attribut wird ein 
- * Tooltip mit entsprechendem Inhalt unterhalb des Elements angezeigt
+ * All elements with a "data-tooltip" attribute show a 
+ * tooltip below on hover
  */
 
 *[data-tooltip] {
@@ -234,7 +295,7 @@ summary {
         width: 50%;
         margin: 0;
         float: left;
-        @media (max-width: @screen-xs-max) {
+        @media (max-width: @screen-mobile) {
             width: 100%;
         }
     }
@@ -268,30 +329,48 @@ summary {
 
 /* Little helpers */
 
+// Bold text
 .bold {
     font-weight: bold;
 }
 
+// Do not print this
 .noprint {
     @media print {
         display: none !important;
     }
 }
 
+// For print: Start new page after this
 .newpage {
     page-break-after: always;
 }
 
+// For list elements without a dot
+li.nodot {
+    list-style-type: none;
+}
+
+// Disabled elements (only visual)
 .disabled,
-.disabled * {
+:disabled,
+.disabled *,
+:disabled *,
+    {
     color: #aaa !important;
     cursor: not-allowed !important;
 }
 
+// Convert excess text into "..."
 .overflow-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+// Used on labels which initiate visual change (e.g. open-sidebar-button)
+.navigation-element {
+    cursor: pointer;
 }
 
 /* Button */
@@ -301,15 +380,31 @@ button {
     background-color: transparent;
 }
 
-/* Unsorted */
+/* Lists with dots */
 
-// Currently in use for the plugin modal
-.modal-content {
-    border-radius: 0;
-    -webkit-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
-    -moz-box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
-    box-shadow: 1px 1px 3px 1px @modal-content-box-shadow-color;
+.dotlist {
+    list-style-type: disc;
+    text-align: left;
+    li {
+        margin-bottom: 5px !important;
+    }
 }
+
+/* Code */
+
+code {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Adresses */
+
+address {
+    white-space: pre;
+}
+
+/* Unknown Uses */
 
 label a {
     color: inherit;
@@ -317,15 +412,6 @@ label a {
         text-decoration: none;
         color: inherit;
     }
-}
-
-li.nodot {
-    list-style-type: none;
-}
-
-// Used on labels which initiate visual change (e.g. open-sidebar-button)
-.navigation-element {
-    cursor: pointer;
 }
 
 // For Elements where newlines should actually be displayed
