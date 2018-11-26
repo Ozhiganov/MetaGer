@@ -1124,7 +1124,7 @@ class MetaGer
         $p = "";
         $tmp = $this->q;
         // matches '[... ]"test satz"[ ...]'
-        while (preg_match("/(^|.*?\s)\"(\S+)\"(\s.*|$)/si", $tmp, $match)) {
+        while (preg_match("/(^|.*?\s)\"(.+)\"(\s.*|$)/si", $tmp, $match)) {
             $tmp = $match[1] . $match[3];
             $this->phrases[] = $match[2];
         }
