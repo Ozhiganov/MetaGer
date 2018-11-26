@@ -15,7 +15,7 @@
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/metager.css') }}" />
 		<link type="text/css" rel="stylesheet" href="/fonts/arimo/stylesheet.css" />
 		<meta name="referrer" content="origin">
 		<meta name="age-meta-label" content="age=18"/>
