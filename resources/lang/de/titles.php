@@ -23,4 +23,5 @@ return [
     'jugendschutz'   => 'Jugendschutz',
     'ad-info'        => 'Werbung bei MetaGer',
     'asso'           => 'Assoziator - MetaGer',
+    'plugin'         => 'Plugin - MetaGer',
 ];
