@@ -1,12 +1,12 @@
-/* Ergebnis */
-
 @result-font-large: 18px;
 @result-font-medium: 16px;
 @result-font-url: 14px;
 @result-font-small: 12px;
+@result-description-color: @color-black;
+@result-image-border-color: @color-almost-white;
 .result {
     .card;
-    margin: @resultpage-leftbox-min-dist-top-bottom 0px @resultpage-leftbox-min-dist-top-bottom 0px;
+    margin: @padding-small-default 0px;
     padding: 8px 15px 5px 15px;
     width: 100%;
     .result-header {
@@ -78,7 +78,7 @@
                 color: #333;
                 text-shadow: none;
                 font-weight: inherit;
-                border: 1px solid #686868 ;
+                border: 1px solid #686868;
                 padding: 2px;
                 margin-left: 20px;
                 border-radius: 4px;
@@ -126,7 +126,7 @@
                 width: auto;
                 max-width: 120px;
                 max-height: 200px;
-                border: solid 1px @result-description-img-border-color;
+                border: solid 1px @result-image-border-color;
             }
         }
     }
@@ -181,11 +181,9 @@
             }
         }
     }
-    
     .result-footer * {
         font-size: 10px !important;
     }
-    
     &.ad .ad-label {
         &,
         & a,

@@ -77,7 +77,7 @@ function getDocumentReadyForUse(fokus, custom) {
   // pagination()
   tabs();
   fokiChanger();
-  pluginInfo();
+  //pluginInfo();
   $('iframe:not(.resized)').iFrameResize();
   $('iframe').addClass('resized');
   addListeners();
@@ -91,6 +91,7 @@ function resetSearchbar() {
   $('.search-input input').val('').focus();
 }
 
+/*
 function pluginInfo() {
   if (localStorage) {
     if (localStorage.getItem('pluginInfo') == 'off') $('#searchplugin').css('display', 'none');
@@ -103,6 +104,7 @@ function pluginInfo() {
     });
   }
 }
+*/
 
 function botProtection() {
   $('.result').find('a').click(function () {
