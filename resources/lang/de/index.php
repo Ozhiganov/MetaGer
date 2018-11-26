@@ -29,8 +29,7 @@ return [
     'slogan.1'                       => 'Datenschutz & Privatsphäre: Bei uns einfach und selbstverständlich.<br>Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger Verein: <a href="/beitritt">Werden Sie Mitglied</a> oder <a href="/spende">spenden Sie</a>!',
     'slogan.2'                       => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
 
-    'sponsors.head.1'                => 'Weitere Informationen',
-    'sponsors.head.2'                => 'Sponsoren',
+    'sponsors.head'                  => 'Sponsoren',
     'sponsors.woxikon'               => 'SEO Agentur',
     'sponsors.gutscheine'            => 'STERN.de: Günstige Kredite im Kreditvergleich',
     'sponsors.seo'                   => 'Weihnachtsfeier',
