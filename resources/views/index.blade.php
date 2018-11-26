@@ -14,22 +14,20 @@
 	<script src="{{ mix('js/searchbar.js') }}" defer></script>
 @endsection
 
-@section('optionalContent')
-	<div id="more-information">
-		<div id="about-us">
-			<h2>{!! trans('index.slogan.title') !!}</h2>
-			<p>{!! trans('index.slogan.1') !!}</p>
-			<p>{!! trans('index.slogan.2') !!}</p>
-		</div>
-		<div id="sponsors">
-			<h2>{{ trans('index.sponsors.head.2') }}</h2>
-			<ul class="startpage">
-				@foreach($sponsors as $link)
-				<li class="sponsor">
-					<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
-				</li>
-				@endforeach
-			</ul>
-		</div>
+@section('additional-content')
+	<div id="about-us">
+		<h2>{!! trans('index.slogan.title') !!}</h2>
+		<p>{!! trans('index.slogan.1') !!}</p>
+		<p>{!! trans('index.slogan.2') !!}</p>
+	</div>
+	<div id="sponsors">
+		<h2>{{ trans('index.sponsors.head.2') }}</h2>
+		<ul class="startpage">
+			@foreach($sponsors as $link)
+			<li class="sponsor">
+				<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
+			</li>
+			@endforeach
+		</ul>
 	</div>
 @endsection
