@@ -3,15 +3,24 @@
 #show-create-focus:checked {
     &+#create-focus-modal {
         position: fixed;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
     }
+}
+
+#plugin-modal ol>li {
+    margin-bottom: 5px;
 }
 
 #plugin-modal-checkbox:checked {
     &+#plugin-modal {
         display: block;
+    }
+}
+
+.settings-modal-buttons {
+    padding: 5px;
+    button {
+        margin: 5px
     }
 }
 

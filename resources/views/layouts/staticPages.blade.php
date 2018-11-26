@@ -17,7 +17,7 @@
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
-		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/default.css') }}" />
+		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/metager.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/utility.css') }}" />
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/utility.js') }}"></script>
@@ -43,7 +43,7 @@
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<div class="wrapper {{$page or ''}}">
-			<main class="mg-panel">
+			<main id="main-content">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
 				@endif
@@ -58,7 +58,9 @@
 				@endif
 				@yield('content')
 			</main>
-			@yield('optionalContent')
+			<div id="additional-content">
+				@yield('additional-content')
+			</div>
 		</div>
 		@if (isset($page) && $page === 'startpage')
 			@include('parts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
