@@ -59,8 +59,8 @@ return [
     "plugin.head.info"	=>	"(selected search preferences will be used)",
 
     'plugin.firefox.plugin'          => 'You can download the plugin for Firefox <a href="https://addons.mozilla.org/en-GB/firefox/addon/metager-suche/?src=search" target="_blank">here</a>. Using the plugin allows you to keep your search settings even when deleting your history data. Alternatively you can set MetaGer as your default search engine:',
-    "plugin.firefox.1"	=>	"Click on the magnifying glass with the small green \"+\" and then on \"Add MetaGer..\" (picture 1)",
-    "plugin.firefox.2"	=>	"Now right click on the new MetaGer Logo in the List and select \"Make MetaGer the default search engine\" (picture2)",
+    "plugin.firefox.1" => 'In your browser, click on "<i class="fa fa-ellipsis-h"></i>" in the upper right corner of the address bar to open the page action menu and then click on "Add search engine" (see picture)',
+    "plugin.firefox.2" => 'Open the Firefox settings. For this, enter "about: preferences" in the address bar. Now enter "search engine" in the search box in the upper right corner. In the section "Default search engine" select MetaGer (see picture).',
     "plugin.firefox.3"	=>	"Use MetaGer as start page in :browser",
     "plugin.firefox.4"    => "Click top right in your browser on <i class=\"fa fa-menu\" aria-hidden=\"true\"></i><span class=\"sr-only\">the three small horizontal lines</span> (menu) and open \"Preferences\"",
     "plugin.firefox.5"	=>	"Type in field \"Home Page\" => \"https://metager.de/en/\"",

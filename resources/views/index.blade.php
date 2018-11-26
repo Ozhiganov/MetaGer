@@ -3,13 +3,12 @@
 @section('title', $title )
 
 @section('content')
-	@include('modals.plugin-modal')
 	<h1 id="startpage-logo">
 		<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">MetaGer</a>
 	</h1>
 	@include('parts.searchbar', ['class' => 'startpage-searchbar'])
-	<div id="show-plugin-modal">
-		<label for="plugin-modal-checkbox" class="btn btn-default open-plugin-modal" title="{{ trans('index.plugin.open-modal.title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin.open-modal') }}</label>
+	<div id="plugin-btn-div">
+		<a id="plugin-btn" class="btn btn-default" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/plugin") }}" title="{{ trans('index.plugin-title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin') }}</a>
 	</div>
 	<script src="{{ mix('js/scriptStartPage.js') }}" defer></script>
 	<script src="{{ mix('js/searchbar.js') }}" defer></script>
