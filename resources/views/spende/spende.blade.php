@@ -7,7 +7,7 @@
 @section('content')
 	<div class="card-heavy">
 		<h1>{!! trans('spende.headline.1') !!}</h1>
-		<h2 class="subheading">{!! trans('spende.headline.2') !!}</h2>
+		<h2>{!! trans('spende.headline.2') !!}</h2>
 		<p>{!! trans('spende.about.2') !!}</p>
 		<p><i class="fa fa-info fa-fw fa-lg" aria-hidden="true"></i>{!! trans('spende.bankinfo.3') !!}</p>
 	</div>

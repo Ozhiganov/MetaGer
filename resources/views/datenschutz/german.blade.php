@@ -9,7 +9,7 @@
     <h1>Verantwortliche und Ansprechpartner</h1>
 		MetaGer und verwandte Dienste werden betrieben vom <a href="https://suma-ev.de/impressum.html">SUMA-EV</a>, der auch Verfasser dieser Erklärung ist.
 		Mit „Wir“ ist in dieser Erklärung in der Regel der SUMA-EV gemeint.
-		<br />Unsere Kontaktdaten finden Sie in unserem <a href="https://suma-ev.de/impressum.html">Impressum</a>. Per E-Mail sind wir unter der Adresse  <a href="mailto:office@suma-ev.de">office@suma-ev.de</a> zu erreichen.
+		<br />Unsere Kontaktdaten finden Sie in unserem <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "impressum") }}">Impressum</a>. Per E-Mail sind wir unter der Adresse  <a href="mailto:office@suma-ev.de">office@suma-ev.de</a> zu erreichen.
 		</div>
     <div>
     <h1>Grundsätze</h1>
