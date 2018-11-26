@@ -44,7 +44,7 @@
 							@endif
 						</td>
 						@foreach($langs as $lang => $value)
-							<td>{!! $langValues[$lang] or "" !!}</td>
+							<td>{!! $langValues[$lang] ?? "" !!}</td>
 						@endforeach
 					</tr>
 				@endif

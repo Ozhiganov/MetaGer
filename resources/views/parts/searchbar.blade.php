@@ -2,7 +2,7 @@
 {{-- Don't forget <script src="{{ mix('js/searchbar.js') }}"></script> --}}
 <fieldset>
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
-		<div class="searchbar {{$class or ''}}">
+		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
 				<div id="search-lang">
 					<select id="input-lang" name="lang">
@@ -22,7 +22,7 @@
 					</label>
 				</div>
 				<div class="search-input">
-					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="{{$autocomplete or 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="{{$autocomplete ?? 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
 					<button class="hidden" id="search-delete-btn" type="button">
 						&#xd7;
 					</button>
