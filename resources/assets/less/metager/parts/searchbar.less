@@ -1,8 +1,5 @@
-/* Suchleiste */
-
-@startpage-border-color: #a2a2a2;
-/**/
-
+@searchbar-border-color: #a2a2a2;
+@searchbar-background-color: white;
 .searchbar {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -93,6 +90,7 @@
             }
         }
         .search-input {
+            position: relative;
             -webkit-box-flex: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
@@ -109,6 +107,16 @@
                     border-color: rgba(255, 128, 0, 1);
                     border-radius: 4px;
                 }
+            }
+            #search-delete-btn {
+                position: absolute;
+                right: 2px;
+                bottom: 1px;
+                width: auto;
+                border: none;
+                background-color: white;
+                font-size: 25px;
+                font-weight: normal;
             }
         }
         .search-submit {
@@ -128,7 +136,7 @@
     .search-custom-hidden {
         display: none;
     }
-    @media (max-width: @screen-xs-max) {
+    @media (max-width: @screen-mobile) {
         -webkit-box-orient: vertical;
         -webkit-box-direction: reverse;
         -ms-flex-direction: column-reverse;
@@ -138,21 +146,21 @@
 
 .startpage-searchbar {
     >* {
-        border: 1px solid @startpage-border-color;
+        border: 1px solid @searchbar-border-color;
         &:not(:first-child) {
             border-left: none;
         }
     }
     .search-input-submit {
         border-radius: 5px;
-        @media (max-width: @screen-xs-max) {
+        @media (max-width: @screen-mobile) {
             max-width: initial;
         }
         >:not(:first-child) {
-            border-left: 1px solid @startpage-border-color;
+            border-left: 1px solid @searchbar-border-color;
         }
     }
-    @media (max-width: @screen-xs-max) {
+    @media (max-width: @screen-mobile) {
         .search-focus-selector {
             border: 1px solid #aaa;
             border-top: none;
@@ -177,7 +185,7 @@
     .search-input-submit {
         #search-lang,
         #search-key {
-            @media (max-width: @screen-xs-max) {
+            @media (max-width: @screen-mobile) {
                 display: none;
             }
         }
@@ -187,61 +195,8 @@
     }
 }
 
-header:nth-child(1) {
-    @media (max-width: 1400px) {
-        position: relative;
-    }
-}
-
-/* Scrollbar Style */
-
-@scrollfade-color: white;
-.scrollbox {
-    position: relative;
-    width: 100%;
-    max-width: @results-width-max;
-    .foki-scrollfade {
-        &-left,
-        &-right {
-            position: absolute;
-            width: 20px;
-            height: 40px;
-            top: 1px;
-            pointer-events: none;
-        }
-        &-left {
-            background: -webkit-gradient(linear, left top, right top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
-            background: linear-gradient(to right, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
-            left: 1px;
-        }
-        &-right {
-            background: -webkit-gradient(linear, right top, left top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
-            background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
-            right: 1px;
-        }
-    }
-    .search-option-frame {
-        position: relative;
-    }
-}
-
 #research-bar-placeholder {
     width: 100%;
     max-width: 760px;
     height: 51px;
-}
-
-.search-input {
-    position: relative;
-}
-
-#search-delete-btn {
-    position: absolute;
-    right: 2px;
-    bottom: 1px;
-    width: auto;
-    border: none;
-    background-color: white;
-    font-size: 25px;
-    font-weight: normal;
 }

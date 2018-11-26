@@ -19,11 +19,11 @@
 	</div>
 	<div id="foki">
 		<div class="scrollbox">
-			<div class="foki-scrollfade-left"></div>
+			<div class="scrollfade-left"></div>
 			<div id="foki-box">
 				@include('parts.foki')
 			</div>
-			<div class="foki-scrollfade-right"></div>
+			<div class="scrollfade-right"></div>
 		</div>
 	</div>
 	<div id="results-container">
