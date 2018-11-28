@@ -26,4 +26,6 @@ return [
     "nav25"            => "MetaGer App",
     'nav26'            => 'MetaGer-Fanshop',
     "navigationToggle" => "show navigation",
+    'titles.tips'      => 'Tips',
+    'plugin'           => 'MetaGer Plugin',
 ];
