@@ -12,7 +12,7 @@
 		<p><i class="fa fa-info fa-fw fa-lg" aria-hidden="true"></i>{!! trans('spende.bankinfo.3') !!}</p>
 	</div>
 	<div class="two-col">
-		<div>
+		<div class="col-left">
 			<div class="card-medium">
 				<h3 id="lastschrift">{!! trans('spende.lastschrift.1') !!}</h3>
 				<p>{!! trans('spende.lastschrift.2') !!}</p>
@@ -47,36 +47,39 @@
 				</form>
 			</div>
 		</div>
-		<div>
+		<div class="col-right">
 			<div class="card-medium">
 				<h3>{!! trans('spende.bankinfo.1') !!}</h3>
 				<p>{!! trans('spende.bankinfo.2') !!}</p>
 			</div>
-		</div>
-		<div>
 			<div class="card-medium">
-				<h3>{!! trans('spende.paypal.1') !!}</h3>
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-					<input name="cmd" value="_xclick" type="hidden">
-					<input name="business" value="wsb@suma-ev.de" type="hidden">
-					<input name="item_name" value="SuMa-eV Spende" type="hidden">
-					<input name="buyer_credit_promo_code" value="" type="hidden">
-					<input name="buyer_credit_product_category" value="" type="hidden">
-					<input name="buyer_credit_shipping_method" value="" type="hidden">
-					<input name="buyer_credit_user_address_change" value="" type="hidden">
-					<input name="no_shipping" value="0" type="hidden">
-					<input name="no_note" value="1" type="hidden">
-					<input name="currency_code" value="EUR" type="hidden">
-					<input name="tax" value="0" type="hidden">
-					<input name="lc" value="DE" type="hidden">
-					<input name="bn" value="PP-DonationsBF" type="hidden">
-					<input src="/img/paypalspenden.gif" name="submit" width="120" alt="{!! trans('spende.paypal.2') !!}" type="image">
-				</form>
+				<h3>{!! trans('spende.paypal.title') !!}</h3>
+				<p>{!! trans('spende.paypal.subtitle') !!}</p>
+				<div class="center-wrapper">
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+						<input name="cmd" value="_xclick" type="hidden">
+						<input name="business" value="wsb@suma-ev.de" type="hidden">
+						<input name="item_name" value="SuMa-eV Spende" type="hidden">
+						<input name="buyer_credit_promo_code" value="" type="hidden">
+						<input name="buyer_credit_product_category" value="" type="hidden">
+						<input name="buyer_credit_shipping_method" value="" type="hidden">
+						<input name="buyer_credit_user_address_change" value="" type="hidden">
+						<input name="no_shipping" value="0" type="hidden">
+						<input name="no_note" value="1" type="hidden">
+						<input name="currency_code" value="EUR" type="hidden">
+						<input name="tax" value="0" type="hidden">
+						<input name="lc" value="DE" type="hidden">
+						<input name="bn" value="PP-DonationsBF" type="hidden">
+						<input src="/img/paypalspenden.gif" name="submit" width="120" alt="{!! trans('spende.paypal.2') !!}" type="image">
+					</form>
+				</div>
 			</div>
-		</div>
-		<div>
 			<div class="card-medium">
-			<p>{!! trans('spende.lastschrift.10') !!}</p>
+				<h3>{{ trans('spende.bitpay.title') }}</h3>
+				@include('spende.bitpay')
+			</div>
+			<div class="card-medium">
+				<p>{!! trans('spende.lastschrift.10') !!}</p>
 			</div>
 		</div>
 	</div>
