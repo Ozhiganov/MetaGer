@@ -181,8 +181,11 @@ class MetaGer
                         ->with('resultcount', sizeof($viewResults))
                         ->with('fokus', $this->fokus);
                     break;
+                case 'api':
+                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => $this->apiAuthorized])->header('Content-Type', 'application/xml');
+                    break;
                 case 'atom10':
-                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults)])
+                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => true])
                         ->header('Content-Type', 'application/xml');
                     break;
                 case 'result-count':
@@ -532,8 +535,8 @@ class MetaGer
         $sumaCount = 0;
 
         /*
-        * Erstellt eine Liste mit Foki, die verfügbar sind
-        */
+         * Erstellt eine Liste mit Foki, die verfügbar sind
+         */
         $this->availableFoki = [];
         foreach ($sumas as $suma) {
             $foki = explode(",", trim($suma["type"]));
@@ -954,7 +957,7 @@ class MetaGer
 
     public function parseFormData(Request $request)
     {
-        
+
         # Sichert, dass der request in UTF-8 formatiert ist
         if ($request->input('encoding', 'utf8') !== "utf8") {
             # In früheren Versionen, als es den Encoding Parameter noch nicht gab, wurden die Daten in ISO-8859-1 übertragen
@@ -1091,7 +1094,7 @@ class MetaGer
 
         $this->out = $request->input('out', "html");
         # Standard output format html
-        if ($this->out !== "html" && $this->out !== "json" && $this->out !== "results" && $this->out !== "results-with-style" && $this->out !== "result-count" && $this->out !== "rss20" && $this->out !== "atom10" && $this->out !== "rich") {
+        if ($this->out !== "html" && $this->out !== "json" && $this->out !== "results" && $this->out !== "results-with-style" && $this->out !== "result-count" && $this->out !== "rss20" && $this->out !== "atom10" && $this->out !== "rich" && $this->out !== "api") {
             $this->out = "html";
         }
         # Wir schalten den Cache aus, wenn die Ergebniszahl überprüft werden soll
@@ -1241,12 +1244,12 @@ class MetaGer
     {
         $oldQ = $this->q;
         // matches '[... ]-test[ ...]'
-        $words = preg_split("/\s+/si",$this->q);
+        $words = preg_split("/\s+/si", $this->q);
         $newQ = "";
-        foreach($words as $word){
-            if(strpos($word, "-") === 0 && strlen($word) > 1){
+        foreach ($words as $word) {
+            if (strpos($word, "-") === 0 && strlen($word) > 1) {
                 $this->stopWords[] = substr($word, 1);
-            }else{
+            } else {
                 $newQ .= " " . $word;
             }
         }
@@ -1513,11 +1516,13 @@ class MetaGer
 
 # Einfache Getter
 
-    public function getVerificationId() {
+    public function getVerificationId()
+    {
         return $this->verificationId;
     }
 
-    public function getVerificationCount() {
+    public function getVerificationCount()
+    {
         return $this->verificationCount;
     }
 
@@ -1584,7 +1589,6 @@ class MetaGer
     {
         return $this->availableFoki;
     }
-
 
     public function getSprueche()
     {
