@@ -69,6 +69,7 @@ mix
   .babel("resources/js/focus-creator.js", "public/js/focus-creator.js")
   .babel("resources/js/focus-creator.js", "public/js/focus-creator.js")
   .babel("resources/js/editLanguage.js", "public/js/editLanguage.js")
+  .babel("resources/js/bitpay.js", "public/js/bitpay.js")
   // utility
   .babel(
     ["resources/js/utility.js", "resources/js/translations.js"],
