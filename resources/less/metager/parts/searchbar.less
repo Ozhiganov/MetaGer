@@ -127,6 +127,9 @@
                 background-color: transparent;
                 padding: 0;
                 height: 100%;
+                @media(max-width: @screen-mobile){
+                    margin-right: 30px;
+                }
             }
         }
     }
@@ -191,6 +194,9 @@
         }
         .search-input input {
             padding-right: 35px; // Makes it so the overlayed delete button does not hide the text belowF
+        }
+        .search-submit button i.fa-search {
+            margin-top: 5px;
         }
     }
 }
