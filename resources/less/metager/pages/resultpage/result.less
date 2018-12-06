@@ -5,6 +5,11 @@
 @result-description-color: @color-black;
 @result-image-border-color: @color-almost-white;
 .result {
+
+    // Remove the margin from the first result because it already has margin from the grid ruleset
+    &:nth-child(1) {
+        margin-top: 0;
+    }
     .card;
     margin: @padding-small-default 0px;
     padding: 8px 15px 5px 15px;
