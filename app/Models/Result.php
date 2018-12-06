@@ -42,7 +42,7 @@ class Result
         if (strlen($this->descr) > 150) {
             $this->descr = wordwrap($this->descr, 150);
             $this->descr = substr($this->descr, 0, strpos($this->descr, "\n"));
-
+            $this->descr .= "&#8230;"; // Ellipsis character
         }
         $this->gefVon = trim($gefVon);
         $this->gefVonLink = trim($gefVonLink);
