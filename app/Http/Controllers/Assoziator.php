@@ -7,13 +7,14 @@ use LaravelLocalization;
 
 class Assoziator extends Controller
 {
-    public function asso(Request $request){
+    public function asso(Request $request)
+    {
         $eingabe = $request->input('q', '');
-        if(empty($eingabe)){
+        if (empty($eingabe)) {
             return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/asso'));
         }
 
-        $url = "https://metager.de/meta/meta.ger3?eingabe=" . urlencode($eingabe) . "&out=atom10";
+        $url = "https://metager.de/meta/meta.ger3?eingabe=" . urlencode($eingabe) . "&out=atom10&key=test";
 
         $ch = curl_init();
 
@@ -28,26 +29,24 @@ class Assoziator extends Controller
             CURLOPT_TIMEOUT => 10,
             CURLOPT_URL => $url,
             CURLOPT_HTTPHEADER, array(
-                "X_FORWARDED_FOR: " . $request->ip()
-            )
+                "X_FORWARDED_FOR: " . $request->ip(),
+            ),
         ));
-
-        
 
         $response = curl_exec($ch);
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if($responseCode !== 200)
+        if ($responseCode !== 200) {
             abort(500, "Server currently not available");
-
+        }
 
         $response = preg_replace("/^<\?.*\?>/s", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>", $response);
         $content = simplexml_load_string($response);
 
         $words = [];
 
-        foreach($content->entry as $entry){
+        foreach ($content->entry as $entry) {
             #
             $title = $entry->title->__toString();
             $content = $entry->content->__toString();
@@ -58,32 +57,31 @@ class Assoziator extends Controller
             $n_words = preg_match_all('/([a-zA-Z]|\xC3[\x80-\x96\x98-\xB6\xB8-\xBF]|\xC5[\x92\x93\xA0\xA1\xB8\xBD\xBE]){2,}/', $content, $match_arr);
 
             $wordsTmp = array_merge($wordsTmp, $match_arr[0]);
-           # 
+            #
 
-            foreach($wordsTmp as $word){
-                if(isset($words[$word])){
+            foreach ($wordsTmp as $word) {
+                if (isset($words[$word])) {
                     $words[$word]++;
-                }else if(isset($words[ucfirst($word)])){
+                } else if (isset($words[ucfirst($word)])) {
                     $words[ucfirst($word)]++;
-                }else if(isset($words[strtolower($word)])){
+                } else if (isset($words[strtolower($word)])) {
                     $words[strtolower($word)]++;
-                }else{
+                } else {
                     $words[$word] = 1;
                 }
             }
 
-            
         }
         arsort($words);
 
         $eingabeWords = explode(" ", $eingabe);
-        foreach($eingabeWords as $eingabeWord){
+        foreach ($eingabeWords as $eingabeWord) {
             unset($words[$eingabeWord]);
             unset($words[strtolower($eingabeWord)]);
             unset($words[ucfirst($eingabeWord)]);
             unset($words[strtoupper($eingabeWord)]);
         }
-        
+
         unset($words["de"]);
         unset($words["com"]);
         unset($words["wiki"]);
@@ -92,7 +90,7 @@ class Assoziator extends Controller
         // Remove Stopwords
         $stopWords = file(storage_path('app/public/stopwords.txt'));
 
-        foreach($stopWords as $stopWord){
+        foreach ($stopWords as $stopWord) {
             $stopWord = trim($stopWord);
             unset($words[$stopWord]);
             unset($words[strtolower($stopWord)]);
@@ -103,9 +101,11 @@ class Assoziator extends Controller
 
         $i = 1;
         $max = 60;
-        foreach($words as $key => $value){
-            if($i > $max)
+        foreach ($words as $key => $value) {
+            if ($i > $max) {
                 unset($words[$key]);
+            }
+
             $wordCount += $value;
             $i++;
         }
