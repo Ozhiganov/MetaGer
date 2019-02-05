@@ -35,7 +35,7 @@
 			<a href="mailto:aria@suma-ev.de">aria@suma-ev.de</a></p>
 		</li>
 		<li>
-			<p><a href="https://de.wikipedia.org/wiki/Wolfgang_Sander-Beuermann" target="_blank" rel="noopener">Sander-Beuermann, Wolfgang</a>, Dr. - {!! trans('team.role.8') !!} -
+			<p><a href="https://de.wikipedia.org/wiki/Wolfgang_Sander-Beuermann" target="_blank" rel="noopener">Sander-Beuermann, Wolfgang</a>, Dr.-Ing - {!! trans('team.role.8') !!} -
 			<a href="mailto:wsb@suma-ev.de">wsb@suma-ev.de</a>
 		</li>
 	</ul>
