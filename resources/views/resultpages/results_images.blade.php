@@ -2,11 +2,13 @@
 @include('parts.warnings')
 <div id="container" class="image-container">
 	@foreach($metager->getResults() as $result)
-		<div class="item image-item">
-			<div class="img">
-				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}"><img src="{{ $metager->getImageProxyLink($result->image) }}" width="150px" alt="" rel="noopener"/></a>
-				<span class="label label-default hostlabel">{{ strip_tags($result->gefVon) }}</span>
-			</div>
+		<div class="image">
+			<a href="{{ $result->link }}" target="_blank">
+				<div title="{{ $result->titel }}">
+					<img src="{{ $metager->getImageProxyLink($result->image)}}" alt="{{ $result->titel }}"/>
+					<div>{{ $result->gefVon }}</div>
+				</div>
+			</a>
 		</div>
 	@endforeach
 </div>

@@ -34,6 +34,8 @@ abstract class Searchengine
     private $user; # Username für HTTP-Auth (falls angegeben)
     private $password; # Passwort für HTTP-Auth (falls angegeben)
 
+    private $headers; # Headers to add
+
     public $fp; # Wird für Artefakte benötigt
     public $socketNumber = null; # Wird für Artefakte benötigt
     public $counter = 0; # Wird eventuell für Artefakte benötigt
@@ -174,7 +176,7 @@ abstract class Searchengine
             }
             if ($needSearcher && Redis::get($this->name) !== "locked") {
                 Redis::set($this->name, "locked");
-                $this->dispatch(new Searcher($this->name, $this->user, $this->password));
+                $this->dispatch(new Searcher($this->name, $this->user, $this->password, $this->headers));
             }
         }
     }
