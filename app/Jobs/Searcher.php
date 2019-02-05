@@ -12,7 +12,7 @@ class Searcher implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $name, $ch, $pid, $counter, $lastTime, $connectionInfo, $user, $password;
+    protected $name, $ch, $pid, $counter, $lastTime, $connectionInfo, $user, $password, $headers;
     # Each Searcher will shutdown after a specified time(s) or number of requests
     protected $MAX_REQUESTS = 100;
     # This value should always be below the retry_after value in config/queue.php
@@ -32,7 +32,7 @@ class Searcher implements ShouldQueue
      * keep-alive requests.
      * @return void
      */
-    public function __construct($name, $user = null, $password = null)
+    public function __construct($name, $user = null, $password = null, $headers = null)
     {
         $this->name = $name;
         $this->pid = getmypid();
@@ -40,6 +40,7 @@ class Searcher implements ShouldQueue
         $this->startTime = microtime(true);
         $this->user = $user;
         $this->password = $password;
+        $this->headers = $headers;
         // Submit this worker to the Redis System
         Redis::expire($this->name, 5);
     }
@@ -199,6 +200,13 @@ class Searcher implements ShouldQueue
 
         if ($this->user !== null && $this->password !== null) {
             curl_setopt($ch, CURLOPT_USERPWD, $this->user . ":" . $this->password);
+        }
+
+        if ($this->headers !== null) {
+            # Headers are in the Form:
+            # <key>:<value>;<key>:<value>
+            $headerArray = explode(";", $this->headers);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
         }
 
         return $ch;

@@ -3,6 +3,11 @@
 	<a href="@if($metager->getFokus() === "web")#@else{!!$metager->generateSearchLink('web')!!}@endif" target="_self" tabindex="2">@lang('index.foki.web')</a>
 </div>
 @endif
+@if( array_has($metager->getAvailableFoki(), "bilder"))
+<div id="bilder" @if($metager->getFokus() === "bilder")class="active"@endif>
+	<a href="@if($metager->getFokus() === "bilder")#@else{!!$metager->generateSearchLink('bilder')!!}@endif" target="_self" tabindex="2">@lang('index.foki.bilder')</a>
+</div>
+@endif
 @if( array_has($metager->getAvailableFoki(), "nachrichten"))
 <div id="nachrichten" @if($metager->getFokus() === "nachrichten")class="active"@endif>
 	<a href="@if($metager->getFokus() === "nachrichten")#@else{!!$metager->generateSearchLink('nachrichten')!!}@endif" target="_self" tabindex="3">@lang('index.foki.nachrichten')</a>

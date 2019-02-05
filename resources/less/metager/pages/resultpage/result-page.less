@@ -208,9 +208,35 @@ a {
 }
 
 .image-container {
-    margin: 10px auto;
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    > div.image {
+        flex: auto;
+        margin: 8px;
+        text-align: center;
+        > a > div {
+            display: inline-block;
+            background-color: white;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            > img {
+                max-width: 150px;
+            }
+            @media(max-width: 370px){
+                > img {
+                    max-width: 100%;
+                }
+            }
+            > div {
+                font-size: 12px;
+                color: #777;
+            }
+        }
+
+        > a > div:hover {
+            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        }
+    }
 }
 
 /* Placeholder für ladende Tabs */

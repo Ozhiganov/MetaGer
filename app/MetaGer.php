@@ -131,7 +131,10 @@ class MetaGer
                         ->with('errors', $this->errors)
                         ->with('apiAuthorized', $this->apiAuthorized)
                         ->with('metager', $this)
-                        ->with('browser', (new Agent())->browser());
+                        ->with('browser', (new Agent())->browser())
+                        ->with('quicktips', $quicktipResults)
+                        ->with('focus', $this->fokus)
+                        ->with('resultcount', count($this->results));
             }
         } else {
             switch ($this->out) {
