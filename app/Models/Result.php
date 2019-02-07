@@ -59,9 +59,9 @@ class Result
         }
         $this->valid = true;
         $this->host = @parse_url($link, PHP_URL_HOST);
-        $this->strippedHost = $this->getStrippedHost($this->anzeigeLink);
-        $this->strippedDomain = $this->getStrippedDomain($this->strippedHost);
-        $this->strippedLink = $this->getStrippedLink($this->anzeigeLink);
+        $this->strippedHost = $this->getStrippedHost($this->link);
+        $this->strippedDomain = $this->getStrippedDomain($this->link);
+        $this->strippedLink = $this->getStrippedLink($this->link);
         $this->rank = 0;
         $this->partnershop = isset($additionalInformation["partnershop"]) ? $additionalInformation["partnershop"] : false;
         $this->image = isset($additionalInformation["image"]) ? $additionalInformation["image"] : "";
@@ -385,22 +385,30 @@ return "https://proxy.suma-ev.de/mger/nph-proxy.cgi/en/w0/" . $tmp;
      */
     public function getUrlElements($url)
     {
-        if (!preg_match("/(?:((?:http)|(?:https))(?::\/\/))?(?:([a-z0-9.\-_~]+):([a-z0-9.\-_~]+)@)?(?:(www)(?:\.))?((?:(?:[a-z0-9.\-_~]+\.)+)?([a-z0-9.\-_~]+\.[a-z0-9.\-_~]+))(?:(?::)(\d+))?((?:(?:\/[a-z0-9.\-_~]+)+)(?:\.[a-z0-9.\-_~]+)?)?(\?[a-z0-9.\-_~]+=[a-z0-9.\-_~]+(?:&[a-z0-9.\-_~]+=[a-z0-9.\-_~]+)*)?(?:(?:#)([a-z0-9.\-_~]+))?/i", $url, $match)) {
-            return;
-        } else {
-            $re = [];
-            if (isset($match[1])) {$re['schema'] = $match[1];} else { $re['schema'] = "";};
-            if (isset($match[2])) {$re['username'] = $match[2];} else { $re['username'] = "";};
-            if (isset($match[3])) {$re['password'] = $match[3];} else { $re['password'] = "";};
-            if (isset($match[4])) {$re['web'] = $match[4];} else { $re['web'] = "";};
-            if (isset($match[5])) {$re['host'] = $match[5];} else { $re['host'] = "";};
-            if (isset($match[6])) {$re['domain'] = $match[6];} else { $re['domain'] = "";};
-            if (isset($match[7])) {$re['port'] = $match[7];} else { $re['port'] = "";};
-            if (isset($match[8])) {$re['path'] = $match[8];} else { $re['path'] = "";};
-            if (isset($match[9])) {$re['query'] = $match[9];} else { $re['query'] = "";};
-            if (isset($match[10])) {$re['fragment'] = $match[10];} else { $re['fragment'] = "";};
-            return $re;
+        $parts = parse_url($url);
+        $re = [];
+
+        $re["schema"] = empty($parts["scheme"]) ? "" : $parts["scheme"];
+        $re["username"] = empty($parts["user"]) ? "" : $parts["user"];
+        $re["password"] = empty($parts["pass"]) ? "" : $parts["pass"];
+        $re["web"] = "";
+        $re["host"] = $parts["host"];
+        if (stripos($re["host"], "www.") === 0) {
+            $re["web"] = "www.";
+            $re["host"] = substr($re["host"], strpos($re["host"], ".") + 1);
         }
+        $hostParts = explode(".", $re["host"]);
+        if (sizeof($hostParts) >= 3) {
+            $re["domain"] = $hostParts[sizeof($hostParts) - 2] . "." . $hostParts[sizeof($hostParts) - 1];
+        } else {
+            $re["domain"] = $re["host"];
+        }
+        $re["port"] = empty($parts["port"]) ? ($re["schema"] === "http" ? 80 : ($re["schema"] === "https" ? 443 : 80)) : $parts["port"];
+        $re["path"] = empty($parts["path"]) ? "" : $parts["path"];
+        $re["query"] = empty($parts["query"]) ? "" : $parts["query"];
+        $re["fragment"] = empty($parts["fragment"]) ? "" : $parts["fragment"];
+
+        return $re;
     }
 
     # Getter
