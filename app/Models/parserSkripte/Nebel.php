@@ -8,9 +8,9 @@ class Nebel extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -22,10 +22,10 @@ class Nebel extends Searchengine
                 continue;
             }
 
-            $title       = $res[1];
-            $link        = $res[0];
+            $title = $res[1];
+            $link = $res[0];
             $anzeigeLink = $link;
-            $descr       = $res[2];
+            $descr = $res[2];
 
             $this->counter++;
             $this->results[] = new \App\Models\Result(
@@ -34,7 +34,7 @@ class Nebel extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->displayName,$this->homepage,
+                $this->engine->{"display-name"}, $this->engine->homepage,
                 $this->counter
             );
         }

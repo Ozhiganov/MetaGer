@@ -29,6 +29,8 @@ class MetaGer
     protected $phrases = [];
     protected $engines = [];
     protected $results = [];
+    protected $queryFilter = [];
+    protected $parameterFilter = [];
     protected $ads = [];
     protected $warnings = [];
     protected $errors = [];
@@ -528,7 +530,7 @@ class MetaGer
             return;
         }
 
-        $enabledSearchengines = [];
+        $this->enabledSearchengines = [];
         $overtureEnabled = false;
 
         # Check if selected focus is valid
@@ -546,22 +548,31 @@ class MetaGer
             # Check if this engine can use eventually defined query-filter
             $valid = true;
             foreach ($this->queryFilter as $queryFilter => $filter) {
-                if (empty($this->sumaFile->filter->$queryFilter->sumas->$suma)) {
+                if (empty($this->sumaFile->filter->{"query-filter"}->$queryFilter->sumas->$suma)) {
                     $valid = false;
                     break;
                 }
             }
+            # Check if this engine can use eventually defined parameter-filter
+            if ($valid) {
+                foreach ($this->parameterFilter as $filterName => $filter) {
+                    if (empty($filter->sumas->$suma)) {
+                        $valid = false;
+                        break;
+                    }
+                }
+            }
             # If it can we add it
             if ($valid) {
-                $enabledSearchengines[$suma] = $this->sumaFile->sumas->{$suma};
+                $this->enabledSearchengines[$suma] = $this->sumaFile->sumas->{$suma};
             }
 
         }
 
-        if (sizeof($enabledSearchengines) === 0) {
+        if (sizeof($this->enabledSearchengines) === 0) {
             $filter = "";
             foreach ($this->queryFilter as $queryFilter => $filterPhrase) {
-                $filter .= trans($this->sumaFile->filter->{$queryFilter}->name) . ",";
+                $filter .= trans($this->sumaFile->filter->{"query-filter"}->{$queryFilter}->name) . ",";
             }
             $filter = rtrim($filter, ",");
             $error = trans('metaGer.engines.noSpecialSearch', ['fokus' => trans($this->sumaFile->foki->{$this->fokus}->{"display-name"}),
@@ -570,7 +581,6 @@ class MetaGer
         }
 
         $engines = [];
-
         $typeslist = [];
         $counter = 0;
 
@@ -581,8 +591,9 @@ class MetaGer
                 $engine->setResultHash($this->getHashCode());
             }
         } else {
-            $engines = $this->actuallyCreateSearchEngines($enabledSearchengines);
+            $engines = $this->actuallyCreateSearchEngines($this->enabledSearchengines);
         }
+
         # Wir starten alle Suchen
         foreach ($engines as $engine) {
             $engine->startSearch($this);
@@ -659,6 +670,24 @@ class MetaGer
             $engines[] = $tmp;
         }
         return $engines;
+    }
+
+    public function getAvailableParameterFilter()
+    {
+        $parameterFilter = $this->sumaFile->filter->{"parameter-filter"};
+
+        $availableFilter = [];
+
+        foreach ($parameterFilter as $filterName => $filter) {
+            # Check if any of the enabled search engines provide this filter
+            foreach ($this->enabledSearchengines as $engineName => $engine) {
+                if (!empty($filter->sumas->$engineName)) {
+                    $availableFilter[$filterName] = $filter;
+                }
+            }
+        }
+
+        return $availableFilter;
     }
 
     public function isBildersuche()
@@ -843,13 +872,6 @@ class MetaGer
             }
         }
 
-        # Nicht fertige Engines verwefen
-        foreach ($engines as $engine) {
-            if (!$engine->loaded) {
-                $engine->shutdown();
-            }
-        }
-
         $this->engines = $engines;
     }
 
@@ -1006,10 +1028,7 @@ class MetaGer
         $this->searchCheckPhrase();
 
         # Check for query-filter (i.e. Sitesearch, etc.):
-        foreach ($this->sumaFile->filter as $filterName => $filter) {
-            if ($filter->type !== "query-filter") {
-                continue;
-            }
+        foreach ($this->sumaFile->filter->{"query-filter"} as $filterName => $filter) {
             if (!empty($filter->{"optional-parameter"}) && $request->filled($filter->{"optional-parameter"})) {
                 $this->queryFilter[$filterName] = $request->input($filter->{"optional-parameter"});
             } else if (preg_match_all("/" . $filter->regex . "/si", $this->q, $matches) > 0) {
@@ -1026,6 +1045,19 @@ class MetaGer
                 }
             }
 
+        }
+        # Check for parameter-filter (i.e. SafeSearch)
+        $this->parameterFilter = [];
+        $usedParameters = [];
+        foreach ($this->sumaFile->filter->{"parameter-filter"} as $filterName => $filter) {
+            if (!empty($usedParameters[$filter->{"get-parameter"}])) {
+                die("Der Get-Parameter \"" . $filter->{"get-parameter"} . "\" wird mehrfach verwendet!");
+            } else {
+                $usedParameters[$filter->{"get-parameter"}] = true;
+            }
+            if ($request->filled($filter->{"get-parameter"})) {
+                $this->parameterFilter[$filterName] = $filter;
+            }
         }
         $this->searchCheckHostBlacklist($request);
         $this->searchCheckDomainBlacklist($request);
@@ -1336,7 +1368,12 @@ class MetaGer
 
     public function generateSearchLink($fokus, $results = true)
     {
-        $requestData = $this->request->except(['page', 'next']);
+        $except = ['page', 'next'];
+        # Remove every Filter
+        foreach ($this->sumaFile->filter->{"parameter-filter"} as $filterName => $filter) {
+            $except[] = $filter->{"get-parameter"};
+        }
+        $requestData = $this->request->except($except);
         $requestData['focus'] = $fokus;
         $requestData['out'] = "";
 
@@ -1507,6 +1544,11 @@ class MetaGer
     public function getQueryFilter()
     {
         return $this->queryFilter;
+    }
+
+    public function getParameterFilter()
+    {
+        return $this->parameterFilter;
     }
 
     public function getTime()

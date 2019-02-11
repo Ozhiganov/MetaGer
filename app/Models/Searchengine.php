@@ -7,6 +7,7 @@ use App\MetaGer;
 use Cache;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Redis;
+use Request;
 
 abstract class Searchengine
 {
@@ -46,9 +47,11 @@ abstract class Searchengine
         $this->name = $name;
 
         # Cache Standarddauer 60
-        if (!isset($this->cacheDuration)) {
-            $this->cacheDuration = 60;
+        $this->cacheDuration = 60;
+        if (!empty($engine->{"cache-duration"}) && $engine->{"cache-duration"} >= 0) {
+            $this->cacheDuration = $engine->{"cache-duration"};
         }
+
         $this->useragent = $metager->getUserAgent();
         $this->ip = $metager->getIp();
         $this->startTime = microtime();
@@ -64,10 +67,21 @@ abstract class Searchengine
         $q = $metager->getQ();
         $filters = $metager->getSumaFile()->filter;
         foreach ($metager->getQueryFilter() as $queryFilter => $filter) {
-            $filterOptions = $filters->$queryFilter;
+            $filterOptions = $filters->{"query-filter"}->$queryFilter;
             $filterOptionsEngine = $filterOptions->sumas->{$this->name};
             $query = $filterOptionsEngine->prefix . $filter . $filterOptionsEngine->suffix;
             $q = $query . " " . $q;
+        }
+
+        # Parse enabled Parameter-Filter
+        foreach ($metager->getParameterFilter() as $filterName => $filter) {
+            $inputParameter = Request::input($filter->{"get-parameter"}, "");
+            if (empty($inputParameter) || empty($filter->sumas->{$name}->values->{$inputParameter})) {
+                continue;
+            }
+            $engineParameterKey = $filter->sumas->{$name}->{"get-parameter"};
+            $engineParameterValue = $filter->sumas->{$name}->values->{$inputParameter};
+            $this->engine->{"get-parameter"}->{$engineParameterKey} = $engineParameterValue;
         }
 
         $this->getString = $this->generateGetString($q);
