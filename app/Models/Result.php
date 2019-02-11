@@ -31,7 +31,6 @@ class Result
     # Erstellt ein neues Ergebnis
     public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $gefVonLink, $sourceRank, $additionalInformation = [])
     {
-        $provider = simplexml_load_string($provider);
         $this->titel = strip_tags(trim($titel));
         $this->link = trim($link);
         $this->anzeigeLink = trim($anzeigeLink);
@@ -52,8 +51,8 @@ class Result
             $this->sourceRank = 20;
         }
         $this->sourceRank = 20 - $this->sourceRank;
-        if (isset($provider["engineBoost"])) {
-            $this->engineBoost = floatval($provider["engineBoost"]->__toString());
+        if (isset($provider->{"engine-boost"})) {
+            $this->engineBoost = floatval($provider->{"engine-boost"});
         } else {
             $this->engineBoost = 1;
         }
@@ -275,22 +274,6 @@ class Result
         }
         }
          */
-        /* Der Host-Filter der sicherstellt,
-         *  dass von jedem Host maximal 3 Links angezeigt werden.
-         *  Diese Überprüfung führen wir unter bestimmten Bedingungen nicht durch.
-         */
-        if (($metager->getSite() === "" || $metager->getSite() === null) &&
-            strpos($this->strippedHost, "ncbi.nlm.nih.gov") === false &&
-            strpos($this->strippedHost, "twitter.com") === false &&
-            strpos($this->strippedHost, "www.ladenpreis.net") === false &&
-            strpos($this->strippedHost, "ncbi.nlm.nih.gov") === false &&
-            strpos($this->strippedHost, "www.onenewspage.com") === false &&
-            $this->gefVon !== "Shopzilla") {
-            $count = $metager->getHostCount($this->strippedHost);
-            if ($count >= 3) {
-                return false;
-            }
-        }
 
         /* Der Dublettenfilter, der sicher stellt,
          *  dass wir nach Möglichkeit keinen Link doppelt in der Ergebnisliste haben.
