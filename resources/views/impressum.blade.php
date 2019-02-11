@@ -13,7 +13,6 @@
 	<div class="card-heavy">
 		<p>{!! trans('impressum.info.4') !!}</p>
 		<p>{!! trans('impressum.info.6') !!}</p>
-		<p>{!! trans('impressum.info.7') !!}</p>
 		<p>{!! trans('impressum.info.8') !!}</p>
 	</div>
 	<div class="card-heavy">
