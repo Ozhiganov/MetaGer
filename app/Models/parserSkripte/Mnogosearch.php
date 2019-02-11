@@ -9,9 +9,9 @@ class Mnogosearch extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -28,9 +28,9 @@ class Mnogosearch extends Searchengine
                 $title = $node->filter('table > tr > td ')->eq(1)->filter('td > div')->text();
                 $title = preg_replace("/\s+/si", " ", $title);
 
-                $link        = $node->filter('table > tr > td ')->eq(1)->filter('td > div > a')->attr('href');
+                $link = $node->filter('table > tr > td ')->eq(1)->filter('td > div > a')->attr('href');
                 $anzeigeLink = $link;
-                $descr       = $node->filter('table > tr > td ')->eq(1)->filter('td > div')->eq(1)->text();
+                $descr = $node->filter('table > tr > td ')->eq(1)->filter('td > div')->eq(1)->text();
                 $this->counter++;
 
                 $this->results[] = new \App\Models\Result(
@@ -39,7 +39,7 @@ class Mnogosearch extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName,$this->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter
                 );
             });

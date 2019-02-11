@@ -8,9 +8,9 @@ class Witch extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -25,10 +25,10 @@ class Witch extends Searchengine
             if (sizeof($res) !== 4 || $res[3] === "'Kein Ergebnis'") {
                 continue;
             }
-            $title       = trim($res[0], "'");
-            $link        = trim($res[2], "'");
+            $title = trim($res[0], "'");
+            $link = trim($res[2], "'");
             $anzeigeLink = $link;
-            $descr       = trim($res[1], "'");
+            $descr = trim($res[1], "'");
 
             $this->counter++;
             $this->results[] = new \App\Models\Result(
@@ -37,7 +37,7 @@ class Witch extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->displayName,$this->homepage,
+                $this->engine->{"display-name"}, $this->engine->homepage,
                 $this->counter
             );
         }
@@ -50,10 +50,10 @@ class Witch extends Searchengine
             return;
         }
 
-        $next            = new Witch(simplexml_load_string($this->engine), $metager);
-        $offset          = $metager->getPage() * 10;
-        $next->getString = preg_replace("/&cn=\d+/si", "&cn=$offset", $next->getString);
-        $next->hash      = md5($next->host . $next->getString . $next->port . $next->name);
-        $this->next      = $next;
+        $offset = $metager->getPage() * 10;
+        $newEngine = unserialize(serialize($this->engine));
+        $newEngine->{"get-parameter"}->cn = "$offset";
+        $next = new Witch($this->name, $newEngine, $metager);
+        $this->next = $next;
     }
 }

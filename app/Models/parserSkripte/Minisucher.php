@@ -6,11 +6,11 @@ use App\Models\Searchengine;
 
 class Minisucher extends Searchengine
 {
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
         # Für die Newssuche stellen wir die Minisucher auf eine Sortierung nach Datum um.
-        if($metager->getFokus() === "nachrichten"){
+        if ($metager->getFokus() === "nachrichten") {
             $this->getString .= "sort=" . $this->urlencode("documentDate desc");
         }
     }
@@ -28,25 +28,26 @@ class Minisucher extends Searchengine
 
         $results = $content->xpath('//response/result/doc');
 
-
         $string = "";
 
-        $counter         = 0;
+        $counter = 0;
         $providerCounter = [];
         foreach ($results as $result) {
             try {
                 $counter++;
                 $result = simplexml_load_string($result->saveXML());
 
-                $title         = $result->xpath('//doc/arr[@name="title"]/str')[0]->__toString();
-                $link          = $result->xpath('//doc/str[@name="url"]')[0]->__toString();
-                $anzeigeLink  = $link;
-                $descr        = "";
+                $title = $result->xpath('//doc/arr[@name="title"]/str')[0]->__toString();
+                $link = $result->xpath('//doc/str[@name="url"]')[0]->__toString();
+                $anzeigeLink = $link;
+                $descr = "";
+
                 $descriptions = $content->xpath("//response/lst[@name='highlighting']/lst[@name='$link']/arr[@name='content']/str");
                 foreach ($descriptions as $description) {
                     $descr .= $description->__toString();
                 }
-                $descr    = strip_tags($descr);
+
+                $descr = strip_tags($descr);
 
                 $dateString = $result->xpath('//doc/date[@name="documentDate"]')[0]->__toString();
 
@@ -56,18 +57,10 @@ class Minisucher extends Searchengine
 
                 $additionalInformation = ['date' => $dateVal];
 
-                $minism = simplexml_load_string($this->engine)["subcollections"];
+                $minism = $this->engine->{"display-name"};
+                $gefVon = "Minisucher: $minism";
                 $subcollection = $result->xpath('//doc/str[@name="subcollection"]')[0]->__toString();
 
-                if(!$subcollection) {
-                    $gefVon = "Minisucher: $minism";
-                } else {
-                    $minism = array_map('strtolower', explode(', ', $minism));
-                    $subcollection = array_map('strtolower', explode(' ', $subcollection));
-                    $result = implode(', ', array_intersect($subcollection, $minism));
-                    $gefVon = "Minisucher: $result";
-                }
-                
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
                     $title,
@@ -78,6 +71,7 @@ class Minisucher extends Searchengine
                     $counter,
                     $additionalInformation
                 );
+
             } catch (\ErrorException $e) {
                 continue;
             }
