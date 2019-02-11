@@ -7,6 +7,7 @@ return [
     'settings.noneSelected' => 'Achtung: Sie haben in ihren Einstellungen keine Suchmaschine ausgewählt.',
 
     'engines.noParser' => 'Beim Abfragen von :engine ist ein Fehler aufgetreten. Bitte benachrichtigen Sie uns unter: office@suma-ev.de',
+    'engines.noSpecialSearch' => 'Für eine Ihrer Filteroptionen gab es keine Suchmaschine im aktuellen Fokus (:fokus), welche diese unterstützen würde. Sie haben folgende(n) Filter aktiv: ":filter".',
 
     'formdata.cantLoad' => 'Suma-File konnte nicht gefunden werden',
     'formdata.noSearch' => 'Achtung: Sie haben keinen Suchbegriff eingegeben. Sie können ihre Suchbegriffe oben eingeben und es erneut versuchen.',
@@ -20,4 +21,5 @@ return [
     'sitesearch.failed' => 'Sie wollten eine Sitesearch auf :site durchführen. Leider unterstützen die eingestellten Suchmaschinen diese nicht. Sie können die Sitesearch im Web-Fokus durchführen. Es werden ihnen Ergebnisse ohne Sitesearch angezeigt.',
     'sitesearch.success' => 'Sie führen eine Sitesearch durch. Es werden nur Ergebnisse von der Seite: ":site" angezeigt.',
     'feedback' => 'Nichts Passendes dabei? Geben Sie uns Feedback: ',
+    'filter.sitesearch' => 'Sitesearch',
 ];

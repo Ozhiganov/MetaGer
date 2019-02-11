@@ -161,6 +161,7 @@ class Searcher implements ShouldQueue
         // Set this URL to the Curl handle
         curl_setopt($this->ch, CURLOPT_URL, $url);
         $result = curl_exec($this->ch);
+
         $this->connectionInfo = curl_getinfo($this->ch);
         return $result;
     }
@@ -203,10 +204,13 @@ class Searcher implements ShouldQueue
         }
 
         if ($this->headers !== null) {
+            $headers = [];
+            foreach ($this->headers as $key => $value) {
+                $headers[] = $key . ":" . $value;
+            }
             # Headers are in the Form:
             # <key>:<value>;<key>:<value>
-            $headerArray = explode(";", $this->headers);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         return $ch;

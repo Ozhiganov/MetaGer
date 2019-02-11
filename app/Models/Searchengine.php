@@ -12,10 +12,8 @@ abstract class Searchengine
 {
     use DispatchesJobs;
 
-    public $ch; # Curl Handle zum erhalten der Ergebnisse
     public $getString = ""; # Der String für die Get-Anfrage
     public $engine; # Die ursprüngliche Engine XML
-    public $enabled = true; # true, wenn die Suchmaschine nicht explizit disabled ist
     public $results = []; # Die geladenen Ergebnisse
     public $ads = []; # Die geladenen Werbungen
     public $products = []; # Die geladenen Produkte
@@ -31,7 +29,7 @@ abstract class Searchengine
     public $startTime; # Die Zeit der Erstellung dieser Suchmaschine
     public $hash; # Der Hash-Wert dieser Suchmaschine
 
-    private $user; # Username für HTTP-Auth (falls angegeben)
+    private $username; # Username für HTTP-Auth (falls angegeben)
     private $password; # Passwort für HTTP-Auth (falls angegeben)
 
     private $headers; # Headers to add
@@ -42,58 +40,40 @@ abstract class Searchengine
     public $write_time = 0; # Wird eventuell für Artefakte benötigt
     public $connection_time = 0; # Wird eventuell für Artefakte benötigt
 
-    public function __construct(\SimpleXMLElement $engine, MetaGer $metager)
+    public function __construct($name, \stdClass $engine, MetaGer $metager)
     {
-        # Versucht möglichst viele attribute aus dem engine XML zu laden
-        foreach ($engine->attributes() as $key => $value) {
-            $this->$key = $value->__toString();
-        }
-
-        # Standardhomepage metager.de
-        if (!isset($this->homepage)) {
-            $this->homepage = "https://metager.de";
-        }
-
-        # Speichert die XML der Engine
-        $this->engine = $engine->asXML();
+        $this->engine = $engine;
+        $this->name = $name;
 
         # Cache Standarddauer 60
         if (!isset($this->cacheDuration)) {
             $this->cacheDuration = 60;
         }
-
-        $this->enabled = true;
-
-        # Eine Suchmaschine kann automatisch temporär deaktiviert werden, wenn es Verbindungsprobleme gab:
-        if (isset($this->disabled) && strtotime($this->disabled) <= time()) {
-            # In diesem Fall ist der Timeout der Suchmaschine abgelaufen.
-            $this->enable($metager->getSumaFile(), "Die Suchmaschine " . $this->name . " wurde wieder eingeschaltet.");
-        } elseif (isset($this->disabled) && strtotime($this->disabled) > time()) {
-            $this->enabled = false;
-            return;
-        }
-
         $this->useragent = $metager->getUserAgent();
         $this->ip = $metager->getIp();
         $this->startTime = microtime();
+        # check for http Auth
+        if (!empty($this->engine->{"http-auth-credentials"}->username) && !empty($this->engine->{"http-auth-credentials"}->password)) {
+            $this->username = $this->engine->{"http-auth-credentials"}->username;
+            $this->password = $this->engine->{"http-auth-credentials"}->password;
+        }
+
+        $this->headers = $this->engine->{"request-header"};
 
         # Suchstring generieren
-        $q = "";
-        if (isset($this->hasSiteSearch) && $this->hasSiteSearch === "1") {
-            if (strlen($metager->getSite()) === 0) {
-                $q = $metager->getQ();
-            } else {
-                $q = $metager->getQ() . " site:" . $metager->getSite();
-            }
-
-        } else {
-            $q = $metager->getQ();
+        $q = $metager->getQ();
+        $filters = $metager->getSumaFile()->filter;
+        foreach ($metager->getQueryFilter() as $queryFilter => $filter) {
+            $filterOptions = $filters->$queryFilter;
+            $filterOptionsEngine = $filterOptions->sumas->{$this->name};
+            $query = $filterOptionsEngine->prefix . $filter . $filterOptionsEngine->suffix;
+            $q = $query . " " . $q;
         }
-        $this->getString = $this->generateGetString($q, $metager->getUrl(), $metager->getLanguage(), $metager->getCategory());
-        $this->hash = md5($this->host . $this->getString . $this->port . $this->name);
+
+        $this->getString = $this->generateGetString($q);
+        $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
         $this->resultHash = $metager->getHashCode();
         $this->canCache = $metager->canCache();
-        if (!isset($this->additionalHeaders)) {$this->additionalHeaders = "";}
     }
 
     abstract public function loadResults($result);
@@ -107,6 +87,7 @@ abstract class Searchengine
     # Prüft, ob die Suche bereits gecached ist, ansonsted wird sie als Job dispatched
     public function startSearch(\App\MetaGer $metager)
     {
+
         if ($this->canCache && Cache::has($this->hash)) {
             $this->cached = true;
             $this->retrieveResults($metager);
@@ -118,18 +99,20 @@ abstract class Searchengine
             // <ResultHash>;<URL to fetch>
             // With <ResultHash> being the Hash Value where the fetcher will store the result.
             // and <URL to fetch> being the full URL to the searchengine
+
             $url = "";
-            if ($this->port === "443") {
+            if ($this->engine->port === 443) {
                 $url = "https://";
             } else {
                 $url = "http://";
             }
-            $url .= $this->host;
-            if ($this->port !== 80 && $this->port !== 443) {
-                $url .= ":" . $this->port;
+            $url .= $this->engine->host;
+            if ($this->engine->port !== 80 && $this->engine->port !== 443) {
+                $url .= ":" . $this->engine->port;
             }
             $url .= $this->getString;
             $url = base64_encode($url);
+
             $mission = $this->resultHash . ";" . $url . ";" . $metager->getTime();
             // Submit this mission to the corresponding Redis Queue
             // Since each Searcher is dedicated to one specific search engine
@@ -176,7 +159,7 @@ abstract class Searchengine
             }
             if ($needSearcher && Redis::get($this->name) !== "locked") {
                 Redis::set($this->name, "locked");
-                $this->dispatch(new Searcher($this->name, $this->user, $this->password, $this->headers));
+                $this->dispatch(new Searcher($this->name, $this->username, $this->password, $this->headers));
             }
         }
     }
@@ -189,44 +172,9 @@ abstract class Searchengine
         }
     }
 
-    # Magic ???
-    private function setStatistic($key, $val)
-    {
-
-        $oldVal = floatval(Redis::hget($this->name, $key)) * $this->uses;
-        $newVal = ($oldVal + max($val, 0)) / $this->uses;
-        Redis::hset($this->name, $key, $newVal);
-        $this->$key = $newVal;
-    }
-
-    # Entfernt wenn gesetzt das disabled="1" für diese Suchmaschine aus der sumas.xml
-    public function enable($sumaFile, $message)
-    {
-        $xml = simplexml_load_file($sumaFile);
-        unset($xml->xpath("//sumas/suma[@name='" . $this->name . "']")['0']['disabled']);
-        $xml->saveXML($sumaFile);
-        $this->enabled = true;
-    }
-
     public function setResultHash($hash)
     {
         $this->resultHash = $hash;
-    }
-
-    public function closeFp()
-    {
-        fclose($this->fp);
-    }
-
-    # Öffnet einen neuen Socket für diese Engine
-    public function getSocket()
-    {
-        $number = Redis::hget('search.' . $this->hash, $this->name);
-        if ($number === null) {
-            return null;
-        } else {
-            return pfsockopen($this->getHost() . ":" . $this->port . "/$number", $this->port, $errstr, $errno, 1);
-        }
     }
 
     # Fragt die Ergebnisse von Redis ab und lädt Sie
@@ -256,71 +204,34 @@ abstract class Searchengine
         }
     }
 
-    public function shutdown()
-    {
-        Redis::del($this->host . "." . $this->socketNumber);
-    }
-
-    # Erstellt den für die Get-Anfrage genutzten Host-Link
-    protected function getHost()
-    {
-        $return = "";
-        if ($this->port === "443") {
-            $return .= "tls://";
-        } else {
-            $return .= "tcp://";
-        }
-        $return .= $this->host;
-        return $return;
-    }
-
     # Erstellt den für die Get-Anfrage genutzten String
-    private function generateGetString($query, $url, $language, $category)
+    protected function generateGetString($query)
     {
         $getString = "";
 
         # Skript:
-        if (strlen($this->skript) > 0) {
-            $getString .= $this->skript;
+        if (!empty($this->engine->path)) {
+            $getString .= $this->engine->path;
         } else {
             $getString .= "/";
         }
 
-        # FormData:
-        if (strlen($this->formData) > 0) {
-            $getString .= "?" . $this->formData;
+        $getString .= "?";
+        $parameter = [];
+        foreach ($this->engine->{"get-parameter"} as $key => $value) {
+            $parameter[] = $this->urlEncode($key) . "=" . $this->urlEncode($value);
         }
+        $getString .= implode("&", $parameter);
 
-        # Wir müssen noch einige Platzhalter in dem GET-String ersetzen:
-        # Useragent
-        if (strpos($getString, "<<USERAGENT>>")) {
-            $getString = str_replace("<<USERAGENT>>", $this->urlEncode($this->useragent), $getString);
-        }
+        # Append the Query String
+        $getString .= "&" . $this->engine->{"query-parameter"} . "=" . $this->urlEncode($query);
+/*
+die(var_dump($getString));
 
-        # Query
-        if (strpos($getString, "<<QUERY>>")) {
-            $getString = str_replace("<<QUERY>>", $this->urlEncode($query), $getString);
-        }
-
-        # IP
-        if (strpos($getString, "<<IP>>")) {
-            $getString = str_replace("<<IP>>", $this->urlEncode($this->ip), $getString);
-        }
-
-        # Language
-        if (strpos($getString, "<<LANGUAGE>>")) {
-            $getString = str_replace("<<LANGUAGE>>", $this->urlEncode($language), $getString);
-        }
-
-        # Category
-        if (strpos($getString, "<<CATEGORY>>")) {
-            $getString = str_replace("<<CATEGORY>>", $this->urlEncode($category), $getString);
-        }
-
-        # Affildata
-        if (strpos($getString, "<<AFFILDATA>>")) {
-            $getString = str_replace("<<AFFILDATA>>", $this->getOvertureAffilData($url), $getString);
-        }
+# Affildata
+if (strpos($getString, "<<AFFILDATA>>")) {
+$getString = str_replace("<<AFFILDATA>>", $this->getOvertureAffilData($url), $getString);
+}*/
         return $getString;
     }
 
@@ -332,44 +243,5 @@ abstract class Searchengine
         } else {
             return urlencode($string);
         }
-    }
-
-    # Liefert Sonderdaten für Yahoo
-    private function getOvertureAffilData($url)
-    {
-        $affil_data = 'ip=' . $this->ip;
-        $affil_data .= '&ua=' . $this->useragent;
-        $affilDataValue = $this->urlEncode($affil_data);
-        # Wir benötigen die ServeUrl:
-        $serveUrl = $this->urlEncode($url);
-
-        return "&affilData=" . $affilDataValue . "&serveUrl=" . $serveUrl;
-    }
-
-    public function isEnabled()
-    {
-        return $this->enabled;
-    }
-
-    # Artefaktmethoden
-
-    public function getCurlInfo()
-    {
-        return curl_getinfo($this->ch);
-    }
-
-    public function getCurlErrors()
-    {
-        return curl_errno($this->ch);
-    }
-
-    public function addCurlHandle($mh)
-    {
-        curl_multi_add_handle($mh, $this->ch);
-    }
-
-    public function removeCurlHandle($mh)
-    {
-        curl_multi_remove_handle($mh, $this->ch);
     }
 }
