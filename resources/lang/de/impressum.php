@@ -18,8 +18,6 @@ E-Mail: <a href="mailto:office@suma-ev.de">office@suma-ev.de</a><a href="/kontak
     'info.4' => 'Vorstand: Dominik Hebeler, Carsten Riel, <a href="https://www2.ostfalia.de/cms/de/pws/jensenn/index.html">Prof.Dr. Nils Jensen</a>',
     'info.6' => 'Jugendschutzbeauftragter: Georg Becker
 <a href="mailto:jugendschutz@metager.de">jugendschutz@metager.de</a>',
-    'info.7' => 'Inhaltlich Verantwortlicher gemäß § 55 Abs. 2 RStV:
-<a href="http://de.wikipedia.org/wiki/Wolfgang_Sander-Beuermann">Dr. Wolfgang Sander-Beuermann</a>',
     'info.8' => '"SUMA-EV - Verein für freien Wissenszugang" ist ein gemeinnütziger
 Verein, eingetragen in das Vereinsregister beim Amtsgericht Hannover
 unter VR200033.
