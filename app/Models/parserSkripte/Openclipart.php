@@ -25,11 +25,11 @@ class Openclipart extends Searchengine
 
             $results = $content->payload;
             foreach ($results as $result) {
-                $title       = $result->title;
-                $link        = $result->detail_link;
+                $title = $result->title;
+                $link = $result->detail_link;
                 $anzeigeLink = $link;
-                $descr       = $result->description;
-                $image       = $result->svg->png_thumb;
+                $descr = $result->description;
+                $image = $result->svg->png_thumb;
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -37,7 +37,7 @@ class Openclipart extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->engine->{"display-name"},$this->engine->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter,
                     ['image' => $image]
                 );
@@ -60,7 +60,7 @@ class Openclipart extends Searchengine
             if ($content->info->current_page > $content->info->pages) {
                 return;
             }
-            $next = new Openclipart(simplexml_load_string($this->engine), $metager);
+            $next = new Openclipart($this->name, $this->engine, $metager);
             $next->getString .= "&page=" . ($metager->getPage() + 1);
             $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
             $this->next = $next;

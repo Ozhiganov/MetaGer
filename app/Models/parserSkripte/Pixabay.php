@@ -25,11 +25,11 @@ class Pixabay extends Searchengine
 
             $results = $content->hits;
             foreach ($results as $result) {
-                $title       = $result->tags;
-                $link        = $result->pageURL;
+                $title = $result->tags;
+                $link = $result->pageURL;
                 $anzeigeLink = $link;
-                $descr       = "";
-                $image       = $result->previewURL;
+                $descr = "";
+                $image = $result->previewURL;
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -37,7 +37,7 @@ class Pixabay extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->engine->{"display-name"},$this->engine->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter,
                     ['image' => $image]
                 );
@@ -70,7 +70,7 @@ class Pixabay extends Searchengine
             if ($page * 20 > $content->total) {
                 return;
             }
-            $next = new Pixabay(simplexml_load_string($this->engine), $metager);
+            $next = new Pixabay($this->name, $this->engine, $metager);
             $next->getString .= "&page=" . $page;
             $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
             $this->next = $next;

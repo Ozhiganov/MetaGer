@@ -27,17 +27,16 @@ class Yandex extends Searchengine
             # in that case we will ignore all results because that would mean
             # a string search (query between "") was wished and no results for that foudn
             $reask = $content->xpath("//yandexsearch/response/reask");
-            if(sizeof($reask) !== 0 && $reask[0]->{"rule"}->__toString()){
+            if (sizeof($reask) !== 0 && $reask[0]->{"rule"}->__toString()) {
                 return;
             }
 
-
             $results = $content->xpath("//yandexsearch/response/results/grouping/group");
             foreach ($results as $result) {
-                $title       = strip_tags($result->{"doc"}->{"title"}->asXML());
-                $link        = $result->{"doc"}->{"url"}->__toString();
+                $title = strip_tags($result->{"doc"}->{"title"}->asXML());
+                $link = $result->{"doc"}->{"url"}->__toString();
                 $anzeigeLink = $link;
-                $descr       = strip_tags($result->{"doc"}->{"headline"}->asXML());
+                $descr = strip_tags($result->{"doc"}->{"headline"}->asXML());
                 if (!$descr) {
                     $descr = strip_tags($result->{"doc"}->{"passages"}->asXML());
                 }
@@ -48,7 +47,7 @@ class Yandex extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->engine->{"display-name"},$this->engine->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter
                 );
             }
@@ -67,16 +66,16 @@ class Yandex extends Searchengine
                 return;
             }
             $resultCount = $content->xpath('//yandexsearch/response/results/grouping/found[@priority="all"]');
-            if(!$resultCount || sizeof($resultCount) <= 0){
+            if (!$resultCount || sizeof($resultCount) <= 0) {
                 return;
             }
             $resultCount = intval($resultCount[0]->__toString());
-            $pageLast    = $content->xpath('//yandexsearch/response/results/grouping/page')[0];
-            $pageLast    = intval($pageLast["last"]->__toString());
+            $pageLast = $content->xpath('//yandexsearch/response/results/grouping/page')[0];
+            $pageLast = intval($pageLast["last"]->__toString());
             if (count($this->results) <= 0 || $pageLast >= $resultCount) {
                 return;
             }
-            $next = new Yandex(simplexml_load_string($this->engine), $metager);
+            $next = new Yandex($this->name, $this->engine, $metager);
             $next->getString .= "&page=" . ($metager->getPage() + 1);
             $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
         } catch (\Exception $e) {

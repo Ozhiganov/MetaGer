@@ -6,7 +6,7 @@ use App\Models\Searchengine;
 
 class Onenewspagevideo extends Searchengine
 {
-    public $results     = [];
+    public $results = [];
     public $resultCount = 0;
 
     private $offset = 0;
@@ -23,10 +23,10 @@ class Onenewspagevideo extends Searchengine
             if (sizeof($res) < 3) {
                 continue;
             }
-            $title                 = $res[0];
-            $link                  = $res[2];
-            $anzeigeLink           = $link;
-            $descr                 = $res[1];
+            $title = $res[0];
+            $link = $res[2];
+            $anzeigeLink = $link;
+            $descr = $res[1];
             $additionalInformation = sizeof($res) > 3 ? ['date' => intval($res[3])] : [];
 
             $this->counter++;
@@ -36,7 +36,7 @@ class Onenewspagevideo extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->engine->{"display-name"},$this->engine->homepage,
+                $this->engine->{"display-name"}, $this->engine->homepage,
                 $this->counter,
                 $additionalInformation
             );
@@ -52,9 +52,9 @@ class Onenewspagevideo extends Searchengine
             return;
         }
 
-        $next              = new Onenewspagevideo(simplexml_load_string($this->engine), $metager);
+        $next = new Onenewspagevideo($this->name, $this->engine, $metager);
         $next->resultCount = $this->resultCount;
-        $next->offset      = $this->offset + $this->resultCount;
+        $next->offset = $this->offset + $this->resultCount;
         $next->getString .= "&o=" . $next->offset;
         $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
         $this->next = $next;

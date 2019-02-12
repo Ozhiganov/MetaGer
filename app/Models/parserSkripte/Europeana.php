@@ -33,8 +33,8 @@ class Europeana extends Searchengine
                         $link = "";
                     }
                     $anzeigeLink = $link;
-                    $descr       = "";
-                    $image       = urldecode($result->edmPreview[0]);
+                    $descr = "";
+                    $image = urldecode($result->edmPreview[0]);
                     $this->counter++;
                     $this->results[] = new \App\Models\Result(
                         $this->engine,
@@ -42,7 +42,7 @@ class Europeana extends Searchengine
                         $link,
                         $anzeigeLink,
                         $descr,
-                        $this->engine->{"display-name"},$this->engine->homepage,
+                        $this->engine->{"display-name"}, $this->engine->homepage,
                         $this->counter,
                         ['image' => $image]
                     );
@@ -67,7 +67,7 @@ class Europeana extends Searchengine
             if ($start > $content->totalResults) {
                 return;
             }
-            $next = new Europeana(simplexml_load_string($this->engine), $metager);
+            $next = new Europeana($this->engine, $metager);
             $next->getString .= "&start=" . $start;
             $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
             $this->next = $next;

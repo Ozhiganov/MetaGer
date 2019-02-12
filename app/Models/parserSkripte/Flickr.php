@@ -25,11 +25,11 @@ class Flickr extends Searchengine
 
             $results = $content->xpath('//photos/photo');
             foreach ($results as $result) {
-                $title       = $result["title"]->__toString();
-                $link        = "https://www.flickr.com/photos/" . $result["owner"]->__toString() . "/" . $result["id"]->__toString();
+                $title = $result["title"]->__toString();
+                $link = "https://www.flickr.com/photos/" . $result["owner"]->__toString() . "/" . $result["id"]->__toString();
                 $anzeigeLink = $link;
-                $descr       = "";
-                $image       = "http://farm" . $result["farm"]->__toString() . ".staticflickr.com/" . $result["server"]->__toString() . "/" . $result["id"]->__toString() . "_" . $result["secret"]->__toString() . "_t.jpg";
+                $descr = "";
+                $image = "http://farm" . $result["farm"]->__toString() . ".staticflickr.com/" . $result["server"]->__toString() . "/" . $result["id"]->__toString() . "_" . $result["secret"]->__toString() . "_t.jpg";
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -37,7 +37,7 @@ class Flickr extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->engine->{"display-name"},$this->engine->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter,
                     ['image' => $image]
                 );
@@ -58,12 +58,12 @@ class Flickr extends Searchengine
                 return;
             }
 
-            $page    = $metager->getPage() + 1;
+            $page = $metager->getPage() + 1;
             $results = $content->xpath('//photos')[0];
             if ($page >= intval($results["pages"]->__toString())) {
                 return;
             }
-            $next = new Flickr(simplexml_load_string($this->engine), $metager);
+            $next = new Flickr($this->name, $this->engine, $metager);
             $next->getString .= "&page=" . $page;
             $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
             $this->next = $next;
