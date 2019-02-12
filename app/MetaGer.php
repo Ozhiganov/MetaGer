@@ -540,7 +540,7 @@ class MetaGer
 
         foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
             # Check if this engine is disabled and can't be used
-            $disabled = empty($suma->disabled) ? false : $suma->disabled;
+            $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
             if ($disabled) {
                 continue;
             }
