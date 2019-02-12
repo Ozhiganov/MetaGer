@@ -30,7 +30,6 @@
 		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		@if( !isset($suspendheader) )
-			@include('modals.create-focus-modal')
 			@include('layouts.researchandtabs')
 		@else
 			<div id="resultpage-container-noheader">
