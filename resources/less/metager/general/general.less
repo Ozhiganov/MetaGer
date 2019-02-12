@@ -2,6 +2,7 @@
 
 @modal-content-box-shadow-color: fade(@color-black, 30%);
 @body-background-color: @background-color;
+@body-background-color-mobile: @background-color-mobile;
 @a-hover-color: red;
 body {
     font-family: @metager-font;
@@ -31,6 +32,9 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    @media(max-width: @screen-mobile){
+        background-color: @body-background-color-mobile
+    }
 }
 
 .wrapper {
@@ -65,7 +69,7 @@ body {
         &right {
             position: absolute;
             width: 20px;
-            height: 40px;
+            height: 95%;
             top: 1px;
             pointer-events: none;
         }

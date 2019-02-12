@@ -6,8 +6,8 @@
 @results-margin-left: 16px;
 // Min and max widths of the 2 resultpage columns
 @results-width-min: 500px;
-@results-width-max: 700px;
-@additions-width-min: 400px;
+@results-width-max: 800px;
+@additions-width-min: 300px;
 @additions-width-max: 500px;
 // Breakpoints for the 2 resultpage columns
 @resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 4);
@@ -25,7 +25,8 @@
 
 #header-logo {
     z-index: 0;
-    padding-right: 10px;
+    padding-right: 8px;
+    padding-left: 8px;
     h1 {
         .logo;
         margin: 0px;
@@ -218,7 +219,8 @@ a {
             display: inline-block;
             background-color: white;
             text-align: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            .card;
+            padding: 4px;
             > img {
                 max-width: 150px;
             }
@@ -230,6 +232,7 @@ a {
             > div {
                 font-size: 12px;
                 color: #777;
+                margin-top: 4px;
             }
         }
 
@@ -407,7 +410,7 @@ a {
     #research-bar {
         background-color: white;
         border: 1px solid #ccc;
-        border-bottom: 2px solid @metager-orange;
+        border-bottom: 1px solid @metager-orange;
         box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
         display: flex;
         align-items: center;
@@ -446,13 +449,11 @@ a {
         width: 100%;
         max-width: @results-width-max;
         background-color: white;
-        border: 1px solid #ccc;
-        -webkit-box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
-        overflow-x: visible;
+        overflow-x: auto;
         padding: 8px;
-        @media (max-width: 700px) {
-            overflow-x: auto;
+        border-bottom: 1px solid #ccc;
+        @media (max-width: @screen-mobile) {
+            .card;
         }
         &>div {
             padding: 0px 10px;
@@ -501,8 +502,10 @@ a {
         width: 100%;
         max-width: 700px;
         background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        border-bottom: 1px solid #ccc;
+        @media(max-width: @screen-mobile){
+            .card;
+        }
         overflow: hidden;
         overflow-x: auto;
         padding: 8px;
@@ -516,8 +519,10 @@ a {
                 margin: 0 8px;
                 justify-content: center;
                 align-items: center;
+                font-size: 12px;
                 label {
                     margin-bottom: 0;
+                    font-weight: normal;
                 }
                 select {
                     background-color: white;

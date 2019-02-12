@@ -67,6 +67,7 @@
 	<div class="result-options">
 		<input type="checkbox" id="result-toggle-{{$result->number}}" class="result-toggle" style="display: none">
 		<div class="options">
+				<div>
 				<ul class="option-list list-unstyled small">
 					<li class="js-only">
 						<a href="javascript:resultSaver({{ $result->number }});" class="saver">
