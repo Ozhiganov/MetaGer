@@ -18,14 +18,14 @@ update(144.76.113.134):
     - cd MetaGer_neu
     - composer install
     - scp -P 63824 metager@metager3.de:~/.env .
-    - scp -P 63824 metager@metager3.de:~/sumas.xml config/
-    - scp -P 63824 metager@metager3.de:~/sumasEn.xml config/
+    - scp -P 63824 metager@metager3.de:~/sumas.json config/
+    - scp -P 63824 metager@metager3.de:~/sumasEn.json config/
     - scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
     - touch database/metager.sqlite
-    - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
+    - chmod 777 config/sumas.json config/sumas.json database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
@@ -58,14 +58,14 @@ update(metager2):
     - cd MetaGer_neu
     - composer install
     - scp -P 63824 metager@metager3.de:~/.env .
-    - scp -P 63824 metager@metager3.de:~/sumas.xml config/
-    - scp -P 63824 metager@metager3.de:~/sumasEn.xml config/
+    - scp -P 63824 metager@metager3.de:~/sumas.json config/
+    - scp -P 63824 metager@metager3.de:~/sumas.json config/
     - scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
     - touch database/metager.sqlite
-    - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
+    - chmod 777 config/sumas.json config/sumas.json database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install
@@ -98,14 +98,14 @@ update(metager3.de):
     - cd MetaGer_neu
     - composer install
     - scp -P 63824 metager@metager3.de:~/.env .
-    - scp -P 63824 metager@metager3.de:~/sumas.xml config/
-    - scp -P 63824 metager@metager3.de:~/sumasEn.xml config/
+    - scp -P 63824 metager@metager3.de:~/sumas.json config/
+    - scp -P 63824 metager@metager3.de:~/sumas.json config/
     - scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
     - touch database/metager.sqlite
-    - chmod 777 config/sumas.xml config/sumasEn.xml database/metager.sqlite
+    - chmod 777 config/sumas.json config/sumas.json database/metager.sqlite
     - chmod -R 777 storage
     - chmod -R 777 bootstrap/cache
     - npm install

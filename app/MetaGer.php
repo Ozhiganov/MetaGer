@@ -17,12 +17,11 @@ class MetaGer
     protected $fokus;
     protected $eingabe;
     protected $q;
-    protected $category;
-    protected $time;
     protected $page;
     protected $lang;
     protected $cache = "";
     protected $site;
+    protected $time = 2000;
     protected $hostBlacklist = [];
     protected $domainBlacklist = [];
     private $urlBlacklist = [];
@@ -30,6 +29,8 @@ class MetaGer
     protected $phrases = [];
     protected $engines = [];
     protected $results = [];
+    protected $queryFilter = [];
+    protected $parameterFilter = [];
     protected $ads = [];
     protected $warnings = [];
     protected $errors = [];
@@ -49,7 +50,6 @@ class MetaGer
     protected $mobile;
     protected $resultCount;
     protected $sprueche;
-    protected $maps;
     protected $newtab;
     protected $domainsBlacklisted = [];
     protected $urlsBlacklisted = [];
@@ -309,7 +309,6 @@ class MetaGer
 
         if ($this->validated) {
             $this->ads = [];
-            $this->maps = false;
         }
 
         if (count($this->results) <= 0) {
@@ -531,100 +530,57 @@ class MetaGer
             return;
         }
 
-        $xml = simplexml_load_file($this->sumaFile);
-        $sumas = $xml->xpath("suma");
-        $enabledSearchengines = [];
+        $this->enabledSearchengines = [];
         $overtureEnabled = false;
-        $sumaCount = 0;
 
-        /*
-         * Erstellt eine Liste mit Foki, die verfügbar sind
-         */
-        $this->availableFoki = [];
-        foreach ($sumas as $suma) {
-            $foki = explode(",", trim($suma["type"]));
-            foreach ($foki as $fokus) {
-                if (!empty($fokus)) {
-                    $this->availableFoki[$fokus] = "available";
-                }
+        # Check if selected focus is valid
+        if (empty($this->sumaFile->foki->{$this->fokus})) {
+            $this->fokus = "web";
+        }
 
+        foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
+            # Check if this engine is disabled and can't be used
+            $disabled = empty($suma->disabled) ? false : $suma->disabled;
+            if ($disabled) {
+                continue;
             }
-        }
 
-        $isCustomSearch = $this->startsWith($this->fokus, 'focus_');
-
-        # Im Falle einer Custom-Suche ohne mindestens einer selektierter Suchmaschine wird eine Web-Suche durchgeführt
-        if ($isCustomSearch && !$this->atLeastOneSearchengineSelected($request)) {
-            $isCustomSearch = false;
-            $this->fokus = 'web';
-        }
-
-        /* Erstellt die Liste der eingestellten Sumas
-         * Der einzige Unterschied bei angepasstem Suchfokus ist,
-         * dass nicht nach den Typen einer Suma,
-         * sondern den im Request mitgegebenen Typen entschieden wird.
-         * Ansonsten wird genau das selbe geprüft und gemacht:
-         * Handelt es sich um spezielle Suchmaschinen die immer an sein müssen
-         * Wenn es Overture ist vermerken dass Overture an ist
-         * Suma Zähler erhöhen
-         * Zu Liste hinzufügen
-         */
-        foreach ($sumas as $suma) {
-            if (($this->sumaIsSelected($suma, $request, $isCustomSearch)
-                || (!$this->isBildersuche()
-                    && $this->sumaIsAdsuche($suma, $overtureEnabled)))
-                && (!$this->sumaIsDisabled($suma))) {
-                if ($this->sumaIsOverture($suma)) {
-                    $overtureEnabled = true;
-                }
-                if ($this->sumaIsNotAdsuche($suma)) {
-                    $sumaCount += 1;
-                }
-                $enabledSearchengines[] = $suma;
-            }
-        }
-
-        # Sonderregelung für alle Suchmaschinen, die zu den Minisuchern gehören. Diese können alle gemeinsam über einen Link abgefragt werden
-        $subcollections = [];
-
-        $tmp = [];
-        // Es gibt den Schalter "minism=on" Dieser soll bewirken, dass alle Minisucher angeschaltet werden.
-        // Wenn also "minism=on" ist, dann durchsuchen wir statt den tatsächlich angeschalteten Suchmaschinen,
-        // alle Suchmaschinen nach "minismCollection"
-        if ($request->input("minism", "off") === "on") {
-            // Wir laden alle Minisucher
-            foreach ($sumas as $engine) {
-                if (isset($engine["minismCollection"])) {
-                    $subcollections[] = $engine["minismCollection"]->__toString();
+            # Check if this engine can use eventually defined query-filter
+            $valid = true;
+            foreach ($this->queryFilter as $queryFilter => $filter) {
+                if (empty($this->sumaFile->filter->{"query-filter"}->$queryFilter->sumas->$suma)) {
+                    $valid = false;
+                    break;
                 }
             }
-            # Nur noch alle eventuell angeschalteten Minisucher deaktivieren
-            foreach ($enabledSearchengines as $index => $engine) {
-                if (!isset($engine["minismCollection"])) {
-                    $tmp[] = $engine;
+            # Check if this engine can use eventually defined parameter-filter
+            if ($valid) {
+                foreach ($this->parameterFilter as $filterName => $filter) {
+                    if (empty($filter->sumas->$suma)) {
+                        $valid = false;
+                        break;
+                    }
                 }
             }
-        } else {
-            // Wir schalten eine Teilmenge, oder aber gar keine an
-            foreach ($enabledSearchengines as $engine) {
-                if (isset($engine['minismCollection'])) {
-                    $subcollections[] = $engine['minismCollection']->__toString();
-                } else {
-                    $tmp[] = $engine;
-                }
+            # If it can we add it
+            if ($valid) {
+                $this->enabledSearchengines[$suma] = $this->sumaFile->sumas->{$suma};
             }
+
         }
-        $enabledSearchengines = $tmp;
-        if (sizeof($subcollections) > 0) {
-            $enabledSearchengines[] = $this->loadMiniSucher($xml, $subcollections);
+
+        if (sizeof($this->enabledSearchengines) === 0) {
+            $filter = "";
+            foreach ($this->queryFilter as $queryFilter => $filterPhrase) {
+                $filter .= trans($this->sumaFile->filter->{"query-filter"}->{$queryFilter}->name) . ",";
+            }
+            $filter = rtrim($filter, ",");
+            $error = trans('metaGer.engines.noSpecialSearch', ['fokus' => trans($this->sumaFile->foki->{$this->fokus}->{"display-name"}),
+                'filter' => $filter]);
+            $this->errors[] = $error;
         }
-        if ($sumaCount <= 0) {
-            $this->errors[] = trans('metaGer.settings.noneSelected');
-        }
+
         $engines = [];
-        # Wenn eine Sitesearch durchgeführt werden soll, überprüfen wir ob überhaupt eine der Suchmaschinen eine Sitesearch unterstützt
-        $siteSearchFailed = $this->checkCanNotSitesearch($enabledSearchengines);
-
         $typeslist = [];
         $counter = 0;
 
@@ -635,7 +591,7 @@ class MetaGer
                 $engine->setResultHash($this->getHashCode());
             }
         } else {
-            $engines = $this->actuallyCreateSearchEngines($enabledSearchengines, $siteSearchFailed);
+            $engines = $this->actuallyCreateSearchEngines($this->enabledSearchengines);
         }
 
         # Wir starten alle Suchen
@@ -684,52 +640,54 @@ class MetaGer
         return false;
     }
 
-    public function actuallyCreateSearchEngines($enabledSearchengines, $siteSearchFailed)
+    public function actuallyCreateSearchEngines($enabledSearchengines)
     {
         $engines = [];
-        foreach ($enabledSearchengines as $engine) {
+        foreach ($enabledSearchengines as $engineName => $engine) {
 
-            # Wenn diese Suchmaschine gar nicht eingeschaltet sein soll
-            if (!$siteSearchFailed
-                && strlen($this->site) > 0
-                && (!isset($engine['hasSiteSearch'])
-                    || $engine['hasSiteSearch']->__toString() === "0")) {
-                continue;
-            }
-
-            if (!isset($engine["package"])) {
+            if (!isset($engine->{"parser-class"})) {
                 die(var_dump($engine));
             }
             # Setze Pfad zu Parser
-            $path = "App\Models\parserSkripte\\" . ucfirst($engine["package"]->__toString());
+            $path = "App\\Models\\parserSkripte\\" . $engine->{"parser-class"};
 
             # Prüfe ob Parser vorhanden
-            if (!file_exists(app_path() . "/Models/parserSkripte/" . ucfirst($engine["package"]->__toString()) . ".php")) {
-                Log::error("Konnte " . $engine["name"] . " nicht abfragen, da kein Parser existiert");
-                $this->errors[] = trans('metaGer.engines.noParser', ['engine' => $engine["name"]]);
+            if (!file_exists(app_path() . "/Models/parserSkripte/" . $engine->{"parser-class"} . ".php")) {
+                Log::error("Konnte " . $engine->{"display-name"} . " nicht abfragen, da kein Parser existiert");
+                $this->errors[] = trans('metaGer.engines.noParser', ['engine' => $engine->{"display-name"}]);
                 continue;
             }
 
             # Es wird versucht die Suchengine zu erstellen
             $time = microtime();
             try {
-                $tmp = new $path($engine, $this);
+                $tmp = new $path($engineName, $engine, $this);
             } catch (\ErrorException $e) {
-                Log::error("Konnte " . $engine["name"] . " nicht abfragen. " . var_dump($e));
+                Log::error("Konnte " . $engine->{"display-name"} . " nicht abfragen. " . var_dump($e));
                 continue;
             }
 
-            # Ausgabe bei Debug-Modus
-            if ($tmp->enabled && isset($this->debug)) {
-                $this->warnings[] = $tmp->service . "   Connection_Time: " . $tmp->connection_time . "    Write_Time: " . $tmp->write_time . " Insgesamt:" . ((microtime() - $time) / 1000);
-            }
-
-            # Wenn die neu erstellte Engine eingeschaltet ist, wird sie der Liste hinzugefügt
-            if ($tmp->isEnabled()) {
-                $engines[] = $tmp;
-            }
+            $engines[] = $tmp;
         }
         return $engines;
+    }
+
+    public function getAvailableParameterFilter()
+    {
+        $parameterFilter = $this->sumaFile->filter->{"parameter-filter"};
+
+        $availableFilter = [];
+
+        foreach ($parameterFilter as $filterName => $filter) {
+            # Check if any of the enabled search engines provide this filter
+            foreach ($this->enabledSearchengines as $engineName => $engine) {
+                if (!empty($filter->sumas->$engineName)) {
+                    $availableFilter[$filterName] = $filter;
+                }
+            }
+        }
+
+        return $availableFilter;
     }
 
     public function isBildersuche()
@@ -788,16 +746,6 @@ class MetaGer
             $this->startBackwards = $next['startBackwards'];
         }
         return $engines;
-    }
-
-    public function loadMiniSucher($xml, $subcollections)
-    {
-        $minisucherEngine = $xml->xpath('suma[@name="minism"]')[0];
-        $minisucherEngine["subcollections"] = implode(", ", $subcollections);
-        $subcollectionsString = urlencode("(" . implode(" OR ", $subcollections) . ")");
-        $minisucherEngine["formData"] = str_replace("<<SUBCOLLECTIONS>>", $subcollectionsString, $minisucherEngine["formData"]);
-        $minisucherEngine["formData"] = str_replace("<<COUNT>>", sizeof($subcollections) * 10, $minisucherEngine["formData"]);
-        return $minisucherEngine;
     }
 
     # Passt den Suchfokus an, falls für einen Fokus genau alle vorhandenen Sumas eingeschaltet sind
@@ -864,26 +812,6 @@ class MetaGer
         }
     }
 
-    public function checkCanNotSitesearch($enabledSearchengines)
-    {
-        if (strlen($this->site) > 0) {
-            $enginesWithSite = 0;
-            foreach ($enabledSearchengines as $engine) {
-                if (isset($engine['hasSiteSearch']) && $engine['hasSiteSearch']->__toString() === "1") {
-                    $enginesWithSite++;
-                }
-            }
-            if ($enginesWithSite === 0) {
-                $this->errors[] = trans('metaGer.sitesearch.failed', ['site' => $this->site, 'searchLink' => $this->generateSearchLink("web", false)]);
-                return true;
-            } else {
-                $this->warnings[] = trans('metaGer.sitesearch.success', ['site' => $this->site]);
-                return false;
-            }
-        }
-        return false;
-    }
-
     public function waitForResults($enginesToLoad, $overtureEnabled, $canBreak)
     {
 
@@ -944,13 +872,6 @@ class MetaGer
             }
         }
 
-        # Nicht fertige Engines verwefen
-        foreach ($engines as $engine) {
-            if (!$engine->loaded) {
-                $engine->shutdown();
-            }
-        }
-
         $this->engines = $engines;
     }
 
@@ -977,12 +898,14 @@ class MetaGer
         $this->fokus = $request->input('focus', 'web');
         # Suma-File
         if (App::isLocale("en")) {
-            $this->sumaFile = config_path() . "/sumasEn.xml";
+            $this->sumaFile = config_path() . "/sumasEn.json";
         } else {
-            $this->sumaFile = config_path() . "/sumas.xml";
+            $this->sumaFile = config_path() . "/sumas.json";
         }
         if (!file_exists($this->sumaFile)) {
             die(trans('metaGer.formdata.cantLoad'));
+        } else {
+            $this->sumaFile = json_decode(file_get_contents($this->sumaFile));
         }
         # Sucheingabe
         $this->eingabe = trim($request->input('eingabe', ''));
@@ -1001,10 +924,7 @@ class MetaGer
         } else {
             $this->language = "";
         }
-        # Category
-        $this->category = $request->input('category', '');
-        # Request Times
-        $this->time = $request->input('time', 1500);
+
         # Page
         $this->page = 1;
         # Lang
@@ -1022,12 +942,7 @@ class MetaGer
         } else {
             $this->sprueche = false;
         }
-        $this->maps = $request->input('maps', 'off');
-        if ($this->maps === "on") {
-            $this->maps = true;
-        } else {
-            $this->maps = false;
-        }
+
         $this->newtab = $request->input('newtab', 'on');
         if ($this->newtab === "on") {
             $this->newtab = "_blank";
@@ -1038,14 +953,7 @@ class MetaGer
         $this->theme = preg_replace("/[^[:alnum:][:space:]]/u", '', $request->input('theme', 'default'));
         # Ergebnisse pro Seite:
         $this->resultCount = $request->input('resultCount', '20');
-        # Manchmal müssen wir Parameter anpassen um den Sucheinstellungen gerecht zu werden:
-        if ($request->filled('dart')) {
-            $this->time = 10000;
-            $this->warnings[] = trans('metaGer.formdata.dartEurope');
-        }
-        if ($this->time <= 500 || $this->time > 20000) {
-            $this->time = 1000;
-        }
+
         if ($request->filled('minism') && ($request->filled('fportal') || $request->filled('harvest'))) {
             $input = $request->all();
             $newInput = [];
@@ -1075,6 +983,7 @@ class MetaGer
             $this->quicktips = true;
         }
 
+        $this->queryFilter = [];
         $this->verificationId = $request->input('verification_id', null);
         $this->verificationCount = intval($request->input('verification_count', '0'));
         $this->apiKey = $request->input('key', '');
@@ -1117,7 +1026,39 @@ class MetaGer
     public function checkSpecialSearches(Request $request)
     {
         $this->searchCheckPhrase();
-        $this->searchCheckSitesearch($request);
+
+        # Check for query-filter (i.e. Sitesearch, etc.):
+        foreach ($this->sumaFile->filter->{"query-filter"} as $filterName => $filter) {
+            if (!empty($filter->{"optional-parameter"}) && $request->filled($filter->{"optional-parameter"})) {
+                $this->queryFilter[$filterName] = $request->input($filter->{"optional-parameter"});
+            } else if (preg_match_all("/" . $filter->regex . "/si", $this->q, $matches) > 0) {
+                switch ($filter->match) {
+                    case "last":
+                        $this->queryFilter[$filterName] = $matches[$filter->save][sizeof($matches[$filter->save]) - 1];
+                        $toDelete = preg_quote($matches[$filter->delete][sizeof($matches[$filter->delete]) - 1], "/");
+                        $this->q = preg_replace('/(' . $toDelete . '(?!.*' . $toDelete . '))/si', '', $this->q);
+                        break;
+                    default: # First occurence
+                        $this->queryFilter[$filterName] = $matches[$filter->save][0];
+                        $toDelete = preg_quote($matches[$filter->delete][0], "/");
+                        $this->q = preg_replace('/' . $toDelete . '/si', '', $this->q, 1);
+                }
+            }
+
+        }
+        # Check for parameter-filter (i.e. SafeSearch)
+        $this->parameterFilter = [];
+        $usedParameters = [];
+        foreach ($this->sumaFile->filter->{"parameter-filter"} as $filterName => $filter) {
+            if (!empty($usedParameters[$filter->{"get-parameter"}])) {
+                die("Der Get-Parameter \"" . $filter->{"get-parameter"} . "\" wird mehrfach verwendet!");
+            } else {
+                $usedParameters[$filter->{"get-parameter"}] = true;
+            }
+            if ($request->filled($filter->{"get-parameter"})) {
+                $this->parameterFilter[$filterName] = $filter;
+            }
+        }
         $this->searchCheckHostBlacklist($request);
         $this->searchCheckDomainBlacklist($request);
         $this->searchCheckUrlBlacklist();
@@ -1140,19 +1081,6 @@ class MetaGer
         $p = rtrim($p, ", ");
         if (sizeof($this->phrases) > 0) {
             $this->warnings[] = trans('metaGer.formdata.phrase', ['phrase' => $p]);
-        }
-    }
-
-    private function searchCheckSitesearch($request)
-    {
-        // matches '[... ]site:test.de[ ...]'
-        while (preg_match("/(^|.*?\s)site:(\S+)(\s.*|$)/si", $this->q, $match)) {
-            $this->site = $match[2];
-            $this->q = $match[1] . $match[3];
-        }
-        # Overwrite Setting if it's submitted via Parameter
-        if ($request->has('site')) {
-            $this->site = $request->input('site');
         }
     }
 
@@ -1440,7 +1368,12 @@ class MetaGer
 
     public function generateSearchLink($fokus, $results = true)
     {
-        $requestData = $this->request->except(['page', 'next']);
+        $except = ['page', 'next'];
+        # Remove every Filter
+        foreach ($this->sumaFile->filter->{"parameter-filter"} as $filterName => $filter) {
+            $except[] = $filter->{"get-parameter"};
+        }
+        $requestData = $this->request->except($except);
         $requestData['focus'] = $fokus;
         $requestData['out'] = "";
 
@@ -1573,10 +1506,6 @@ class MetaGer
     {
         return $this->url;
     }
-    public function getTime()
-    {
-        return $this->time;
-    }
 
     public function getLanguage()
     {
@@ -1598,16 +1527,6 @@ class MetaGer
         return $this->sprueche;
     }
 
-    public function getMaps()
-    {
-        return $this->maps;
-    }
-
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
     public function getPhrases()
     {
         return $this->phrases;
@@ -1620,6 +1539,21 @@ class MetaGer
     public function getSumaFile()
     {
         return $this->sumaFile;
+    }
+
+    public function getQueryFilter()
+    {
+        return $this->queryFilter;
+    }
+
+    public function getParameterFilter()
+    {
+        return $this->parameterFilter;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
     }
 
     public function getUserHostBlacklist()

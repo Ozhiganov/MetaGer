@@ -8,9 +8,9 @@ class Wikipedia extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \StdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -24,7 +24,7 @@ class Wikipedia extends Searchengine
             $link,
             $result[3],
             $result[2],
-            $this->displayName,$this->homepage,
+            $this->engine->{"display-name"},$this->engine->homepage,
             $counter
         );
     }

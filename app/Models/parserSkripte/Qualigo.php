@@ -7,9 +7,9 @@ use App\Models\Searchengine;
 class Qualigo extends Searchengine
 {
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \StdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($results)
@@ -36,7 +36,7 @@ class Qualigo extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->displayName,$this->homepage,
+                $this->engine->{"display-name"},$this->engine->homepage,
                 $this->counter
             );
         }

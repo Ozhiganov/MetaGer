@@ -9,9 +9,9 @@ class Scopia extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -30,6 +30,7 @@ class Scopia extends Searchengine
 
             $results = $content->xpath('//results/result');
             foreach ($results as $result) {
+
                 $title = $result->title->__toString();
                 $link = $result->url->__toString();
                 $anzeigeLink = $link;
@@ -41,8 +42,8 @@ class Scopia extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName,
-                    $this->homepage,
+                    $this->engine->{"display-name"},
+                    $this->engine->homepage,
                     $this->counter
                 );
             }
@@ -76,9 +77,9 @@ class Scopia extends Searchengine
             $results = $content->xpath('//results/result');
             $number = $results[sizeof($results) - 1]->number->__toString();
             # Erstellen des neuen Suchmaschinenobjekts und anpassen des GetStrings:
-            $next = new Scopia(simplexml_load_string($this->engine), $metager);
-            $next->getString = preg_replace("/\\?s=.*?&/si", "?s=" . $number, $next->getString);
-            $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+            $newEngine = unserialize(serialize($this->engine));
+            $newEngine->{"get-parameter"}->s = $number;
+            $next = new Scopia($this->name, $newEngine, $metager);
             $this->next = $next;
         }
 

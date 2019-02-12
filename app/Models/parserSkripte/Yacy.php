@@ -9,25 +9,25 @@ class Yacy extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
     {
-        
+
         try {
             $content = json_decode($result, true);
             $content = $content["channels"];
 
-            foreach($content as $channel){
+            foreach ($content as $channel) {
                 $items = $channel["items"];
-                foreach($items as $item){
-                    $title       = $item["title"];
-                    $link        = $item["link"];
+                foreach ($items as $item) {
+                    $title = $item["title"];
+                    $link = $item["link"];
                     $anzeigeLink = $link;
-                    $descr       = $item["description"];
+                    $descr = $item["description"];
 
                     $this->counter++;
                     $this->results[] = new \App\Models\Result(
@@ -36,11 +36,11 @@ class Yacy extends Searchengine
                         $link,
                         $anzeigeLink,
                         $descr,
-                        $this->displayName,$this->homepage,
+                        $this->engine->{"display-name"}, $this->engine->homepage,
                         $this->counter
                     );
                 }
-                
+
             }
         } catch (\Exception $e) {
             Log::error("A problem occurred parsing results from $this->name:");

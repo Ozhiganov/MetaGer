@@ -9,9 +9,9 @@ use Symfony\Component\DomCrawler\Crawler;
 class Allesklar extends Searchengine
 {
     protected $tds = "";
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \StdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -43,7 +43,7 @@ class Allesklar extends Searchengine
                         $link,
                         $link,
                         $descr,
-                        $this->displayName,$this->homepage,
+                        $this->engine->{"display-name"},$this->engine->homepage,
                         $this->counter
                     );
                 } catch (\Exception $e) {

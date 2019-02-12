@@ -332,7 +332,7 @@ a {
     margin-left: @results-margin-left;
     display: grid;
     grid-template-columns: @results-width-max @additions-width-max;
-    grid-template-areas: "searchbar ." "foki ." "results additions";
+    grid-template-areas: "searchbar ." "foki ." "options ." "results additions";
     grid-column-gap: (@padding-small-default * 2);
     grid-row-gap: @padding-small-default;
     justify-items: stretch;
@@ -372,13 +372,13 @@ a {
     @media (max-width: @resultpage-breakpoint-max) {
         @supports (display: grid) {
             grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
-            grid-template-areas: "searchbar ." "foki ." "results additions";
+            grid-template-areas: "searchbar ." "foki ." "options ." "results additions";
         }
     }
     @media (max-width: @resultpage-breakpoint-min) {
         margin-left: @padding-small-default;
         grid-template-columns: 100%;
-        grid-template-areas: "searchbar" "foki" "results";
+        grid-template-areas: "searchbar" "foki" "options" "results";
         #additions-container {
             display: none;
         }
@@ -476,6 +476,60 @@ a {
             /* remove scrollbar space */
             background: transparent;
             /* optional: just make scrollbar invisible */
+        }
+    }
+}
+
+#options {
+    grid-area: options;
+    display: flex;
+    justify-content: left;
+    input[type=checkbox]{
+        display: none;
+    }
+    .scrollbox {
+        max-height: 0;
+        transform-origin: top;
+        transform: scaleY(0);
+        transition: transform .5s, max-height .5s;
+    }
+    input[type=checkbox]:checked + div.scrollbox {
+        max-height:200px;
+        transform: scaleY(1);
+    }
+    #options-box{
+        width: 100%;
+        max-width: 700px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 1px 0px 1px 0px rgba(0, 0, 0, 0.24);
+        overflow: hidden;
+        overflow-x: auto;
+        padding: 8px;
+        #options-items {
+            display: -ms-flexbox;
+            display: flex;
+            align-items: center;
+            .option-selector {
+                display: flex;
+                flex-direction: column;
+                margin: 0 8px;
+                justify-content: center;
+                align-items: center;
+                label {
+                    margin-bottom: 0;
+                }
+                select {
+                    background-color: white;
+                    border: 1px solid #77777780;
+                    padding: 3px;
+                    border-radius: 5px;
+                }
+            }
+        }
+        #options-reset {
+            margin-left: 10px;
+            margin-bottom: 8px;
         }
     }
 }

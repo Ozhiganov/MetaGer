@@ -9,9 +9,9 @@ class BingBilder extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
     }
 
     public function loadResults($result)
@@ -33,7 +33,7 @@ class BingBilder extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName, $this->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter,
                     ['image' => $image]
                 );
@@ -59,12 +59,9 @@ class BingBilder extends Searchengine
                 return;
             }
 
-            $next = new BingBilder(simplexml_load_string($this->engine), $metager);
-            if (\str_contains($next->getString, "&offset=")) {
-                $next->getString = preg_replace("/&offset=.*/si", "", $next->getString);
-            }
-            $next->getString .= "&offset=" . $nextOffset;
-            $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+            $newEngine = unserialize(serialize($this->engine));
+            $newEngine->{"get-parameter"}->offset = $nextOffset;
+            $next = new BingBilder($this->name, $newEngine, $metager);
             $this->next = $next;
 
         } catch (\Exception $e) {

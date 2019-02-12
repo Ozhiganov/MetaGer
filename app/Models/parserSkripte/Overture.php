@@ -9,9 +9,12 @@ class Overture extends Searchengine
 {
     public $results = [];
 
-    public function __construct(\SimpleXMLElement $engine, \App\MetaGer $metager)
+    public function __construct($name, \stdClass $engine, \App\MetaGer $metager)
     {
-        parent::__construct($engine, $metager);
+        parent::__construct($name, $engine, $metager);
+        # We need some Affil-Data for the advertisements
+        $this->getString .= $this->getOvertureAffilData($metager->getUrl());
+        $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
     }
 
     public function loadResults($result)
@@ -36,8 +39,8 @@ class Overture extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName,
-                    $this->homepage,
+                    $this->engine->{"display-name"},
+                    $this->engine->homepage,
                     $this->counter
                 );
             }
@@ -56,7 +59,7 @@ class Overture extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->displayName, $this->homepage,
+                    $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter
                 );
             }
@@ -112,9 +115,21 @@ class Overture extends Searchengine
         }
 
         # Erstellen des neuen Suchmaschinenobjekts und anpassen des GetStrings:
-        $next = new Overture(simplexml_load_string($this->engine), $metager);
+        $next = new Overture($this->name, $this->engine, $metager);
         $next->getString = preg_replace("/&Keywords=.*?&/si", "&", $next->getString) . "&" . $nextArgs;
-        $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+        $next->hash = md5($next->engine->host . $next->getString . $next->engine->port . $next->name);
         $this->next = $next;
+    }
+
+    # Liefert Sonderdaten für Yahoo
+    private function getOvertureAffilData($url)
+    {
+        $affil_data = 'ip=' . $this->ip;
+        $affil_data .= '&ua=' . $this->useragent;
+        $affilDataValue = $this->urlEncode($affil_data);
+        # Wir benötigen die ServeUrl:
+        $serveUrl = $this->urlEncode($url);
+
+        return "&affilData=" . $affilDataValue . "&serveUrl=" . $serveUrl;
     }
 }
