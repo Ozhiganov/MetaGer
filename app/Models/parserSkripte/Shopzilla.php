@@ -101,7 +101,7 @@ class Shopzilla extends Searchengine
             $next->getString .= "&start=" . ($current + 10);
         }
 
-        $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+        $next->hash = md5($next->engine->host . $next->getString . $next->engine->port . $next->name);
         $this->next = $next;
     }
 }

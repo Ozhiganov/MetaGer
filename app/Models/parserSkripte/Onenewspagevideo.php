@@ -56,7 +56,7 @@ class Onenewspagevideo extends Searchengine
         $next->resultCount = $this->resultCount;
         $next->offset = $this->offset + $this->resultCount;
         $next->getString .= "&o=" . $next->offset;
-        $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+        $next->hash = md5($next->engine->host . $next->getString . $next->engine->port . $next->name);
         $this->next = $next;
     }
 }

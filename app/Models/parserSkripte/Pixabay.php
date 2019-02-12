@@ -72,7 +72,7 @@ class Pixabay extends Searchengine
             }
             $next = new Pixabay($this->name, $this->engine, $metager);
             $next->getString .= "&page=" . $page;
-            $next->hash = md5($next->host . $next->getString . $next->port . $next->name);
+            $next->hash = md5($next->engine->host . $next->getString . $next->engine->port . $next->name);
             $this->next = $next;
         } catch (\Exception $e) {
             Log::error("A problem occurred parsing results from $this->name:");
