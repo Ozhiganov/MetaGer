@@ -41,7 +41,7 @@
 				@foreach($metager->getAvailableParameterFilter() as $filterName => $filter)
 					<div class="option-selector">
 					<label for="{{$filterName}}">@lang($filter->name)</label>
-					<select name="{{$filter->{'get-parameter'} }}" form="searchForm">
+					<select name="{{$filter->{'get-parameter'} }}" form="searchForm" onchange="this.form.submit()">
 						@foreach($filter->values as $value => $text)
 						<option value="{{$value}}" @if(Request::input($filter->{'get-parameter'}, '') === $value)selected="selected" @endif>{{trans($text)}}</option>
 						@endforeach

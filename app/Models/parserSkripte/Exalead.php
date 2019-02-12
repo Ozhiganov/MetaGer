@@ -22,8 +22,8 @@ class Exalead extends Searchengine
             if (!$content) {
                 return;
             }
-            $results   = $content;
-            $prefix    = "";
+            $results = $content;
+            $prefix = "";
             $namespace = "";
             foreach ($results->getDocNamespaces() as $strPrefix => $strNamespace) {
                 if (strlen($strPrefix) == 0) {
@@ -42,10 +42,10 @@ class Exalead extends Searchengine
             foreach ($results as $result) {
                 try {
                     $result->registerXPathNamespace($prefix, $namespace);
-                    $title       = $result->xpath("a:metas/a:Meta[@name='title']/a:MetaString[@name='value']")[0]->__toString();
-                    $link        = $result["url"]->__toString();
+                    $title = $result->xpath("a:metas/a:Meta[@name='title']/a:MetaString[@name='value']")[0]->__toString();
+                    $link = $result["url"]->__toString();
                     $anzeigeLink = $link;
-                    $descr       = "";
+                    $descr = "";
                     if (sizeOf($result->xpath("a:metas/a:Meta[@name='metadesc']/a:MetaString[@name='value']")) === 0 && sizeOf($result->xpath("a:metas/a:Meta[@name='summary']/a:MetaText[@name='value']")) !== 0) {
                         $tmp = $result->xpath("a:metas/a:Meta[@name='summary']/a:MetaText[@name='value']");
                         foreach ($tmp as $el) {
@@ -61,7 +61,7 @@ class Exalead extends Searchengine
                         $link,
                         $anzeigeLink,
                         $descr,
-                        $this->engine->{"display-name"},$this->engine->homepage,
+                        $this->engine->{"display-name"}, $this->engine->homepage,
                         $this->counter
                     );
                 } catch (\ErrorException $e) {
