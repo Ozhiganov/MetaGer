@@ -5,7 +5,7 @@ return [
     "title"	=>	"MetaGer - FAQ",
     "faq.1.h"	=>	"What is MetaGer?",
     "faq.1.b"	=>	"MetaGer is primarily a meta search engine. Besides that MetaGer maintains a number of specialized crawlers and indexers of its own.",
-    "faq.1.b2"	=>	" ",
+    'faq.1.b2'	=>	'Additionally: meta search engines provide a wider coverage and a better overview, because none of the searchengines knows the whole internet (Read more: <a href="https://de.wikipedia.org/wiki/Metasuchmaschine" target="_blank" rel="noopener">Wikipedia</a>. You see its origin attached to every single result. Where can I find more search engines? Try here: <a href="http://www.klug-suchen.de/" target="_blank" rel="noopener">klug-suchen.de</a>',
     "faq.2.1.h"	=>	"How does MetaGer query other search engines while preserving user anonymity?",
     "faq.2.1.b"	=>	"Since MetaGer is a meta-search engine, every search request you send to us will be stripped of information which could lead to your identification before being sent to e.g. Yahoo. Yahoo will send their response to us which we will then forward to you. This is how we handle every search request sent to us, no matter which one of the offered search engines you use. By doing this we commit ourselves to guarantee your privacy and do not save any personal data. It is possible to verify this, since the source code of MetaGer has been released under a free license <a href=\"https://gitlab.metager3.de/open-source/MetaGer\">(https://gitlab.metager3.de/open-source/MetaGer)</a>.",
     "faq.4.h"	=>	"Why don't you metacrawl search engine XY anymore?",
