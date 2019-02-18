@@ -8,8 +8,6 @@ return [
     "bankinfo.3"	=>	"If you wish to receive a donation receipt,\r\nplease specify your full adress and (if available)\r\nyour E-Mail adress on the money transfer form.",
     "paypal.1"	=>	"Comfortably with Paypal<br>Via Paypal by credit card too (without PayPal registration),",
     "paypal.2"	=>	"Donate via Paypal - it's fast, safe and free",
-    "bitcoins.1"	=>	"or Bitcoins",
-    "bitcoins.2"	=>	"Our Bitcoin adress:",
     "lastschrift.1"	=>	"Donate by wire transfer",
     "lastschrift.2"	=>	"Enter your account data along with the desired amount. We will debit your bank account accordingly.",
     "lastschrift.3"	=>	"Please enter your name:",
@@ -38,4 +36,10 @@ return [
     "bic"	=>	"BIC/bank code",
     'betrag'                    => 'Amount',
     "danke.message"	=>	"Your message"
+
+    'paypal.title' => 'Donate via Paypal',
+    'paypal.subtitle' => 'Comfortably with Paypal<br>Via Paypal by credit card too (without PayPal registration)',
+    'paypal.2' => 'Donate via Paypal - it is fast, safe and free',
+
+    'bitpay.title' => 'Donate via Bitpay',
 ];

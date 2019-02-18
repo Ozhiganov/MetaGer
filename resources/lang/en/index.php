@@ -9,14 +9,16 @@ return [
     "foki.angepasst"                 => "Customized",
     "foki.maps"                      => "maps.metager.de",
 
-    "design"                         => "select personal theme",
+    "design"                         => "Select personal theme",
 
     "conveyor"                       => "Purchase at affiliate shops",
     "partnertitle"                   => "Support MetaGer without any costs to you",
     "mapstitle"                      => "MetaGer Maps Service",
 
     "plugin"                         => "Add MetaGer-Plugin",
-    "plugin-title"                   => "add MetaGer to your browser",
+    "plugin-title"                   => "Add MetaGer to your browser",
+
+    'options.head'                   => 'Customize filters',
 
     "focus-creator.head"             => "Customize search",
     "focus-creator.description"      => "Arrange a personal search",
