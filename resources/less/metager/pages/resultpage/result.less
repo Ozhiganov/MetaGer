@@ -156,7 +156,7 @@
                 text-decoration: none;
             }
         }
-        @media (max-width: 499px) {
+        @media (max-width: @screen-mobile) {
             .result-open-newtab {
                 display: none;
             }
@@ -183,9 +183,6 @@
             font-size: @result-font-small;
             flex-grow: 1;
             text-align: right;
-            @media (max-width: 499px) {
-                display: none;
-            }
         }
     }
     .result-footer * {
@@ -225,12 +222,15 @@
         }
         ul {
             display: flex;
+            flex-wrap: wrap;
             li {
                 font-size: @result-font-small;
-                margin: 8px;
+                margin: 8px 16px 8px 0;
             }
-            li:nth-child(1){
-                margin-left: 0;
+            @media(max-width: @screen-mobile){
+                li:nth-child(1){
+                    display: none;
+                }
             }
             li>a {
                 color: @link-color;

@@ -70,25 +70,25 @@
 				<ul class="option-list list-unstyled small">
 					<li class="js-only">
 						<a href="javascript:resultSaver({{ $result->number }});" class="saver">
-							<i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}
+							<nobr><i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}</nobr>
 						</a>
 					</li>
 					@if(strlen($metager->getSite()) === 0)
 						<li>
 							<a href="{{ $metager->generateSiteSearchLink($result->strippedHost) }}">
-								{!! trans('result.options.1') !!}
+								<nobr>{!! trans('result.options.1') !!}</nobr>
 							</a>
 						</li>
 					@endif
 					<li>
 						<a href="{{ $metager->generateRemovedHostLink($result->strippedHost) }}">
-							{!! trans('result.options.2', ['host' => $result->strippedHost]) !!}
+							<nobr>{!! trans('result.options.2', ['host' => $result->strippedHost]) !!}</nobr>
 						</a>
 					</li>
 					@if( $result->strippedHost !== $result->strippedDomain )
 						<li>
 							<a href="{{ $metager->generateRemovedDomainLink($result->strippedDomain) }}">
-								{!! trans('result.options.3', ['domain' => $result->strippedDomain]) !!}
+								<nobr>{!! trans('result.options.3', ['domain' => $result->strippedDomain]) !!}</nobr>
 							</a>
 						</li>
 					@endif
