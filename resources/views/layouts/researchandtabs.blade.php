@@ -28,15 +28,29 @@
 	</div>
 	@if(sizeof($metager->getAvailableParameterFilter()) > 0)
 	<div id="options">
+		<div id="toggle-box">
+			@if(sizeof($metager->getAvailableParameterFilter()) > 0)
+			<div class="option-toggle">
+				<label class="navigation-element" for="options-toggle">
+					<i class="fas fa-filter"></i> Filter&hellip;
+				</label>
+			</div>
+			@endif
+			@if(sizeof($metager->getParameterFilter()) > 0)
+			<div id="options-reset">
+				<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('filter.reset') }}</nobr></a>
+			</div>
+			@endif
+			@if($metager->getTotalResultCount() > 0)
+			<div id="result-count">
+				~ {{$metager->getTotalResultCount()}} {{ trans('metaGer.results') }}
+			</div>
+			@endif
+		</div>
 		<input type="checkbox" id="options-toggle" @if(sizeof($metager->getParameterFilter()) > 0)checked @endif />
 		<div class="scrollbox">
 			<div class="scrollfade-left"></div>
 			<div id="options-box">
-				@if(sizeof($metager->getParameterFilter()) > 0)
-				<div id="options-reset">
-					<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>Filter zurücksetzen</nobr></a>
-				</div>
-				@endif
 				<div id="options-items">
 				@foreach($metager->getAvailableParameterFilter() as $filterName => $filter)
 					<div class="option-selector">

@@ -483,8 +483,12 @@ a {
 
 #options {
     grid-area: options;
-    display: flex;
-    justify-content: left;
+    background-color: white;
+    max-width: @results-width-max;
+    padding: 0 8px;
+    @media(max-width: @screen-mobile){
+        .card;
+    }
     input[type=checkbox]{
         display: none;
     }
@@ -498,17 +502,33 @@ a {
         max-height:200px;
         transform: scaleY(1);
     }
+    #toggle-box {
+        display: flex;
+        align-items: center;
+        #result-count {
+            flex-grow: 1;
+            text-align: right;
+        }
+        #options-reset {
+            margin-left: 10px;
+        }
+        .option-toggle {
+            text-align: center;
+            label{
+                font-weight: normal;
+                margin-bottom: 0;
+            }
+        }
+    }
     #options-box{
         width: 100%;
-        max-width: 700px;
-        background-color: white;
-        border-bottom: 1px solid #ccc;
-        @media(max-width: @screen-mobile){
-            .card;
-        }
+        display: flex;
+        justify-content: left;
         overflow: hidden;
         overflow-x: auto;
-        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 8px;
+        padding-top: 8px;
         #options-items {
             display: -ms-flexbox;
             display: flex;
@@ -531,10 +551,9 @@ a {
                     border-radius: 5px;
                 }
             }
-        }
-        #options-reset {
-            margin-left: 10px;
-            margin-bottom: 8px;
+            .option-selector:nth-child(1){
+                margin-left: 0;
+            }
         }
     }
 }
@@ -549,7 +568,7 @@ a {
 }
 
 footer.resultPageFooter {
-    max-width: 700px;
+    max-width: @results-width-max;
     margin-top: 20px;
     @media (max-width: (2 * @results-margin-left + @results-width-max - 1px)) {
         margin: 20px 0 0 0;

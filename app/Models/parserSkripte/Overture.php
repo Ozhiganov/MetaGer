@@ -25,7 +25,14 @@ class Overture extends Searchengine
             if (!$content) {
                 return;
             }
-
+            # Yahoo gives us the total Result Count
+            $resultCount = $content->xpath('//Results/ResultSet[@id="inktomi"]/MetaData/TotalHits');
+            if (sizeof($resultCount) > 0) {
+                $resultCount = intval($resultCount[0]->__toString());
+            } else {
+                $resultCount = 0;
+            }
+            $this->totalResults = $resultCount;
             $results = $content->xpath('//Results/ResultSet[@id="inktomi"]/Listing');
             foreach ($results as $result) {
                 $title = $result["title"];
@@ -40,8 +47,9 @@ class Overture extends Searchengine
                     $anzeigeLink,
                     $descr,
                     $this->engine->{"display-name"},
-                    $this->engine->homepage,
-                    $this->counter
+                    $this->engine->{"homepage"},
+                    $this->counter,
+                    []
                 );
             }
 
@@ -59,8 +67,10 @@ class Overture extends Searchengine
                     $link,
                     $anzeigeLink,
                     $descr,
-                    $this->engine->{"display-name"}, $this->engine->homepage,
-                    $this->counter
+                    $this->engine->{"display-name"},
+                    $this->engine->{"homepage"},
+                    $this->counter,
+                    []
                 );
             }
         } catch (\Exception $e) {
