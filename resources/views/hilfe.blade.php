@@ -5,8 +5,6 @@
 @section('content')
 	<div class="alert alert-warning" role="alert">{!! trans('hilfe.achtung') !!}</div>
 	<h1 class="page-title">{!! trans('hilfe.title') !!}</h1>
-	<h2>{!! trans('hilfe.sucheingabe.title') !!}</h2>
-	<p>{!! trans('hilfe.sucheingabe.hint') !!}</p>
 	<section>
 		<h3>{!! trans('hilfe.stopworte.title') !!}</h3>
 		<div>
@@ -44,50 +42,27 @@
 		</div>
 	</section>
 	<section>
-		<h3>{!! trans('hilfe.domains.title') !!}</h3>
+		<h3>{!! trans('hilfe.result.title') !!}</h3>
 		<div>
-			<p>{!! trans('hilfe.domains.sitesearch.explanation') !!}</p>
-			<ul class="dotlist">
-				<li>{!! trans('hilfe.domains.sitesearch.example.1') !!}</li>
-				<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.sitesearch.example.2') !!}</div></li>
-				<li>{!! trans('hilfe.domains.sitesearch.example.3') !!}</li>
-				<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.sitesearch.example.4') !!}</div></li>
+			<p>{!! trans('hilfe.result.info.1') !!}</p>
+			<img src = "/public/img/hilfe-php-resultpic-01.png">
+			<ul class = "dotlist">
+				<li>{!! trans('hilfe.result.info.open') !!}</li>
+				<li>{!! trans('hilfe.result.info.newtab') !!}</li>
+				<li>{!! trans('hilfe.result.info.anonym') !!}</li>
+				<li>{!! trans('hilfe.result.info.more') !!}</li>
 			</ul>
-			<p>{!! trans('hilfe.domains.blacklist.explanation') !!}</p>
-			<ul class="dotlist">
-				<li>{!! trans('hilfe.domains.blacklist.example.1') !!}</li>
-				<li class="nodot">
-					<ul>
-						<li>{!! trans('hilfe.domains.blacklist.example.2') !!}</li>
-						<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.blacklist.example.3') !!}</div></li>
-						<li class="nodot">{!! trans('hilfe.domains.blacklist.example.4') !!}</li>
-						<li>{!! trans('hilfe.domains.blacklist.example.5') !!}</li>
-						<li class="nodot"><div class="search-example">{!! trans('hilfe.domains.blacklist.example.6') !!}</div></li>
-					</ul>
-				</li>
+			<p>{!! trans('hilfe.result.info.1') !!}</p>
+			<img src = "/public/img/hilfe-php-resultpic-01.png">
+			<ul class = "dotlist">
+				<li>{!! trans('hilfe.result.info.saveresult') !!}</li>
+				<li>{!! trans('hilfe.result.info.domainnewsearch') !!}</li>
+				<li>{!! trans('hilfe.result.info.hideresult') !!}</li>
 			</ul>
-			<p>{!! trans('hilfe.domains.showcase.explanation.1') !!}</p>
-			@include('parts/fake-result')
-			<script>
-				function setDummySearch(value) {
-					document.getElementById("dummy-search").innerHTML = value
-				}
-			</script>
-			<div>
-				<p>{!! trans('hilfe.domains.showcase.menu.1') !!}</p>
-				<ul class="dotlist">
-					<li>{!! trans('hilfe.domains.showcase.menu.2') !!}</li>
-					<li>{!! trans('hilfe.domains.showcase.menu.3') !!}</li>
-					<li>{!! trans('hilfe.domains.showcase.menu.4') !!}</li>
-					<li>{!! trans('hilfe.domains.showcase.menu.5') !!}</li>
-				</ul>
-				<p>{!! trans('hilfe.domains.showcase.menu.6') !!}</p>
-			</div>
-			<div>
-				<div class="search-example"><i>meine suche</i> <i id="dummy-search"></i></div>
-			</div>
+
 		</div>
 	</section>
+	
 	<section id="urls">
 		<h3>{!! trans('hilfe.urls.title') !!}</h3>
 		<div>
