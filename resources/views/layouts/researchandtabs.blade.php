@@ -38,7 +38,7 @@
 			@endif
 			@if(sizeof($metager->getParameterFilter()) > 0)
 			<div id="options-reset">
-				<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('filter.reset') }}</nobr></a>
+				<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('metaGer.filter.reset') }}</nobr></a>
 			</div>
 			@endif
 			@if($metager->getTotalResultCount() > 0)
