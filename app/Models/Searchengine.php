@@ -15,6 +15,7 @@ abstract class Searchengine
 
     public $getString = ""; # Der String für die Get-Anfrage
     public $engine; # Die ursprüngliche Engine XML
+    public $totalResults = 0; # How many Results the Searchengine has found
     public $results = []; # Die geladenen Ergebnisse
     public $ads = []; # Die geladenen Werbungen
     public $products = []; # Die geladenen Produkte
@@ -48,7 +49,7 @@ abstract class Searchengine
 
         # Cache Standarddauer 60
         $this->cacheDuration = 60;
-        if (!empty($engine->{"cache-duration"}) && $engine->{"cache-duration"} >= 0) {
+        if (isset($engine->{"cache-duration"}) && $engine->{"cache-duration"} !== -1) {
             $this->cacheDuration = $engine->{"cache-duration"};
         }
 
@@ -183,6 +184,10 @@ abstract class Searchengine
     {
         foreach ($this->results as $result) {
             $result->rank($eingabe);
+            if (str_contains($this->engine->{"display-name"}, "Yahoo")) {
+                #die(var_dump($result));
+            }
+
         }
     }
 
@@ -199,6 +204,7 @@ abstract class Searchengine
         }
 
         $body = "";
+
         if ($this->canCache && $this->cacheDuration > 0 && Cache::has($this->hash)) {
             $body = Cache::get($this->hash);
         } elseif (Redis::hexists('search.' . $this->resultHash, $this->name)) {

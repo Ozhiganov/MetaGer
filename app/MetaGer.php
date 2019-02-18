@@ -28,6 +28,7 @@ class MetaGer
     protected $stopWords = [];
     protected $phrases = [];
     protected $engines = [];
+    protected $totalResults = 0;
     protected $results = [];
     protected $queryFilter = [];
     protected $parameterFilter = [];
@@ -562,6 +563,21 @@ class MetaGer
                     }
                 }
             }
+            # Check if this engine should only be active when filter is used
+            if ($this->sumaFile->sumas->{$suma}->{"filter-opt-in"}) {
+                # This search engine should only be used when a parameter filter of it is used
+                $validTmp = false;
+                foreach ($this->parameterFilter as $filterName => $filter) {
+                    if (!empty($filter->sumas->{$suma})) {
+                        $validTmp = true;
+                        break;
+                    }
+                }
+                if (!$validTmp) {
+                    $valid = false;
+                }
+
+            }
             # If it can we add it
             if ($valid) {
                 $this->enabledSearchengines[$suma] = $this->sumaFile->sumas->{$suma};
@@ -621,6 +637,11 @@ class MetaGer
         $this->waitForResults($enginesToLoad, $overtureEnabled, $canBreak);
 
         $this->retrieveResults($engines);
+        foreach ($engines as $engine) {
+            if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
+                $this->totalResults = $engine->totalResults;
+            }
+        }
     }
 
     # Spezielle Suchen und Sumas
@@ -683,6 +704,14 @@ class MetaGer
             foreach ($this->enabledSearchengines as $engineName => $engine) {
                 if (!empty($filter->sumas->$engineName)) {
                     $availableFilter[$filterName] = $filter;
+                }
+            }
+            # We will also add the filter from the opt-in search engines (the searchengines that are only used when a filter of it is too)
+            foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
+                if ($this->sumaFile->sumas->{$suma}->{"filter-opt-in"}) {
+                    if (!empty($filter->sumas->{$suma})) {
+                        $availableFilter[$filterName] = $filter;
+                    }
                 }
             }
         }
@@ -1539,6 +1568,11 @@ class MetaGer
     public function getSumaFile()
     {
         return $this->sumaFile;
+    }
+
+    public function getTotalResultCount()
+    {
+        return number_format($this->totalResults, 0, ",", ".");
     }
 
     public function getQueryFilter()

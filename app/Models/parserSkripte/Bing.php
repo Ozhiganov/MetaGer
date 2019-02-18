@@ -5,7 +5,7 @@ namespace app\Models\parserSkripte;
 use App\Models\Searchengine;
 use Log;
 
-class BingBilder extends Searchengine
+class Bing extends Searchengine
 {
     public $results = [];
 
@@ -18,15 +18,14 @@ class BingBilder extends Searchengine
     {
         try {
             $results = json_decode($result);
-            $this->totalResults = $results->totalEstimatedMatches;
-            $results = $results->value;
+            $this->totalResults = $results->webPages->totalEstimatedMatches;
+            $results = $results->webPages->value;
 
             foreach ($results as $result) {
                 $title = $result->name;
-                $link = $result->hostPageUrl;
-                $anzeigeLink = $link;
-                $descr = "";
-                $image = $result->thumbnailUrl;
+                $link = $result->url;
+                $anzeigeLink = $result->displayUrl;
+                $descr = $result->snippet;
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -36,7 +35,7 @@ class BingBilder extends Searchengine
                     $descr,
                     $this->engine->{"display-name"}, $this->engine->homepage,
                     $this->counter,
-                    ['image' => $image]
+                    []
                 );
 
             }
@@ -53,16 +52,26 @@ class BingBilder extends Searchengine
         try {
             $results = json_decode($result);
 
-            $totalMatches = $results->totalEstimatedMatches;
-            $nextOffset = $results->nextOffset;
-
-            if ($nextOffset >= $totalMatches) {
-                return;
-            }
+            $totalMatches = $results->webPages->totalEstimatedMatches;
 
             $newEngine = unserialize(serialize($this->engine));
-            $newEngine->{"get-parameter"}->offset = $nextOffset;
-            $next = new BingBilder($this->name, $newEngine, $metager);
+
+            $perPage = $newEngine->{"get-parameter"}->count;
+
+            $offset = 0;
+            if (empty($newEngine->{"get-parameter"}->offset)) {
+                $offset = $perPage;
+            } else {
+                $offset = $newEngine->{"get-parameter"}->offset + $perPage;
+            }
+
+            if ($totalMatches < ($offset + $perPage)) {
+                return;
+            } else {
+                $newEngine->{"get-parameter"}->offset = $offset;
+            }
+
+            $next = new Bing($this->name, $newEngine, $metager);
             $this->next = $next;
 
         } catch (\Exception $e) {
