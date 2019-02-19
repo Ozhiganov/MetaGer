@@ -134,6 +134,12 @@ abstract class Searchengine
             // each Searcher has it's own queue lying under the redis key <name>.queue
             Redis::rpush($this->name . ".queue", $mission);
 
+            // The request is not cached and will be submitted to the searchengine
+            // We need to check if the number of requests to this engine are limited
+            if (!empty($this->engine->{"monthly-requests"})) {
+                Redis::incr("monthlyRequests:" . $this->name);
+            }
+
             /**
              * We have Searcher processes running for MetaGer
              * Each Searcher is dedicated to one specific Searchengine and fetches it's results.

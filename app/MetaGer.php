@@ -542,7 +542,8 @@ class MetaGer
         foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
-            if ($disabled) {
+            $autoDisabled = empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) ? false : $this->sumaFile->sumas->{$suma}->{"auto-disabled"};
+            if ($disabled || $autoDisabled) {
                 continue;
             }
 
@@ -710,6 +711,11 @@ class MetaGer
             foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
                 if ($this->sumaFile->sumas->{$suma}->{"filter-opt-in"}) {
                     if (!empty($filter->sumas->{$suma})) {
+                        # If the searchengine is disabled this filter shouldn't be available
+                        if ((!empty($this->sumaFile->sumas->{$suma}->disabled) && $this->sumaFile->sumas->{$suma}->disabled === true)
+                            || (!empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) && $this->sumaFile->sumas->{$suma}->{"auto-disabled"} === true)) {
+                            continue;
+                        }
                         $availableFilter[$filterName] = $filter;
                     }
                 }
@@ -1343,16 +1349,7 @@ class MetaGer
 
                 # 2 Arten von Logs in einem wird die Anzahl der Abfragen an eine Suchmaschine gespeichert und in der anderen
                 # die Anzahl, wie häufig diese Ergebnisse geliefert hat.
-                $enginesToLoad = $this->enginesToLoad;
-                $redis->pipeline(function ($pipe) use ($enginesToLoad, $logEntry) {
-                    $pipe->rpush('logs.search', $logEntry);
-                    foreach ($this->enginesToLoad as $name => $answered) {
-                        $pipe->incr('logs.engines.requests.' . $name);
-                        if ($answered) {
-                            $pipe->incr('logs.engines.answered.' . $name);
-                        }
-                    }
-                });
+                $redis->rpush('logs.search', $logEntry);
             } catch (\Exception $e) {
                 return;
             }
