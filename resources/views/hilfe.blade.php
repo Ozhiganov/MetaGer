@@ -19,7 +19,6 @@
 		<h3>{!! trans('hilfe.mehrwortsuche.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.mehrwortsuche.1') !!}</p>
-			<div class = "search-example">der runde tisch</div>
 			<p>{!! trans('hilfe.mehrwortsuche.2') !!}</p>
 			<ul class="dotlist">
 				<li>{!! trans('hilfe.mehrwortsuche.3') !!}</li>
@@ -45,15 +44,15 @@
 		<h3>{!! trans('hilfe.result.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.result.info.1') !!}</p>
-			<img src = "/public/img/hilfe-php-resultpic-01.png">
+			<img style = "margin: 10px 0px 10px 0px;" src = "/img/hilfe-php-resultpic-01.png">
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.open') !!}</li>
 				<li>{!! trans('hilfe.result.info.newtab') !!}</li>
 				<li>{!! trans('hilfe.result.info.anonym') !!}</li>
 				<li>{!! trans('hilfe.result.info.more') !!}</li>
 			</ul>
-			<p>{!! trans('hilfe.result.info.1') !!}</p>
-			<img src = "/public/img/hilfe-php-resultpic-01.png">
+			<p>{!! trans('hilfe.result.info.2') !!}</p>
+			<img style = "margin: 10px 0px 10px 0px;" src = "/img/hilfe-php-resultpic-02.png">
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.saveresult') !!}</li>
 				<li>{!! trans('hilfe.result.info.domainnewsearch') !!}</li>
@@ -155,7 +154,6 @@
 			<p>{!! trans('hilfe.maps.1') !!}</p>
 			<p>{!! trans('hilfe.maps.2') !!}</p>
 			<p>{!! trans('hilfe.maps.3') !!}</p>
-			<p>{!! trans('hilfe.maps.4') !!}</p>
 		</div>
 	</section>
 @endsection
