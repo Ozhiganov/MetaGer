@@ -61,7 +61,7 @@
 			{!! trans('result.options.5') !!}
 		</a>
 		<label class="open-result-options navigation-element" for="result-toggle-{{$result->number}}">
-			MEHR
+			{{ trans('result.options.more')}}
 		</label>
 	</div>
 	<div class="result-options">

@@ -10,5 +10,6 @@ return [
     'options.5' => 'ANONYM ÖFFNEN',
     'options.6' => 'IN NEUEM TAB ÖFFNEN',
     'options.7' => 'ÖFFNEN',
+    'options.more' => 'MEHR',
     'proxytext' => 'Der Link wird anonymisiert geöffnet. Ihre Daten werden nicht zum Zielserver übertragen. Möglicherweise funktionieren manche Webseiten nicht wie gewohnt.',
 ];
