@@ -22,7 +22,9 @@ return [
     'sitesearch.success' => 'You are doing a site search. Only results of the website <a href=\"http://:site\" target=\"_blank\" rel=\"noopener\">\":site\"</a> will be shown.',
     'feedback' => 'Not what you were looking for? Give us feedback: ',
 
+    'results' => "Results",
     'filter.noFilter' => 'All',
+    'filter.reset' => 'Reset filter',
 
     'filter.sitesearch' => 'Sitesearch',
     'filter.safesearch' => "Safe Search",
@@ -79,4 +81,51 @@ return [
     "filter.freshness.day" => "Last 24h",
     "filter.freshness.week" => "Last week",
     "filter.freshness.month" => "Last month",
+
+    "filter.market" => "Language",
+    "filter.market.ga" => "German (Austria)",
+    "filter.market.gg" => "German (Germany)",
+    "filter.market.gs" => "German (Switzerland)",
+    "filter.market.ea" => "English (Australia)",
+    "filter.market.ec" => "English (Canada)",
+    "filter.market.ei" => "English (India)",
+    "filter.market.ein" => "English (Indonesia)",
+    "filter.market.em" => "English (Malaysia)",
+    "filter.market.enz" => "English (New Zealand)",
+    "filter.market.ep" => "English (Philippines)",
+    "filter.market.esa" => "English (South-Africa)",
+    "filter.market.euk" => "English (UK)",
+    "filter.market.eus" => "English (US)",
+    "filter.market.sa" => "Spanish (Argentina)",
+    "filter.market.sc" => "Spanish (Chile)",
+    "filter.market.sm" => "Spanish (Mexiko)",
+    "filter.market.ss" => "Spanish (Spain)",
+    "filter.market.sus" => "Spanish (US)",
+    "filter.market.fb" => "French (Belgien)",
+    "filter.market.fc" => "French (Kanada)",
+    "filter.market.ff" => "French (Frankreich)",
+    "filter.market.fs" => "French (Schweiz)",
+    "filter.market.ii" => "Italian (Italien)",
+    "filter.market.db" => "Dutch (Belgium)",
+    "filter.market.dn" => "Dutch (Netherlands)",
+    "filter.market.pp" => "Polish (Poland)",
+    "filter.market.pb" => "Portuguese (Brasil)",
+    "filter.market.dd" => "Danish (Denmark)",
+    "filter.market.fif" => "Finnish (Finland)",
+    "filter.market.nn" => "Norwegian (Norway)",
+    "filter.market.scs" => "Swedish (Sweden)",
+    "filter.market.rr" => "Russian (Russia)",
+    "filter.market.jj" => "Japanese (Japan)",
+    "filter.market.kk" => "Korean (Korea)",
+    "filter.market.tt" => "Turkish (Turkey)",
+    "filter.market.chk" => "Chinese (Hong Kong SAR)",
+    "filter.market.cc" => "Chinese (China)",
+    "filter.market.ct" => "Chinese (Taiwan)",
 ];
+
+
+
+
+
+
+
