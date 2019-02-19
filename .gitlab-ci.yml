@@ -31,6 +31,7 @@ update(144.76.113.134):
     - npm install
     - npm run prodution
     - php artisan migrate --force
+    - php artisan requests:gather
     - if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
     - cd ~/
     - while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
