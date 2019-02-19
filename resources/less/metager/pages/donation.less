@@ -1,8 +1,22 @@
-.donation-form-group {
-    text-align: left;
-    font-size: 12px;
-}
+#donation {
+    .donation-form-group {
+        text-align: left;
+        font-size: 12px;
+    }
 
-.donation-form-group label {
-    font-weight: bold;
+    .donation-form-group label {
+        font-weight: bold;
+    }
+    .section {
+        .card-light;
+        margin: 8px 0;
+    }
+
+    .col-left .section{
+        margin: 8px;
+        margin-left: 0;
+        @media(max-width: @screen-small){
+            margin-right: 0;
+        }
+    }
 }

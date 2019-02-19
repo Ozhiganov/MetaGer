@@ -1,7 +1,14 @@
 .hilfe,
 .faq {
     section {
-        .card-heavy;
+        .card-light; 
+        @media(max-width: @screen-medium){
+            .card-medium;
+        }
+        @media(max-width: @screen-small){
+            .card-heavy;
+        }
+        margin: 4px 0;
         h3 {
             border-bottom: 1px solid #aaa;
         }
@@ -10,6 +17,16 @@
             background-color: #eee;
             border-radius: 5px;
             padding: 10px;
+        }
+        div.image-container {
+            align-items: center;
+            justify-content: center;
+            img {
+                margin: 10px 0;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
         }
     }
     .fake-result {

@@ -6,7 +6,7 @@
     <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "datenschutz") }}">{{ trans('sidebar.nav3') }}</a>
   </div>
   <div>
-    <span class="hidden-xs">{{ trans('footer.sumaev.1') }} <a href="https://www.suma-ev.de/">{{ trans('footer.sumaev.2') }}</a></span>
+    <span class="hidden-xs">{{ trans('footer.sumaev.1') }} <a href="{{ trans('footer.sumaev.link') }}">{{ trans('footer.sumaev.2') }}</a></span>
   </div>
 </footer>
 @endif

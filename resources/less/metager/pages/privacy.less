@@ -1,48 +1,27 @@
 .privacy {
-    main {
-        font-size: 10pt;
-        hyphens: auto;
-        counter-reset: kontext 0 datum 0;
-        text-align: justify;
+    ol, ul {
+        list-style-type: none;
+        padding-left: 0;
     }
-    h1 {
-        font-size: 18pt;
-    }
-    .kontext>h1::before {
-        counter-increment: kontext;
-        content: "K" counter(kontext) " ";
-        font-weight: normal;
-    }
-    .datum>h1::before {
-        counter-increment: datum;
-        content: "D" counter(datum) " ";
-        font-weight: normal;
-    }
-    .kontext h1 {
-        font-size: 16pt;
-        margin-bottom: inherit;
-    }
-    .kontext h2 {
-        font-size: 14pt;
-        margin-bottom: inherit;
-    }
-    .datum h1 {
-        font-size: 12pt;
-        margin-bottom: inherit;
-    }
-    .datum h2 {
-        font-size: 11pt;
-        margin-bottom: inherit;
-        margin-top: 5pt;
-    }
-    .kontext-list {
-        list-style: none;
-    }
-    .datum-list {
-        list-style: none;
-    }
-    samp {
-        hyphens: none;
-        font-size: 8pt;
+    .section {
+        margin: 8px 0;
+        .card-light;
+        @media(max-width: @screen-medium){
+            .card-medium;
+        }
+        @media(max-width: @screen-small){
+            .card-heavy;
+        }
+        .kontext {
+            border-bottom: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            padding: 8px 0;
+            .datum-list {
+                margin-top: 8px;
+                > li {
+                    padding: 8px 0;
+                }
+            }
+        }
     }
 }

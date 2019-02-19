@@ -44,7 +44,9 @@
 		<h3>{!! trans('hilfe.result.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.result.info.1') !!}</p>
-			<img style = "margin: 10px 0px 10px 0px;" src = "/img/hilfe-php-resultpic-01.png">
+			<div class="image-container">
+				<img src="/img/hilfe-php-resultpic-01.png">
+			</div>
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.open') !!}</li>
 				<li>{!! trans('hilfe.result.info.newtab') !!}</li>
@@ -52,7 +54,9 @@
 				<li>{!! trans('hilfe.result.info.more') !!}</li>
 			</ul>
 			<p>{!! trans('hilfe.result.info.2') !!}</p>
-			<img style = "margin: 10px 0px 10px 0px;" src = "/img/hilfe-php-resultpic-02.png">
+			<div class="image-container">
+				<img src="/img/hilfe-php-resultpic-02.png">
+			</div>
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.saveresult') !!}</li>
 				<li>{!! trans('hilfe.result.info.domainnewsearch') !!}</li>
@@ -61,7 +65,7 @@
 
 		</div>
 	</section>
-	
+
 	<section id="urls">
 		<h3>{!! trans('hilfe.urls.title') !!}</h3>
 		<div>
