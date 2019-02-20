@@ -308,10 +308,6 @@ class MetaGer
 
         }
 
-        if ($this->validated) {
-            $this->ads = [];
-        }
-
         if (count($this->results) <= 0) {
             if (strlen($this->site) > 0) {
                 $no_sitesearch_query = str_replace(urlencode("site:" . $this->site), "", $this->fullUrl);
@@ -978,11 +974,14 @@ class MetaGer
             $this->sprueche = false;
         }
 
-        $this->newtab = $request->input('newtab', 'on');
+        $this->newtab = $request->input('newtab', 'off');
         if ($this->newtab === "on") {
             $this->newtab = "_blank";
         } else {
             $this->newtab = "_self";
+        }
+        if ($request->filled("key") && $request->input('key') === getenv("mainz_key")) {
+            $this->newtab = "_top";
         }
         # Theme
         $this->theme = preg_replace("/[^[:alnum:][:space:]]/u", '', $request->input('theme', 'default'));
@@ -1024,20 +1023,6 @@ class MetaGer
         $this->apiKey = $request->input('key', '');
         // Remove Inputs that are not used
         $this->request = $request->replace($request->except(['verification_id', 'uid', 'verification_count']));
-
-        $this->validated = false;
-        if (isset($this->password)) {
-            # Wir bieten einen bezahlten API-Zugriff an, bei dem dementsprechend die Werbung ausgeblendet wurde:
-            # Aktuell ist es nur die Uni-Mainz. Deshalb überprüfen wir auch nur diese.
-            $password = getenv('mainz');
-            $passwordBerlin = getenv('berlin');
-            $eingabe = $this->eingabe;
-            $password = md5($eingabe . $password);
-            $passwordBerlin = md5($eingabe . $passwordBerlin);
-            if ($this->password === $password || $this->password === $passwordBerlin) {
-                $this->validated = true;
-            }
-        }
 
         $this->out = $request->input('out', "html");
         # Standard output format html
