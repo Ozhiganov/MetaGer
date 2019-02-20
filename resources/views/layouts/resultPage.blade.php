@@ -32,6 +32,7 @@
 		@if( !isset($suspendheader) )
 			@include('layouts.researchandtabs')
 		@else
+			<link rel="stylesheet" href="/css/noheader.css">
 			<div id="resultpage-container-noheader">
 				<div id="results-container">
 					@include('parts.errors')
