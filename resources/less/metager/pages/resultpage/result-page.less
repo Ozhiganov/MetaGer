@@ -10,7 +10,7 @@
 @additions-width-min: 300px;
 @additions-width-max: 500px;
 // Breakpoints for the 2 resultpage columns
-@resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 4);
+@resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 2 + @padding-small-default * 4 + 6);
 @resultpage-breakpoint-min: (@results-width-min + @additions-width-min + @padding-small-default * 4);
 @product-shop-color: green;
 // The point upon which a .screen-large logo is displayed
@@ -332,7 +332,6 @@ a {
 
 #resultpage-container {
     margin: @padding-small-default;
-    margin-left: @results-margin-left;
     display: grid;
     grid-template-columns: minmax(0px, 150px) @results-width-max @additions-width-max;
     grid-template-areas: "whitespace searchbar ." "whitespace foki ." "whitespace options ." "whitespace results additions" "whitespace footer .";
