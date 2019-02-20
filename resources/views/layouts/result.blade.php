@@ -15,7 +15,7 @@
 			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ $result->gefVon }}</a>
 		</div>
 		<div class="result-subheadline">
-			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+			<a class="result-link" href="{{ $result->link }}" rel="noopener">
 				{{ $result->anzeigeLink }}
 			</a>
 			@if( isset($result->partnershop) && $result->partnershop === TRUE)
@@ -28,14 +28,14 @@
 	<div class="result-body">
 		@if( isset($result->logo) )
 			<div class="result-logo">
-				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+				<a href="{{ $result->link }}" rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->logo) }}" alt="" />
 				</a>
 			</div>
 		@endif
 		@if( $result->image !== "" )
 			<div class="result-image">
-				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+				<a href="{{ $result->link }}" rel="noopener">
 					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
 				</a>
 			</div>
