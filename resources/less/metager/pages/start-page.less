@@ -13,13 +13,43 @@
     @media(min-width: @main-content-width) {
         width: @main-content-width;
     }
+    
     #plugin-btn-div {
         display: flex;
         justify-content: center;
-        margin-top: 5px;
+        margin-top: 16px;
     }
     #plugin-btn {
         color: @text-color;
+    }
+    #scroll-helper {
+        .card-light;
+        position: absolute;
+        bottom: 0px;
+        right: 8px;
+        padding: 16px;
+        color: #777;
+        border: 0;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        display: none;
+        &:hover{
+            color: red;
+            background-color: #ccc;
+        }
+        @media(max-width: @screen-mobile) {
+            display: flex;
+        }
+    }
+
+}
+
+.startpage #main-content {
+    @media(max-width: @screen-mobile){
+        justify-content: start;
+        margin-top: 20vh;
     }
 }
 
@@ -29,12 +59,19 @@
     display: flex;
     @media(max-width: @screen-mobile) {
         flex-direction: column;
+        position: absolute;
+        top: 100vh;
     }
     #about-us {
         max-width: 500px;
         margin-right: 50px;
         @media(max-width: @screen-mobile) {
-            margin: 0px 8px;
+            margin: 0px;
+            max-width: 100%;
+            .card-medium;
+            p {
+                text-align: justify;
+            }
         }
         h2 {
             font-size: 21px;
@@ -45,7 +82,8 @@
     }
     #sponsors {
         @media(max-width: @screen-mobile) {
-            margin: 20px 5px;
+            margin: 8px 0px;
+            .card-medium;
         }
         h2 {
             font-size: 21px;

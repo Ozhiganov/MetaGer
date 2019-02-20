@@ -176,6 +176,9 @@ i.fa {
     margin: 0px 0px 45px 0px;
     white-space: nowrap;
     text-align: center;
+    @media(max-width: @screen-mobile){
+        margin-bottom: 25px;
+    }
     &>a {
         .logo;
         display: block;
@@ -361,8 +364,7 @@ li.nodot {
 .disabled,
 :disabled,
 .disabled *,
-:disabled *,
-    {
+:disabled * {
     color: #aaa !important;
     cursor: not-allowed !important;
 }
