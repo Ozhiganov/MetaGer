@@ -1,4 +1,5 @@
 <div id="resultpage-container">
+	<div id="whitespace"></div>
 	<div id="research-bar-container">
 		<div id="research-bar">
 			<div id="header-logo">
@@ -14,8 +15,6 @@
 			</div>
 			<div class="sidebar-opener-placeholder"></div>
 		</div>
-	</div>
-	<div id="research-bar-placeholder">
 	</div>
 	<div id="foki">
 		<div class="scrollbox">
@@ -81,4 +80,5 @@
 			</div>
 		@endif
 	</div>
+	@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 </div>
