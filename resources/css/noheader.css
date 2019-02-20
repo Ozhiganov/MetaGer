@@ -1,0 +1,15 @@
+.open-result-options {
+    display: none;
+}
+
+.result-open {
+    display: none;
+}
+
+.result-open-newtab {
+    margin-left: 0 !important;
+}
+
+.sidebar-opener {
+    display: none;
+}

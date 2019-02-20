@@ -18,6 +18,7 @@ mix
   @import "./bootstrap/bootstrap.less";
   */
   // css
+  .styles(["resources/css/noheader.css"], "public/css/noheader.css")
   .less("resources/less/metager/metager.less", "public/css/themes/metager.css", {
     strictMath: true
   })
