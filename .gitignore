@@ -16,3 +16,5 @@ langfiles.zip
 **/*.map
 /.buildpath
 /.project
+config/sumas.json
+config/sumasEn.json

@@ -15,12 +15,12 @@
 		<meta rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{{ trans('staticPages.opensearch') }}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link rel ="stylesheet" href="{{ mix('css/themes/default.css') }}" />
-		
+
 		<link id="theme" type="text/css" rel="stylesheet" href="/css/theme.css.php" />
 		<script type="text/javascript" src="{{ mix('js/scriptSubPages.js') }}" ></script>
-			
+
 		<script type="text/javascript" src="{{ mix('js/lib.js') }}" ></script>
-			
+
 		@if (isset($css))
 			@if(is_array($css))
 				@foreach($css as $el)
@@ -155,6 +155,9 @@
 
 		</header>
 		<div class="wrapper">
+			<aside id="preview" class="mg-panel container alert-danger">
+				{!! trans('staticPages.preview.message') !!}
+			</aside>
 			<main class="mg-panel container">
 				@if (isset($success))
 					<div class="alert alert-success" role="alert">{{ $success }}</div>
