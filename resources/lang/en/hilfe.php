@@ -3,6 +3,13 @@ return [
     "achtung"                         => "Warning! Structure and functionality of our website are subject to constant development and changes. We try to update our help pages as quickly as possible, but can not prevent temporary mistakes.",
     "title"                           => "MetaGer Help",
 
+    "searchfield.title"               => 'The search field',
+    "searchfield.info"                => 'The search field contains:',
+    "searchfield.memberkey"           => 'The key symbol (only SUMA-EV members): Members can enter a private key to use the "free-of-advertising" metager search. If you want this too, just become a member: <a href = "https://metager.org/beitritt">Membership form</a>',
+    "searchfield.slot"                => 'The search field: Enter your words here.',
+    "searchfield.search"              => 'The magnifier: Start your search.'  ,
+    "result.top"                      => 'On the results page: Click / Touch the filter symbol to activate all filter options.'  ,
+
     "stopworte.title"                 => "Exclude single words",
     "stopworte.1"                     => "If you want to exclude words within the search result, you have to put a \"-\" in front of that word",
     "stopworte.2"                     => "Example: You are looking for a new car, but no BMW. Then your search should be <div class=\"well well-sm\">new car -bmw</div>",
@@ -30,7 +37,7 @@ return [
     "result.info.anonym"              => '"OPEN ANONYMOUSLY": the page will be opened under the proxy protection. There is some information about the proxy further down here.',
     "result.info.more"                => '"MORE": you will get more options, the result changes its appearance to',
     "result.info.2"                   => 'The new options are:',
-    "result.info.saveresult"          => '"Save result in TAB"(Only desktop): The result will be stored in a new TAB. It´ s used for collecting results out of several searches. This TAB appears on the right side of your screen. (info: <a href="#searchinsearch"> Search in search</a>)',
+    "result.info.saveresult"          => '"Save result in TAB" (Only desktop): The result will be stored in a new TAB. It´ s used for collecting results out of several searches. This TAB appears on the right side of your screen. (info: <a href="#searchinsearch"> Search in search</a>)',
     "result.info.domainnewsearch"     => '"start a new search on this domain": search only on this domain.',
     "result.info.hideresult"          => '"Hide": hide results from this domain. You can use this filter directly after your search words (e.g. my search words -site:*.wikipedia.org), filters can be concatenated and the wildcard "*" is allowed. Do one search with a filter and store it as a bookmark. Next time -using the bookmark- you have your settings active immediately.',
 
