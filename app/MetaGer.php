@@ -554,7 +554,9 @@ class MetaGer
             # Check if this engine can use eventually defined parameter-filter
             if ($valid) {
                 foreach ($this->parameterFilter as $filterName => $filter) {
-                    if (empty($filter->sumas->$suma)) {
+                    # We need to check if the searchengine supports the parameter value, too
+                    $value = $request->input($filter->{"get-parameter"}, "");
+                    if (empty($filter->sumas->$suma) || empty($filter->sumas->{$suma}->values->{$value})) {
                         $valid = false;
                         break;
                     }
@@ -581,6 +583,13 @@ class MetaGer
             }
 
         }
+
+        # Implements Yahoo Ads if Yahoo is not enabled as a searchengine
+        if (empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
+            $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
+        }
+
+        #die(var_dump($this->enabledSearchengines));
 
         if (sizeof($this->enabledSearchengines) === 0) {
             $filter = "";
