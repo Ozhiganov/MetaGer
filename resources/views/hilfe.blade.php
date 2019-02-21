@@ -5,6 +5,20 @@
 @section('content')
 	<div class="alert alert-warning" role="alert">{!! trans('hilfe.achtung') !!}</div>
 	<h1 class="page-title">{!! trans('hilfe.title') !!}</h1>
+
+	<section>
+		<h3>{!! trans('hilfe.searchfield.title') !!}</h3>
+		<div>
+			<p>{!! trans('hilfe.searchfield.info') !!}</p>
+			<ul class="dotlist">
+				<li>{!! trans('hilfe.searchfield.memberkey') !!}</li>
+				<li>{!! trans('hilfe.searchfield.slot') !!}</li>
+				<li>{!! trans('hilfe.searchfield.search') !!}</li>
+				<li>{!! trans('result.top') !!}</li>
+			</ul>
+		</div>
+	</section>
+
 	<section>
 		<h3>{!! trans('hilfe.stopworte.title') !!}</h3>
 		<div>
