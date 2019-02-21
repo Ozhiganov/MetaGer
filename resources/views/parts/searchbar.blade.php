@@ -3,17 +3,6 @@
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
-				<div id="search-lang">
-					<select id="input-lang" name="lang">
-						<option value="all">Alle Sprachen</option>
-						<option value="de">Deutsch</option>
-						<option value="en">English</option>
-					</select>
-					<label id="lang-label" for="input-lang" data-tooltip="{{ trans ('index.lang.tooltip') }}">
-						<i class="fa fa-globe" aria-hidden="true"></i>
-						<span id="lang-label-code"></span>
-					</label>
-				</div>
 				<div id="search-key">
 					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}" tabindex="1">
 					<label id="key-label" for="input-key" data-tooltip="{{ trans ('index.key.tooltip') }}">

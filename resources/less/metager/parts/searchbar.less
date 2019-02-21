@@ -22,19 +22,11 @@
         display: -ms-flexbox;
         display: flex;
         max-width: 600px;
-        #search-lang {
-            #input-lang {
-                background-color: transparent;
-                border: none;
-            }
-        }
-        #search-lang,
         #search-key {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             z-index: 1;
-            #input-lang,
             #input-key {
                 margin: 0;
                 padding: 0px;
@@ -48,8 +40,6 @@
                 transition: width 0.5s, padding 0.5s, outline-color 0s, border-color 0s, -webkit-box-shadow 0s;
                 transition: width 0.5s, padding 0.5s, outline-color 0s, border-color 0s, box-shadow 0s;
                 transition: width 0.5s, padding 0.5s, outline-color 0s, border-color 0s, box-shadow 0s, -webkit-box-shadow 0s;
-                -webkit-transition-delay: 0.3s;
-                transition-delay: 0.3s;
                 &:focus {
                     width: 200px;
                     padding: 6px 10px 6px 10px;
@@ -58,14 +48,12 @@
                     box-shadow: 0px 0px 2px 2px rgba(255, 128, 0, 1);
                     border-color: rgba(255, 128, 0, 1);
                     border-radius: 4px;
-                    +#lang-label,
                     +#key-label {
                         visibility: hidden;
                         width: 0px;
                     }
                 }
             }
-            #lang-label,
             #key-label {
                 cursor: pointer;
                 height: 40px;
@@ -84,9 +72,6 @@
                 transition: width 0s, visibility 0s;
                 -webkit-transition-delay: 0.3s;
                 transition-delay: 0.3s;
-                #lang-label-code {
-                    margin-left: 5px;
-                }
             }
         }
         .search-input {
@@ -183,12 +168,6 @@
 
 .resultpage-searchbar {
     .search-input-submit {
-        #search-lang,
-        #search-key {
-            @media (max-width: @screen-mobile) {
-                display: none;
-            }
-        }
         .search-input input {
             padding-right: 35px; // Makes it so the overlayed delete button does not hide the text belowF
         }

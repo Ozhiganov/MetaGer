@@ -40,8 +40,8 @@
 					@yield('results')
 				</div>
 			</div>
+			@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		@endif
-		@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
 		<script src="{{ mix('js/focus-creator.js') }}" defer></script>

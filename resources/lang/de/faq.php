@@ -25,7 +25,7 @@ return [
     'faq.10.h' => 'Mit meinem XYZ-Browser und dem XYZ-Betriebssystem kann ich MetaGer nicht abfragen. Was tun?',
     'faq.10.b' => 'Versuchen Sie bitte zuerst, das aktuelle Plugin zu installieren. Zum Installieren einfach auf den Link direkt unter dem Suchfeld klicken. Dort sollte Ihr Browser schon erkannt worden sein. Wenn Sie dann noch Probleme haben sollten, wenden Sie sich bitte an uns: <a href="mailto:office@suma-ev.de" target="_blank" rel="noopener">office@suma-ev.de</a>',
     'faq.11.h' => 'Wo habt ihr eigentlich all’ die klugen Sprüche her?',
-    'faq.11.b' => 'Sie sind aus Quellen im Internet zusammengesucht. Den größten Teil hatte uns netterweise Alexander Hammer zur Verfügung gestellt. Schönen Dank! Nebenbei bemerkt: Wir teilen keineswegs die inhaltliche Meinung, die in jedem Spruch zum Ausdruck kommt! Sprüche sollen und müssen kontroverses darstellen. Unter "anpassen" können Sie diese ausschalten.',
+    'faq.11.b' => 'Sie sind aus Quellen im Internet zusammengesucht. Den größten Teil hatte uns netterweise Alexander Hammer zur Verfügung gestellt. Schönen Dank! Nebenbei bemerkt: Wir teilen keineswegs die inhaltliche Meinung, die in jedem Spruch zum Ausdruck kommt! Sprüche sollen und müssen kontroverses darstellen.',
     'faq.12.h' => 'Wie kann ich die Anzeige meiner vorherigen Suchen löschen?',
     'faq.12.b' => 'Die Suchvorschläge liefert Ihnen Ihr Webbrowser, sie müssen die Suchvorschläge also auch in ihrem Browser ausschalten. Meist geht das über die Chronik. Unser Service hat damit jedoch nichts zu tun, wir können ihnen also nicht weiter helfen.',
     'faq.13.h' => 'Wie haltet ihr es eigentlich mit dem Datenschutz, wie lange wird bei euch was gespeichert?',

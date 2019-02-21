@@ -10,7 +10,7 @@
 @additions-width-min: 300px;
 @additions-width-max: 500px;
 // Breakpoints for the 2 resultpage columns
-@resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 4);
+@resultpage-breakpoint-max: (@results-width-max + @additions-width-max + @padding-small-default * 2 + @padding-small-default * 4 + 6);
 @resultpage-breakpoint-min: (@results-width-min + @additions-width-min + @padding-small-default * 4);
 @product-shop-color: green;
 // The point upon which a .screen-large logo is displayed
@@ -332,23 +332,21 @@ a {
 
 #resultpage-container {
     margin: @padding-small-default;
-    margin-left: @results-margin-left;
     display: grid;
-    grid-template-columns: @results-width-max @additions-width-max;
-    grid-template-areas: "searchbar ." "foki ." "options ." "results additions";
+    grid-template-columns: minmax(0px, 150px) @results-width-max @additions-width-max;
+    grid-template-areas: "whitespace searchbar ." "whitespace foki ." "whitespace options ." "whitespace results additions" "whitespace footer .";
     grid-column-gap: (@padding-small-default * 2);
     grid-row-gap: @padding-small-default;
     justify-items: stretch;
     align-items: stretch;
     /**/
     background-color: @resultpage-background-color;
+    #whitespace {
+        grid-area: whitespace;
+    }
     #research-bar-container {
         grid-area: searchbar;
-    }
-    #research-bar-placeholder {
-        grid-area: searchbar;
-        /**/
-        max-width: @results-width-max;
+        position: sticky;
     }
     #foki {
         grid-area: foki;
@@ -372,16 +370,19 @@ a {
             display: none;
         }
     }
+    footer {
+        grid-area: footer;
+    }
     @media (max-width: @resultpage-breakpoint-max) {
         @supports (display: grid) {
             grid-template-columns:~"calc(60% - 8px)"~"calc(40% - 8px)";
-            grid-template-areas: "searchbar ." "foki ." "options ." "results additions";
+            grid-template-areas: "searchbar ." "foki ." "options ." "results additions" "footer .";
         }
     }
     @media (max-width: @resultpage-breakpoint-min) {
         margin-left: @padding-small-default;
         grid-template-columns: 100%;
-        grid-template-areas: "searchbar" "foki" "options" "results";
+        grid-template-areas: "searchbar" "foki" "options" "results" "footer";
         #additions-container {
             display: none;
         }
@@ -389,24 +390,12 @@ a {
 }
 
 #research-bar-container {
-    margin-left: (@results-margin-left - @padding-small-default);
-    position: fixed;
+    position: sticky;
     z-index: 5;
     top: 0;
     left: 0;
     background-color: @resultpage-background-color;
-    padding: @padding-small-default @padding-small-default 0px @padding-small-default;
-    width: (@results-width-max + 2 * @padding-small-default);
-    max-width: (@results-width-max + 2 * @padding-small-default);
-    @media (max-width: @resultpage-breakpoint-max) {
-        @supports (display: grid) {
-            width: ~"calc(60% - 6px)";
-        }
-    }
-    @media (max-width: @resultpage-breakpoint-min) {
-        width: 100%;
-        margin-left: 0px;
-    }
+    max-width: @results-width-max;
     #research-bar {
         background-color: white;
         border: 1px solid #ccc;
@@ -456,7 +445,7 @@ a {
             .card;
         }
         &>div {
-            padding: 0px 10px;
+            padding-right: 16px;
             &>a {
                 color: black;
             }
@@ -568,6 +557,7 @@ a {
 }
 
 footer.resultPageFooter {
+
     max-width: @results-width-max;
     margin-top: 20px;
     @media (max-width: (2 * @results-margin-left + @results-width-max - 1px)) {
@@ -576,7 +566,6 @@ footer.resultPageFooter {
 }
 
 /* Searchbar Opener */
-
 #research-bar>.sidebar-opener {
     display: none;
     margin-right: 10px;
@@ -622,7 +611,7 @@ footer.resultPageFooter {
     text-align: center;
     position: fixed;
     width: 100%;
-    padding: 15px;
+    padding: 8px;
     @media (max-width: @screen-mobile) {
         padding: 5px;
     }

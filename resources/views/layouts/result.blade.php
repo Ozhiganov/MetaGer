@@ -2,9 +2,6 @@
 	<div class="result-header">
 		<div class="result-headline">
 			<h2 class="result-title">
-				@if(stripos($result->anzeigeLink, "twitter.com") !== false)
-					<i class="fa fa-twitter" aria-hidden="true"></i>
-				@endif
 				@if( isset($result->price) && $result->price != 0)
 					<span class="result-price">{!! $result->price_text !!}</span>
 				@endif
