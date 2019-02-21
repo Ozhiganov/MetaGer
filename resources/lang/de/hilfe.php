@@ -32,11 +32,11 @@ return [
     "grossklein.3.example"            => "SUCHMASCHINE",
 
     "result.title"                    => 'Ergebnisse',
-    "result.info.1"                   => 'Alle Ergebnisse werden in folgender Form ausgegeben:',
+    "result.info.1"                   => 'Alle Ergebnisse werden in folgender Form ausgegeben:<p><div class="image-container"><img src="/img/hilfe-php-resultpic-01.png"></div></p>',
     "result.info.open"                => '"ÖFFNEN": Klicken Sie auf die Überschrift, den darunter stehenden Link (die URL) oder auch auf den Button "ÖFFNEN", um das Ergebnis zu öffnen. Ihre Browsereinstellungen bestimmen, ob dafür ein neuer TAB verwendet wird.',
     "result.info.newtab"              => '"IN NEUEM TAB ÖFFNEN" öffnet das Ergebnis auf jeden Fall in einem neuen TAB.',
     "result.info.anonym"              => '"ANONYM ÖFFNEN" bewirkt, dass das Ergebnis unter dem Schutz unseres Proxys geöffnet wird. Einige Infos dazu finden Sie weiter unten auf dieser Seite.',
-    "result.info.more"                => 'MEHR: Wenn Sie hier klicken, dann erhalten Sie neue Optionen; das Aussehen des Ergebnisses ändert sich:',
+    "result.info.more"                => 'MEHR: Wenn Sie hier klicken, dann erhalten Sie neue Optionen; das Aussehen des Ergebnisses ändert sich:<p><div class="image-container"><img src="/img/hilfe-php-resultpic-02.png"></div></p>',
     "result.info.2"                   => 'Die neuen Optionen sind:',
     "result.info.saveresult"          => '"Ergebnis speichern" (Nur Desktopversion): Dieses Ergebnis wird in einem Sammeltab gespeichert. Der TAB erscheint rechts und bleibt über beliebig viele Suchen aktiv. (siehe <a href="#searchinsearch"> Suche in der Suche</a>)',
     "result.info.domainnewsearch"     => '"Auf dieser Domain neu suchen": Auf der Domain des Ergebnisses wird "genauer nachgesehen".',
@@ -77,7 +77,7 @@ return [
 
     "datenschutz.1"                   => "Cookies, Session-IDs und IP-Adressen",
     "datenschutz.2"                   => "Nichts von alldem wird hier bei MetaGer verwendet, gespeichert, aufgehoben oder sonst irgendwie verarbeitet (Ausnahme: Kurzfristige Speicherung gegen Hacking- und Bot-Attacken). Weil wir diese Thematik für extrem wichtig halten, haben wir auch Möglichkeiten geschaffen, die Ihnen helfen können, hier ein Höchstmaß an Sicherheit zu erreichen: den MetaGer-TOR-Hidden-Service und unseren anonymisierenden Proxyserver.",
-    "datenschutz.3"                   => "Mehr Informationen finden Sie unter \"Dienste\" in der Navigationsleiste.",
+    "datenschutz.3"                   => "Mehr Informationen finden Sie weiter unten. Die Funktionen sind unter \"Dienste\" in der Navigationsleiste erreichbar.",
 
     "tor.title"                       => "Tor-Hidden-Service",
     "tor.1"                           => "Bei MetaGer werden schon seit vielen Jahren die IP-Adressen ausgeblendet und nicht gespeichert. Nichtsdestotrotz sind diese Adressen auf dem MetaGer-Server zeitweise, während eine Suche läuft, sichtbar: wenn MetaGer also einmal kompromittiert sein sollte, dann könnte dieser Angreifer Ihre Adressen mitlesen und speichern. Um dem höchsten Sicherheitsbedürfnis entgegenzukommen, unterhalten wir eine MetaGer-Instanz im Tor-Netzwerk: den MetaGer-TOR-hidden-Service - erreichbar über: <a href=\"/tor/\" target=\"_blank\" rel=\"noopener\">https://metager.de/tor/</a>. Für die Benutzung benötigen Sie einen speziellen Browser, den Sie auf <a href=\"https://www.torproject.org/\" target=\"_blank\" rel=\"noopener\">https://www.torproject.org/</a> herunter laden können.",

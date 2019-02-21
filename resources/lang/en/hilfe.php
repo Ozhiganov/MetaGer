@@ -31,11 +31,11 @@ return [
     "grossklein.3.example"            => "CAPITALIZATION",
 
     "result.title"                    => 'Results',
-    "result.info.1"                   => 'All results will look like this:',
+    "result.info.1"                   => 'All results will look like this:<p><div class="image-container"><img src="/img/hilfe-php-resultpic-en-01.png"></div></p>',
     "result.info.open"                => '"OPEN": Click the headline, the link below (URL) or the "OPEN" button to open the result. This will be in the same or a new TAB due to your browser settings.',
     "result.info.newtab"              => '"OPEN IN NEW TAB" will open the result in a new TAB in any case.',
     "result.info.anonym"              => '"OPEN ANONYMOUSLY": the page will be opened under the proxy protection. There is some information about the proxy further down here.',
-    "result.info.more"                => '"MORE": you will get more options, the result changes its appearance to',
+    "result.info.more"                => '"MORE": you will get more options, the result changes its appearance to:<p><div class="image-container"><img src="/img/hilfe-php-resultpic-en-02.png"></div></p>',
     "result.info.2"                   => 'The new options are:',
     "result.info.saveresult"          => '"Save result in TAB" (Only desktop): The result will be stored in a new TAB. It´ s used for collecting results out of several searches. This TAB appears on the right side of your screen. (info: <a href="#searchinsearch"> Search in search</a>)',
     "result.info.domainnewsearch"     => '"start a new search on this domain": search only on this domain.',
@@ -47,7 +47,7 @@ return [
     "urls.example.2"                  => "Type <i>my search words</i> -url:dog",
 
     "bang.title"                      => "!bangs",
-    "bang.1"                          => "MetaGer uses a little a special spelling called \"!bang syntax\". A !bang starts with the \"!\" and doesn' t contain blanks (\"!twitter\", \"!facebook\" for example). If you use a !bang supported by MetaGer you will see a new entry in the \"Quicktips\". We direct then to the specified service (click the button). Read more about our method departing from others:  <a href=\"/faq/#bangs\" target=\"_blank\" rel=\"noopener\">unseren FAQ</a>",
+    "bang.1"                          => "MetaGer uses a little a special spelling called \"!bang syntax\". A !bang starts with the \"!\" and doesn't contain blanks (\"!twitter\", \"!facebook\" for example). If you use a !bang supported by MetaGer you will see a new entry in the \"Quicktips\". We direct then to the specified service (click the button). Read more about our method departing from others:  <a href=\"/faq/#bangs\" target=\"_blank\" rel=\"noopener\"> FAQ</a>",
     
     "searchinsearch.title"            => "Search in search",
     "searchinsearch.1"                => "The result will be stored in a new TAB appearing at the right side of the screen. It is called \"Saved results\". You can store here single results from several searches. The TAB persists. Entering this TAB you get your personal result list with tools to filter and sort the results. Click another TAB to go back for further searches. You won´t have this if the screen is too small. More info (only german so far): <a href=\"http://blog.suma-ev.de/node/225\" target=\"_blank\" rel=\"noopener\"> http://blog.suma-ev.de/node/225</a>.",
@@ -76,7 +76,7 @@ return [
     "datenschutz.faktencheck.body.2"  => "<a href=\"en/hilfe/faktencheck\">Checklist</a>",
     "datenschutz.1"                   => "Cookies, Session-IDs, IP addresses",
     "datenschutz.2"                   => "We don&apos;t store or work with any personal information (For the purpose of securing our servers against Hacking- and Bot-Attacks, we need to store these information for a short period of time. It will be then automatically deleted afterwards). We provide further privacy security services as follows:",
-    "datenschutz.3"                   => "For more details see \"Tools\" above.",
+    "datenschutz.3"                   => "For more details see below. Click / touch the burger menu to use the tools.",
     
     "tor.title"                       => "Tor Hidden Service",
     "tor.1"                           => "MetaGer provides the highest reachable security level for your privacy (anonymised IP addresses, servers under german privacy protection law). For further security needs or fear of compromised servers you may use the MetaGer-Tor branch. Please download the specialized webbrowser from <a href=\"https://www.torproject.org/\" target=\"_blank\" rel=\"noopener\">https://www.torproject.org/</a>. You will find help there, too.",
