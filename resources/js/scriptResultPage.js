@@ -1,18 +1,7 @@
 $(document).ready(function () {
-  activateJSOnlyContent();
-  var focus = $('#foki > li.active > a').attr('aria-controls');
-  var custom = $('#foki > li.active').hasClass('custom-focus-tab-selector');
+
   getDocumentReadyForUse(focus, custom);
   botProtection();
-  if (document.location.href.indexOf('focus=container') !== -1) {
-    $($('#foki > li#savedFokiTabSelector').get(0)).find('>a').tab('show');
-  }
-
-  if (localStorage.hasOwnProperty('param_sprueche')) {
-    var sprueche = localStorage.getItem('param_sprueche') === 'on'; // check for sprueche local storage parameter
-  } else {
-    var sprueche = getURLParameter('sprueche', 'on') === 'on'; // load the sprueche url parameter
-  }
 
   var search = getMetaTag('q') || '';
   var locale = getMetaTag('l') || 'de';
@@ -37,36 +26,8 @@ function getMetaTag(name) {
   }
 }
 
-function activateJSOnlyContent() {
-  $('#searchplugin').removeClass('hide');
-  $('.js-only').removeClass('js-only');
-}
 
-function tabs() {
-  $('#foki > li.tab-selector > a').each(function () {
-    if ($(this).attr('target') != '_blank') {
-      $(this).attr('href', '#' + $(this).attr('aria-controls'));
-      $(this).attr('role', 'tab');
-      $(this).attr('data-toggle', 'tab');
-    }
-  });
-  $('#foki > li.tab-selector > a').off();
-  $('#foki > li.tab-selector > a').on('show.bs.tab', function (e) {
-    var fokus = $(this).attr('aria-controls');
-    var link = $('#' + fokus + 'TabSelector a').attr('data-href');
-    if ($('#' + fokus + 'TabSelector').attr('data-loaded') != '1') {
-      $.get(link, function (data) {
-        $('#' + fokus + 'TabSelector').attr('data-loaded', '1');
-        $('#' + fokus).html(data);
-        $('input[name=focus]').val($('#foki li.active a').attr('aria-controls'));
-        getDocumentReadyForUse(fokus);
-      });
-    } else {
-      getDocumentReadyForUse(fokus);
-    }
-  });
-  $('#search-delete-btn').removeClass('hidden');
-}
+
 
 function getDocumentReadyForUse(fokus, custom) {
   if (typeof custom == 'undefined') custom = false;
@@ -114,13 +75,13 @@ function botProtection() {
       newtab = true;
     }
     $.ajax({
-        url: '/img/cat.jpg',
-        type: 'post',
-        data: {
-          mm: $('meta[name=mm]').attr('content')
-        },
-        timeout: 2000
-      })
+      url: '/img/cat.jpg',
+      type: 'post',
+      data: {
+        mm: $('meta[name=mm]').attr('content')
+      },
+      timeout: 2000
+    })
       .always(function () {
         if (!newtab)
           document.location.href = link;

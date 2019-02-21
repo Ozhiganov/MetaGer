@@ -57,22 +57,21 @@
 					<h3>{!! trans('spende.paypal.title') !!}</h3>
 					<p>{!! trans('spende.paypal.subtitle') !!}</p>
 					<div class="center-wrapper">
-						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-							<input name="cmd" value="_xclick" type="hidden">
-							<input name="business" value="wsb@suma-ev.de" type="hidden">
-							<input name="item_name" value="SuMa-eV Spende" type="hidden">
-							<input name="buyer_credit_promo_code" value="" type="hidden">
-							<input name="buyer_credit_product_category" value="" type="hidden">
-							<input name="buyer_credit_shipping_method" value="" type="hidden">
-							<input name="buyer_credit_user_address_change" value="" type="hidden">
-							<input name="no_shipping" value="0" type="hidden">
-							<input name="no_note" value="1" type="hidden">
-							<input name="currency_code" value="EUR" type="hidden">
-							<input name="tax" value="0" type="hidden">
-							<input name="lc" value="DE" type="hidden">
-							<input name="bn" value="PP-DonationsBF" type="hidden">
-							<input src="/img/paypalspenden.gif" name="submit" width="120" alt="{!! trans('spende.paypal.2') !!}" type="image">
+						@if (LaravelLocalization::getCurrentLocale() == "de")
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick" />
+							<input type="hidden" name="hosted_button_id" value="5JPHYQT88JSRQ" />
+							<input type="image" src="{{ action('Pictureproxy@get', ['url' => 'https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif']) }}" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+							<img alt="" border="0" src="{{ action('Pictureproxy@get', ['url' => 'https://www.paypal.com/de_DE/i/scr/pixel.gif']) }}" width="1" height="1" />
 						</form>
+						@else
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick" />
+							<input type="hidden" name="hosted_button_id" value="LXWAVD6P3ZSWG" />
+							<input type="image" src="{{ action('Pictureproxy@get', ['url' => 'https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif']) }}" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+							<img alt="" border="0" src="{{ action('Pictureproxy@get', ['url' => 'https://www.paypal.com/en_DE/i/scr/pixel.gif']) }}" width="1" height="1" />
+						</form>
+						@endif
 					</div>
 				</div>
 				<div class="section">

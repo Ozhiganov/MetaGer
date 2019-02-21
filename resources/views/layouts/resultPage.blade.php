@@ -16,7 +16,6 @@
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/themes/metager.css') }}" />
-		<link type="text/css" rel="stylesheet" href="/fonts/arimo/stylesheet.css" />
 		<meta name="referrer" content="origin">
 		<meta name="age-meta-label" content="age=18"/>
 		@include('parts.utility')
@@ -44,7 +43,6 @@
 		@endif
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
-		<script src="{{ mix('js/focus-creator.js') }}" defer></script>
 		<script src="{{ mix('js/searchbar.js') }}" defer></script>
 	</body>
 </html>
