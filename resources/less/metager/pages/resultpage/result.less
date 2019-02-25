@@ -177,14 +177,33 @@
                 margin-right: 2px;
             }
         }
-        .open-result-options {
+        .open-result-options, .close-result-options {
             font-weight: normal;
             font-size: @result-font-small;
             flex-grow: 1;
             text-align: right;
             margin-right: 0;
         }
+        .close-result-options {
+            display: none;
+        }
     }
+
+    /* CSS Rules for the result options */
+    .result-toggle{
+        &:checked + .result-footer > .open-result-options {
+            display: none;
+        }
+        &:checked + .result-footer > .close-result-options {
+            display: initial;
+        }
+        &:checked + .result-footer + .result-options > .options {
+            max-height: 150px;
+            overflow: initial;
+            opacity: 1;
+        }
+    }
+
     .result-footer * {
         font-size: 10px !important;
     }
@@ -214,11 +233,6 @@
             transition: all 1s;
             -webkit-transition: all 1s;
             opacity: 0;
-        }
-        &>.result-toggle:checked+.options {
-            max-height: 150px;
-            overflow: initial;
-            opacity: 1;
         }
         ul {
             display: flex;

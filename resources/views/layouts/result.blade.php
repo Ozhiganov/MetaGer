@@ -47,6 +47,7 @@
 			</div>
 		@endif
 	</div>
+	<input type="checkbox" id="result-toggle-{{$result->number}}" class="result-toggle" style="display: none">
 	<div class="result-footer">
 		<a class="result-open" href="{{ $result->link }}" target="_self" rel="noopener">
 			{!! trans('result.options.7') !!}
@@ -60,9 +61,11 @@
 		<label class="open-result-options navigation-element" for="result-toggle-{{$result->number}}">
 			{{ trans('result.options.more')}}
 		</label>
+		<label class="close-result-options navigation-element" for="result-toggle-{{$result->number}}">
+			{{ trans('result.options.less')}}
+		</label>
 	</div>
 	<div class="result-options">
-		<input type="checkbox" id="result-toggle-{{$result->number}}" class="result-toggle" style="display: none">
 		<div class="options">
 				<ul class="option-list list-unstyled small">
 					<li class="js-only">
