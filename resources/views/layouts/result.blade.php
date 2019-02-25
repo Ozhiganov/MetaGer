@@ -9,7 +9,7 @@
 					{!! $result->titel !!}
 				</a>
 			</h2>
-			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ $result->gefVon }}</a>
+			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ trans('result.gefVon') . " " . $result->gefVon }}</a>
 		</div>
 		<div class="result-subheadline">
 			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
