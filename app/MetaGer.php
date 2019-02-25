@@ -983,7 +983,7 @@ class MetaGer
             $this->sprueche = false;
         }
 
-        $this->newtab = $request->input('newtab', 'off');
+        $this->newtab = $request->input('newtab', 'on');
         if ($this->newtab === "on") {
             $this->newtab = "_blank";
         } else {
