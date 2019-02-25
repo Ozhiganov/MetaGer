@@ -10,10 +10,12 @@
     &:nth-child(1) {
         margin-top: 0;
     }
+    margin: (@padding-small-default * 2) 0px;
     @media(max-width: @screen-mobile){
         .card;
+        margin: @padding-small-default 0px;
     }
-    margin: (@padding-small-default * 2) 0px;
+    
     padding: 0px 8px;
     width: 100%;
     .result-header {
