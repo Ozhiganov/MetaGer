@@ -1,7 +1,7 @@
 <div class="result" data-count="{{ $result->number }}">
 	<div class="result-header">
 		<div class="result-headline">
-			<h2 class="result-title">
+			<h2 class="result-title" title="{{ $result->titel }}">
 				@if( isset($result->price) && $result->price != 0)
 					<span class="result-price">{!! $result->price_text !!}</span>
 				@endif
@@ -12,7 +12,7 @@
 			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ trans('result.gefVon') . " " . $result->gefVon }}</a>
 		</div>
 		<div class="result-subheadline">
-			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
+			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" title="{{ $result->anzeigeLink }}" rel="noopener">
 				{{ $result->anzeigeLink }}
 			</a>
 			@if( isset($result->partnershop) && $result->partnershop === TRUE)
