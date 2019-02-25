@@ -26,8 +26,6 @@
 			{!! @trans('resultPage.metager3') !!}
 		</div>
 		@endif
-		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
-		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		@if( !isset($suspendheader) )
 			@include('layouts.researchandtabs')
 		@else
@@ -41,6 +39,8 @@
 			</div>
 			@include('parts.footer', ['type' => 'resultpage', 'id' => 'resultPageFooter'])
 		@endif
+		@include('parts.sidebar', ['id' => 'resultPageSideBar'])
+		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
 		<script src="{{ mix('js/searchbar.js') }}" defer></script>
