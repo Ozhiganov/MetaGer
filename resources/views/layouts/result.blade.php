@@ -1,4 +1,4 @@
-<div class="result" data-count="{{ $result->number }}">
+<div class="result" data-count="{{ $result->number }}" tabindex="0">
 	<div class="result-header">
 		<div class="result-headline">
 			<h2 class="result-title" title="{{ $result->titel }}">

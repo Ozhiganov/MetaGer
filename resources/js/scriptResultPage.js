@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  getDocumentReadyForUse(focus, custom);
+  getDocumentReadyForUse(focus);
   botProtection();
 
   var search = getMetaTag('q') || '';
@@ -29,18 +29,8 @@ function getMetaTag(name) {
 
 
 
-function getDocumentReadyForUse(fokus, custom) {
-  if (typeof custom == 'undefined') custom = false;
-  activateJSOnlyContent();
+function getDocumentReadyForUse(fokus, ) {
   popovers();
-  if (fokus === 'bilder') imageLoader();
-  if (custom) initialLoadContent(fokus);
-  // pagination()
-  tabs();
-  fokiChanger();
-  //pluginInfo();
-  $('iframe:not(.resized)').iFrameResize();
-  $('iframe').addClass('resized');
   addListeners();
 }
 

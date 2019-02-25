@@ -46,7 +46,6 @@ mix
       "resources/js/lib/jquery.js",
       "resources/js/lib/jquery-ui.min.js",
       "resources/js/lib/bootstrap.js",
-      "resources/js/lib/iframeResizer.min.js",
       "resources/js/lib/md5.js"
     ],
     "public/js/lib.js"
@@ -62,7 +61,8 @@ mix
     [
       "resources/js/scriptResultPage.js",
       "resources/js/result-saver.js",
-      "resources/js/translations.js"
+      "resources/js/translations.js",
+      "resources/js/resultpage-barriere.js"
     ],
     "public/js/scriptResultPage.js"
   )

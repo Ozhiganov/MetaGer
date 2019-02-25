@@ -21,6 +21,10 @@
 		@include('parts.utility')
 	</head>
 	<body id="resultpage-body">
+		<div id="tab-navigator">
+			<a href="#" class="tab-navigator" data-tabtargets=".result">Zu den Suchergebnissen</a>
+			<a href="#" class="tab-navigator" data-tabtargets="input[name=eingabe], #research-bar button[type=submit], #key-label">Neue Suche durchführen</a>
+		</div>
 		@if(Request::getHttpHost() === "metager3.de")
 		<div class="alert alert-info metager3-unstable-warning-resultpage">
 			{!! @trans('resultPage.metager3') !!}

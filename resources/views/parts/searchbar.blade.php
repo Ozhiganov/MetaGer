@@ -4,13 +4,13 @@
 		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
 				<div id="search-key">
-					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}" tabindex="1">
+					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}">
 					<label id="key-label" for="input-key" data-tooltip="{{ trans ('index.key.tooltip') }}">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</label>
 				</div>
 				<div class="search-input">
-					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="{{$autocomplete ?? 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
+					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="{{$autocomplete ?? 'off'}}" class="form-control" placeholder="{{ trans('index.placeholder') }}">
 					<button class="hidden" id="search-delete-btn" type="button">
 						&#xd7;
 					</button>
