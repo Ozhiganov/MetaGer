@@ -4,6 +4,9 @@
 öffentlich nachprüfbar ist, und damit Sie als Programmierer mithelfen können, alles noch besser zu machen. Weitere Hintergrundinfo dazu im 
 <a href="http://heise.de/-3295586" target="_blank" rel="noopener">Heise-Newsticker</a>.
 
+![Browserstack Logo](assets/Browserstack-logo.svg)
+We use [Browserstack](https://www.browserstack.com) for testing our website on different devices.
+
 ## Abhängigkeiten
 * composer (https://getcomposer.org/)
 * php
