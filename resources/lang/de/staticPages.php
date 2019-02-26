@@ -34,5 +34,5 @@ return [
     'meta.Description' => 'Sicher suchen und finden unter Wahrung der Privatsphäre. Das digitale Wissen der Welt muss ohne Bevormundung durch Staaten oder Konzerne frei zugänglich sein und bleiben.',
     'meta.Keywords' => 'Internetsuche, privatsphäre, privacy, Suchmaschine, Datenschutz, Anonproxy, anonym suchen, Bildersuche, Suchmaschine, anonym, MetaGer, metager, metager.de',
     'meta.language' => 'de',
-    'preview.message' => 'Testen Sie <a href="https://metager3.de">das neue MetaGer</a>! Und schreiben Sie uns <a href="https://metager.de/kontakt">Ihre Meinung</a>.',
+    'preview.message' => 'Sie befinden sich auf einer alten MetaGer Version. Diese wird nicht mehr gewartet/gepflegt. Nutzen Sie unsere <a href="https://metager.de">aktuelle Version</a>.',
 ];

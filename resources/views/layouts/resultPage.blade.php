@@ -23,6 +23,9 @@
 	<body id="resultBody">
 		@if( !isset($suspendheader) )
 			@include('layouts.researchandtabs')
+			<aside id="preview" class="mg-panel container alert-danger">
+				{!! trans('staticPages.preview.message') !!}
+			</aside>
 		@else
 			<div class="tab-content container-fluid">
 				@yield('results')
