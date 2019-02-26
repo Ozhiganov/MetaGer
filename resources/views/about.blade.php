@@ -33,9 +33,9 @@
 		<div class="card-heavy">
 		<h2>{{ trans('about.head.4') }}</h2>
 			<ul class="dotlist">
-				<li><p>{!! trans('spende.about.3') !!}</p></li>
-				<li><p>{!! trans('spende.about.4') !!}</p></li>
-				<li><p>{!! trans('spende.about.5') !!}</p></li>
+				<li><p>{!! trans('about.about.3') !!}</p></li>
+				<li><p>{!! trans('about.about.4') !!}</p></li>
+				<li><p>{!! trans('about.about.5') !!}</p></li>
 			</ul>
 		</div>
 	</div>
