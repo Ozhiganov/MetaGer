@@ -167,7 +167,7 @@ Route::group(
                 ->with('request', $this->input('request', 'GET'));
         });
 
-        Route::group([/*'middleware' => ['referer.check'],*/'prefix' => 'admin'], function () {
+        Route::group(['middleware' => ['referer.check'], 'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get', 'post'], 'count', 'AdminInterface@count');
             Route::get('check', 'AdminInterface@check');
@@ -216,7 +216,7 @@ Route::group(
                 return response()->download($filePath, "MetaGer-release.apk");
             });
             Route::get('maps', function () {
-                $filePath     = env('maps_app');
+                $filePath = env('maps_app');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Cache-Control', 'public')
@@ -226,7 +226,7 @@ Route::group(
             });
 
             Route::get('maps/version', function () {
-                $filePath     = env('maps_version');
+                $filePath = env('maps_version');
                 $fileContents = file_get_contents($filePath);
                 return response($fileContents, 200)
                     ->header('Content-Type', 'text/plain');
