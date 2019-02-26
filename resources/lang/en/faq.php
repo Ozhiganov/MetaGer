@@ -10,8 +10,7 @@ return [
     "faq.2.1.b"	=>	"Since MetaGer is a meta-search engine, every search request you send to us will be stripped of information which could lead to your identification before being sent to e.g. Yahoo. Yahoo will send their response to us which we will then forward to you. This is how we handle every search request sent to us, no matter which one of the offered search engines you use. By doing this we commit ourselves to guarantee your privacy and do not save any personal data. It is possible to verify this, since the source code of MetaGer has been released under a free license <a href=\"https://gitlab.metager3.de/open-source/MetaGer\">(https://gitlab.metager3.de/open-source/MetaGer)</a>.",
     "faq.4.h"	=>	"Why don't you metacrawl search engine XY anymore?",
     "faq.4.b"	=>	"If we do not query a search engine which we did query before, then this has technical or \\\"political\\\" reasons.",
-    "faq.5.h"	=>	"One search engine does not answer anymore.",
-    "faq.5.b"	=>	"This is likely to be caused by a technical fault. Please send us an email describing the problem: <a href=\\\"mailto:office@suma-ev.de\\\">office@suma-ev.de</a>",
+
     "faq.6.h"	=>	"Inappropriate Content",
     "faq.6.b.1"	=>	"I found results with illegal content.",
     "faq.6.b.2"	=>	"If some content (found by MetaGer) seems to be illegal, please email us to <a href=\\\"mailto:jugendschutz@metager.de\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">jugendschutz@metager.de</a>.",

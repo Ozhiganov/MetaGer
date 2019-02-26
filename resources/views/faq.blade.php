@@ -32,14 +32,6 @@
 	</section>
 	<section>
 		<div class="panel-heading">
-			<h3>{!! trans('faq.faq.5.h') !!}</h3>
-		</div>
-		<div class="panel-body">
-			<p>{!! trans('faq.faq.5.b') !!}</p>
-		</div>
-	</section>
-	<section>
-		<div class="panel-heading">
 			<h3>{!! trans('faq.faq.6.h') !!}</h3>
 		</div>
 		<div class="panel-body">

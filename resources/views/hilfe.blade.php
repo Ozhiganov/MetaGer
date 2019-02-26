@@ -42,6 +42,7 @@
 			</ul>
 		</div>
 	</section>
+	
 	<section>
 		<h3>{!! trans('hilfe.grossklein.title') !!}</h3>
 		<div>
@@ -54,13 +55,11 @@
 			</ul>
 		</div>
 	</section>
+
 	<section>
 		<h3>{!! trans('hilfe.result.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.result.info.1') !!}</p>
-			<div class="image-container">
-				<img src="/img/hilfe-php-resultpic-01.png">
-			</div>
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.open') !!}</li>
 				<li>{!! trans('hilfe.result.info.newtab') !!}</li>
@@ -68,15 +67,11 @@
 				<li>{!! trans('hilfe.result.info.more') !!}</li>
 			</ul>
 			<p>{!! trans('hilfe.result.info.2') !!}</p>
-			<div class="image-container">
-				<img src="/img/hilfe-php-resultpic-02.png">
-			</div>
 			<ul class = "dotlist">
 				<li>{!! trans('hilfe.result.info.saveresult') !!}</li>
 				<li>{!! trans('hilfe.result.info.domainnewsearch') !!}</li>
 				<li>{!! trans('hilfe.result.info.hideresult') !!}</li>
 			</ul>
-
 		</div>
 	</section>
 
