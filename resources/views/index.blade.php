@@ -22,7 +22,8 @@
 		<div>
 			<h2>{!! trans('index.slogan.title') !!}</h2>
 			<p>{!! trans('index.slogan.1') !!}</p>
-			<p>{!! trans('index.slogan.2') !!}</p>
+			<!--<p>{!! trans('index.slogan.2') !!}</p>-->
+			<p>{!! trans('index.preredesign') !!}</p>
 		</div>
 	</div>
 	<div id="sponsors">
