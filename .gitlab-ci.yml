@@ -1,6 +1,6 @@
-update(metager2):
+update(MetaGer Preredesign):
   tags:
-  - metager2
+  - 144.76.113.134
   only:
     - Preredesign@open-source/MetaGer
   before_script:
