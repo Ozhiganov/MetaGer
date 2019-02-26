@@ -1,6 +1,6 @@
 update(metager2):
   tags:
-  - 144.76.182.236
+  - metager2
   only:
     - Preredesign@open-source/MetaGer
   before_script:
