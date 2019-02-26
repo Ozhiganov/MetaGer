@@ -14,7 +14,7 @@
 				<li>{!! trans('hilfe.searchfield.memberkey') !!}</li>
 				<li>{!! trans('hilfe.searchfield.slot') !!}</li>
 				<li>{!! trans('hilfe.searchfield.search') !!}</li>
-				<li>{!! trans('result.top') !!}</li>
+				<li>{!! trans('hilfe.result.top') !!}</li>
 			</ul>
 		</div>
 	</section>
@@ -42,7 +42,7 @@
 			</ul>
 		</div>
 	</section>
-	
+
 	<section>
 		<h3>{!! trans('hilfe.grossklein.title') !!}</h3>
 		<div>
