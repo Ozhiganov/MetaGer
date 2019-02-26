@@ -11,7 +11,7 @@
 				</div>
 				<div class="search-input">
 					<input type="text" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="off" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
-					<button class="hidden" id="search-delete-btn" type="button">
+					<button id="search-delete-btn" type="button">
 						&#xd7;
 					</button>
 				</div>
