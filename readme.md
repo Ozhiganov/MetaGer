@@ -22,6 +22,10 @@
   * Lingua::Identify (http://search.cpan.org/~ambs/Lingua-Identify-0.56/lib/Lingua/Identify.pm)
   * JSON (http://search.cpan.org/~makamaka/JSON-2.90/lib/JSON.pm)
 
+---
+[<img src="public/img/Browserstack-logo_2x.png" width="250px" alt="Browserstack Logo" />](https://www.browserstack.com) <br /> 
+We use the awesome project [Browserstack](https://www.browserstack.com) for cross browser testing.
+
 ## Offizielle Dokumentation
 
 Die Dokumentation ist im [Wiki des Gitlab-Projektes](https://gitlab.metager3.de/open-source/MetaGer/wikis/home) zu finden.
@@ -41,4 +45,6 @@ zögere bitte nicht ein [Ticket zu schreiben](https://gitlab.metager3.de/open-so
 
 Der MetaGer-eigene Code, sofern nicht anders anders angegeben, steht unter der [AGPL-Lizenz Version 3](https://www.gnu.org/licenses/agpl-3.0).
 
-Eine Liste der Projekte, auf denen MetaGer basiert, und deren Lizenzen sind in der Datei [LICENSE](https://gitlab.metager3.de/open-source/MetaGer/blob/development/LICENSE) zu finden. 
+Eine Liste der Projekte, auf denen MetaGer basiert, und deren Lizenzen sind in der Datei [LICENSE](https://gitlab.metager3.de/open-source/MetaGer/blob/development/LICENSE) zu finden.   
+
+
