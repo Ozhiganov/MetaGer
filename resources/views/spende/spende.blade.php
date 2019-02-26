@@ -8,8 +8,7 @@
 	<div id="donation">
 		<div class="section">
 			<h1>{!! trans('spende.headline.1') !!}</h1>
-			<h2>{!! trans('spende.headline.2') !!}</h2>
-			<p><i class="fa fa-info fa-fw fa-lg" aria-hidden="true"></i>{!! trans('spende.bankinfo.3') !!}</p>
+			<p>{!! trans('spende.headline.2') !!}</p>
 		</div>
 		<div class="two-col">
 			<div class="col-left">
