@@ -35,6 +35,12 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
+        'enableCookies' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        ],
+
         'session' => [
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
