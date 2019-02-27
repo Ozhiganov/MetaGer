@@ -6,17 +6,32 @@
 <link type="text/css" rel="stylesheet" href="{{ mix('/css/key.css') }}" />
 <div id="key-site">
     <div class="section">
-        <h1>Schlüssel für Ihre Werbefreie Suche</h1>
-        <p>MetaGer bietet seinen <a href="{{LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/beitritt')}}">Mitgliedern</a> und großzügigen <a href="{{LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/spende')}}">Spendern</a> einen Schlüssel an, mit dem die Suchmaschine komplett werbefrei verwendet werden kann.</p>
-        <p>Auf dieser Seite können Sie Ihren Schlüssel (sofern bekannt) eingeben. Wir speichern diesen mit Hilfe eines Cookies auf Ihrem PC. Auf diese Weise sendet Ihr Browser den Schlüssel automatisch bei jeder durchgeführten Suche an uns, sodass wir die Werbung für Sie entfernen können. Der Schlüssel wird natürlich zu keinem Zeitpunkt so verwendet, dass wir die durchgeführten Suchen Ihnen persönlich zuordnen könnten. Er wird von uns auch nicht gespeichert, oder geloggt.</p>
-        <p>Wichtig: Um diese Funktion nutzen zu können, müssen Sie Cookies in Ihrem Browser zugelassen haben. Die Einstellung bleibt dann solange gespeichert, wie Ihr Browser Cookies speichert.</p>
+        <h1>{{ trans('key.h1')}}</h1>
+        <p>{!! trans('key.p1', ['url1' => LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/beitritt'), 'url2' => LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/spende')])!!}</p>
+        <p>{{ trans('key.p2') }}</p>
+        <p>{{ trans('key.p3') }}</p>
+        <p>{{ trans('key.p4') }}</p>
     </div>
     <div class="section">
-        <form method="post">
-            <input type="hidden" name="redirUrl" value="{{ Request::input('redirUrl', '') }}" />
-            <input type="text" name="key" placeholder="Schlüssel eingeben...">
-            <button type="submit" class="btn btn-success">OK</button>
-        </form>
+        <div id="form-wrapper">
+            <form method="post">
+                <input type="hidden" name="redirUrl" value="{{ Request::input('redirUrl', '') }}" />
+                <input type="text" name="key" value="{{Cookie::get('key')}}" placeholder="@lang('key.placeholder1')" autofocus>
+                <button type="submit" class="btn btn-success">OK</button>
+            </form>
+            @if(Cookie::get('key') !== NULL)
+            <form method="post" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('KeyController@removeKey', ['redirUrl' => url()->full()])) }}">
+                <input type="hidden" name="redirUrl" value="{{ Request::input('redirUrl', '') }}" />
+                <button type="submit" class="btn btn-error">@lang('key.removeKey')</button>
+            </form>
+            @endif
+        </div>
+        @if(isset($keyValid) && $keyValid === false)
+        <p class="error">@lang('key.invalidKey')</p>
+        @endif
+        @if(Request::input('redirUrl', '') !== '')
+        <div id="back-link"><a href="{{Request::input('redirUrl')}}">@lang('key.backLink')</a></div>
+        @endif
     </div>
 </div>
 @endsection

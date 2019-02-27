@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapSessionRoutes();
+
+        $this->mapEnableCookieRoutes();
 
         //
     }
@@ -83,6 +85,23 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "session" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapEnableCookieRoutes()
+    {
+        Route::group([
+            'middleware' => 'enableCookies',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/cookie.php');
+        });
+    }
+
+    /**
+     * Define the "session" routes for the application.
+     *
+     * These routes can all set cookies.
      *
      * @return void
      */

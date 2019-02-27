@@ -4,7 +4,7 @@
 		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
 				<div id="search-key">
-					<a id="key-link" href="{{ action('KeyController@index', ['redirUrl' => url()->full() ]) }}" data-tooltip="{{ trans ('index.key.tooltip') }}">
+					<a id="key-link" @if(isset($apiAuthorized) && $apiAuthorized)class="authorized" @else class="unauthorized"@endif href="{{ action('KeyController@index', ['redirUrl' => url()->full() ]) }}" data-tooltip="{{ trans ('index.key.tooltip') }}">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</a>
 				</div>
