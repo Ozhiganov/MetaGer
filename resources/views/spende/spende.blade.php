@@ -47,9 +47,13 @@
 				</div>
 			</div>
 			<div class="col-right">
-				<div class="section">
+				<div class="section" id="direct-payment">
 					<h3>{!! trans('spende.bankinfo.1') !!}</h3>
 					<p>{!! trans('spende.bankinfo.2') !!}</p>
+					<p>{!! trans('spende.bankinfo.2.1') !!}</p>
+					<p>{!! trans('spende.bankinfo.2.2') !!}</p>
+					<p>{!! trans('spende.bankinfo.2.3') !!}</p>
+					<p>{!! trans('spende.bankinfo.2.4') !!}</p>
 				</div>
 				<div class="section">
 					<h3>{!! trans('spende.paypal.title') !!}</h3>
