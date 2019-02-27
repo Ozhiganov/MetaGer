@@ -26,11 +26,11 @@
 			<p>{!! trans('index.preredesign') !!}</p>
 		</div>
 	</div>
-	<div id="sponsors">
+	<div id="s">
 		<h2>{{ trans('index.sponsors.head') }}</h2>
 		<ul class="startpage">
 			@foreach($sponsors as $link)
-			<li class="sponsor">
+			<li class="sr">
 				<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
 			</li>
 			@endforeach
