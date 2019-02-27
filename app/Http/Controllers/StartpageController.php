@@ -48,6 +48,7 @@ class StartpageController extends Controller
         $sponsors = [];
         try {
             $sponsors = DB::table('sponsorenlinks')->where('langcode', 'de')->orderByRaw('LENGTH(linktext)', 'ASC')->get();
+            DB::disconnect('mysql');
         } catch (\Illuminate\Database\QueryException $e) {
             Log::info($e);
         }
