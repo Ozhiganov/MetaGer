@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
 use Queue;
-use Illuminate\Support\Facades\Redis;
 use Request;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,10 +24,13 @@ class AppServiceProvider extends ServiceProvider
          * We will change the Locale to en
          */
         $host = Request::header("X_Forwarded_Host", "");
+        if (empty($host)) {
+            $host = Request::header("Host", "");
+        }
 
-        if(stripos($host, "metager.org") !== FALSE){
-            App::setLocale('en');
-        }   
+        if (stripos($host, "metager.org") !== false) {
+            \App::setLocale('en');
+        }
 
         # Wir loggen im Redis-System für jede Sekunde des Tages, wie viele Worker aktiv am Laufen waren.
         # Dies ist notwendig, damit wir mitbekommen können, ab welchem Zeitpunkt wir zu wenig Worker zur Verfügung haben.
@@ -35,8 +38,8 @@ class AppServiceProvider extends ServiceProvider
             $this->begin = strtotime(date(DATE_RFC822, mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"))));
         });
         Queue::after(function (JobProcessed $event) {
-            $today    = strtotime(date(DATE_RFC822, mktime(0, 0, 0, date("m"), date("d"), date("Y"))));
-            $end      = strtotime(date(DATE_RFC822, mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y")))) - $today;
+            $today = strtotime(date(DATE_RFC822, mktime(0, 0, 0, date("m"), date("d"), date("Y"))));
+            $end = strtotime(date(DATE_RFC822, mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y")))) - $today;
             $expireAt = strtotime(date(DATE_RFC822, mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"))));
             try {
                 $redis = Redis::connection('redisLogs');
@@ -44,8 +47,8 @@ class AppServiceProvider extends ServiceProvider
                     return;
                 }
 
-                $p     = getmypid();
-                $host  = gethostname();
+                $p = getmypid();
+                $host = gethostname();
                 $begin = $this->begin - $today;
                 $redis->pipeline(function ($pipe) use ($p, $expireAt, $host, $begin, $end) {
                     for ($i = $begin; $i <= $end; $i++) {
