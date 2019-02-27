@@ -1029,7 +1029,15 @@ class MetaGer
         $this->queryFilter = [];
         $this->verificationId = $request->input('verification_id', null);
         $this->verificationCount = intval($request->input('verification_count', '0'));
+
         $this->apiKey = $request->input('key', '');
+        if (empty($this->apiKey)) {
+            $this->apiKey = \Cookie::get('key');
+            if (empty($this->apiKey)) {
+                $this->apiKey = "";
+            }
+        }
+
         // Remove Inputs that are not used
         $this->request = $request->replace($request->except(['verification_id', 'uid', 'verification_count']));
 
