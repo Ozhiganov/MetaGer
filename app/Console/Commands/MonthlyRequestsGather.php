@@ -64,7 +64,7 @@ class MonthlyRequestsGather extends Command
 
             $this->disableOverusedEngines($sumaFile, $sumas);
             $this->disableOverusedEngines($sumaEnFile, $sumasEn);
-
+            DB::disconnect('mysql');
         }
     }
 

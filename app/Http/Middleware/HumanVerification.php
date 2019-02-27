@@ -126,10 +126,8 @@ class HumanVerification
                 # The user currently isn't locked
 
                 # We have different security gates:
-                #   50, 75, 85, >=90 => Captcha validated Result Pages
+                #   50 and then every 25 => Captcha validated Result Pages
                 # If the user shows activity on our result page the counter will be deleted
-                # Maybe I'll add a ban if the user reaches 100
-
                 if ($user["unusedResultPages"] === 50 || ($user["unusedResultPages"] > 50 && $user["unusedResultPages"] % 25 === 0)) {
                     $user["locked"] = true;
                 }
@@ -138,8 +136,8 @@ class HumanVerification
         } catch (\Illuminate\Database\QueryException $e) {
             // Failure in contacting metager3.de
         } finally {
-            // Update the user in the database
             if ($update) {
+                // Update the user in the database
                 if ($newUser) {
                     DB::table('humanverification')->insert(
                         [
@@ -168,8 +166,10 @@ class HumanVerification
                     );
                 }
             }
+            DB::disconnect('mysql');
         }
         $request->request->add(['verification_id' => $user["uid"], 'verification_count' => $user["unusedResultPages"]]);
         return $next($request);
+
     }
 }

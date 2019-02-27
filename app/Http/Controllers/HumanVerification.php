@@ -51,6 +51,7 @@ class HumanVerification extends Controller
             ->with('id', $id)
             ->with('url', $url)
             ->with('image', $captcha["img"]);
+
     }
 
     public static function remove(Request $request)
