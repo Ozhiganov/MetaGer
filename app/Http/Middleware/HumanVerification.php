@@ -166,6 +166,7 @@ class HumanVerification
                     );
                 }
             }
+            DB::disconnect('mysql');
         }
         $request->request->add(['verification_id' => $user["uid"], 'verification_count' => $user["unusedResultPages"]]);
         return $next($request);
