@@ -203,7 +203,7 @@ Route::group(
         Route::post('synoptic/{exclude?}/{chosenFile?}', 'LanguageController@processSynopticPageInput');
         Route::get('languages/edit/{from}/{to}/{exclude?}/{email?}', 'LanguageController@createEditPage');
         Route::post('languages/edit/{from}/{to}/{exclude?}/{email?}', 'MailController@sendLanguageFile');
-        Route::get('berlin', 'StartpageController@berlin');
+        Route::get('key', "KeyController@index");
 
         Route::group(['prefix' => 'app'], function () {
             Route::get('/', function () {

@@ -4,10 +4,9 @@
 		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
 				<div id="search-key">
-					<input id="input-key" type="text" name="key" placeholder="{{ trans ('index.key.placeholder') }}" tabindex="1">
-					<label id="key-label" for="input-key" data-tooltip="{{ trans ('index.key.tooltip') }}">
+					<a id="key-link" href="{{ action('KeyController@index', ['redirUrl' => url()->full() ]) }}" data-tooltip="{{ trans ('index.key.tooltip') }}">
 						<i class="fa fa-key" aria-hidden="true"></i>
-					</label>
+					</a>
 				</div>
 				<div class="search-input">
 					<input type="search" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="off" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">

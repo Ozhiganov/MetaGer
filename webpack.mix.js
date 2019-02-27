@@ -37,6 +37,12 @@ mix
       strictMath: true
     }
   )
+  .less(
+    "resources/less/metager/pages/key.less",
+    "public/css/key.css", {
+      strictMath: true
+    }
+  )
   .less("resources/less/utility.less", "public/css/utility.css", {
     strictMath: true
   })
