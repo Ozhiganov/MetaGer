@@ -32,7 +32,7 @@ return [
     'slogan.2' => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
     'preredesign' => '<a href="https://klassik.metager.org">Rückblick auf die vorige MetaGer Version</a>',
 
-    'sponsors.head' => 'Sponsoren',
+    'sponsors.head' => 'Partner',
     'sponsors.woxikon' => 'SEO Agentur',
     'sponsors.gutscheine' => 'STERN.de: Günstige Kredite im Kreditvergleich',
     'sponsors.seo' => 'Weihnachtsfeier',
