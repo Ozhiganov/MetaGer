@@ -32,7 +32,7 @@ return [
     'slogan.2' => 'You keep a neutral view on the web by using MetaGer',
     'preredesign' => '<a href="https://klassik.metager.org/en">Flashback to the previous MetaGer version</a>',
 
-    "sponsors.head" => "Sponsors",
+    "sponsors.head" => "Partners",
     'sponsors.woxikon' => 'Tagesgeld jetzt!',
     'sponsors.gutscheine' => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
     'sponsors.seo' => 'Suchmaschinenoptimierung',
