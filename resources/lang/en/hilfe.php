@@ -61,7 +61,7 @@ return [
     "plugin.1" => "There is a MetaGer Plugin for most of the common web browsers. The plugin provides easy search from the web browsers search field. Find out more: <a href=\"/#plugin-modal\" target=\"_blank\" rel=\"noopener\">MetaGer Plugin</a>.",
 
     "suchwortassoziator.title" => "Finding connotations to searchwords",
-    "suchwortassoziator.1" => "Ask the <a href=\"https://metager.de/klassik/asso/\" target=\"_blank\" rel=\"noopener\">MetaGer-Web-Assoziator</a> (Tools / Associator) to find connotations in a subject area. The service doesn&apos;t append upon any language because it uses webdocuments as a source. Therefore, you find any connotations to your used language and vice-versa.",
+    "suchwortassoziator.1" => 'Ask the <a href="en/asso/" target="_blank" rel="noopener">MetaGer-Web-Assoziator</a> (Tools / Associator) to find connotations in a subject area. The service doesn&apos;t append upon any language because it uses webdocuments as a source. Therefore, you find any connotations to your used language and vice-versa.',
     "suchwortassoziator.2" => "Example: you want to know more about \"tick bites\" and its dangers but you forgot the technical terms around this issue. The \"Assoziator\" presents \"Borreliose\" and \"fsme\" among others.",
     "suchwortassoziator.3" => "Please let us know if something unsuitable appears. Please use our <a href=\"/en/kontakt/\" target=\"_blank\" rel=\"noopener\">contact form</a>.",
 

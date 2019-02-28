@@ -73,9 +73,6 @@ return [
     "safari.3"         => "Delete (if you want) other search engines by clicking on \"X\"",
     "safari.4"         => "Now you might search with MetaGer via the OpenSearch-button (magnifying glass symbol)",
 
-    "faq.1"            => "See also:",
-    "faq.2"            => "Metager FAQ - Plugin",
-
     "vivaldi.1"        => "Click the red logo \"Vivaldi\" at the top left of your web browser. Then select \"Tools / Preferences\"",
     "vivaldi.2"        => "Within the new menu choose \"search\"",
     "vivaldi.3"        => "Select \"Add new search\"",

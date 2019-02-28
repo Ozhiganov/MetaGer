@@ -160,7 +160,5 @@
 			</ol>
 		</div>
 	@endif
-	<div class="card-medium">
-		<p>@lang('plugin-page.faq.1')<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/faq#mg-plugin") }}">@lang('plugin-page.faq.2')</a></p>
-	</div>
+
 @endsection
