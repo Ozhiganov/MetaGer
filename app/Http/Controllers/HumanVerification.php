@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Captcha;
 use Carbon;
-use DB;
 use Illuminate\Hashing\BcryptHasher as Hasher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Input;
 
 class HumanVerification extends Controller
 {
+    const PREFIX = "humanverification";
+
     public static function captcha(Request $request, Hasher $hasher, $id, $url = null)
     {
+
         if ($url != null) {
             $url = base64_decode(str_replace("<<SLASH>>", "/", $url));
         } else {
@@ -20,15 +23,23 @@ class HumanVerification extends Controller
         }
 
         if ($request->getMethod() == 'POST') {
-            $user = DB::table('humanverification')->where('uid', $id)->first();
 
-            $lockedKey = $user->lockedKey;
+            $user = Redis::hgetall(HumanVerification::PREFIX . "." . $id);
+            $user = ['uid' => $user["uid"],
+                'id' => $user["id"],
+                'unusedResultPages' => intval($user["unusedResultPages"]),
+                'whitelist' => filter_var($user["whitelist"], FILTER_VALIDATE_BOOLEAN),
+                'locked' => filter_var($user["locked"], FILTER_VALIDATE_BOOLEAN),
+                "lockedKey" => $user["lockedKey"],
+            ];
+
+            $lockedKey = $user["lockedKey"];
             $key = $request->input('captcha');
             $key = strtolower($key);
 
             if (!$hasher->check($key, $lockedKey)) {
                 $captcha = Captcha::create("default", true);
-                DB::table('humanverification')->where('uid', $id)->update(['lockedKey' => $captcha["key"]]);
+                Redis::hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
                 return view('humanverification.captcha')->with('title', 'Bestätigung notwendig')
                     ->with('id', $id)
                     ->with('url', $url)
@@ -36,9 +47,9 @@ class HumanVerification extends Controller
                     ->with('errorMessage', 'Fehler: Falsches Captcha eingegeben!');
             } else {
                 # If we can unlock the Account of this user we will redirect him to the result page
-                if ($user !== null && $user->locked === 1) {
+                if ($user !== null && $user["locked"]) {
                     # The Captcha was correct. We can remove the key from the user
-                    DB::table('humanverification')->where('uid', $id)->update(['locked' => false, 'lockedKey' => "", 'whitelist' => 1]);
+                    Redis::hmset(HumanVerification::PREFIX . "." . $id, ['locked' => "0", 'lockedKey' => ""]);
                     return redirect($url);
                 } else {
                     return redirect('/');
@@ -46,7 +57,7 @@ class HumanVerification extends Controller
             }
         }
         $captcha = Captcha::create("default", true);
-        DB::table('humanverification')->where('uid', $id)->update(['lockedKey' => $captcha["key"]]);
+        Redis::hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
         return view('humanverification.captcha')->with('title', 'Bestätigung notwendig')
             ->with('id', $id)
             ->with('url', $url)
@@ -83,28 +94,58 @@ class HumanVerification extends Controller
     {
         $id = hash("sha512", $request->ip());
 
-        $sum = DB::table('humanverification')->where('id', $id)->where('whitelist', false)->sum('unusedResultPages');
-        $user = DB::table('humanverification')->where('uid', $uid)->first();
+        $userList = Redis::smembers(HumanVerification::PREFIX . "." . $id);
+        $pipe = Redis::pipeline();
+        foreach ($userList as $userid) {
+            $pipe->hgetall(HumanVerification::PREFIX . "." . $userid);
+        }
+        $usersData = $pipe->execute();
 
-        if ($user === null) {
+        $user = [];
+        $users = [];
+        $sum = 0;
+        foreach ($usersData as $userTmp) {
+            if (empty($userTmp)) {
+                continue;
+            }
+            $userNew = ['uid' => $userTmp["uid"],
+                'id' => $userTmp["id"],
+                'unusedResultPages' => intval($userTmp["unusedResultPages"]),
+                'whitelist' => filter_var($userTmp["whitelist"], FILTER_VALIDATE_BOOLEAN),
+                'locked' => filter_var($userTmp["locked"], FILTER_VALIDATE_BOOLEAN),
+                "lockedKey" => $userTmp["lockedKey"],
+            ];
+
+            if ($uid === $userTmp["uid"]) {
+                $user = $userNew;
+            } else {
+                $users[] = $userNew;
+            }
+            if ($userNew["whitelist"]) {
+                $sum += intval($userTmp["unusedResultPages"]);
+            }
+
+        }
+
+        if (empty($user)) {
             return;
         }
 
+        $pipeline = Redis::pipeline();
         # Check if we have to whitelist the user or if we can simply delete the data
-        if ($user->unusedResultPages < $sum && $user->whitelist === 0) {
+        if ($user["unusedResultPages"] < $sum && !$user["whitelist"]) {
             # Whitelist
-            DB::table('humanverification')->where('uid', $uid)->update(['whitelist' => true, 'whitelistCounter' => 0]);
-            $user->whitelist = 1;
-            $user->whitelistCounter = 0;
+            $pipeline->hset(HumanVerification::PREFIX . "." . $uid, 'whitelist', "1");
+            $user["whitelist"] = true;
         }
 
-        if ($user->whitelist === 1) {
-            DB::table('humanverification')->where('uid', $uid)->update(['unusedResultPages' => 0]);
+        if ($user["whitelist"]) {
+            $pipeline->hset(HumanVerification::PREFIX . "." . $uid, 'unusedResultPages', "0");
         } else {
-            DB::table('humanverification')->where('uid', $uid)->where('updated_at', '<', Carbon::NOW()->subSeconds(2))->delete();
-
+            $pipeline->hdel(HumanVerification::PREFIX . "." . $uid);
+            $pipeline->srem(HumanVerification::PREFIX . "." . $id, $uid);
         }
-
+        $pipeline->execute();
     }
 
     private static function checkId($request, $id)

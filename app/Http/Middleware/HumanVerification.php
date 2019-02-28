@@ -3,10 +3,9 @@
 namespace App\Http\Middleware;
 
 use Captcha;
-use Carbon;
 use Closure;
-use DB;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redis;
 use URL;
 
 class HumanVerification
@@ -22,8 +21,8 @@ class HumanVerification
     {
         // The specific user
         $user = null;
-        $newUser = true;
         $update = true;
+        $prefix = "humanverification";
         try {
             $id = hash("sha512", $request->ip());
             $uid = hash("sha512", $request->ip() . $_SERVER["AGENT"]);
@@ -40,42 +39,54 @@ class HumanVerification
                 return $next($request);
             }
 
-            $users = DB::select('select * from humanverification where id = ?', [$id]);
+            # Get all Users of this IP
+            $userList = Redis::smembers($prefix . "." . $id);
+            $pipe = Redis::pipeline();
 
+            foreach ($userList as $userid) {
+                $pipe->hgetall($prefix . "." . $userid);
+            }
+
+            $usersData = $pipe->execute();
+
+            $user = [];
+            $users = [];
             # Lock out everyone in a Bot network
             # Find out how many requests this IP has made
             $sum = 0;
-            foreach ($users as $userTmp) {
-                if ($uid == $userTmp->uid) {
-                    $user = ['uid' => $userTmp->uid,
-                        'id' => $userTmp->id,
-                        'unusedResultPages' => intval($userTmp->unusedResultPages),
-                        'whitelist' => filter_var($userTmp->whitelist, FILTER_VALIDATE_BOOLEAN),
-                        'whitelistCounter' => $userTmp->whitelistCounter,
-                        'locked' => filter_var($userTmp->locked, FILTER_VALIDATE_BOOLEAN),
-                        "lockedKey" => $userTmp->lockedKey,
-                        'updated_at' => Carbon::now(),
-                    ];
-                    $newUser = false;
+            foreach ($usersData as $userTmp) {
+                if (empty($userTmp)) {
+                    continue;
                 }
-                if ($userTmp->whitelist === 0) {
-                    $sum += $userTmp->unusedResultPages;
+                $userNew = ['uid' => $userTmp["uid"],
+                    'id' => $userTmp["id"],
+                    'unusedResultPages' => intval($userTmp["unusedResultPages"]),
+                    'whitelist' => filter_var($userTmp["whitelist"], FILTER_VALIDATE_BOOLEAN),
+                    'locked' => filter_var($userTmp["locked"], FILTER_VALIDATE_BOOLEAN),
+                    "lockedKey" => $userTmp["lockedKey"],
+                ];
+
+                if ($uid === $userTmp["uid"]) {
+                    $user = $userNew;
+                } else {
+                    $users[] = $userNew;
+                }
+                if ($userNew["whitelist"]) {
+                    $sum += intval($userTmp["unusedResultPages"]);
                 }
 
             }
-            # If this user doesn't have an entry we will create one
 
-            if ($user === null) {
+            # If this user doesn't have an entry we will create one
+            if (empty($user)) {
                 $user =
                     [
                     'uid' => $uid,
                     'id' => $id,
                     'unusedResultPages' => 0,
                     'whitelist' => false,
-                    'whitelistCounter' => 0,
                     'locked' => false,
                     "lockedKey" => "",
-                    'updated_at' => Carbon::now(),
                 ];
             }
 
@@ -96,7 +107,7 @@ class HumanVerification
             // Defines if this is the only user using that IP Adress
             $alone = true;
             foreach ($users as $userTmp) {
-                if ($userTmp->uid != $uid && !$userTmp->whitelist) {
+                if ($userTmp["uid"] != $uid && !$userTmp["whitelist"]) {
                     $alone = false;
                 }
 
@@ -133,41 +144,33 @@ class HumanVerification
                 }
 
             }
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Failure in contacting metager3.de
+        } catch (\Predis\Connection\ConnectionException $e) {
+            $update = false;
         } finally {
             if ($update) {
+
                 // Update the user in the database
-                if ($newUser) {
-                    DB::table('humanverification')->insert(
-                        [
-                            'uid' => $user["uid"],
-                            'id' => $user["id"],
-                            'unusedResultPages' => $user['unusedResultPages'],
-                            'whitelist' => $user["whitelist"],
-                            'whitelistCounter' => $user["whitelistCounter"],
-                            'locked' => $user["locked"],
-                            "lockedKey" => $user["lockedKey"],
-                            'updated_at' => $user["updated_at"],
-                        ]
-                    );
+                $pipeline = Redis::pipeline();
+
+                $pipeline->hmset($prefix . "." . $user['uid'], $user);
+                $pipeline->sadd($prefix . "." . $user["id"], $user["uid"]);
+
+                $expireDate = now();
+                $expireDateLong = date_add($expireDate, date_interval_create_from_date_string('2 weeks'))->timestamp;
+                $expireDateShort = date_add($expireDate, date_interval_create_from_date_string('2 weeks'))->timestamp;
+
+                if ($user["whitelist"]) {
+                    $pipeline->expireat($prefix . "." . $user['uid'], $expireDateLong);
                 } else {
-                    DB::table('humanverification')->where('uid', $uid)->update(
-                        [
-                            'uid' => $user["uid"],
-                            'id' => $user["id"],
-                            'unusedResultPages' => $user['unusedResultPages'],
-                            'whitelist' => $user["whitelist"],
-                            'whitelistCounter' => $user["whitelistCounter"],
-                            'locked' => $user["locked"],
-                            "lockedKey" => $user["lockedKey"],
-                            'updated_at' => $user["updated_at"],
-                        ]
-                    );
+                    $pipeline->expireat($prefix . "." . $user['uid'], $expireDateShort);
                 }
+
+                $pipeline->expireat($prefix . "." . $user["id"], $expireDateLong);
+
+                $pipeline->execute();
             }
-            DB::disconnect('mysql');
         }
+
         $request->request->add(['verification_id' => $user["uid"], 'verification_count' => $user["unusedResultPages"]]);
         return $next($request);
 
