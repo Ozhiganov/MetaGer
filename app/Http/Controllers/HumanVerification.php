@@ -12,9 +12,12 @@ use Input;
 class HumanVerification extends Controller
 {
     const PREFIX = "humanverification";
+    const EXPIRELONG = 60 * 60 * 24 * 14;
+    const EXPIRESHORT = 60 * 60 * 72;
 
     public static function captcha(Request $request, Hasher $hasher, $id, $url = null)
     {
+        $redis = Redis::connection('REDIS_CACHE_HOST');
 
         if ($url != null) {
             $url = base64_decode(str_replace("<<SLASH>>", "/", $url));
@@ -24,7 +27,7 @@ class HumanVerification extends Controller
 
         if ($request->getMethod() == 'POST') {
 
-            $user = Redis::hgetall(HumanVerification::PREFIX . "." . $id);
+            $user = $redis->hgetall(HumanVerification::PREFIX . "." . $id);
             $user = ['uid' => $user["uid"],
                 'id' => $user["id"],
                 'unusedResultPages' => intval($user["unusedResultPages"]),
@@ -39,7 +42,10 @@ class HumanVerification extends Controller
 
             if (!$hasher->check($key, $lockedKey)) {
                 $captcha = Captcha::create("default", true);
-                Redis::hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
+                $pipeline = $redis->pipeline();
+                $pipeline->hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
+                $pipeline->expire(HumanVerification::PREFIX . "." . $id, $user["whitelist"] ? HumanVerification::EXPIRELONG : HumanVerification::EXPIRESHORT);
+                $pipeline->execute();
                 return view('humanverification.captcha')->with('title', 'Bestätigung notwendig')
                     ->with('id', $id)
                     ->with('url', $url)
@@ -49,7 +55,13 @@ class HumanVerification extends Controller
                 # If we can unlock the Account of this user we will redirect him to the result page
                 if ($user !== null && $user["locked"]) {
                     # The Captcha was correct. We can remove the key from the user
-                    Redis::hmset(HumanVerification::PREFIX . "." . $id, ['locked' => "0", 'lockedKey' => ""]);
+                    # If the sum of all users with that ip is too high we need to whitelist the user or they will receive a captcha again on the next request
+                    $sum = 0;
+                    $users = [];
+                    $pipeline = $redis->pipeline();
+                    $pipeline->hmset(HumanVerification::PREFIX . "." . $id, ['locked' => "0", 'lockedKey' => "", 'whitelist' => '1']);
+                    $pipeline->expire(HumanVerification::PREFIX . "." . $id, $user["whitelist"] ? HumanVerification::EXPIRELONG : HumanVerification::EXPIRESHORT);
+                    $pipeline->execute();
                     return redirect($url);
                 } else {
                     return redirect('/');
@@ -57,7 +69,10 @@ class HumanVerification extends Controller
             }
         }
         $captcha = Captcha::create("default", true);
-        Redis::hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
+        $pipeline = $redis->pipeline();
+        $pipeline->hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
+        $pipeline->expire(HumanVerification::PREFIX . "." . $id, $user["whitelist"] ? HumanVerification::EXPIRELONG : HumanVerification::EXPIRESHORT);
+        $pipeline->execute();
         return view('humanverification.captcha')->with('title', 'Bestätigung notwendig')
             ->with('id', $id)
             ->with('url', $url)
@@ -92,10 +107,11 @@ class HumanVerification extends Controller
 
     private static function removeUser($request, $uid)
     {
+        $redis = Redis::conection('REDIS_CACHE_HOST');
         $id = hash("sha512", $request->ip());
 
-        $userList = Redis::smembers(HumanVerification::PREFIX . "." . $id);
-        $pipe = Redis::pipeline();
+        $userList = $redis->smembers(HumanVerification::PREFIX . "." . $id);
+        $pipe = $redis->pipeline();
         foreach ($userList as $userid) {
             $pipe->hgetall(HumanVerification::PREFIX . "." . $userid);
         }
@@ -131,7 +147,7 @@ class HumanVerification extends Controller
             return;
         }
 
-        $pipeline = Redis::pipeline();
+        $pipeline = $redis->pipeline();
         # Check if we have to whitelist the user or if we can simply delete the data
         if ($user["unusedResultPages"] < $sum && !$user["whitelist"]) {
             # Whitelist
@@ -145,6 +161,8 @@ class HumanVerification extends Controller
             $pipeline->hdel(HumanVerification::PREFIX . "." . $uid);
             $pipeline->srem(HumanVerification::PREFIX . "." . $id, $uid);
         }
+        $pipeline->expire(HumanVerification::PREFIX . "." . $uid, $user["whitelist"] ? HumanVerification::EXPIRELONG : HumanVerification::EXPIRESHORT);
+        $pipeline->expire(HumanVerification::PREFIX . "." . $id, HumanVerification::EXPIRELONG);
         $pipeline->execute();
     }
 

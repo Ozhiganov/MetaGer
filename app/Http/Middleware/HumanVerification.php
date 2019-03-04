@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Captcha;
 use Closure;
+use Cookie;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redis;
 use URL;
@@ -23,6 +24,7 @@ class HumanVerification
         $user = null;
         $update = true;
         $prefix = "humanverification";
+        $redis = Redis::connection('REDIS_CACHE_HOST');
         try {
             $id = hash("sha512", $request->ip());
             $uid = hash("sha512", $request->ip() . $_SERVER["AGENT"]);
@@ -34,14 +36,14 @@ class HumanVerification
              * If someone that uses a bot finds this out we
              * might have to change it at some point.
              */
-            if ($request->filled('password') || $request->filled('key') || $request->filled('appversion') || !env('BOT_PROTECTION', false)) {
+            if ($request->filled('password') || $request->filled('key') || Cookie::get('key') !== null || $request->filled('appversion') || !env('BOT_PROTECTION', false)) {
                 $update = false;
                 return $next($request);
             }
 
             # Get all Users of this IP
-            $userList = Redis::smembers($prefix . "." . $id);
-            $pipe = Redis::pipeline();
+            $userList = $redis->smembers($prefix . "." . $id);
+            $pipe = $redis->pipeline();
 
             foreach ($userList as $userid) {
                 $pipe->hgetall($prefix . "." . $userid);
@@ -54,8 +56,10 @@ class HumanVerification
             # Lock out everyone in a Bot network
             # Find out how many requests this IP has made
             $sum = 0;
-            foreach ($usersData as $userTmp) {
+            foreach ($usersData as $index => $userTmp) {
                 if (empty($userTmp)) {
+                    // This is a key that has been expired and should be deleted
+                    $redis->srem($prefix . "." . $id, $userList[$index]);
                     continue;
                 }
                 $userNew = ['uid' => $userTmp["uid"],
@@ -71,7 +75,7 @@ class HumanVerification
                 } else {
                     $users[] = $userNew;
                 }
-                if ($userNew["whitelist"]) {
+                if (!$userNew["whitelist"]) {
                     $sum += intval($userTmp["unusedResultPages"]);
                 }
 
@@ -150,22 +154,23 @@ class HumanVerification
             if ($update) {
 
                 // Update the user in the database
-                $pipeline = Redis::pipeline();
+                $pipeline = $redis->pipeline();
 
                 $pipeline->hmset($prefix . "." . $user['uid'], $user);
                 $pipeline->sadd($prefix . "." . $user["id"], $user["uid"]);
 
-                $expireDate = now();
-                $expireDateLong = date_add($expireDate, date_interval_create_from_date_string('2 weeks'))->timestamp;
-                $expireDateShort = date_add($expireDate, date_interval_create_from_date_string('2 weeks'))->timestamp;
+                // Expire in two weeks
+                $expireLong = 60 * 60 * 24 * 14;
+                // Expire in 72h
+                $expireShort = 60 * 60 * 72;
 
                 if ($user["whitelist"]) {
-                    $pipeline->expireat($prefix . "." . $user['uid'], $expireDateLong);
+                    $pipeline->expire($prefix . "." . $user['uid'], $expireLong);
                 } else {
-                    $pipeline->expireat($prefix . "." . $user['uid'], $expireDateShort);
+                    $pipeline->expire($prefix . "." . $user['uid'], $expireShort);
                 }
 
-                $pipeline->expireat($prefix . "." . $user["id"], $expireDateLong);
+                $pipeline->expire($prefix . "." . $user["id"], $expireLong);
 
                 $pipeline->execute();
             }
