@@ -158,7 +158,7 @@ class HumanVerification extends Controller
         if ($user["whitelist"]) {
             $pipeline->hset(HumanVerification::PREFIX . "." . $uid, 'unusedResultPages', "0");
         } else {
-            $pipeline->hdel(HumanVerification::PREFIX . "." . $uid);
+            $pipeline->del(HumanVerification::PREFIX . "." . $uid);
             $pipeline->srem(HumanVerification::PREFIX . "." . $id, $uid);
         }
         $pipeline->expire(HumanVerification::PREFIX . "." . $uid, $user["whitelist"] ? HumanVerification::EXPIRELONG : HumanVerification::EXPIRESHORT);
