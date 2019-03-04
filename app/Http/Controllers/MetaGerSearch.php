@@ -12,7 +12,6 @@ class MetaGerSearch extends Controller
 {
     public function search(Request $request, MetaGer $metager)
     {
-
         $focus = $request->input("focus", "web");
 
         if ($focus === "maps") {
