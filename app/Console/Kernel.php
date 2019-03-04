@@ -31,13 +31,6 @@ class Kernel extends ConsoleKernel
             DB::table('monthlyrequests')->truncate();
             DB::disconnect('mysql');
         })->monthlyOn(1, '00:00');
-
-        // Delete all of the old humanverification entries
-        $schedule->call(function () {
-            DB::delete('DELETE FROM humanverification WHERE updated_at < (now() - interval 72 hour) AND whitelist = 0 ORDER BY updated_at DESC');
-            DB::delete('DELETE FROM humanverification WHERE updated_at < (now() - interval 2 week) AND whitelist = 1 ORDER BY updated_at DESC');
-            DB::disconnect('mysql');
-        })->everyThirtyMinutes();
     }
 
     /**
