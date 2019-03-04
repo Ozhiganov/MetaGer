@@ -17,7 +17,7 @@ class HumanVerification extends Controller
 
     public static function captcha(Request $request, Hasher $hasher, $id, $url = null)
     {
-        $redis = Redis::connection('REDIS_CACHE_HOST');
+        $redis = Redis::connection('redisCache');
 
         if ($url != null) {
             $url = base64_decode(str_replace("<<SLASH>>", "/", $url));
@@ -107,7 +107,7 @@ class HumanVerification extends Controller
 
     private static function removeUser($request, $uid)
     {
-        $redis = Redis::conection('REDIS_CACHE_HOST');
+        $redis = Redis::conection('redisCache');
         $id = hash("sha512", $request->ip());
 
         $userList = $redis->smembers(HumanVerification::PREFIX . "." . $id);
