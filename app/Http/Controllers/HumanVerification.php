@@ -107,7 +107,7 @@ class HumanVerification extends Controller
 
     private static function removeUser($request, $uid)
     {
-        $redis = Redis::conection('redisCache');
+        $redis = Redis::connection('redisCache');
         $id = hash("sha512", $request->ip());
 
         $userList = $redis->smembers(HumanVerification::PREFIX . "." . $id);
