@@ -32,12 +32,6 @@ mix
     strictMath: true
   })
   .less(
-    "resources/less/metager/pages/beitritt.less",
-    "public/css/beitritt.css", {
-      strictMath: true
-    }
-  )
-  .less(
     "resources/less/metager/pages/key.less",
     "public/css/key.css", {
       strictMath: true
