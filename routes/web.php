@@ -86,9 +86,11 @@ Route::group(
         });
 
         Route::get('beitritt', function () {
-            return view('spende.beitritt')
-                ->with('title', trans('titles.beitritt'))
-                ->with('navbarFocus', 'foerdern');
+            if (LaravelLocalization::getCurrentLocale() === "de") {
+                return response()->file(storage_path('app/public/aufnahmeantrag-de.pdf'));
+            } else {
+                return response()->file(storage_path('app/public/aufnahmeantrag-en.pdf'));
+            }
         });
 
         Route::get('bform1.htm', function () {
