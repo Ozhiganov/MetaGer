@@ -13,7 +13,6 @@ return [
     'settings' => 'Einstellungen',
     'websearch' => 'Websuche-Widget - MetaGer',
     'sitesearch' => 'Sitesearch-Widget - MetaGer',
-    'beitritt' => 'SUMA-EV Beitrittsformular',
     'faq' => 'FAQ - MetaGer',
     'partnershops' => 'Partnershops - MetaGer',
     'languages' => 'Übersetzungstool - MetaGer',

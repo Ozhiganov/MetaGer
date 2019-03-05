@@ -13,7 +13,6 @@ return [
     "settings" => "Settings",
     "websearch" => "Websearch-Widget - MetaGer",
     "sitesearch" => "Sitesearch-Widget - MetaGer",
-    "beitritt" => "Application Formular - MetaGer",
     "faq" => "FAQ - MetaGer",
     "partnershops" => "Partnershops - MetaGer",
     "languages" => "translation tool - MetaGer",
