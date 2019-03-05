@@ -59,6 +59,8 @@ class MetaGer
     protected $languageDetect;
     protected $verificationId;
     protected $verificationCount;
+    protected $searchUid;
+    protected $redisResultWaitingKey, $redisResultEngineList, $redisEngineResult;
 
     public function __construct()
     {
@@ -90,6 +92,15 @@ class MetaGer
         } catch (ConnectionException $e) {
             $this->canCache = false;
         }
+        $this->canCache = false;
+        $this->searchUid = md5(uniqid());
+        $redisPrefix = "search";
+        # This is a list on which the MetaGer process can do a blocking pop to wait for new results
+        $this->redisResultWaitingKey = $redisPrefix . "." . $this->searchUid . ".ready";
+        # This is a list of searchengines which have delivered results for this search
+        $this->redisResultEngineList = $redisPrefix . "." . $this->searchUid . ".engines";
+        # This is the key where the results of the engine are stored as well as some statistical data
+        $this->redisEngineResult = $redisPrefix . "." . $this->searchUid . ".results.";
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
@@ -512,7 +523,7 @@ class MetaGer
     public function createQuicktips()
     {
         # Die quicktips werden als job erstellt und zur Abarbeitung freigegeben
-        $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime(), $this->getHashCode());
+        $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime());
         return $quicktips;
     }
 
@@ -534,7 +545,6 @@ class MetaGer
         if (empty($this->sumaFile->foki->{$this->fokus})) {
             $this->fokus = "web";
         }
-
         foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
@@ -589,8 +599,6 @@ class MetaGer
             $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
         }
 
-        #die(var_dump($this->enabledSearchengines));
-
         if (sizeof($this->enabledSearchengines) === 0) {
             $filter = "";
             foreach ($this->queryFilter as $queryFilter => $filterPhrase) {
@@ -607,6 +615,7 @@ class MetaGer
         $counter = 0;
 
         if ($this->requestIsCached($request)) {
+            # If this is a page other than 1 the request is "cached"
             $engines = $this->getCachedEngines($request);
             # We need to edit some Options of the Cached Search Engines
             foreach ($engines as $engine) {
@@ -628,19 +637,7 @@ class MetaGer
          * welche Suchmaschinen nicht rechtzeitig geantwortet haben.
          */
 
-        $enginesToLoad = [];
-        $canBreak = false;
-        foreach ($engines as $engine) {
-            if ($engine->cached) {
-                if ($overtureEnabled && ($engine->name === "overture" || $engine->name === "overtureAds")) {
-                    $canBreak = true;
-                }
-            } else {
-                $enginesToLoad[$engine->name] = false;
-            }
-        }
-
-        $this->waitForResults($enginesToLoad, $overtureEnabled, $canBreak);
+        $this->waitForResults($engines);
 
         $this->retrieveResults($engines);
         foreach ($engines as $engine) {
@@ -788,115 +785,35 @@ class MetaGer
         return $engines;
     }
 
-    # Passt den Suchfokus an, falls für einen Fokus genau alle vorhandenen Sumas eingeschaltet sind
-    public function adjustFocus($sumas, $enabledSearchengines)
+    public function waitForResults($engines)
     {
-        # Findet für alle Foki die enthaltenen Sumas
-        $foki = []; # [fokus][suma] => [suma]
-        foreach ($sumas as $suma) {
-            if ((!$this->sumaIsDisabled($suma)) && (!isset($suma['userSelectable']) || $suma['userSelectable']->__toString() === "1")) {
-                if (isset($suma['type'])) {
-                    # Wenn foki für diese Suchmaschine angegeben sind
-                    $focuses = explode(",", $suma['type']->__toString());
-                    foreach ($focuses as $foc) {
-                        if (isset($suma['minismCollection'])) {
-                            $foki[$foc][] = "minism";
-                        } else {
-                            $foki[$foc][] = $suma['name']->__toString();
-                        }
-                    }
-                } else {
-                    # Wenn keine foki für diese Suchmaschine angegeben sind
-                    if (isset($suma['minismCollection'])) {
-                        $foki["andere"][] = "minism";
-                    } else {
-                        $foki["andere"][] = $suma['name']->__toString();
-                    }
-                }
+        $enginesToWaitFor = [];
+        foreach ($engines as $engine) {
+            if ($engine->cached || !isset($engine->engine->main) || !$engine->engine->main) {
+                continue;
             }
+            $enginesToWaitFor[] = $engine;
         }
-
-        # Findet die Namen der aktuell eingeschalteten Sumas
-        $realEngNames = [];
-        foreach ($enabledSearchengines as $realEng) {
-            $nam = $realEng["name"]->__toString();
-            if ($nam !== "qualigo" && $nam !== "overtureAds") {
-                $realEngNames[] = $nam;
-            }
-        }
-
-        # Anschließend werden diese beiden Listen verglichen (jeweils eine der Fokuslisten für jeden Fokus), um herauszufinden ob sie vielleicht identisch sind. Ist dies der Fall, so hat der Nutzer anscheinend Suchmaschinen eines kompletten Fokus eingestellt. Der Fokus wird dementsprechend angepasst.
-        foreach ($foki as $fok => $engines) {
-            $isFokus = true;
-            $fokiEngNames = [];
-            foreach ($engines as $eng) {
-                $fokiEngNames[] = $eng;
-            }
-            # Jede eingeschaltete Engine ist für diesen Fokus geeignet
-            foreach ($fokiEngNames as $fen) {
-                # Bei Bildersuchen ist uns egal, ob alle Suchmaschinen aus dem Suchfokus eingeschaltet sind, da wir sie eh als Bildersuche anzeigen müssen
-                if (!in_array($fen, $realEngNames) && $fok !== "bilder") {
-                    $isFokus = false;
-                }
-            }
-            # Jede im Fokus erwartete Engine ist auch eingeschaltet
-            foreach ($realEngNames as $ren) {
-                if (!in_array($ren, $fokiEngNames)) {
-                    $isFokus = false;
-                }
-            }
-            # Wenn die Listen identisch sind, setze den Fokus um
-            if ($isFokus) {
-                $this->fokus = $fok;
-            }
-        }
-    }
-
-    public function waitForResults($enginesToLoad, $overtureEnabled, $canBreak)
-    {
 
         $timeStart = microtime(true);
         $results = null;
-        while (true) {
-            $results = Redis::hgetall('search.' . $this->getHashCode());
-
-            $ready = true;
-            // When every
-            $connected = true;
-            foreach ($results as $key => $value) {
-                if ($value === "waiting" || $value === "connected") {
-                    $ready = false;
+        while (sizeof($enginesToWaitFor) > 0) {
+            $newEngine = Redis::blpop($this->redisResultWaitingKey, 5);
+            if ($newEngine === null || sizeof($newEngine) !== 2) {
+                continue;
+            } else {
+                $newEngine = $newEngine[1];
+                foreach ($enginesToWaitFor as $index => $engine) {
+                    if ($engine->name === $newEngine) {
+                        unset($enginesToWaitFor[$index]);
+                        break;
+                    }
                 }
-                if ($value === "waiting") {
-                    $connected = false;
-                }
             }
-
-            // If $ready is false at this point, we're waiting for more searchengines
-            // But we have to check for the timeout, too
-            if (!$connected) {
-                $timeStart = microtime(true);
-            }
-
-            $time = (microtime(true) - $timeStart) * 1000;
-            // We will apply the timeout only if it's not Yahoo we're waiting for since they are one the most
-            // important search engines.
-            $canTimeout = !((isset($results["overture"]) && $results["overture"] === "waiting") || (isset($results["overtureAds"]) && $results["overtureAds"] === "waiting"));
-            if ($time > $this->time && $canTimeout) {
-                $ready = true;
-            }
-
-            if ($ready) {
+            if ((microtime(true) - $timeStart) >= 2) {
                 break;
             }
-            usleep(50000);
         }
-
-        # Wir haben nun so lange wie möglich gewartet. Wir registrieren nun noch die Suchmaschinen, die geanwortet haben.
-        foreach ($results as $key => $value) {
-            $enginesToLoad[$key] = true;
-        }
-        $this->enginesToLoad = $enginesToLoad;
     }
 
     public function retrieveResults($engines)
@@ -1472,10 +1389,9 @@ class MetaGer
         return $link;
     }
 
-    public function getHashCode()
+    public function getSearchUid()
     {
-        $string = url()->full();
-        return md5($string);
+        return $this->searchUid;
     }
 
 # Einfache Getter
@@ -1627,5 +1543,20 @@ class MetaGer
     public function getStartCount()
     {
         return $this->startCount;
+    }
+
+    public function getRedisResultWaitingKey()
+    {
+        return $this->redisResultWaitingKey;
+    }
+
+    public function getRedisResultEngineList()
+    {
+        return $this->redisResultEngineList;
+    }
+
+    public function getRedisEngineResult()
+    {
+        return $this->redisEngineResult;
     }
 }

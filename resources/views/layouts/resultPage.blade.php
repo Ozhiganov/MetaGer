@@ -11,6 +11,7 @@
 		<meta name="l" content="{{ LaravelLocalization::getCurrentLocale() }}" />
 		<meta name="mm" content="{{ $metager->getVerificationId() }}" />
 		<meta name="mn" content="{{ $metager->getVerificationCount() }}" />
+		<meta name="searchkey" content="{{ $metager->getSearchUid() }}" />
 		<link rel="search" type="application/opensearchdescription+xml" title="{!! trans('resultPage.opensearch') !!}" href="{{  LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), action('StartpageController@loadPlugin', ['params' => base64_encode(serialize(Request::all()))])) }}">
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome.css') }}" />
 		<link type="text/css" rel="stylesheet" href="{{ mix('css/fontawesome-solid.css') }}" />

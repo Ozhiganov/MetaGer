@@ -1,7 +1,7 @@
 $(document).ready(function () {
   botProtection();
-
   enableFormResetter();
+  loadMoreResults();
 });
 
 function botProtection() {
@@ -50,4 +50,8 @@ function enableFormResetter() {
       timeout = null;
     }, 500);
   });
+}
+
+function loadMoreResults() {
+
 }

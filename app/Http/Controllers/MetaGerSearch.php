@@ -25,7 +25,7 @@ class MetaGerSearch extends Controller
         }*/
 
         #die($request->header('User-Agent'));
-        $time = microtime();
+        $time = microtime(true);
         # Mit gelieferte Formulardaten parsen und abspeichern:
         $metager->parseFormData($request);
 
@@ -41,7 +41,6 @@ class MetaGerSearch extends Controller
 
         # Versuchen die Ergebnisse der Quicktips zu laden
         $quicktipResults = $quicktips->loadResults();
-
         # Alle Ergebnisse vor der Zusammenführung ranken:
         $metager->rankAll();
 

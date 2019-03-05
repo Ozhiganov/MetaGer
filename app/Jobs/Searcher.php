@@ -85,8 +85,7 @@ class Searcher implements ShouldQueue
                     $url = base64_decode($mission[1]); // The url to fetch
                     $timeout = $mission[2]; // Timeout from the MetaGer process in ms
                     $medianFetchTime = $this->getFetchTime(); // The median Fetch time of the search engine in ms
-                    Redis::hset('search.' . $hashValue, $this->name, "connected");
-
+                    Redis::hset('search.' . $hashValue . ".results." . $this->name, "status", "connected");
                     $result = $this->retrieveUrl($url);
 
                     $this->storeResult($result, $poptime, $hashValue);
@@ -99,7 +98,7 @@ class Searcher implements ShouldQueue
 
                 // In sync mode every Searcher may only retrieve one result because it would block
                 // the execution of the remaining code otherwise:
-                if (getenv("QUEUE_DRIVER") === "sync"
+                if (getenv("QUEUE_CONNECTION") === "sync"
                     || $this->counter > $this->MAX_REQUESTS
                     || (microtime(true) - $this->startTime) > $this->MAX_TIME) {
                     break;
@@ -161,16 +160,24 @@ class Searcher implements ShouldQueue
         // Set this URL to the Curl handle
         curl_setopt($this->ch, CURLOPT_URL, $url);
         $result = curl_exec($this->ch);
-
         $this->connectionInfo = curl_getinfo($this->ch);
         return $result;
     }
 
     private function storeResult($result, $poptime, $hashValue)
     {
-        Redis::hset('search.' . $hashValue, $this->name, $result);
+        if ($this->name === "zeitde") {
+            sleep(3);
+        }
+        $pipeline = Redis::pipeline();
+        $pipeline->hset('search.' . $hashValue . ".results." . $this->name, "response", $result);
         // After 60 seconds the results should be read by the MetaGer Process and stored in the Cache instead
-        Redis::expire('search.' . $hashValue, 60);
+        $pipeline->expire('search.' . $hashValue . ".results." . $this->name, 60);
+        $pipeline->rpush('search.' . $hashValue . ".ready", $this->name);
+        $pipeline->expire('search.' . $hashValue . ".ready", 60);
+        $pipeline->sadd('search.' . $hashValue . ".engines", $this->name);
+        $pipeline->expire('search.' . $hashValue . ".engines", 60);
+        $pipeline->execute();
         $this->lastTime = microtime(true);
     }
 

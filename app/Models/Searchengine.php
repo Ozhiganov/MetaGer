@@ -87,7 +87,7 @@ abstract class Searchengine
 
         $this->getString = $this->generateGetString($q);
         $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
-        $this->resultHash = $metager->getHashCode();
+        $this->resultHash = $metager->getSearchUid();
         $this->canCache = $metager->canCache();
     }
 
@@ -102,13 +102,14 @@ abstract class Searchengine
     # Prüft, ob die Suche bereits gecached ist, ansonsted wird sie als Job dispatched
     public function startSearch(\App\MetaGer $metager)
     {
-
         if ($this->canCache && Cache::has($this->hash)) {
             $this->cached = true;
             $this->retrieveResults($metager);
         } else {
             // We will push the confirmation of the submission to the Result Hash
-            Redis::hset('search.' . $this->resultHash, $this->name, "waiting");
+            Redis::hset($metager->getRedisEngineResult() . $this->name, "status", "waiting");
+            Redis::expire($metager->getRedisEngineResult() . $this->name, 60);
+
             // We need to submit a action that one of our workers can understand
             // The missions are submitted to a redis queue in the following string format
             // <ResultHash>;<URL to fetch>
@@ -213,9 +214,8 @@ abstract class Searchengine
 
         if ($this->canCache && $this->cacheDuration > 0 && Cache::has($this->hash)) {
             $body = Cache::get($this->hash);
-        } elseif (Redis::hexists('search.' . $this->resultHash, $this->name)) {
-            $body = Redis::hget('search.' . $this->resultHash, $this->name);
-            Redis::hdel('search.' . $this->resultHash, $this->name);
+        } elseif (Redis::hexists($metager->getRedisEngineResult() . $this->name, "response")) {
+            $body = Redis::hget($metager->getRedisEngineResult() . $this->name, "response");
             if ($this->canCache && $this->cacheDuration > 0) {
                 Cache::put($this->hash, $body, $this->cacheDuration);
             }

@@ -3,7 +3,6 @@
 namespace App\Models\Quicktips;
 
 use App\Jobs\Searcher;
-use Cache;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Redis;
 use Log;
@@ -12,8 +11,8 @@ class Quicktips
 {
     use DispatchesJobs;
 
-    const QUICKTIP_URL   = "http://localhost:63825/1.1/quicktips.xml";
-    const QUICKTIP_NAME  = "quicktips";
+    const QUICKTIP_URL = "http://localhost:63825/1.1/quicktips.xml";
+    const QUICKTIP_NAME = "quicktips";
     const CACHE_DURATION = 60;
 
     private $hash;
@@ -26,18 +25,15 @@ class Quicktips
     public function startSearch($search, $locale, $max_time)
     {
         $url = self::QUICKTIP_URL . "?search=" . $this->normalize_search($search) . "&locale=" . $locale;
-
-        $hash = md5($url);
-
         # TODO anders weitergeben
-        $this->hash = $hash;
+        $this->hash = md5($url);
 
         # TODO cache wieder einbauen (eventuell)
         if ( /*!Cache::has($hash)*/true) {
-            Redis::hset("search." . $hash, self::QUICKTIP_NAME, "waiting");
+            Redis::hset("search." . $this->hash . ".results." . self::QUICKTIP_NAME, "status", "waiting");
 
             // Queue this search
-            $mission = $hash . ";" . base64_encode($url) . ";" . $max_time;
+            $mission = $this->hash . ";" . base64_encode($url) . ";" . $max_time;
             Redis::rpush(self::QUICKTIP_NAME . ".queue", $mission);
 
             // Check the current status of Searchers for QUICKTIP_NAME
@@ -85,14 +81,10 @@ class Quicktips
     public function retrieveResults($hash)
     {
         $body = "";
-        #if (Cache::has($hash)) {
-        $body = Cache::get($hash);
-        #} elseif (Redis::hexists('search.' . $hash, self::QUICKTIP_NAME)) {
-        $body = Redis::hget('search.' . $hash, self::QUICKTIP_NAME);
-        Redis::hdel('search.' . $hash, self::QUICKTIP_NAME);
-        Cache::put($hash, $body, self::CACHE_DURATION);
-        #}
+        $body = Redis::hget('search.' . $hash . ".results." . self::QUICKTIP_NAME, "response");
 
+        Redis::del('search.' . $hash . ".results." . self::QUICKTIP_NAME);
+        Redis::del('search.' . $hash . ".ready");
         if ($body !== "") {
             return $body;
         } else {
@@ -157,14 +149,14 @@ class Quicktips
                 $descr = $quicktip_xml->content->__toString();
 
                 // Details
-                $details       = [];
+                $details = [];
                 $details_xpath = $quicktip_xml->xpath('mg:details');
                 if (sizeof($details_xpath) > 0) {
                     foreach ($details_xpath[0] as $detail_xml) {
                         $details_title = $detail_xml->title->__toString();
-                        $details_link  = $detail_xml->url->__toString();
+                        $details_link = $detail_xml->url->__toString();
                         $details_descr = $detail_xml->text->__toString();
-                        $details[]     = new \App\Models\Quicktips\Quicktip_detail(
+                        $details[] = new \App\Models\Quicktips\Quicktip_detail(
                             $details_title,
                             $details_link,
                             $details_descr
