@@ -87,7 +87,7 @@ abstract class Searchengine
 
         $this->getString = $this->generateGetString($q);
         $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
-        $this->resultHash = $metager->getHashCode();
+        $this->resultHash = $metager->getSearchUid();
         $this->canCache = $metager->canCache();
     }
 
@@ -102,13 +102,15 @@ abstract class Searchengine
     # Prüft, ob die Suche bereits gecached ist, ansonsted wird sie als Job dispatched
     public function startSearch(\App\MetaGer $metager)
     {
-
         if ($this->canCache && Cache::has($this->hash)) {
             $this->cached = true;
             $this->retrieveResults($metager);
         } else {
+            $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
             // We will push the confirmation of the submission to the Result Hash
-            Redis::hset('search.' . $this->resultHash, $this->name, "waiting");
+            $redis->hset($metager->getRedisEngineResult() . $this->name, "status", "waiting");
+            $redis->expire($metager->getRedisEngineResult() . $this->name, env('REDIS_RESULT_CACHE_DURATION'));
+
             // We need to submit a action that one of our workers can understand
             // The missions are submitted to a redis queue in the following string format
             // <ResultHash>;<URL to fetch>
@@ -190,10 +192,6 @@ abstract class Searchengine
     {
         foreach ($this->results as $result) {
             $result->rank($eingabe);
-            if (str_contains($this->engine->{"display-name"}, "Yahoo")) {
-                #die(var_dump($result));
-            }
-
         }
     }
 
@@ -210,12 +208,12 @@ abstract class Searchengine
         }
 
         $body = "";
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
 
         if ($this->canCache && $this->cacheDuration > 0 && Cache::has($this->hash)) {
             $body = Cache::get($this->hash);
-        } elseif (Redis::hexists('search.' . $this->resultHash, $this->name)) {
-            $body = Redis::hget('search.' . $this->resultHash, $this->name);
-            Redis::hdel('search.' . $this->resultHash, $this->name);
+        } elseif ($redis->hexists($metager->getRedisEngineResult() . $this->name, "response")) {
+            $body = $redis->hget($metager->getRedisEngineResult() . $this->name, "response");
             if ($this->canCache && $this->cacheDuration > 0) {
                 Cache::put($this->hash, $body, $this->cacheDuration);
             }
@@ -251,13 +249,7 @@ abstract class Searchengine
 
         # Append the Query String
         $getString .= "&" . $this->engine->{"query-parameter"} . "=" . $this->urlEncode($query);
-/*
-die(var_dump($getString));
 
-# Affildata
-if (strpos($getString, "<<AFFILDATA>>")) {
-$getString = str_replace("<<AFFILDATA>>", $this->getOvertureAffilData($url), $getString);
-}*/
         return $getString;
     }
 

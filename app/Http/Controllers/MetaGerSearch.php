@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App;
 use App\MetaGer;
+use Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use View;
 
 const TIP_SERVER = 'http://metager3.de:63825/tips.xml';
 
@@ -19,13 +22,6 @@ class MetaGerSearch extends Controller
             return redirect()->to('https://maps.metager.de/map/' . $searchinput . '/1240908.5493525574,6638783.2192695495,6');
         }
 
-        /*if ($focus !== "angepasst" && $this->startsWith($focus, "focus_")) {
-        $metager->parseFormData($request);
-        return $metager->createView();
-        }*/
-
-        #die($request->header('User-Agent'));
-        $time = microtime();
         # Mit gelieferte Formulardaten parsen und abspeichern:
         $metager->parseFormData($request);
 
@@ -39,17 +35,130 @@ class MetaGerSearch extends Controller
         # auf Ergebnisse warten und die Ergebnisse laden
         $metager->createSearchEngines($request);
 
+        $metager->startSearch();
+
+        $metager->waitForMainResults();
+
+        $metager->retrieveResults();
+
         # Versuchen die Ergebnisse der Quicktips zu laden
         $quicktipResults = $quicktips->loadResults();
-
         # Alle Ergebnisse vor der Zusammenführung ranken:
         $metager->rankAll();
 
         # Ergebnisse der Suchmaschinen kombinieren:
         $metager->prepareResults();
 
+        # Save the results in Redis
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+        $pipeline = $redis->pipeline();
+        foreach ($metager->getResults() as $result) {
+            $pipeline->rpush($metager->getRedisCurrentResultList(), base64_encode(serialize($result)));
+        }
+        $pipeline->expire($metager->getRedisCurrentResultList(), env('REDIS_RESULT_CACHE_DURATION'));
+        $pipeline->execute();
+
         # Die Ausgabe erstellen:
         return $metager->createView($quicktipResults);
+    }
+
+    public function loadMore(Request $request)
+    {
+        /**
+         * There are three forms of requests to the resultpage
+         * 1. Initial Request: Loads the fastest searchengines and sends them to the user
+         * 2. Load more results (with JS): Loads new search engines that answered after the initial request was send
+         * 3. Load more results (without JS): Loads new search engines that answered within 1s timeout
+         */
+        if ($request->filled('loadMore') && $request->filled('script') && $request->input('script') === "yes") {
+            return $this->loadMoreJS($request);
+        }
+
+    }
+
+    private function loadMoreJS(Request $request)
+    {
+        # Create a MetaGer Instance with the supplied hash
+        $hash = $request->input('loadMore', '');
+
+        $metager = new MetaGer($hash);
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+
+        $result = [];
+        # Check if there should be more results
+        $stats = $redis->hgetall($metager->getRedisEngineResult() . "status");
+        $stats["startTime"] = floatval($stats["startTime"]);
+        $stats["engineCount"] = intval($stats["engineCount"]);
+        $stats["engineAnswered"] = intval($stats["engineAnswered"]);
+        $stats["engineDelivered"] = intval($stats["engineDelivered"]);
+
+        $result["finished"] = true;
+        $result["engineCount"] = $stats["engineCount"];
+        $result["engineAnswered"] = $stats["engineAnswered"];
+        $result["engineDelivered"] = $stats["engineDelivered"];
+        $result["timeWaiting"] = microtime(true) - $stats["startTime"];
+
+        # Check if we can abort
+        if ($stats["engineAnswered"] > $stats["engineDelivered"]/*&& $result["timeWaiting"] <= 10 */) {
+            $metager->parseFormData($request);
+            # Nach Spezialsuchen überprüfen:
+            $metager->checkSpecialSearches($request);
+
+            # Read which search engines are new
+            $newEngines = [];
+
+            while (($engine = $redis->lpop($metager->getRedisResultWaitingKey())) != null) {
+                $result["engineDelivered"]++;
+                $newEngines[$engine] = $metager->getSumaFile()->sumas->{$engine};
+            }
+            $cache = Cache::get($hash);
+            if ($cache != null) {
+                $metager->setNext(unserialize($cache)["engines"]);
+            }
+
+            # Check if this request is not for page one
+            $metager->setEngines($request, $newEngines);
+
+            # Add the results already delivered to the user
+            $results = $redis->lrange($metager->getRedisCurrentResultList(), 0, -1);
+            foreach ($results as $index => $oldResult) {
+                $results[$index] = unserialize(base64_decode($oldResult));
+                $results[$index]->new = false;
+            }
+            $metager->setResults($results);
+            $metager->retrieveResults();
+            $metager->rankAll();
+            $metager->prepareResults();
+            $result["nextSearchLink"] = $metager->nextSearchLink();
+            $results = $metager->getResults();
+            foreach ($results as $index => $resultTmp) {
+                if ($resultTmp->new) {
+                    if ($metager->getFokus() !== "bilder") {
+                        $view = View::make('layouts.result', ['result' => $resultTmp, 'metager' => $metager]);
+                        $html = $view->render();
+                        $result['newResults'][$index] = $html;
+                        $result["imagesearch"] = false;
+                    } else {
+                        $view = View::make('layouts.image_result', ['result' => $resultTmp, 'metager' => $metager]);
+                        $html = $view->render();
+                        $result['newResults'][$index] = $html;
+                        $result["imagesearch"] = true;
+                    }
+                }
+            }
+            # Save the results in Redis
+            $pipeline = $redis->pipeline();
+            $pipeline->hincrby($metager->getRedisEngineResult() . "status", "engineDelivered", sizeof($newEngines));
+            $pipeline->hset($metager->getRedisEngineResult() . "status", "nextSearchLink", $result["nextSearchLink"]);
+            foreach ($metager->getResults() as $resultTmp) {
+                $resultTmp->new = false;
+                $pipeline->rpush($metager->getRedisCurrentResultList(), base64_encode(serialize($resultTmp)));
+            }
+            $pipeline->expire($metager->getRedisCurrentResultList(), env('REDIS_RESULT_CACHE_DURATION'));
+            $pipeline->execute();
+
+        }
+        return response()->json($result);
     }
 
     public function botProtection($redirect)

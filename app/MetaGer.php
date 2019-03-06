@@ -46,6 +46,7 @@ class MetaGer
     protected $agent;
     protected $apiKey = "";
     protected $apiAuthorized = false;
+    protected $next = [];
     # Konfigurationseinstellungen:
     protected $sumaFile;
     protected $mobile;
@@ -59,8 +60,10 @@ class MetaGer
     protected $languageDetect;
     protected $verificationId;
     protected $verificationCount;
+    protected $searchUid;
+    protected $redisResultWaitingKey, $redisResultEngineList, $redisEngineResult, $redisCurrentResultList;
 
-    public function __construct()
+    public function __construct($hash = "")
     {
         # Timer starten
         $this->starttime = microtime(true);
@@ -90,6 +93,21 @@ class MetaGer
         } catch (ConnectionException $e) {
             $this->canCache = false;
         }
+        if ($hash === "") {
+            $this->searchUid = md5(uniqid());
+        } else {
+            $this->searchUid = $hash;
+        }
+        $redisPrefix = "search";
+        # This is a list on which the MetaGer process can do a blocking pop to wait for new results
+        $this->redisResultWaitingKey = $redisPrefix . "." . $this->searchUid . ".ready";
+        # This is a list of searchengines which have delivered results for this search
+        $this->redisResultEngineList = $redisPrefix . "." . $this->searchUid . ".engines";
+        # This is the key where the results of the engine are stored as well as some statistical data
+        $this->redisEngineResult = $redisPrefix . "." . $this->searchUid . ".results.";
+        # A list of all search results already delivered to the user (sorted of course)
+        $this->redisCurrentResultList = $redisPrefix . "." . $this->searchUid . ".currentResults";
+
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
@@ -217,21 +235,8 @@ class MetaGer
     public function prepareResults()
     {
         $engines = $this->engines;
-
         // combine
-        $combinedResults = $this->combineResults($engines);
-
-        # Wir bestimmen die Sprache eines jeden Suchergebnisses
-        $this->results = $this->addLangCodes($this->results);
-
-        // sort
-        //$sortedResults = $this->sortResults($engines);
-        // filter
-        // augment (boost&adgoal)
-        // authorize
-        if ($this->apiKey) {
-            $this->apiAuthorized = $this->authorize($this->apiKey);
-        }
+        $this->combineResults($engines);
         // misc (WiP)
         if ($this->fokus == "nachrichten") {
             $this->results = array_filter($this->results, function ($v, $k) {
@@ -274,40 +279,6 @@ class MetaGer
         $counter = 0;
         $firstRank = 0;
 
-        if (isset($this->startForwards)) {
-            $this->startCount = $this->startForwards;
-        } elseif (isset($this->startBackwards)) {
-            $this->startCount = $this->startBackwards - count($this->results) - 1;
-        } else {
-            $this->startCount = 0;
-        }
-
-        foreach ($this->results as $result) {
-            if ($counter === 0) {
-                $firstRank = $result->rank;
-            }
-
-            $counter++;
-            $result->number = $counter + $this->startCount;
-            $confidence = 0;
-            if ($firstRank > 0) {
-                $confidence = $result->rank / $firstRank;
-            } else {
-                $confidence = 0;
-            }
-
-            if ($confidence > 0.65) {
-                $result->color = "#FF4000";
-            } elseif ($confidence > 0.4) {
-                $result->color = "#FF0080";
-            } elseif ($confidence > 0.2) {
-                $result->color = "#C000C0";
-            } else {
-                $result->color = "#000000";
-            }
-
-        }
-
         if (count($this->results) <= 0) {
             if (strlen($this->site) > 0) {
                 $no_sitesearch_query = str_replace(urlencode("site:" . $this->site), "", $this->fullUrl);
@@ -321,60 +292,13 @@ class MetaGer
             $page = $this->page + 1;
             $this->next = [
                 'page' => $page,
-                'startForwards' => $this->results[count($this->results) - 1]->number,
                 'engines' => $this->next,
             ];
-            Cache::put(md5(serialize($this->next)), serialize($this->next), 60);
+            Cache::put($this->getSearchUid(), serialize($this->next), 60);
         } else {
             $this->next = [];
         }
 
-    }
-
-    private function addLangCodes($results)
-    {
-        # Wenn es keine Ergebnisse gibt, brauchen wir uns gar nicht erst zu bemühen
-        if (sizeof($results) === 0) {
-            return $results;
-        }
-
-        # Bei der Spracheinstellung "all" wird nicht gefiltert
-        if ($this->getLang() === "all") {
-            return $results;
-        } else {
-            # Ansonsten müssen wir jedem Result einen Sprachcode hinzufügen
-            $id = 0;
-            $langStrings = [];
-            foreach ($results as $result) {
-                # Wir geben jedem Ergebnis eine ID um später die Sprachcodes zuordnen zu können
-                $result->id = $id;
-
-                $langStrings["result_" . $id] = utf8_encode($result->getLangString());
-
-                $id++;
-            }
-            # Wir schreiben die Strings in eine temporäre JSON-Datei,
-            # Da das Array unter umständen zu groß ist für eine direkte Übergabe an das Skript
-            $filename = "/tmp/" . getmypid();
-            file_put_contents($filename, json_encode($langStrings));
-            $langDetectorPath = app_path() . "/Models/lang.pl";
-            $lang = exec("echo '$filename' | $langDetectorPath");
-            $lang = json_decode($lang, true);
-
-            # Wir haben nun die Sprachcodes der einzelnen Ergebnisse.
-            # Diese müssen wir nur noch korrekt zuordnen, dann sind wir fertig.
-            foreach ($lang as $key => $langCode) {
-                # Prefix vom Key entfernen:
-                $id = intval(str_replace("result_", "", $key));
-                foreach ($this->results as $result) {
-                    if ($result->id === $id) {
-                        $result->langCode = $langCode;
-                        break;
-                    }
-                }
-            }
-            return $results;
-        }
     }
 
     public function combineResults($engines)
@@ -407,6 +331,9 @@ class MetaGer
         $tldList = "";
         try {
             foreach ($results as $result) {
+                if (!$result->new) {
+                    continue;
+                }
                 $link = $result->anzeigeLink;
                 if (strpos($link, "http") !== 0) {
                     $link = "http://" . $link;
@@ -431,7 +358,7 @@ class MetaGer
                 $hash = $el[1];
 
                 foreach ($results as $result) {
-                    if ($hoster === $result->tld && !$result->partnershop) {
+                    if ($result->new && $hoster === $result->tld && !$result->partnershop) {
                         # Hier ist ein Advertiser:
                         # Das Logo hinzufügen:
                         if ($result->image !== "") {
@@ -512,7 +439,7 @@ class MetaGer
     public function createQuicktips()
     {
         # Die quicktips werden als job erstellt und zur Abarbeitung freigegeben
-        $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime(), $this->getHashCode());
+        $quicktips = new \App\Models\Quicktips\Quicktips($this->q, $this->lang, $this->getTime());
         return $quicktips;
     }
 
@@ -534,7 +461,6 @@ class MetaGer
         if (empty($this->sumaFile->foki->{$this->fokus})) {
             $this->fokus = "web";
         }
-
         foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
@@ -589,8 +515,6 @@ class MetaGer
             $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
         }
 
-        #die(var_dump($this->enabledSearchengines));
-
         if (sizeof($this->enabledSearchengines) === 0) {
             $filter = "";
             foreach ($this->queryFilter as $queryFilter => $filterPhrase) {
@@ -601,52 +525,35 @@ class MetaGer
                 'filter' => $filter]);
             $this->errors[] = $error;
         }
-
         $engines = [];
         $typeslist = [];
         $counter = 0;
+        $this->setEngines($request);
+    }
 
+    public function setEngines(Request $request, $enabledSearchengines = [])
+    {
         if ($this->requestIsCached($request)) {
+            # If this is a page other than 1 the request is "cached"
             $engines = $this->getCachedEngines($request);
             # We need to edit some Options of the Cached Search Engines
             foreach ($engines as $engine) {
-                $engine->setResultHash($this->getHashCode());
+                $engine->setResultHash($this->getSearchUid());
             }
+            $this->engines = $engines;
         } else {
-            $engines = $this->actuallyCreateSearchEngines($this->enabledSearchengines);
+            if (sizeof($enabledSearchengines) > 0) {
+                $this->enabledSearchengines = $enabledSearchengines;
+            }
+            $this->actuallyCreateSearchEngines($this->enabledSearchengines);
         }
+    }
 
+    public function startSearch()
+    {
         # Wir starten alle Suchen
-        foreach ($engines as $engine) {
+        foreach ($this->engines as $engine) {
             $engine->startSearch($this);
-        }
-
-        /* Wir warten auf die Antwort der Suchmaschinen
-         * Die Verbindung steht zu diesem Zeitpunkt und auch unsere Requests wurden schon gesendet.
-         * Wir zählen die Suchmaschinen, die durch den Cache beantwortet wurden:
-         * $enginesToLoad zählt einerseits die Suchmaschinen auf die wir warten und andererseits
-         * welche Suchmaschinen nicht rechtzeitig geantwortet haben.
-         */
-
-        $enginesToLoad = [];
-        $canBreak = false;
-        foreach ($engines as $engine) {
-            if ($engine->cached) {
-                if ($overtureEnabled && ($engine->name === "overture" || $engine->name === "overtureAds")) {
-                    $canBreak = true;
-                }
-            } else {
-                $enginesToLoad[$engine->name] = false;
-            }
-        }
-
-        $this->waitForResults($enginesToLoad, $overtureEnabled, $canBreak);
-
-        $this->retrieveResults($engines);
-        foreach ($engines as $engine) {
-            if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
-                $this->totalResults = $engine->totalResults;
-            }
         }
     }
 
@@ -696,7 +603,7 @@ class MetaGer
 
             $engines[] = $tmp;
         }
-        return $engines;
+        $this->engines = $engines;
     }
 
     public function getAvailableParameterFilter()
@@ -779,128 +686,75 @@ class MetaGer
         $next = unserialize(Cache::get($request->input('next')));
         $this->page = $next['page'];
         $engines = $next['engines'];
-        if (isset($next['startForwards'])) {
-            $this->startForwards = $next['startForwards'];
-        }
-        if (isset($next['startBackwards'])) {
-            $this->startBackwards = $next['startBackwards'];
-        }
         return $engines;
     }
 
-    # Passt den Suchfokus an, falls für einen Fokus genau alle vorhandenen Sumas eingeschaltet sind
-    public function adjustFocus($sumas, $enabledSearchengines)
+    public function waitForMainResults()
     {
-        # Findet für alle Foki die enthaltenen Sumas
-        $foki = []; # [fokus][suma] => [suma]
-        foreach ($sumas as $suma) {
-            if ((!$this->sumaIsDisabled($suma)) && (!isset($suma['userSelectable']) || $suma['userSelectable']->__toString() === "1")) {
-                if (isset($suma['type'])) {
-                    # Wenn foki für diese Suchmaschine angegeben sind
-                    $focuses = explode(",", $suma['type']->__toString());
-                    foreach ($focuses as $foc) {
-                        if (isset($suma['minismCollection'])) {
-                            $foki[$foc][] = "minism";
-                        } else {
-                            $foki[$foc][] = $suma['name']->__toString();
-                        }
-                    }
-                } else {
-                    # Wenn keine foki für diese Suchmaschine angegeben sind
-                    if (isset($suma['minismCollection'])) {
-                        $foki["andere"][] = "minism";
-                    } else {
-                        $foki["andere"][] = $suma['name']->__toString();
-                    }
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+        $engines = $this->engines;
+        $enginesToWaitFor = [];
+        $mainEngines = $this->sumaFile->foki->{$this->fokus}->main;
+        foreach ($mainEngines as $mainEngine) {
+            foreach ($engines as $engine) {
+                if (!$engine->cached && $engine->name === $mainEngine) {
+                    $enginesToWaitFor[] = $engine;
                 }
             }
         }
-
-        # Findet die Namen der aktuell eingeschalteten Sumas
-        $realEngNames = [];
-        foreach ($enabledSearchengines as $realEng) {
-            $nam = $realEng["name"]->__toString();
-            if ($nam !== "qualigo" && $nam !== "overtureAds") {
-                $realEngNames[] = $nam;
-            }
-        }
-
-        # Anschließend werden diese beiden Listen verglichen (jeweils eine der Fokuslisten für jeden Fokus), um herauszufinden ob sie vielleicht identisch sind. Ist dies der Fall, so hat der Nutzer anscheinend Suchmaschinen eines kompletten Fokus eingestellt. Der Fokus wird dementsprechend angepasst.
-        foreach ($foki as $fok => $engines) {
-            $isFokus = true;
-            $fokiEngNames = [];
-            foreach ($engines as $eng) {
-                $fokiEngNames[] = $eng;
-            }
-            # Jede eingeschaltete Engine ist für diesen Fokus geeignet
-            foreach ($fokiEngNames as $fen) {
-                # Bei Bildersuchen ist uns egal, ob alle Suchmaschinen aus dem Suchfokus eingeschaltet sind, da wir sie eh als Bildersuche anzeigen müssen
-                if (!in_array($fen, $realEngNames) && $fok !== "bilder") {
-                    $isFokus = false;
-                }
-            }
-            # Jede im Fokus erwartete Engine ist auch eingeschaltet
-            foreach ($realEngNames as $ren) {
-                if (!in_array($ren, $fokiEngNames)) {
-                    $isFokus = false;
-                }
-            }
-            # Wenn die Listen identisch sind, setze den Fokus um
-            if ($isFokus) {
-                $this->fokus = $fok;
-            }
-        }
-    }
-
-    public function waitForResults($enginesToLoad, $overtureEnabled, $canBreak)
-    {
 
         $timeStart = microtime(true);
+        $answered = [];
         $results = null;
-        while (true) {
-            $results = Redis::hgetall('search.' . $this->getHashCode());
 
-            $ready = true;
-            // When every
-            $connected = true;
-            foreach ($results as $key => $value) {
-                if ($value === "waiting" || $value === "connected") {
-                    $ready = false;
+        # If there is no main searchengine to wait for or if the only main engine is yahoo-ads we will define a timeout of 1s
+        $forceTimeout = null;
+        if (sizeof($enginesToWaitFor) === 0 || (sizeof($enginesToWaitFor) === 1 && $enginesToWaitFor[0]->name === "yahoo-ads")) {
+            $forceTimeout = 1;
+        }
+
+        while (sizeof($enginesToWaitFor) > 0 || ($forceTimeout !== null && (microtime(true) - $timeStart) < $forceTimeout)) {
+            $newEngine = $redis->blpop($this->redisResultWaitingKey, 1);
+            if ($newEngine === null || sizeof($newEngine) !== 2) {
+                continue;
+            } else {
+                $newEngine = $newEngine[1];
+                foreach ($enginesToWaitFor as $index => $engine) {
+                    if ($engine->name === $newEngine) {
+                        unset($enginesToWaitFor[$index]);
+                        break;
+                    }
                 }
-                if ($value === "waiting") {
-                    $connected = false;
-                }
+                $answered[] = $newEngine;
             }
-
-            // If $ready is false at this point, we're waiting for more searchengines
-            // But we have to check for the timeout, too
-            if (!$connected) {
-                $timeStart = microtime(true);
-            }
-
-            $time = (microtime(true) - $timeStart) * 1000;
-            // We will apply the timeout only if it's not Yahoo we're waiting for since they are one the most
-            // important search engines.
-            $canTimeout = !((isset($results["overture"]) && $results["overture"] === "waiting") || (isset($results["overtureAds"]) && $results["overtureAds"] === "waiting"));
-            if ($time > $this->time && $canTimeout) {
-                $ready = true;
-            }
-
-            if ($ready) {
+            if ((microtime(true) - $timeStart) >= 2) {
                 break;
             }
-            usleep(50000);
         }
 
-        # Wir haben nun so lange wie möglich gewartet. Wir registrieren nun noch die Suchmaschinen, die geanwortet haben.
-        foreach ($results as $key => $value) {
-            $enginesToLoad[$key] = true;
+        # Now we can add an entry to Redis which defines the starting time and how many engines should answer this request
+
+        $pipeline = $redis->pipeline();
+        $pipeline->hset($this->getRedisEngineResult() . "status", "startTime", $timeStart);
+        $pipeline->hset($this->getRedisEngineResult() . "status", "engineCount", sizeof($engines));
+        $pipeline->hset($this->getRedisEngineResult() . "status", "engineDelivered", sizeof($answered));
+        # Add the cached engines as answered
+        foreach ($engines as $engine) {
+            if ($engine->cached) {
+                $pipeline->hincrby($this->getRedisEngineResult() . "status", "engineDelivered", 1);
+                $pipeline->hincrby($this->getRedisEngineResult() . "status", "engineAnswered", 1);
+            }
         }
-        $this->enginesToLoad = $enginesToLoad;
+        foreach ($answered as $engine) {
+            $pipeline->hset($this->getRedisEngineResult() . $engine, "delivered", "1");
+        }
+        $pipeline->execute();
+
     }
 
-    public function retrieveResults($engines)
+    public function retrieveResults()
     {
+        $engines = $this->engines;
         # Von geladenen Engines die Ergebnisse holen
         foreach ($engines as $engine) {
             if (!$engine->loaded) {
@@ -910,9 +764,10 @@ class MetaGer
                     Log::error($e);
                 }
             }
+            if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
+                $this->totalResults = $engine->totalResults;
+            }
         }
-
-        $this->engines = $engines;
     }
 
 /*
@@ -1036,6 +891,9 @@ class MetaGer
             if (empty($this->apiKey)) {
                 $this->apiKey = "";
             }
+        }
+        if ($this->apiKey) {
+            $this->apiAuthorized = $this->authorize($this->apiKey);
         }
 
         // Remove Inputs that are not used
@@ -1262,7 +1120,7 @@ class MetaGer
             if ($this->request->input('out', '') !== "results" && $this->request->input('out', '') !== '') {
                 $requestData["out"] = $this->request->input('out');
             }
-            $requestData['next'] = md5(serialize($this->next));
+            $requestData['next'] = $this->getSearchUid();
             $link = action('MetaGerSearch@search', $requestData);
         } else {
             $link = "#";
@@ -1356,6 +1214,11 @@ class MetaGer
                 return;
             }
         }
+    }
+
+    public function setNext($next)
+    {
+        $this->next = $next;
     }
 
     public function addLink($link)
@@ -1472,10 +1335,9 @@ class MetaGer
         return $link;
     }
 
-    public function getHashCode()
+    public function getSearchUid()
     {
-        $string = url()->full();
-        return md5($string);
+        return $this->searchUid;
     }
 
 # Einfache Getter
@@ -1483,6 +1345,11 @@ class MetaGer
     public function getVerificationId()
     {
         return $this->verificationId;
+    }
+
+    public function getNext()
+    {
+        return $this->next;
     }
 
     public function getVerificationCount()
@@ -1498,6 +1365,11 @@ class MetaGer
     public function getNewtab()
     {
         return $this->newtab;
+    }
+
+    public function setResults($results)
+    {
+        $this->results = $results;
     }
 
     public function getResults()
@@ -1627,5 +1499,24 @@ class MetaGer
     public function getStartCount()
     {
         return $this->startCount;
+    }
+
+    public function getRedisResultWaitingKey()
+    {
+        return $this->redisResultWaitingKey;
+    }
+
+    public function getRedisResultEngineList()
+    {
+        return $this->redisResultEngineList;
+    }
+
+    public function getRedisEngineResult()
+    {
+        return $this->redisEngineResult;
+    }
+    public function getRedisCurrentResultList()
+    {
+        return $this->redisCurrentResultList;
     }
 }

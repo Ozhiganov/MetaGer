@@ -18,9 +18,6 @@
   * php-gd
 * sqlite3
 * redis-server
-* Die Perl-Pakete
-  * Lingua::Identify (http://search.cpan.org/~ambs/Lingua-Identify-0.56/lib/Lingua/Identify.pm)
-  * JSON (http://search.cpan.org/~makamaka/JSON-2.90/lib/JSON.pm)
 
 ---
 [<img src="public/img/Browserstack-logo_2x.png" width="250px" alt="Browserstack Logo" />](https://www.browserstack.com) <br /> 
