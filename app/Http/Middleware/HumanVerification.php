@@ -27,7 +27,7 @@ class HumanVerification
         $redis = Redis::connection('redisCache');
         try {
             $id = hash("sha512", $request->ip());
-            $uid = hash("sha512", $request->ip() . $_SERVER["AGENT"]);
+            $uid = hash("sha512", $request->ip() . $_SERVER["AGENT"] . "uid");
             unset($_SERVER["AGENT"]);
 
             /**
