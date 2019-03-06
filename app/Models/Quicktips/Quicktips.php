@@ -30,7 +30,9 @@ class Quicktips
 
         # TODO cache wieder einbauen (eventuell)
         if ( /*!Cache::has($hash)*/true) {
-            Redis::hset("search." . $this->hash . ".results." . self::QUICKTIP_NAME, "status", "waiting");
+            $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+
+            $redis->hset("search." . $this->hash . ".results." . self::QUICKTIP_NAME, "status", "waiting");
 
             // Queue this search
             $mission = $this->hash . ";" . base64_encode($url) . ";" . $max_time;
@@ -81,10 +83,11 @@ class Quicktips
     public function retrieveResults($hash)
     {
         $body = "";
-        $body = Redis::hget('search.' . $hash . ".results." . self::QUICKTIP_NAME, "response");
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+        $body = $redis->hget('search.' . $hash . ".results." . self::QUICKTIP_NAME, "response");
 
-        Redis::del('search.' . $hash . ".results." . self::QUICKTIP_NAME);
-        Redis::del('search.' . $hash . ".ready");
+        $redis->del('search.' . $hash . ".results." . self::QUICKTIP_NAME);
+        $redis->del('search.' . $hash . ".ready");
         if ($body !== "") {
             return $body;
         } else {

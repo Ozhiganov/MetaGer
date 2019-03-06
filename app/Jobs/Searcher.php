@@ -166,19 +166,17 @@ class Searcher implements ShouldQueue
 
     private function storeResult($result, $poptime, $hashValue)
     {
-        if ($this->name === "zeitde") {
-            sleep(3);
-        }
-        $pipeline = Redis::pipeline();
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+        $pipeline = $redis->pipeline();
         $pipeline->hset('search.' . $hashValue . ".results." . $this->name, "response", $result);
         $pipeline->hset('search.' . $hashValue . ".results." . $this->name, "delivered", "0");
         $pipeline->hincrby('search.' . $hashValue . ".results.status", "engineAnswered", 1);
         // After 60 seconds the results should be read by the MetaGer Process and stored in the Cache instead
-        $pipeline->expire('search.' . $hashValue . ".results." . $this->name, 6000);
+        $pipeline->expire('search.' . $hashValue . ".results." . $this->name, env('REDIS_RESULT_CACHE_DURATION'));
         $pipeline->rpush('search.' . $hashValue . ".ready", $this->name);
-        $pipeline->expire('search.' . $hashValue . ".ready", 6000);
+        $pipeline->expire('search.' . $hashValue . ".ready", env('REDIS_RESULT_CACHE_DURATION'));
         $pipeline->sadd('search.' . $hashValue . ".engines", $this->name);
-        $pipeline->expire('search.' . $hashValue . ".engines", 6000);
+        $pipeline->expire('search.' . $hashValue . ".engines", env('REDIS_RESULT_CACHE_DURATION'));
         $pipeline->execute();
         $this->lastTime = microtime(true);
     }

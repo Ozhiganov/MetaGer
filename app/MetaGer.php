@@ -46,6 +46,7 @@ class MetaGer
     protected $agent;
     protected $apiKey = "";
     protected $apiAuthorized = false;
+    protected $next = [];
     # Konfigurationseinstellungen:
     protected $sumaFile;
     protected $mobile;
@@ -92,7 +93,6 @@ class MetaGer
         } catch (ConnectionException $e) {
             $this->canCache = false;
         }
-        $this->canCache = false;
         if ($hash === "") {
             $this->searchUid = md5(uniqid());
         } else {
@@ -235,7 +235,6 @@ class MetaGer
     public function prepareResults()
     {
         $engines = $this->engines;
-
         // combine
         $this->combineResults($engines);
         // misc (WiP)
@@ -280,14 +279,6 @@ class MetaGer
         $counter = 0;
         $firstRank = 0;
 
-        if (isset($this->startForwards)) {
-            $this->startCount = $this->startForwards;
-        } elseif (isset($this->startBackwards)) {
-            $this->startCount = $this->startBackwards - count($this->results) - 1;
-        } else {
-            $this->startCount = 0;
-        }
-
         if (count($this->results) <= 0) {
             if (strlen($this->site) > 0) {
                 $no_sitesearch_query = str_replace(urlencode("site:" . $this->site), "", $this->fullUrl);
@@ -301,10 +292,9 @@ class MetaGer
             $page = $this->page + 1;
             $this->next = [
                 'page' => $page,
-                'startForwards' => $this->results[count($this->results) - 1]->number,
                 'engines' => $this->next,
             ];
-            Cache::put(md5(serialize($this->next)), serialize($this->next), 60);
+            Cache::put($this->getSearchUid(), serialize($this->next), 60);
         } else {
             $this->next = [];
         }
@@ -538,15 +528,23 @@ class MetaGer
         $engines = [];
         $typeslist = [];
         $counter = 0;
+        $this->setEngines($request);
+    }
 
+    public function setEngines(Request $request, $enabledSearchengines = [])
+    {
         if ($this->requestIsCached($request)) {
             # If this is a page other than 1 the request is "cached"
             $engines = $this->getCachedEngines($request);
             # We need to edit some Options of the Cached Search Engines
             foreach ($engines as $engine) {
-                $engine->setResultHash($this->getHashCode());
+                $engine->setResultHash($this->getSearchUid());
             }
+            $this->engines = $engines;
         } else {
+            if (sizeof($enabledSearchengines) > 0) {
+                $this->enabledSearchengines = $enabledSearchengines;
+            }
             $this->actuallyCreateSearchEngines($this->enabledSearchengines);
         }
     }
@@ -688,31 +686,28 @@ class MetaGer
         $next = unserialize(Cache::get($request->input('next')));
         $this->page = $next['page'];
         $engines = $next['engines'];
-        if (isset($next['startForwards'])) {
-            $this->startForwards = $next['startForwards'];
-        }
-        if (isset($next['startBackwards'])) {
-            $this->startBackwards = $next['startBackwards'];
-        }
         return $engines;
     }
 
     public function waitForMainResults()
     {
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
         $engines = $this->engines;
         $enginesToWaitFor = [];
-        foreach ($engines as $engine) {
-            if ($engine->cached || !isset($engine->engine->main) || !$engine->engine->main) {
-                continue;
+        $mainEngines = $this->sumaFile->foki->{$this->fokus}->main;
+        foreach ($mainEngines as $mainEngine) {
+            foreach ($engines as $engine) {
+                if (!$engine->cached && $engine->name === $mainEngine) {
+                    $enginesToWaitFor[] = $engine;
+                }
             }
-            $enginesToWaitFor[] = $engine;
         }
 
         $timeStart = microtime(true);
         $answered = [];
         $results = null;
         while (sizeof($enginesToWaitFor) > 0) {
-            $newEngine = Redis::blpop($this->redisResultWaitingKey, 5);
+            $newEngine = $redis->blpop($this->redisResultWaitingKey, 5);
             if ($newEngine === null || sizeof($newEngine) !== 2) {
                 continue;
             } else {
@@ -731,7 +726,7 @@ class MetaGer
         }
 
         # Now we can add an entry to Redis which defines the starting time and how many engines should answer this request
-        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+
         $pipeline = $redis->pipeline();
         $pipeline->hset($this->getRedisEngineResult() . "status", "startTime", $timeStart);
         $pipeline->hset($this->getRedisEngineResult() . "status", "engineCount", sizeof($engines));
@@ -1111,7 +1106,7 @@ class MetaGer
             if ($this->request->input('out', '') !== "results" && $this->request->input('out', '') !== '') {
                 $requestData["out"] = $this->request->input('out');
             }
-            $requestData['next'] = md5(serialize($this->next));
+            $requestData['next'] = $this->getSearchUid();
             $link = action('MetaGerSearch@search', $requestData);
         } else {
             $link = "#";
@@ -1205,6 +1200,11 @@ class MetaGer
                 return;
             }
         }
+    }
+
+    public function setNext($next)
+    {
+        $this->next = $next;
     }
 
     public function addLink($link)
@@ -1331,6 +1331,11 @@ class MetaGer
     public function getVerificationId()
     {
         return $this->verificationId;
+    }
+
+    public function getNext()
+    {
+        return $this->next;
     }
 
     public function getVerificationCount()

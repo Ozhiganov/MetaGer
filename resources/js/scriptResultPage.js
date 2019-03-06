@@ -70,7 +70,7 @@ function loadMoreResults() {
       currentlyLoading = true;
       $.getJSON(updateUrl, function (data) {
         // Check if we can clear the interval (once every searchengine has answered)
-        if (data.engineDelivered == data.engineCount || data.timeWaiting > 5) {
+        if (data.engineDelivered == data.engineCount || data.timeWaiting > 15) {
           clearInterval(resultLoader);
         }
         // If there are new results we can add them
@@ -79,22 +79,43 @@ function loadMoreResults() {
             var value = data.newResults[key];
 
             // If there are more results than the given index we will prepend otherwise we will append the result
-            var results = $(".result:not(.ad)");
-            if (typeof results[key] != "undefined") {
-              console.log("inserting before " + key);
-              $(results[key]).insertBefore(value);
+            if (!data.imagesearch) {
+              var results = $(".result:not(.ad)");
+              if (key == 0) {
+                if ($(".result.ad").length > 0) {
+                  $(value).insertAfter($($(".result.ad")[$(".result.ad").length - 1]));
+                } else {
+                  $("#results").prepend(value);
+                }
+              } else if (typeof results[key] != "undefined") {
+                $(value).insertBefore($(results[key]));
+              } else if (typeof results[key - 1] != "undefined") {
+                $(value).insertAfter($(results[key - 1]));
+              }
             } else {
-              $(results[key - 1]).insertAfter(value);
+              var results = $(".image-container > .image");
+              if (key == 0) {
+                $(".image-container").prepend(value);
+              } else if (typeof results[key] != "undefined") {
+                $(value).insertBefore($(results[key]));
+              } else if (typeof results[key - 1] != "undefined") {
+                $(value).insertAfter($(results[key - 1]));
+              }
             }
-
-            console.log(key + "=>" + value);
           }
+          if ($(".no-results-error").length > 0 && $(".image-container > .image").length > 0) {
+            $(".no-results-error").remove();
+            if ($(".alert.alert-danger > ul").children().length == 0) {
+              $(".alert.alert-danger").remove();
+            }
+          }
+          console.log(data);
         }
         currentlyLoading = false;
       });
     }
   }, 1000);
-
+  //clearInterval(resultLoader);
   console.log(updateUrl);
 
 }

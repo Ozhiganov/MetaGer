@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\MetaGer;
+use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use View;
@@ -106,12 +107,19 @@ class MetaGerSearch extends Controller
             # Read which search engines are new
             $newEngines = [];
 
-            foreach ($redis->lrange($metager->getRedisResultWaitingKey(), 0, -1) as $engine) {
+            while (($engine = $redis->lpop($metager->getRedisResultWaitingKey())) != null) {
                 $result["engineDelivered"]++;
                 $newEngines[$engine] = $metager->getSumaFile()->sumas->{$engine};
             }
-            $metager->actuallyCreateSearchEngines($newEngines);
-            # Add the results already delivered to the suer
+            $cache = Cache::get($hash);
+            if ($cache != null) {
+                $metager->setNext(unserialize($cache)["engines"]);
+            }
+
+            # Check if this request is not for page one
+            $metager->setEngines($request, $newEngines);
+
+            # Add the results already delivered to the user
             $results = $redis->lrange($metager->getRedisCurrentResultList(), 0, -1);
             foreach ($results as $index => $oldResult) {
                 $results[$index] = unserialize(base64_decode($oldResult));
@@ -121,15 +129,33 @@ class MetaGerSearch extends Controller
             $metager->retrieveResults();
             $metager->rankAll();
             $metager->prepareResults();
-
+            $result["nextSearchLink"] = $metager->nextSearchLink();
             $results = $metager->getResults();
             foreach ($results as $index => $resultTmp) {
                 if ($resultTmp->new) {
-                    $view = View::make('layouts.result', ['result' => $resultTmp, 'metager' => $metager]);
-                    $html = $view->render();
-                    $result['newResults'][$index] = $html;
+                    if ($metager->getFokus() !== "bilder") {
+                        $view = View::make('layouts.result', ['result' => $resultTmp, 'metager' => $metager]);
+                        $html = $view->render();
+                        $result['newResults'][$index] = $html;
+                        $result["imagesearch"] = false;
+                    } else {
+                        $view = View::make('layouts.image_result', ['result' => $resultTmp, 'metager' => $metager]);
+                        $html = $view->render();
+                        $result['newResults'][$index] = $html;
+                        $result["imagesearch"] = true;
+                    }
                 }
             }
+            # Save the results in Redis
+            $pipeline = $redis->pipeline();
+            $pipeline->hincrby($metager->getRedisEngineResult() . "status", "engineDelivered", sizeof($newEngines));
+            $pipeline->hset($metager->getRedisEngineResult() . "status", "nextSearchLink", $result["nextSearchLink"]);
+            foreach ($metager->getResults() as $resultTmp) {
+                $resultTmp->new = false;
+                $pipeline->rpush($metager->getRedisCurrentResultList(), base64_encode(serialize($resultTmp)));
+            }
+            $pipeline->expire($metager->getRedisCurrentResultList(), 6000);
+            $pipeline->execute();
 
         }
         return response()->json($result);
