@@ -103,7 +103,7 @@ function loadMoreResults() {
               }
             }
           }
-          if ($(".no-results-error").length > 0 && $(".image-container > .image").length > 0) {
+          if ($(".no-results-error").length > 0 && ($(".image-container > .image").length > 0) || $(".result:not(.ad)").length > 0) {
             $(".no-results-error").remove();
             if ($(".alert.alert-danger > ul").children().length == 0) {
               $(".alert.alert-danger").remove();

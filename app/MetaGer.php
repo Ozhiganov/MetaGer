@@ -706,8 +706,15 @@ class MetaGer
         $timeStart = microtime(true);
         $answered = [];
         $results = null;
-        while (sizeof($enginesToWaitFor) > 0) {
-            $newEngine = $redis->blpop($this->redisResultWaitingKey, 5);
+
+        # If there is no main searchengine to wait for or if the only main engine is yahoo-ads we will define a timeout of 1s
+        $forceTimeout = null;
+        if (sizeof($enginesToWaitFor) === 0 || (sizeof($enginesToWaitFor) === 1 && $enginesToWaitFor[0]->name === "yahoo-ads")) {
+            $forceTimeout = 1;
+        }
+
+        while (sizeof($enginesToWaitFor) > 0 || ($forceTimeout !== null && (microtime(true) - $timeStart) < $forceTimeout)) {
+            $newEngine = $redis->blpop($this->redisResultWaitingKey, 1);
             if ($newEngine === null || sizeof($newEngine) !== 2) {
                 continue;
             } else {
@@ -731,6 +738,13 @@ class MetaGer
         $pipeline->hset($this->getRedisEngineResult() . "status", "startTime", $timeStart);
         $pipeline->hset($this->getRedisEngineResult() . "status", "engineCount", sizeof($engines));
         $pipeline->hset($this->getRedisEngineResult() . "status", "engineDelivered", sizeof($answered));
+        # Add the cached engines as answered
+        foreach ($engines as $engine) {
+            if ($engine->cached) {
+                $pipeline->hincrby($this->getRedisEngineResult() . "status", "engineDelivered", 1);
+                $pipeline->hincrby($this->getRedisEngineResult() . "status", "engineAnswered", 1);
+            }
+        }
         foreach ($answered as $engine) {
             $pipeline->hset($this->getRedisEngineResult() . $engine, "delivered", "1");
         }
