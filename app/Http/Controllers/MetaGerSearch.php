@@ -55,7 +55,7 @@ class MetaGerSearch extends Controller
         foreach ($metager->getResults() as $result) {
             $pipeline->rpush($metager->getRedisCurrentResultList(), base64_encode(serialize($result)));
         }
-        $pipeline->expire($metager->getRedisCurrentResultList(), 6000);
+        $pipeline->expire($metager->getRedisCurrentResultList(), env('REDIS_RESULT_CACHE_DURATION'));
         $pipeline->execute();
 
         # Die Ausgabe erstellen:
@@ -154,7 +154,7 @@ class MetaGerSearch extends Controller
                 $resultTmp->new = false;
                 $pipeline->rpush($metager->getRedisCurrentResultList(), base64_encode(serialize($resultTmp)));
             }
-            $pipeline->expire($metager->getRedisCurrentResultList(), 6000);
+            $pipeline->expire($metager->getRedisCurrentResultList(), env('REDIS_RESULT_CACHE_DURATION'));
             $pipeline->execute();
 
         }

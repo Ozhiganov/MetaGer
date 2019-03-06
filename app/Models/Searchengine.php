@@ -109,7 +109,7 @@ abstract class Searchengine
             $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
             // We will push the confirmation of the submission to the Result Hash
             $redis->hset($metager->getRedisEngineResult() . $this->name, "status", "waiting");
-            $redis->expire($metager->getRedisEngineResult() . $this->name, 60);
+            $redis->expire($metager->getRedisEngineResult() . $this->name, env('REDIS_RESULT_CACHE_DURATION'));
 
             // We need to submit a action that one of our workers can understand
             // The missions are submitted to a redis queue in the following string format
