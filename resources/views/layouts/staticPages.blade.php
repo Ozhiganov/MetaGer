@@ -39,8 +39,6 @@
 		<header>
 			@yield('homeIcon')
 		</header>
-		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
-		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<div class="wrapper {{$page ?? ''}}">
 			<main id="main-content">
 				@if (isset($success))
@@ -61,6 +59,8 @@
 				@yield('additional-content')
 			</div>
 		</div>
+		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
+		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		@if (isset($page) && $page === 'startpage')
 			@include('parts.footer', ['type' => 'startpage', 'id' => 'startPageFooter'])
 		@else
