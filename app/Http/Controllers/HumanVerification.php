@@ -168,7 +168,7 @@ class HumanVerification extends Controller
 
     private static function checkId($request, $id)
     {
-        if (hash("sha512", $request->ip() . $_SERVER["AGENT"]) === $id) {
+        if (hash("sha512", $request->ip() . $_SERVER["AGENT"] . "uid") === $id) {
             return true;
         } else {
             return false;
