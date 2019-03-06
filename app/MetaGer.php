@@ -60,9 +60,9 @@ class MetaGer
     protected $verificationId;
     protected $verificationCount;
     protected $searchUid;
-    protected $redisResultWaitingKey, $redisResultEngineList, $redisEngineResult;
+    protected $redisResultWaitingKey, $redisResultEngineList, $redisEngineResult, $redisCurrentResultList;
 
-    public function __construct()
+    public function __construct($hash = "")
     {
         # Timer starten
         $this->starttime = microtime(true);
@@ -93,7 +93,11 @@ class MetaGer
             $this->canCache = false;
         }
         $this->canCache = false;
-        $this->searchUid = md5(uniqid());
+        if ($hash === "") {
+            $this->searchUid = md5(uniqid());
+        } else {
+            $this->searchUid = $hash;
+        }
         $redisPrefix = "search";
         # This is a list on which the MetaGer process can do a blocking pop to wait for new results
         $this->redisResultWaitingKey = $redisPrefix . "." . $this->searchUid . ".ready";
@@ -101,6 +105,9 @@ class MetaGer
         $this->redisResultEngineList = $redisPrefix . "." . $this->searchUid . ".engines";
         # This is the key where the results of the engine are stored as well as some statistical data
         $this->redisEngineResult = $redisPrefix . "." . $this->searchUid . ".results.";
+        # A list of all search results already delivered to the user (sorted of course)
+        $this->redisCurrentResultList = $redisPrefix . "." . $this->searchUid . ".currentResults";
+
     }
 
     # Erstellt aus den gesammelten Ergebnissen den View
@@ -230,19 +237,7 @@ class MetaGer
         $engines = $this->engines;
 
         // combine
-        $combinedResults = $this->combineResults($engines);
-
-        # Wir bestimmen die Sprache eines jeden Suchergebnisses
-        $this->results = $this->addLangCodes($this->results);
-
-        // sort
-        //$sortedResults = $this->sortResults($engines);
-        // filter
-        // augment (boost&adgoal)
-        // authorize
-        if ($this->apiKey) {
-            $this->apiAuthorized = $this->authorize($this->apiKey);
-        }
+        $this->combineResults($engines);
         // misc (WiP)
         if ($this->fokus == "nachrichten") {
             $this->results = array_filter($this->results, function ($v, $k) {
@@ -293,32 +288,6 @@ class MetaGer
             $this->startCount = 0;
         }
 
-        foreach ($this->results as $result) {
-            if ($counter === 0) {
-                $firstRank = $result->rank;
-            }
-
-            $counter++;
-            $result->number = $counter + $this->startCount;
-            $confidence = 0;
-            if ($firstRank > 0) {
-                $confidence = $result->rank / $firstRank;
-            } else {
-                $confidence = 0;
-            }
-
-            if ($confidence > 0.65) {
-                $result->color = "#FF4000";
-            } elseif ($confidence > 0.4) {
-                $result->color = "#FF0080";
-            } elseif ($confidence > 0.2) {
-                $result->color = "#C000C0";
-            } else {
-                $result->color = "#000000";
-            }
-
-        }
-
         if (count($this->results) <= 0) {
             if (strlen($this->site) > 0) {
                 $no_sitesearch_query = str_replace(urlencode("site:" . $this->site), "", $this->fullUrl);
@@ -340,52 +309,6 @@ class MetaGer
             $this->next = [];
         }
 
-    }
-
-    private function addLangCodes($results)
-    {
-        # Wenn es keine Ergebnisse gibt, brauchen wir uns gar nicht erst zu bemühen
-        if (sizeof($results) === 0) {
-            return $results;
-        }
-
-        # Bei der Spracheinstellung "all" wird nicht gefiltert
-        if ($this->getLang() === "all") {
-            return $results;
-        } else {
-            # Ansonsten müssen wir jedem Result einen Sprachcode hinzufügen
-            $id = 0;
-            $langStrings = [];
-            foreach ($results as $result) {
-                # Wir geben jedem Ergebnis eine ID um später die Sprachcodes zuordnen zu können
-                $result->id = $id;
-
-                $langStrings["result_" . $id] = utf8_encode($result->getLangString());
-
-                $id++;
-            }
-            # Wir schreiben die Strings in eine temporäre JSON-Datei,
-            # Da das Array unter umständen zu groß ist für eine direkte Übergabe an das Skript
-            $filename = "/tmp/" . getmypid();
-            file_put_contents($filename, json_encode($langStrings));
-            $langDetectorPath = app_path() . "/Models/lang.pl";
-            $lang = exec("echo '$filename' | $langDetectorPath");
-            $lang = json_decode($lang, true);
-
-            # Wir haben nun die Sprachcodes der einzelnen Ergebnisse.
-            # Diese müssen wir nur noch korrekt zuordnen, dann sind wir fertig.
-            foreach ($lang as $key => $langCode) {
-                # Prefix vom Key entfernen:
-                $id = intval(str_replace("result_", "", $key));
-                foreach ($this->results as $result) {
-                    if ($result->id === $id) {
-                        $result->langCode = $langCode;
-                        break;
-                    }
-                }
-            }
-            return $results;
-        }
     }
 
     public function combineResults($engines)
@@ -418,6 +341,9 @@ class MetaGer
         $tldList = "";
         try {
             foreach ($results as $result) {
+                if (!$result->new) {
+                    continue;
+                }
                 $link = $result->anzeigeLink;
                 if (strpos($link, "http") !== 0) {
                     $link = "http://" . $link;
@@ -442,7 +368,7 @@ class MetaGer
                 $hash = $el[1];
 
                 foreach ($results as $result) {
-                    if ($hoster === $result->tld && !$result->partnershop) {
+                    if ($result->new && $hoster === $result->tld && !$result->partnershop) {
                         # Hier ist ein Advertiser:
                         # Das Logo hinzufügen:
                         if ($result->image !== "") {
@@ -609,7 +535,6 @@ class MetaGer
                 'filter' => $filter]);
             $this->errors[] = $error;
         }
-
         $engines = [];
         $typeslist = [];
         $counter = 0;
@@ -622,28 +547,15 @@ class MetaGer
                 $engine->setResultHash($this->getHashCode());
             }
         } else {
-            $engines = $this->actuallyCreateSearchEngines($this->enabledSearchengines);
+            $this->actuallyCreateSearchEngines($this->enabledSearchengines);
         }
+    }
 
+    public function startSearch()
+    {
         # Wir starten alle Suchen
-        foreach ($engines as $engine) {
+        foreach ($this->engines as $engine) {
             $engine->startSearch($this);
-        }
-
-        /* Wir warten auf die Antwort der Suchmaschinen
-         * Die Verbindung steht zu diesem Zeitpunkt und auch unsere Requests wurden schon gesendet.
-         * Wir zählen die Suchmaschinen, die durch den Cache beantwortet wurden:
-         * $enginesToLoad zählt einerseits die Suchmaschinen auf die wir warten und andererseits
-         * welche Suchmaschinen nicht rechtzeitig geantwortet haben.
-         */
-
-        $this->waitForResults($engines);
-
-        $this->retrieveResults($engines);
-        foreach ($engines as $engine) {
-            if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
-                $this->totalResults = $engine->totalResults;
-            }
         }
     }
 
@@ -693,7 +605,7 @@ class MetaGer
 
             $engines[] = $tmp;
         }
-        return $engines;
+        $this->engines = $engines;
     }
 
     public function getAvailableParameterFilter()
@@ -785,8 +697,9 @@ class MetaGer
         return $engines;
     }
 
-    public function waitForResults($engines)
+    public function waitForMainResults()
     {
+        $engines = $this->engines;
         $enginesToWaitFor = [];
         foreach ($engines as $engine) {
             if ($engine->cached || !isset($engine->engine->main) || !$engine->engine->main) {
@@ -796,6 +709,7 @@ class MetaGer
         }
 
         $timeStart = microtime(true);
+        $answered = [];
         $results = null;
         while (sizeof($enginesToWaitFor) > 0) {
             $newEngine = Redis::blpop($this->redisResultWaitingKey, 5);
@@ -809,15 +723,29 @@ class MetaGer
                         break;
                     }
                 }
+                $answered[] = $newEngine;
             }
             if ((microtime(true) - $timeStart) >= 2) {
                 break;
             }
         }
+
+        # Now we can add an entry to Redis which defines the starting time and how many engines should answer this request
+        $redis = Redis::connection(env('REDIS_RESULT_CONNECTION'));
+        $pipeline = $redis->pipeline();
+        $pipeline->hset($this->getRedisEngineResult() . "status", "startTime", $timeStart);
+        $pipeline->hset($this->getRedisEngineResult() . "status", "engineCount", sizeof($engines));
+        $pipeline->hset($this->getRedisEngineResult() . "status", "engineDelivered", sizeof($answered));
+        foreach ($answered as $engine) {
+            $pipeline->hset($this->getRedisEngineResult() . $engine, "delivered", "1");
+        }
+        $pipeline->execute();
+
     }
 
-    public function retrieveResults($engines)
+    public function retrieveResults()
     {
+        $engines = $this->engines;
         # Von geladenen Engines die Ergebnisse holen
         foreach ($engines as $engine) {
             if (!$engine->loaded) {
@@ -827,9 +755,10 @@ class MetaGer
                     Log::error($e);
                 }
             }
+            if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
+                $this->totalResults = $engine->totalResults;
+            }
         }
-
-        $this->engines = $engines;
     }
 
 /*
@@ -953,6 +882,9 @@ class MetaGer
             if (empty($this->apiKey)) {
                 $this->apiKey = "";
             }
+        }
+        if ($this->apiKey) {
+            $this->apiAuthorized = $this->authorize($this->apiKey);
         }
 
         // Remove Inputs that are not used
@@ -1416,6 +1348,11 @@ class MetaGer
         return $this->newtab;
     }
 
+    public function setResults($results)
+    {
+        $this->results = $results;
+    }
+
     public function getResults()
     {
         return $this->results;
@@ -1558,5 +1495,9 @@ class MetaGer
     public function getRedisEngineResult()
     {
         return $this->redisEngineResult;
+    }
+    public function getRedisCurrentResultList()
+    {
+        return $this->redisCurrentResultList;
     }
 }

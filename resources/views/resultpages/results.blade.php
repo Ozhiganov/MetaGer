@@ -7,13 +7,13 @@
 		@endfor
 	@endif
 	{{-- Create results and ongoing ads --}}
-	@foreach($metager->getResults() as $result)
+	@foreach($metager->getResults() as $index => $result)
 		@if($mobile)
-			@if($result->number % 4 === 0)
+			@if($index % 4 === 0)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endif
 		@else
-			@if($result->number % 7 === 0)
+			@if($index % 7 === 0)
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endif
 		@endif

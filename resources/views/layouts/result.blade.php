@@ -1,4 +1,4 @@
-<div class="result" data-count="{{ $result->number }}">
+<div class="result" data-count="{{ $result->hash }}">
 	<div class="result-header">
 		<div class="result-headline">
 			<h2 class="result-title" title="{{ $result->titel }}">
@@ -47,7 +47,7 @@
 			</div>
 		@endif
 	</div>
-	<input type="checkbox" id="result-toggle-{{$result->number}}" class="result-toggle" style="display: none">
+	<input type="checkbox" id="result-toggle-{{$result->hash}}" class="result-toggle" style="display: none">
 	<div class="result-footer">
 		<a class="result-open" href="{{ $result->link }}" target="_self" rel="noopener">
 			{!! trans('result.options.7') !!}
@@ -58,10 +58,10 @@
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 			{!! trans('result.options.5') !!}
 		</a>
-		<label class="open-result-options navigation-element" for="result-toggle-{{$result->number}}">
+		<label class="open-result-options navigation-element" for="result-toggle-{{$result->hash}}">
 			{{ trans('result.options.more')}}
 		</label>
-		<label class="close-result-options navigation-element" for="result-toggle-{{$result->number}}">
+		<label class="close-result-options navigation-element" for="result-toggle-{{$result->hash}}">
 			{{ trans('result.options.less')}}
 		</label>
 	</div>
@@ -69,7 +69,7 @@
 		<div class="options">
 				<ul class="option-list list-unstyled small">
 					<li class="js-only">
-						<a href="javascript:resultSaver({{ $result->number }});" class="saver">
+						<a href="javascript:resultSaver("{{ $result->hash }}");" class="saver">
 							<nobr><i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}</nobr>
 						</a>
 					</li>

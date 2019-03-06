@@ -171,12 +171,14 @@ class Searcher implements ShouldQueue
         }
         $pipeline = Redis::pipeline();
         $pipeline->hset('search.' . $hashValue . ".results." . $this->name, "response", $result);
+        $pipeline->hset('search.' . $hashValue . ".results." . $this->name, "delivered", "0");
+        $pipeline->hincrby('search.' . $hashValue . ".results.status", "engineAnswered", 1);
         // After 60 seconds the results should be read by the MetaGer Process and stored in the Cache instead
-        $pipeline->expire('search.' . $hashValue . ".results." . $this->name, 60);
+        $pipeline->expire('search.' . $hashValue . ".results." . $this->name, 6000);
         $pipeline->rpush('search.' . $hashValue . ".ready", $this->name);
-        $pipeline->expire('search.' . $hashValue . ".ready", 60);
+        $pipeline->expire('search.' . $hashValue . ".ready", 6000);
         $pipeline->sadd('search.' . $hashValue . ".engines", $this->name);
-        $pipeline->expire('search.' . $hashValue . ".engines", 60);
+        $pipeline->expire('search.' . $hashValue . ".engines", 6000);
         $pipeline->execute();
         $this->lastTime = microtime(true);
     }
