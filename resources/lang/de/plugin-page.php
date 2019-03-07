@@ -75,8 +75,6 @@ return [
     'safari.3'         => 'L&ouml;schen Sie (nach Bedarf) die anderen Suchmaschinen aus dem OpenSearch-PlugIn, indem Sie das "X" neben diesen betätigen.',
     'safari.4'         => 'Sie können nun über den OpenSearch-Knopf(Lupe) mit MetaGer suchen.',
 
-    'faq.1'            => 'Siehe auch: ',
-    'faq.2'            => 'Metager FAQ - Plugin',
     'vivaldi.1'        => 'Klicken Sie in Ihrem Browser oben links auf das rote Vivaldi Logo und wählen Sie zuerst "Werkzeuge", dann im Untermenü "Einstellungen".',
     'vivaldi.2'        => 'In dem dann erscheinenden Menu wählen Sie bitte "Suche".',
     'vivaldi.3'        => 'Wählen Sie "Neue Suche hinzufügen".',
