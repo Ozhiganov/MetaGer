@@ -12,8 +12,8 @@
   <id>urn:uuid:1d634a8c-2764-424f-b082-6c96494b7240</id>
   @include('layouts.atom10ad', ['ad' => $metager->popAd()])
   @if($apiAuthorized)
-  @foreach($metager->getResults() as $result)
-    @if($result->number % 5 === 0)
+  @foreach($metager->getResults() as $index => $result)
+    @if(($index+1) % 5 === 0)
       @include('layouts.atom10ad', ['ad' => $metager->popAd()])
     @endif
     <entry>
