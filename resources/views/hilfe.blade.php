@@ -85,7 +85,7 @@
 			</ul>
 		</div>
 	</section>
-	<section>
+	<section id="bangs">
 		<h3>{!! trans('hilfe.bang.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.bang.1') !!}</p>
