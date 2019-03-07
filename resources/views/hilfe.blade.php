@@ -155,12 +155,7 @@
 			<p>{!! trans('hilfe.proxy.1') !!}</p>
 		</div>
 	</section>
-	<section>
-		<h3>{!! trans('hilfe.infobutton.title') !!}</h3>
-		<div>
-			<p>{!! trans('hilfe.infobutton.1') !!}</p>
-		</div>
-	</section>
+
 	<section>
 		<h3>{!! trans('hilfe.maps.title') !!}</h3>
 		<div>
@@ -169,4 +164,34 @@
 			<p>{!! trans('hilfe.maps.3') !!}</p>
 		</div>
 	</section>
+	<h2>{!! trans('hilfe.faq.title') !!}</h2>
+	<section>
+		<h3>{!! trans('hilfe.metager.title') !!}</h3>
+		<p>{!! trans('hilfe.metager.explanation.1') !!}</p>
+		<p>{!! trans('hilfe.metager.explanation.2') !!}</p>
+	</section>
+	<section>
+		<h3>{!! trans('hilfe.searchengine.title') !!}</h3>
+		<p>{!! trans('hilfe.searchengine.explanation') !!}</p>
+	</section>
+	<section>
+		<h3>{!! trans('hilfe.content.title') !!}</h3>
+		<p>{!! trans('hilfe.content.explanation.1') !!}</p>
+		<p>{!! trans('hilfe.content.explanation.2') !!}</p>
+	</section>
+	<section>
+		<h3>{!! trans('hilfe.selist.title') !!}</h3>
+		<p>{!! trans('hilfe.selist.explanation.1') !!}</p>
+		<p>{!! trans('hilfe.selist.explanation.2') !!}</p>
+	</section>
+	<section>
+		<h3>{!! trans('hilfe.proposal.title') !!}</h3>
+		<p>{!! trans('hilfe.proposal.explanation') !!}</p>
+	</section>
+	<section>
+		<h3>{!! trans('hilfe.assignment.title') !!}</h3>
+		<p>{!! trans('hilfe.assignment.explanation.1') !!}</p>
+		<p>{!! trans('hilfe.assignment.explanation.2') !!}</p>
+	</section>
+
 @endsection

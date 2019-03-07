@@ -17,17 +17,10 @@
         <span>{{ trans('sidebar.nav3') }}</span>
       </a>
     </li>
-    <hr>
     <li>
       <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/hilfe/") }}" >
         <i class="fa fa-info" aria-hidden="true"></i>
         <span>{{ trans('sidebar.nav20') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/faq/") }}" >
-        <i class="fa fa-question" aria-hidden="true"></i>
-        <span>{{ trans('sidebar.nav21') }}</span>
       </a>
     </li>
     <hr>

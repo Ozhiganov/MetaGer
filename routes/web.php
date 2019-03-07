@@ -118,9 +118,7 @@ Route::group(
         });
 
         Route::get('faq', function () {
-            return view('faq')
-                ->with('title', trans('titles.faq'))
-                ->with('navbarFocus', 'hilfe');
+            return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/hilfe'));
         });
 
         Route::get('widget', function () {
