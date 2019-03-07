@@ -19,7 +19,6 @@ return [
     "nav18" => "Contact",
     "nav19" => "Language",
     "nav20" => "Help",
-    "nav21" => "FAQ",
     "nav22" => "Citation Search",
     "nav23" => "Become a member",
     "nav24" => "MetaGer source code",

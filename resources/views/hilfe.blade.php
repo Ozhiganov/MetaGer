@@ -164,6 +164,7 @@
 			<p>{!! trans('hilfe.maps.3') !!}</p>
 		</div>
 	</section>
+	<h2>{!! trans('hilfe.faq.title') !!}</h2>
 	<section>
 		<h3>{!! trans('hilfe.metager.title') !!}</h3>
 		<p>{!! trans('hilfe.metager.explanation.1') !!}</p>
