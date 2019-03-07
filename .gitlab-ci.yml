@@ -17,7 +17,7 @@ update(MetaGer Preredesign):
     - git clone "$path" .MetaGer_alt
     - cd .MetaGer_alt
     - composer install
-    - scp -P 63824 metager@metager3.de:~/.env .
+    - scp -P 63824 metager@metager3.de:~/.env.preredesign .env
     - scp -P 63824 metager@metager3.de:~/sumas.xml config/
     - scp -P 63824 metager@metager3.de:~/sumasEn.xml config/
     - scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/

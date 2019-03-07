@@ -13,7 +13,7 @@ return [
     |
      */
 
-    'fetch'       => PDO::FETCH_OBJ,
+    'fetch' => PDO::FETCH_OBJ,
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
      */
 
-    'default'     => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,50 +47,50 @@ return [
     'connections' => [
 
         'sqlite' => [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => database_path(env('DB_DATABASE', 'database.sqlite')),
-            'prefix'   => '',
+            'prefix' => '',
         ],
 
-        'mysql'  => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'port'      => env('DB_PORT', '3306'),
-            'database'  => env('DB_DATABASE', 'forge'),
-            'username'  => env('DB_USERNAME', 'forge'),
-            'password'  => env('DB_PASSWORD', ''),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
-        ],
-
-        'spenden'  => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST_SPENDEN', 'localhost'),
-            'port'      => env('DB_PORT_SPENDEN', '3306'),
-            'database'  => env('DB_DATABASE_SPENDEN', 'forge'),
-            'username'  => env('DB_USERNAME_SPENDEN', 'forge'),
-            'password'  => env('DB_PASSWORD_SPENDEN', ''),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
-        ],
-
-        'pgsql'  => [
-            'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'port'     => env('DB_PORT', '5432'),
+        'mysql' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-            'sslmode'  => 'prefer',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'spenden' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_SPENDEN', 'localhost'),
+            'port' => env('DB_PORT_SPENDEN', '3306'),
+            'database' => env('DB_DATABASE_SPENDEN', 'forge'),
+            'username' => env('DB_USERNAME_SPENDEN', 'forge'),
+            'password' => env('DB_PASSWORD_SPENDEN', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'pgsql' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
 
     ],
@@ -106,7 +106,7 @@ return [
     |
      */
 
-    'migrations'  => 'migrations',
+    'migrations' => 'migrations',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,32 +119,32 @@ return [
     |
      */
 
-    'redis'       => [
+    'redis' => [
 
-        'cluster'    => false,
+        'cluster' => false,
 
-        'default'    => [
-            'host'     => env('REDIS_HOST', 'localhost'),
+        'default' => [
+            'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
-            'port'     => env('REDIS_PORT', 6379),
-            'database' => 0,
+            'port' => env('REDIS_PORT', 6379),
+            'database' => 4,
         ],
-        'redisLogs'  => [
-            'host'     => env('REDIS_LOGS_HOST', 'localhost'),
+        'redisLogs' => [
+            'host' => env('REDIS_LOGS_HOST', 'localhost'),
             'password' => env('REDIS_LOGS_PASSWORD', env('REDIS_PASSWORD', null)),
-            'port'     => env('REDIS_LOGS_PORT', 6379),
+            'port' => env('REDIS_LOGS_PORT', 6379),
             'database' => 1,
         ],
         'redisCache' => [
-            'host'     => env('REDIS_CACHE_HOST', 'localhost'),
+            'host' => env('REDIS_CACHE_HOST', 'localhost'),
             'password' => env('REDIS_CACHE_PASSWORD', env('REDIS_PASSWORD', null)),
-            'port'     => env('REDIS_CACHE_PORT', 6379),
-            'database' => 2,
+            'port' => env('REDIS_CACHE_PORT', 6379),
+            'database' => 5,
         ],
         'redisSessions' => [
-            'host'     => env('REDIS_SESSION_HOST', 'localhost'),
+            'host' => env('REDIS_SESSION_HOST', 'localhost'),
             'password' => env('REDIS_SESSION_PASSWORD', env('REDIS_PASSWORD', null)),
-            'port'     => env('REDIS_SESSION_PORT', 6379),
+            'port' => env('REDIS_SESSION_PORT', 6379),
             'database' => 3,
         ],
 
