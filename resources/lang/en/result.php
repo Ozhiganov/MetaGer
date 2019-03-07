@@ -11,5 +11,7 @@ return [
     'options.6'         =>  'OPEN IN NEW TAB',
     'options.7'         =>  'OPEN',
     'options.more'      =>  'MORE',
-    'proxytext'	        =>	'Result link is opened anonymously. Your data will not be transfered to destination servers. Some links may not work as usual.'
+    'options.less'      =>  'LESS',
+    'gefVon'            =>  'by',
+    'proxytext'	        =>	'Result link is opened anonymously. Your data will not be transferred to destination servers. Some webpages may not work as usual.'
 ];

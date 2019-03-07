@@ -27,6 +27,7 @@ class Result
     public $strippedDomain; # Die Domain in Form "bar.de"
     public $strippedLink; # Der Link in Form "foo.bar.de/test"
     public $rank; # Das Ranking für das Ergebnis
+    public $new = true;
 
     # Erstellt ein neues Ergebnis
     public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $gefVonLink, $sourceRank, $additionalInformation = [])
@@ -67,6 +68,7 @@ class Result
         $this->price = isset($additionalInformation["price"]) ? $additionalInformation["price"] : 0;
         $this->price_text = $this->price_to_text($this->price);
         $this->additionalInformation = $additionalInformation;
+        $this->hash = spl_object_hash($this);
     }
 
     private function price_to_text($price)
