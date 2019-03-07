@@ -806,10 +806,7 @@ class MetaGer
         $this->eingabe = trim($request->input('eingabe', ''));
         $this->q = $this->eingabe;
         # IP
-        $this->ip = $request->ip();
-        # Unser erster Schritt wird sein, IP-Adresse und USER-Agent zu anonymisieren, damit
-        # nicht einmal wir selbst noch Zugriff auf die Daten haben:
-        $this->ip = preg_replace("/(\d+)\.(\d+)\.\d+.\d+/s", "$1.$2.0.0", $this->ip);
+        $this->ip = $this->anonymizeIp($request->ip());
 
         $this->useragent = $request->header('User-Agent');
 
@@ -916,6 +913,57 @@ class MetaGer
         } else {
             $this->shouldLog = true;
         }
+    }
+
+    private function anonymizeIp($ip)
+    {
+        if (str_contains($ip, ":")) {
+            # IPv6
+            # Check if IP contains "::"
+            if (str_contains($ip, "::")) {
+                $ipAr = explode("::", $ip);
+                $count = 0;
+                if (!empty($ipAr[0])) {
+                    $ipLAr = explode(":", $ipAr[0]);
+                    $count += sizeof($ipLAr);
+                }
+                if (!empty($ipAr[1])) {
+                    $ipRAr = explode(":", $ipAr[1]);
+                    $count += sizeof($ipRAr);
+                }
+
+                $fillUp = "";
+                for ($i = 1; $i <= (8 - $count); $i++) {
+                    $fillUp .= "0000:";
+                }
+                $fillUp = rtrim($fillUp, ":");
+
+                $ip = $ipAr[0] . ":" . $fillUp . ":" . $ipAr[1];
+                $ip = trim($ip, ":");
+            }
+            $resultIp = "";
+            foreach (explode(":", $ip) as $block) {
+                $blockAr = str_split($block);
+                while (sizeof($blockAr) < 4) {
+                    array_unshift($blockAr, "0");
+                }
+                $resultIp .= implode("", $blockAr) . ":";
+            }
+            $resultIp = rtrim($resultIp, ":");
+
+            # Now that we have the expanded Form of the IPv6 we can anonymize it
+            # we use the first 48 bit and replace the rest with zeros
+            # Our expanded IPv6 now has 8 blocks with 16 bit each
+            # xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx
+            # We just want to use the first thre blocks and replace the rest with zeros
+            # xxxx:xxxx:xxxx::
+            $resultIp = preg_replace("/^([^:]+:[^:]+:[^:]+).*$/", "$1::", $resultIp);
+            return $resultIp;
+        } else {
+            # IPv4
+            return preg_replace("/(\d+)\.(\d+)\.\d+.\d+/s", "$1.$2.0.0", $ip);
+        }
+        die(var_dump($ip));
     }
 
     public function checkSpecialSearches(Request $request)
