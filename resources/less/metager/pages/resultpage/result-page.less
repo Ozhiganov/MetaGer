@@ -332,6 +332,7 @@ a {
 
 #resultpage-container {
     margin: @padding-small-default;
+    margin-top: 0;
     display: grid;
     grid-template-columns: minmax(0px, 150px) @results-width-max @additions-width-max;
     grid-template-areas: "whitespace searchbar ." "whitespace foki ." "whitespace options ." "whitespace results additions" "whitespace footer .";
@@ -346,6 +347,9 @@ a {
     }
     #research-bar-container {
         grid-area: searchbar;
+        padding-top: @padding-small-default;
+        background-color: white;
+        box-shadow: 0px 1px 3px 2px white, 1px 0px 1px 2px white;
         position: sticky;
     }
     #foki {
