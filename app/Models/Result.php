@@ -251,14 +251,6 @@ class Result
             return false;
         }
 
-        # Eventueller Sprachfilter
-        if ($metager->getLang() !== "all") {
-            if (!isset($this->langCode) || $this->langCode === null || $metager->getLang() !== $this->langCode) {
-                return false;
-            }
-
-        }
-
         # Stopworte
         foreach ($metager->getStopWords() as $stopWord) {
             $text = $this->titel . " " . $this->descr;
