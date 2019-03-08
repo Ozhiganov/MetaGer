@@ -10,6 +10,7 @@ Homestead.yaml
 langfiles.zip
 # The Files created by Webpack in the build process
 /public/**/*.css
+!/public/fonts/arimo/stylesheet.css
 /public/**/*.js
 /public/mix-manifest.json
 

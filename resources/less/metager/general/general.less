@@ -4,8 +4,9 @@
 @body-background-color: @background-color;
 @body-background-color-mobile: @background-color-mobile;
 @a-hover-color: red;
-body {
-    font-family: @metager-font;
+
+html, body, * {
+    font-family: @metager-font!important;
 }
 
 /* Main Containers */
@@ -163,7 +164,7 @@ i.fa {
 
 .logo {
     color: @metager-orange;
-    font-family: Arimo, Liberation Sans, sans-serif;
+    font-family: @metager-font;
     font-style: italic;
     font-weight: bold;
     white-space: nowrap;
