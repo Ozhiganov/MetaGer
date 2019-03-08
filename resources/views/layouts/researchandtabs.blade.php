@@ -18,7 +18,6 @@
 	</div>
 	<div id="foki">
 		<div class="scrollbox">
-			<div class="scrollfade-left"></div>
 			<div id="foki-box">
 				@include('parts.foki')
 			</div>
@@ -48,7 +47,6 @@
 		</div>
 		<input type="checkbox" id="options-toggle" @if(sizeof($metager->getParameterFilter()) > 0)checked @endif />
 		<div class="scrollbox">
-			<div class="scrollfade-left"></div>
 			<div id="options-box">
 				<div id="options-items">
 				@foreach($metager->getAvailableParameterFilter() as $filterName => $filter)

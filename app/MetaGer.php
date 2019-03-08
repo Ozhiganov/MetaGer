@@ -1307,14 +1307,13 @@ class MetaGer
 
     public function generateSearchLink($fokus, $results = true)
     {
-        $except = ['page', 'next'];
+        $except = ['page', 'next', 'out'];
         # Remove every Filter
         foreach ($this->sumaFile->filter->{"parameter-filter"} as $filterName => $filter) {
             $except[] = $filter->{"get-parameter"};
         }
         $requestData = $this->request->except($except);
         $requestData['focus'] = $fokus;
-        $requestData['out'] = "";
 
         $link = action('MetaGerSearch@search', $requestData);
         return $link;

@@ -65,26 +65,10 @@ body {
     position: relative;
     width: 100%;
     max-width: @results-width-max;
-    .scrollfade- {
-        &left,
-        &right {
-            position: absolute;
-            width: 20px;
-            height: 95%;
-            top: 1px;
-            pointer-events: none;
-        }
-        &left {
-            background: -webkit-gradient(linear, left top, right top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
-            background: linear-gradient(to right, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
-            left: 1px;
-            margin-left: -20px;
-        }
-        &right {
-            background: -webkit-gradient(linear, right top, left top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
-            background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
-            right: 1px;
-        }
+    .scrollfade-right {
+        background: -webkit-gradient(linear, right top, left top, from(@scrollfade-color), color-stop(fade(@scrollfade-color, 80%)), to(fade(@scrollfade-color, 0%)));
+        background: linear-gradient(to left, @scrollfade-color, fade(@scrollfade-color, 80%), fade(@scrollfade-color, 0%));
+        right: 1px;
     }
     .search-option-frame {
         position: relative;

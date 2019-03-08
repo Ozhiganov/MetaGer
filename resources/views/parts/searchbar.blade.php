@@ -21,26 +21,14 @@
 				</div>
 			</div>
 			<div class="search-hidden">
-				<input type="hidden" name="encoding" value="utf8">
 				@if (isset($option_values))
 					@foreach($option_values as $option => $value)
 						<input type="hidden" name={{ $option }} value={{ $value }}>
 					@endforeach
 				@endif
-				@if (isset($option_values))
-					<input type="hidden" name="time" value={{ $time }}>
-				@endif
-				@if (isset($focusPages) && !empty($focusPages))
-					@foreach ($focusPages as $fp)
-						<input type="hidden" name={{ $fp }} value="on">
-					@endforeach
-				@endif
 				@if (isset($focus) && !empty($focus))
 					<input type="hidden" name="focus" value={{ $focus }}>
 				@endif
-				@if (isset($theme))
-					<input type="hidden" name="theme" value={{ $theme }}>
-					@endif
 			</div>
 			<div class="search-custom-hidden"></div>
 		</div>
