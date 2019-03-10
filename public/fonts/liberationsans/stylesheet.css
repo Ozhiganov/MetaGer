@@ -1,8 +1,7 @@
 @font-face {
     font-family: 'Liberation Sans';
     src: url('hinted-LiberationSans.eot');
-    src: local('Liberation Sans'), local('LiberationSans'),
-        url('hinted-LiberationSans.eot?#iefix') format('embedded-opentype'),
+    src: url('hinted-LiberationSans.eot?#iefix') format('embedded-opentype'),
         url('hinted-LiberationSans.woff2') format('woff2'),
         url('hinted-LiberationSans.woff') format('woff'),
         url('hinted-LiberationSans.ttf') format('truetype'),
@@ -14,8 +13,7 @@
 @font-face {
     font-family: 'Liberation Sans';
     src: url('hinted-LiberationSans-Italic.eot');
-    src: local('Liberation Sans Italic'), local('LiberationSans-Italic'),
-        url('hinted-LiberationSans-Italic.eot?#iefix') format('embedded-opentype'),
+    src: url('hinted-LiberationSans-Italic.eot?#iefix') format('embedded-opentype'),
         url('hinted-LiberationSans-Italic.woff2') format('woff2'),
         url('hinted-LiberationSans-Italic.woff') format('woff'),
         url('hinted-LiberationSans-Italic.ttf') format('truetype'),
@@ -27,8 +25,7 @@
 @font-face {
     font-family: 'Liberation Sans';
     src: url('hinted-LiberationSans-Bold.eot');
-    src: local('Liberation Sans Bold'), local('LiberationSans-Bold'),
-        url('hinted-LiberationSans-Bold.eot?#iefix') format('embedded-opentype'),
+    src: url('hinted-LiberationSans-Bold.eot?#iefix') format('embedded-opentype'),
         url('hinted-LiberationSans-Bold.woff2') format('woff2'),
         url('hinted-LiberationSans-Bold.woff') format('woff'),
         url('hinted-LiberationSans-Bold.ttf') format('truetype'),
@@ -40,8 +37,7 @@
 @font-face {
     font-family: 'Liberation Sans';
     src: url('hinted-LiberationSans-BoldItalic.eot');
-    src: local('Liberation Sans Bold Italic'), local('LiberationSans-BoldItalic'),
-        url('hinted-LiberationSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    src: url('hinted-LiberationSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
         url('hinted-LiberationSans-BoldItalic.woff2') format('woff2'),
         url('hinted-LiberationSans-BoldItalic.woff') format('woff'),
         url('hinted-LiberationSans-BoldItalic.ttf') format('truetype'),
