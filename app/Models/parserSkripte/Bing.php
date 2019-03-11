@@ -19,6 +19,13 @@ class Bing extends Searchengine
         try {
             $results = json_decode($result);
             $this->totalResults = $results->webPages->totalEstimatedMatches;
+
+            # Check if the query got altered
+            if (!empty($results->{"queryContext"}) && !empty($results->{"queryContext"}->{"alteredQuery"}) && !empty($results->{"queryContext"}->{"alterationOverrideQuery"})) {
+                $this->alteredQuery = $results->{"queryContext"}->{"alteredQuery"};
+                $this->alterationOverrideQuery = $results->{"queryContext"}->{"alterationOverrideQuery"};
+            }
+
             $results = $results->webPages->value;
 
             foreach ($results as $result) {
