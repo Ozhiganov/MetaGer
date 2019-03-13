@@ -28,8 +28,9 @@ return [
     'focus-creator.focusname' => 'Suchname: ',
 
     'slogan.title' => 'Besser&nbsp;suchen, schneller&nbsp;finden',
-    'slogan.1' => 'Datenschutz & Privatsphäre: Bei uns einfach und selbstverständlich. Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger Verein: <a href="/beitritt">Werden Sie Mitglied</a> oder <a href="/spende">spenden Sie</a>!',
-    'slogan.2' => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
+    'slogan.1' => 'Datenschutz & Privatsphäre: Bei uns einfach und selbstverständlich.',
+    'slogan.2' => 'Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger Verein: <a href="/beitritt">Werden Sie Mitglied</a> oder <a href="/spende">spenden Sie</a>!',
+    'slogan.3' => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
     'preredesign' => '<a href="https://klassik.metager.org">Rückblick auf die vorige MetaGer Version</a>',
 
     'sponsors.head' => 'Partner',
