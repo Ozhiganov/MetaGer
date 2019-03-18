@@ -207,7 +207,7 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'api':
-                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => $this->apiAuthorized])->header('Content-Type', 'application/xml');
+                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'key' => $this->apiKey, 'apiAuthorized' => $this->apiAuthorized])->header('Content-Type', 'application/xml');
                     break;
                 case 'atom10':
                     return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => true])
