@@ -527,7 +527,7 @@ class MetaGer
         }
 
         # Implements Yahoo Ads if Yahoo is not enabled as a searchengine
-        if (empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
+        if (!$this->apiAuthorized && empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
             $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
         }
 
