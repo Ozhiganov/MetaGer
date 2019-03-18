@@ -1,4 +1,5 @@
 <div id="results">
+	@include('parts.alteration')
 	@if($mobile)
 		@include('layouts.ad', ['ad' => $metager->popAd()])
 	@else

@@ -14,6 +14,8 @@ use Predis\Connection\ConnectionException;
 class MetaGer
 {
     # Einstellungen für die Suche
+    public $alteredQuery = "";
+    public $alterationOverrideQuery = "";
     protected $fokus;
     protected $eingabe;
     protected $q;
@@ -33,6 +35,7 @@ class MetaGer
     protected $queryFilter = [];
     protected $parameterFilter = [];
     protected $ads = [];
+    protected $infos = [];
     protected $warnings = [];
     protected $errors = [];
     protected $addedHosts = [];
@@ -204,7 +207,7 @@ class MetaGer
                         ->with('fokus', $this->fokus);
                     break;
                 case 'api':
-                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => $this->apiAuthorized])->header('Content-Type', 'application/xml');
+                    return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'key' => $this->apiKey, 'apiAuthorized' => $this->apiAuthorized])->header('Content-Type', 'application/xml');
                     break;
                 case 'atom10':
                     return response()->view('resultpages.metager3resultsatom10', ['results' => $viewResults, 'eingabe' => $this->eingabe, 'metager' => $this, 'resultcount' => sizeof($viewResults), 'apiAuthorized' => true])
@@ -461,7 +464,20 @@ class MetaGer
         if (empty($this->sumaFile->foki->{$this->fokus})) {
             $this->fokus = "web";
         }
-        foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
+
+        $sumaList = $this->sumaFile->foki->{$this->fokus}->sumas;
+
+        # If the user is authorized to use adfree search we won't activate yahoo or yahoo-ads
+        if ($this->apiAuthorized && ($key = array_search("yahoo", $sumaList)) !== false) {
+            unset($sumaList[$key]);
+            if ($this->fokus === "web") {
+                $this->sumaFile->sumas->{"bing"}->{"filter-opt-in"} = false;
+            }
+        } elseif ($this->apiAuthorized && ($key = array_search("yahoo-ads", $sumaList)) !== false) {
+            unset($sumaList[$key]);
+        }
+
+        foreach ($sumaList as $suma) {
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
             $autoDisabled = empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) ? false : $this->sumaFile->sumas->{$suma}->{"auto-disabled"};
@@ -511,7 +527,7 @@ class MetaGer
         }
 
         # Implements Yahoo Ads if Yahoo is not enabled as a searchengine
-        if (empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
+        if (!$this->apiAuthorized && empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
             $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
         }
 
@@ -766,6 +782,10 @@ class MetaGer
             }
             if (!empty($engine->totalResults) && $engine->totalResults > $this->totalResults) {
                 $this->totalResults = $engine->totalResults;
+            }
+            if (!empty($engine->alteredQuery) && !empty($engine->alterationOverrideQuery)) {
+                $this->alteredQuery = $engine->alteredQuery;
+                $this->alterationOverrideQuery = $engine->alterationOverrideQuery;
             }
         }
     }
@@ -1319,6 +1339,17 @@ class MetaGer
         return $link;
     }
 
+    public function generateEingabeLink($eingabe)
+    {
+        $except = ['page', 'next', 'out', 'eingabe'];
+        $requestData = $this->request->except($except);
+
+        $requestData['eingabe'] = $eingabe;
+
+        $link = action('MetaGerSearch@search', $requestData);
+        return $link;
+    }
+
     public function generateQuicktipLink()
     {
         $link = action('MetaGerSearch@quicktips');
@@ -1546,6 +1577,11 @@ class MetaGer
     public function getStartCount()
     {
         return $this->startCount;
+    }
+
+    public function getInfos()
+    {
+        return $this->infos;
     }
 
     public function getRedisResultWaitingKey()

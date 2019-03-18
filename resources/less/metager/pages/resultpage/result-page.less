@@ -364,6 +364,23 @@ a {
         .alert {
             margin-bottom: @padding-small-default;
         }
+        #results .alteration {
+            margin: (@padding-small-default * 2) 0px;
+            margin-top: 0;
+            padding: 0px 8px;
+            font-weight: 400;
+            a i {
+                font-size: 80%;
+            }
+            .original {
+                font-size: 80%;
+            }
+            @media(max-width: @screen-mobile){
+                .card;
+                margin: @padding-small-default 0px;
+                margin-top: 0;
+            }
+        }
     }
     #additions-container {
         grid-area: additions;

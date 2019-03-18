@@ -7,7 +7,7 @@
   <link href="{{ url()->full() }}"/>
   <updated>{{ date('c') }}</updated>
   <opensearch:totalResults>{{ $resultcount }}</opensearch:totalResults>
-  <opensearch:Query role="request" searchTerms="{{ htmlspecialchars($eingabe, ENT_QUOTES) }}"/>
+  <opensearch:Query role="request" searchTerms="{{ htmlspecialchars($eingabe, ENT_QUOTES) }}" mg:key="{{ htmlspecialchars($key, ENT_QUOTES) }}"/>
   <link rel="next" href="{{ htmlspecialchars($metager->nextSearchLink() ,ENT_QUOTES) }}" type="application/atom+xml"/>
   <id>urn:uuid:1d634a8c-2764-424f-b082-6c96494b7240</id>
   @include('layouts.atom10ad', ['ad' => $metager->popAd()])
@@ -25,5 +25,13 @@
       </content>
     </entry>
   @endforeach
+  @else
+  <ad:advertisement>
+   <ad:callOut type="TEXT">Fehler</ad:callOut>
+   <ad:title type="TEXT">Falscher Schlüssel angegeben</ad:title>
+   <ad:displayUrl type="TEXT">https://metager.de/meta/key</ad:displayUrl>
+   <ad:subTitle type="TEXT">Sie haben einen ungültigen Schlüssel angegeben</ad:subTitle>
+   <link href="https://metager.de/meta/key" />
+ </ad:advertisement> 
   @endif
 </feed>
