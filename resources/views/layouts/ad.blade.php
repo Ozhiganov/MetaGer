@@ -13,7 +13,7 @@
 			<div class="result-subheadline">
 				<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
 					<span class="advertisement-mark">Anzeige</span>
-					{{ $ad->anzeigeLink }}
+					<span>{{ $ad->anzeigeLink }}</span>
 				</a>
 			</div>
 		</div>
