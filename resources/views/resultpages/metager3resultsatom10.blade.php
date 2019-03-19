@@ -25,5 +25,13 @@
       </content>
     </entry>
   @endforeach
+  @else
+  <ad:advertisement>
+   <ad:callOut type="TEXT">Fehler</ad:callOut>
+   <ad:title type="TEXT">Falscher Schlüssel angegeben</ad:title>
+   <ad:displayUrl type="TEXT">https://metager.de/meta/key</ad:displayUrl>
+   <ad:subTitle type="TEXT">Sie haben einen ungültigen Schlüssel angegeben</ad:subTitle>
+   <link href="https://metager.de/meta/key" />
+ </ad:advertisement> 
   @endif
 </feed>
