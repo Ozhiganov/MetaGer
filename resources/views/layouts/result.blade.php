@@ -22,7 +22,7 @@
 			@endif
 		</div>
 	</div>
-	<div class="result-body">
+	<div class="result-body {{ (!empty($result->logo) || !empty($result->image) ? "with-image" : "")}}">
 		@if( isset($result->logo) )
 			<div class="result-logo">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
@@ -33,7 +33,7 @@
 		@if( $result->image !== "" )
 			<div class="result-image">
 				<a href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" rel="noopener">
-					<img src="{{ $metager->getImageProxyLink($result->image) }}" align="left" width="120px" height="60px" alt="" />
+					<img src="{{ $metager->getImageProxyLink($result->image) }}" alt="" />
 				</a>
 			</div>
 		@endif
