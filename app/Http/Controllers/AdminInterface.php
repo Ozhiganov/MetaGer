@@ -16,18 +16,20 @@ class AdminInterface extends Controller
 
         // Now we gonna check which stats we can find
         $stati = array();
-        foreach($names as $name){
+        foreach ($names as $name) {
             $stats = Redis::hgetall($name . ".stats");
-            if(sizeof($stats) > 0){
+            if (sizeof($stats) > 0) {
                 $fetcherStatus = Redis::get($name);
                 $stati[$name]["status"] = $fetcherStatus;
-                foreach($stats as $pid => $value){
-                    if(strstr($value, ";")){
+                foreach ($stats as $pid => $value) {
+                    if (strstr($value, ";")) {
                         $value = explode(";", $value);
                         $connection = json_decode(base64_decode($value[0]), true);
-                        foreach($connection as $key => $val){
-                            if(strstr($key, "_time"))
+                        foreach ($connection as $key => $val) {
+                            if (strstr($key, "_time")) {
                                 $stati[$name]["fetcher"][$pid]["connection"][$key] = $val;
+                            }
+
                         }
                         $stati[$name]["fetcher"][$pid]["poptime"] = $value[1];
                     }
@@ -37,21 +39,21 @@ class AdminInterface extends Controller
 
         // So now we can generate Median Times for every Fetcher
         $fetcherCount = 0;
-        foreach($stati as $engineName => $engineStats){
+        foreach ($stati as $engineName => $engineStats) {
             $connection = array();
             $poptime = 0;
             $fetcherCount += sizeof($engineStats["fetcher"]);
-            foreach($engineStats["fetcher"] as $pid => $stats){
-                foreach($stats["connection"] as $key => $value){
-                    if(!isset($connection[$key])){
+            foreach ($engineStats["fetcher"] as $pid => $stats) {
+                foreach ($stats["connection"] as $key => $value) {
+                    if (!isset($connection[$key])) {
                         $connection[$key] = $value;
-                    }else{
+                    } else {
                         $connection[$key] += $value;
                     }
                 }
                 $poptime += floatval($stats["poptime"]);
             }
-            foreach($connection as $key => $value){
+            foreach ($connection as $key => $value) {
                 $connection[$key] /= sizeof($engineStats["fetcher"]);
             }
             $poptime /= sizeof($engineStats["fetcher"]);
@@ -70,13 +72,14 @@ class AdminInterface extends Controller
         return $response;
     }
 
-    private function getSearchEngineNames(){
+    private function getSearchEngineNames()
+    {
         $url = config_path() . "/sumas.xml";
         $xml = simplexml_load_file($url);
         $sumas = $xml->xpath("suma");
 
         $names = array();
-        foreach($sumas as $suma){
+        foreach ($sumas as $suma) {
             $names[] = $suma["name"]->__toString();
         }
         return $names;
@@ -85,30 +88,43 @@ class AdminInterface extends Controller
     public function count(Request $request)
     {
         $days = intval($request->input('days', 28));
-        if(!is_int($days) || $days <= 0) $days = 28;
-        $logToday = "mg3.log";
-        if (file_exists("/var/log/metager/" . $logToday)) {
-            $logToday = file("/var/log/metager/" . $logToday);
+        $interface = $request->input('interface', 'all');
+        if (!is_int($days) || $days <= 0) {
+            $days = 28;
+        }
+
+        $logToday = "/var/log/metager/mg3.log";
+
+        if (file_exists($logToday)) {
+            if ($interface === "all") {
+                $logToday = exec("cat $logToday | wc -l");
+            } else {
+                $logToday = exec("cat $logToday | grep interface=" . $interface . " | wc -l");
+            }
         } else {
             return redirect('');
         }
-        $oldLogs       = [];
-        $yesterday     = 0;
-        $rekordTag     = 0;
+        $oldLogs = [];
+        $rekordTag = 0;
         $rekordTagDate = "";
-        $size          = 0;
-        $count         = 0;
+        $size = 0;
+        $count = 0;
         for ($i = 1; $i <= $days; $i++) {
             $logDate = "/var/log/metager/archive/mg3.log.$i";
             if (file_exists($logDate)) {
-                $sameTime  = exec("grep -n '" . date('H') . ":" . date('i') . ":' $logDate | tail -1 | cut -f1 -d':'");
-                $insgesamt = exec("wc -l $logDate | cut -f1 -d' '");
-                if ($insgesamt > $rekordTag) {
-                    $rekordTag         = $insgesamt;
-                    $rekordTagSameTime = $sameTime;
-                    $rekordTagDate     = date("d.m.Y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $i, date("Y")));
+                if ($interface === "all") {
+                    $sameTime = exec("awk -v hour=\"" . date('H') . "\" -v minute=\"" . date('i') . "\" -v second=\"" . date('s') . "\" -f " . app_path('get_dates.awk') . " " . $logDate . " | wc -l");
+                    $insgesamt = exec("wc -l $logDate | cut -f1 -d' '");
+                } else {
+                    $sameTime = exec("awk -v hour=\"" . date('H') . "\" -v minute=\"" . date('i') . "\" -v second=\"" . date('s') . "\" -f " . app_path('get_dates.awk') . " " . $logDate . " | grep interface=" . $interface . " | wc -l");
+                    $insgesamt = exec("cat $logDate | grep interface=" . $interface . " | wc -l");
                 }
-                $oldLogs[$i]['sameTime']  = number_format(floatval($sameTime), 0, ",", ".");
+                if ($insgesamt > $rekordTag) {
+                    $rekordTag = $insgesamt;
+                    $rekordTagSameTime = $sameTime;
+                    $rekordTagDate = date("d.m.Y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $i, date("Y")));
+                }
+                $oldLogs[$i]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
                 $oldLogs[$i]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
                 # Nun noch den median:
                 $count += $insgesamt;
@@ -120,34 +136,34 @@ class AdminInterface extends Controller
             }
         }
 
-        if($request->input('out', 'web') === "web"){
+        if ($request->input('out', 'web') === "web") {
             return view('admin.count')
                 ->with('title', 'Suchanfragen - MetaGer')
-                ->with('today', number_format(floatval(sizeof($logToday)), 0, ",", "."))
+                ->with('today', number_format(floatval($logToday), 0, ",", "."))
                 ->with('oldLogs', $oldLogs)
                 ->with('rekordCount', number_format(floatval($rekordTag), 0, ",", "."))
                 ->with('rekordTagSameTime', number_format(floatval($rekordTagSameTime), 0, ",", "."))
                 ->with('rekordDate', $rekordTagDate)
                 ->with('days', $days);
-        }else{
-                $result = "";
-                foreach($oldLogs as $key => $value){
-                    $resultTmp = '"' . date("D, d M y", mktime(date("H"),date("i"), date("s"), date("m"), date("d")-$key, date("Y"))) . '",';
-                    $resultTmp .= '"' . $value['sameTime'] . '",';
-                    $resultTmp .= '"' . $value['insgesamt'] . '",';
-                    $resultTmp .= '"' . $value['median'] . '"' . "\r\n";
-                    $result = $resultTmp . $result;
-                }
-                return response($result, 200)
-                    ->header('Content-Type', 'text/csv')
-                    ->header('Content-Disposition', 'attachment; filename="count.csv"');
+        } else {
+            $result = "";
+            foreach ($oldLogs as $key => $value) {
+                $resultTmp = '"' . date("D, d M y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $key, date("Y"))) . '",';
+                $resultTmp .= '"' . $value['sameTime'] . '",';
+                $resultTmp .= '"' . $value['insgesamt'] . '",';
+                $resultTmp .= '"' . $value['median'] . '"' . "\r\n";
+                $result = $resultTmp . $result;
+            }
+            return response($result, 200)
+                ->header('Content-Type', 'text/csv')
+                ->header('Content-Disposition', 'attachment; filename="count.csv"');
 
         }
 
     }
     public function check()
     {
-        $q     = "";
+        $q = "";
         $redis = Redis::connection('redisLogs');
         if ($redis) {
             $q = $redis->lrange("logs.search", -1, -1)[0];
