@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Response;
+use \SplFileObject;
 
 class AdminInterface extends Controller
 {
@@ -112,11 +114,13 @@ class AdminInterface extends Controller
         for ($i = 1; $i <= $days; $i++) {
             $logDate = "/var/log/metager/archive/mg3.log.$i";
             if (file_exists($logDate)) {
+                $now = Carbon::now();
+                $sameTimeLine = $this->findLineForTime($logDate, Carbon::now());
                 if ($interface === "all") {
-                    $sameTime = exec("awk -v hour=\"" . date('H') . "\" -v minute=\"" . date('i') . "\" -v second=\"" . date('s') . "\" -f " . app_path('get_dates.awk') . " " . $logDate . " | wc -l");
+                    $sameTime = exec("head -n " . $sameTimeLine . " " . $logDate . " | wc -l");
                     $insgesamt = exec("wc -l $logDate | cut -f1 -d' '");
                 } else {
-                    $sameTime = exec("awk -v hour=\"" . date('H') . "\" -v minute=\"" . date('i') . "\" -v second=\"" . date('s') . "\" -f " . app_path('get_dates.awk') . " " . $logDate . " | grep interface=" . $interface . " | wc -l");
+                    $sameTime = exec("head -n " . $sameTimeLine . " " . $logDate . " | grep interface=" . $interface . " | wc -l");
                     $insgesamt = exec("cat $logDate | grep interface=" . $interface . " | wc -l");
                 }
                 if ($insgesamt > $rekordTag) {
@@ -161,6 +165,45 @@ class AdminInterface extends Controller
         }
 
     }
+
+    private function findLineForTime($file, $time)
+    {
+        $file = new SplFileObject($file);
+        $file->seek(PHP_INT_MAX);
+        $numberOfRows = $file->key();
+
+        $minLine = 1;
+        $maxLine = $numberOfRows;
+        $current = round($maxLine / 2);
+
+        $finished = false;
+        $counter = 0;
+        while (!$finished) {
+            $counter++;
+            if ($counter == 1000) {
+                return $maxLine;
+            }
+            $current = $minLine + round(($maxLine - $minLine) / 2);
+            $file->seek($current);
+            $line = $file->fgets();
+
+            # Extract time from line
+            $line = substr($line, 1);
+            $line = substr($line, 0, strpos($line, "]"));
+            $lineTime = Carbon::createFromFormat('D M d H:i:s', $line)->day(date('d'))->month(date('m'))->year(date('Y'));
+
+            if (($maxLine - $minLine) <= 1) {
+                return $maxLine;
+            } else if ($time < $lineTime) {
+                $maxLine = $current;
+                continue;
+            } else if ($time > $lineTime) {
+                $minLine = $current;
+                continue;
+            }
+        }
+    }
+
     public function check()
     {
         $q = "";
