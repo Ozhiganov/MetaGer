@@ -52,7 +52,7 @@ return [
     "faq.18.b" => "The !bang -\\\"redirections\\\" are part of our quicktips and they need an additional click. We had to decide between easy-to-use and keep-control-of-data. We find it necessary to show that the links are third party property (DuckDuckGo). So there is a two way protection: first we do not transfer your searchwords but only the !bang to DuckDuckGo. On the other hand the user confirms the !bang-target explicit. We don't have the ressources to maintain all this !bangs, we are sorry.",
 
     "searchinsearch.title" => "Search in search",
-    "searchinsearch.1" => "The result will be stored in a new TAB appearing at the right side of the screen. It is called \"Saved results\". You can store here single results from several searches. The TAB persists. Entering this TAB you get your personal result list with tools to filter and sort the results. Click another TAB to go back for further searches. You won´t have this if the screen is too small. More info (only german so far): <a href=\"http://blog.suma-ev.de/node/225\" target=\"_blank\" rel=\"noopener\"> http://blog.suma-ev.de/node/225</a>.",
+    "searchinsearch.1" => "The result will be stored in a new TAB appearing at the right side of the screen. It is called \"Saved results\". You can store here single results from several searches. The TAB persists. Entering this TAB you get your personal result list with tools to filter and sort the results. Click another TAB to go back for further searches. You won´t have this if the screen is too small. More info (only german so far): <a href=\"http://blog.suma-ev.de/node/225\" target=\"_blank\" rel=\"noopener\"> SUMA blog</a>.",
 
     "dienste" => "Tools-free of charge",
 
@@ -77,8 +77,8 @@ return [
     "datenschutz.faktencheck.body.1" => "<a href=\"http://www.password-online.de/?wysija-page=1&controller=email&action=view&email_id=280\" target=\"_blanK\" rel=\"noopener\">Ausführliche Anleitung und Beschreibung</a> von <a href=\"http://www.ude.de/\" target=\"_blanK\" rel=\"noopener\">Albrecht Ude</a>",
     "datenschutz.faktencheck.body.2" => "<a href=\"en/hilfe/faktencheck\">Checklist</a>",
     "datenschutz.1" => "Tracking-Cookies, Session-IDs, IP addresses",
-    "datenschutz.2" => "We don&apos;t store or work with any personal information (For the purpose of securing our servers against Hacking- and Bot-Attacks, we need to store these information for a short period of time. It will be then automatically deleted afterwards). We provide further privacy security services as follows:",
-    "datenschutz.3" => "For more details see below. Click / touch the burger menu to use the tools.",
+    "datenschutz.2" => "We don&apos;t store or work with any personal information (For the purpose of securing our servers against Hacking- and Bot-Attacks, we need to store these information for a short period of time. It will be automatically deleted afterwards). We provide further privacy security services. For more details see below:",
+    "datenschutz.3" => "Click / touch the burger menu to use the tools.",
 
     "tor.title" => "Tor Hidden Service",
     "tor.1" => "MetaGer provides the highest reachable security level for your privacy (anonymised IP addresses, servers under german privacy protection law). For further security needs or fear of compromised servers you may use the MetaGer-Tor branch. Please download the specialized webbrowser from <a href=\"https://www.torproject.org/\" target=\"_blank\" rel=\"noopener\">https://www.torproject.org/</a>. You will find help there, too.",

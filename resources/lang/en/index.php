@@ -31,7 +31,6 @@ return [
     'slogan.1' => 'We provide privacy & data protection and we are a non profit NGO.',
     'slogan.2' => '<a href="/beitritt">Become a member</a> oder <a href="/spende">donate</a>! Our source code is open: <a href="https://gitlab.metager3.de/open-source/MetaGer">gitlab.metager3.de</a>',
     'slogan.3' => 'You keep a neutral view on the web by using MetaGer',
-    'preredesign' => '<a href="https://klassik.metager.org/en">Flashback to the previous MetaGer version</a>',
 
     "sponsors.head" => "Partners",
     'sponsors.woxikon' => 'Tagesgeld jetzt!',
