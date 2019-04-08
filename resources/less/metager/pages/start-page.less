@@ -6,7 +6,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-top: 5vh;
     @media(max-width: @main-content-width) {
         width: 100%;
     }
@@ -33,7 +33,6 @@
         width: 30px;
         height: 30px;
         align-items: center;
-        justify-content: center;
         display: none;
         &:hover{
             color: red;
@@ -47,6 +46,8 @@
 }
 
 .startpage #main-content {
+    justify-content: center;
+    margin-top: 0;
     @media(max-width: @screen-mobile){
         justify-content: start;
         margin-top: 20vh;
