@@ -38,5 +38,8 @@
 			</div>
 			<div class="scrollfade-right"></div>
 		</div>
+        <div id="settings">
+            <a href="#">Sucheinstellungen</a>
+        </div>
 	</div>
 	@endif

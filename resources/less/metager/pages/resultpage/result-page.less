@@ -508,7 +508,7 @@ a {
         transform: scaleY(0);
         transition: transform .5s, max-height .5s;
     }
-    input[type=checkbox]:checked + div.scrollbox {
+    input[type=checkbox]:checked + div.scrollbox, input[type=checkbox]:checked + div.scrollbox + div#settings {
         max-height:200px;
         transform: scaleY(1);
     }
@@ -563,6 +563,21 @@ a {
             }
             .option-selector:nth-child(1){
                 margin-left: 0;
+            }
+        }
+    }
+    #settings {
+        max-height: 0;
+        transform-origin: top;
+        transform: scaleY(0);
+        transition: transform .5s, max-height .5s;
+        margin-top: 4px;
+        text-align: center;
+
+        >a {
+            color: #777;
+            &:hover {
+                color: red;
             }
         }
     }
