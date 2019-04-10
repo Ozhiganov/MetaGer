@@ -39,7 +39,7 @@
 			<div class="scrollfade-right"></div>
 		</div>
         <div id="settings">
-            <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings')) }}" method="post">
+            <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings')) }}" method="get">
                 <input type="hidden" name="fokus" value="{{ $metager->getFokus() }}">
                 <input type="hidden" name="url" value="{{ url()->full() }}">
                 <button type="submit">Sucheinstellungen</button>
