@@ -59,6 +59,12 @@ mix
   )
   .babel(
     [
+      "resources/js/scriptSettings.js"
+    ],
+    "public/js/scriptSettings.js"
+  )
+  .babel(
+    [
       "resources/js/scriptResultPage.js",
       "resources/js/result-saver.js",
       "resources/js/translations.js"
