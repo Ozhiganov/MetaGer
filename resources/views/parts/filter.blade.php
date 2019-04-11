@@ -26,9 +26,13 @@
 				@foreach($metager->getAvailableParameterFilter() as $filterName => $filter)
 					<div class="option-selector">
 					<label for="{{$filterName}}">@lang($filter->name)</label>
-					<select name="{{$filter->{'get-parameter'} }}" form="searchForm" onchange="this.form.submit()">
+					<select name="{{$filter->{'get-parameter'} }}" class="custom-select custom-select-sm" form="searchForm" onchange="this.form.submit()">
 						@foreach($filter->values as $value => $text)
-						<option value="{{$value}}" @if(Request::input($filter->{'get-parameter'}, '') === $value)selected="selected" @endif>{{trans($text)}}</option>
+						@if($value === "" && Cookie::get($metager->getFokus() . "_setting_" . $filter->{"get-parameter"}) !== null)
+						<option value="off" @if(empty($filter->value) || $filter->value === "off")selected @endif>{{trans($text)}}</option>
+						@else
+						<option value="{{$value}}" @if(!empty($filter->value) && $filter->value === $value)selected @endif>{{trans($text)}}</option>
+						@endif
 						@endforeach
 					</select>
 					</div>
