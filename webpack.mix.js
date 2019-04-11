@@ -46,7 +46,6 @@ mix
       "resources/js/lib/jquery.js",
       "resources/js/lib/jquery-ui.min.js",
       "resources/js/lib/bootstrap.js",
-      "resources/js/lib/iframeResizer.min.js",
       "resources/js/lib/md5.js"
     ],
     "public/js/lib.js"
@@ -60,15 +59,18 @@ mix
   )
   .babel(
     [
+      "resources/js/scriptSettings.js"
+    ],
+    "public/js/scriptSettings.js"
+  )
+  .babel(
+    [
       "resources/js/scriptResultPage.js",
       "resources/js/result-saver.js",
       "resources/js/translations.js"
     ],
     "public/js/scriptResultPage.js"
   )
-  .babel("resources/js/searchbar.js", "public/js/searchbar.js")
-  .babel("resources/js/focus-creator.js", "public/js/focus-creator.js")
-  .babel("resources/js/focus-creator.js", "public/js/focus-creator.js")
   .babel("resources/js/editLanguage.js", "public/js/editLanguage.js")
   .babel("resources/js/bitpay.js", "public/js/bitpay.js")
   // utility

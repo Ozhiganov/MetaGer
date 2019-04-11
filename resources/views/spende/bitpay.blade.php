@@ -7,9 +7,9 @@
         		<div class="field-input-wrapper">
         			<input class="bitpay-donate-field-price field-input" name="price" type="number" value="10.00" placeholder="{{ trans('bitpay.amount') }}" maxlength="10" min="1" step="0.01"/>
         			<select class="bitpay-donate-field-currency field-input" name="currency" value="">
-						<option selected="selected" value="USD">USD</option>
+						<option value="USD">USD</option>
 						<option value="BTC">BTC</option>
-						<option value="EUR">EUR</option>
+						<option selected="selected" value="EUR">EUR</option>
 						<option value="GBP">GBP</option>
 						<option value="AUD">AUD</option>
 						<option value="BGN">BGN</option>
