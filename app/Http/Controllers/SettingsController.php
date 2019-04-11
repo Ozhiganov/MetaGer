@@ -124,7 +124,9 @@ class SettingsController extends Controller
         $langFile = json_decode(file_get_contents($langFile));
 
         if ($sumaCount > 1 && in_array($suma, $langFile->foki->{$fokus}->sumas)) {
-            Cookie::queue($fokus . "_engine_" . $suma, "off", 525600, '/meta/', null, false, false);
+            $path = \Request::path();
+            $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+            Cookie::queue($fokus . "_engine_" . $suma, "off", 525600, $cookiePath, null, false, false);
         }
 
         return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $fokus, "url" => $url])));
@@ -142,7 +144,9 @@ class SettingsController extends Controller
         }
 
         if (Cookie::get($fokus . "_engine_" . $suma) !== null) {
-            Cookie::queue($fokus . "_engine_" . $suma, "", 0, '/meta/', null, false, false);
+            $path = \Request::path();
+            $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+            Cookie::queue($fokus . "_engine_" . $suma, "", 0, $cookiePath, null, false, false);
         }
 
         return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $fokus, "url" => $url])));
@@ -164,12 +168,16 @@ class SettingsController extends Controller
 
         foreach ($newFilters as $key => $value) {
             if ($value === "") {
-                Cookie::queue($fokus . "_setting_" . $key, "", 0, '/meta/', null, false, false);
+                $path = \Request::path();
+                $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+                Cookie::queue($fokus . "_setting_" . $key, "", 0, $cookiePath, null, false, false);
             } else {
                 # Check if this filter and its value exists:
                 foreach ($langFile->filter->{"parameter-filter"} as $name => $filter) {
                     if ($key === $filter->{"get-parameter"} && !empty($filter->values->$value)) {
-                        Cookie::queue($fokus . "_setting_" . $key, $value, 525600, '/meta/', null, false, false);
+                        $path = \Request::path();
+                        $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+                        Cookie::queue($fokus . "_setting_" . $key, $value, 525600, $cookiePath, null, false, false);
                         break;
                     }
                 }
@@ -191,7 +199,9 @@ class SettingsController extends Controller
         $cookies = Cookie::get();
         foreach ($cookies as $key => $value) {
             if (\starts_with($key, [$fokus . "_engine_", $fokus . "_setting_"])) {
-                Cookie::queue($key, "", 0, '/meta/', null, false, false);
+                $path = \Request::path();
+                $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+                Cookie::queue($key, "", 0, $cookiePath, null, false, false);
             }
         }
 
