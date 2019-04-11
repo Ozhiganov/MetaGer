@@ -1457,6 +1457,30 @@ class MetaGer
         return $this->searchUid;
     }
 
+    public function getManualParameterFilterSet()
+    {
+        $filters = $this->sumaFile->filter->{"parameter-filter"};
+        foreach ($filters as $filterName => $filter) {
+            if (\Request::filled($filter->{"get-parameter"})) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getSavedSettingCount()
+    {
+        $cookies = \Cookie::get();
+        $count = 0;
+
+        foreach ($cookies as $key => $value) {
+            if (starts_with($key, [$this->getFokus() . "_setting_", $this->getFokus() . "_engine_"])) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
 # Einfache Getter
 
     public function getVerificationId()

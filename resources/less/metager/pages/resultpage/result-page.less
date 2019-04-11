@@ -508,19 +508,48 @@ a {
         transform: scaleY(0);
         transition: transform .5s, max-height .5s;
     }
-    input[type=checkbox]:checked + div.scrollbox, input[type=checkbox]:checked + div.scrollbox + div#settings {
+    input[type=checkbox]:checked + div.scrollbox{
         max-height:200px;
         transform: scaleY(1);
     }
     #toggle-box {
         display: flex;
         align-items: center;
+        margin-left: -8px;
+        @media(max-width: 350px){
+            flex-direction: row-reverse;
+            flex-wrap: wrap-reverse;
+            justify-content: space-around;
+            > div {
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+            #filter-toggle {
+                flex-direction: column;
+            }
+            #settings {
+            }
+            #result-count{
+            }
+        }
+        > div {
+            margin-left: 8px;
+        }
+        #filter-toggle {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 0;
+            margin-left: 0px;
+            >div {
+                margin-left: 8px;
+            }
+        }
         #result-count {
             flex-grow: 1;
             text-align: right;
-        }
-        #options-reset {
-            margin-left: 10px;
+            width: 100%;
         }
         .option-toggle {
             text-align: center;
@@ -536,8 +565,6 @@ a {
         justify-content: left;
         overflow: hidden;
         overflow-x: auto;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 8px;
         padding-top: 8px;
         #options-items {
             display: -ms-flexbox;
@@ -567,17 +594,17 @@ a {
         }
     }
     #settings {
-        max-height: 0;
-        transform-origin: top;
-        transform: scaleY(0);
-        transition: transform .5s, max-height .5s;
-        margin-top: 4px;
         text-align: center;
-
-        >form>button {
-            color: #777;
+        a {
+            color: black;
             &:hover {
                 color: red;
+            }
+            
+            span.badge {
+                margin-top: -12px;
+                font-size: .7em;
+                font-weight: normal;
             }
         }
     }

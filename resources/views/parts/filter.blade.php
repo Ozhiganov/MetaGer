@@ -1,21 +1,30 @@
 @if(sizeof($metager->getAvailableParameterFilter()) > 0)
 	<div id="options">
 		<div id="toggle-box">
-			@if(sizeof($metager->getAvailableParameterFilter()) > 0)
-			<div class="option-toggle">
-				<label class="navigation-element" for="options-toggle">
-					<i class="fas fa-filter"></i> Filter&hellip;
-				</label>
+			<div id="filter-toggle">
+				@if(sizeof($metager->getAvailableParameterFilter()) > 0)
+				<div class="option-toggle">
+					<label class="navigation-element" for="options-toggle">
+						<i class="fas fa-filter"></i> Filter&hellip;
+					</label>
+				</div>
+				@endif
+				@if($metager->getManualParameterFilterSet())
+				<div id="options-reset">
+					<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('metaGer.filter.reset') }}</nobr></a>
+				</div>
+				@endif
 			</div>
-			@endif
-			@if(sizeof($metager->getParameterFilter()) > 0)
-			<div id="options-reset">
-				<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('metaGer.filter.reset') }}</nobr></a>
+			<div id="settings">
+				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $metager->getFokus(), "url" => url()->full()])) }}">
+					<i class="fas fa-cogs"></i>
+					@if($metager->getSavedSettingCount() > 0) <span class="badge badge-primary">{{ $metager->getSavedSettingCount() }}@endif</span>
+					Einstellungen&hellip;
+				</a>
 			</div>
-			@endif
 			@if($metager->getTotalResultCount() > 0)
 			<div id="result-count">
-				~ {{$metager->getTotalResultCount()}} {{ trans('metaGer.results') }}
+				<nobr>~ {{$metager->getTotalResultCount()}}</nobr> {{ trans('metaGer.results') }}
 			</div>
 			@endif
 		</div>
@@ -42,12 +51,6 @@
 			</div>
 			<div class="scrollfade-right"></div>
 		</div>
-        <div id="settings">
-            <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings')) }}" method="get">
-                <input type="hidden" name="fokus" value="{{ $metager->getFokus() }}">
-                <input type="hidden" name="url" value="{{ url()->full() }}">
-                <button type="submit">Sucheinstellungen</button>
-            </form>
-        </div>
+
 	</div>
 	@endif
