@@ -1461,7 +1461,8 @@ class MetaGer
     {
         $filters = $this->sumaFile->filter->{"parameter-filter"};
         foreach ($filters as $filterName => $filter) {
-            if (\Request::filled($filter->{"get-parameter"})) {
+            if (\Request::filled($filter->{"get-parameter"})
+                && \Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"}) !== \Request::input($filter->{"get-parameter"})) {
                 return true;
             }
         }

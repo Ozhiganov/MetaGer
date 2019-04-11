@@ -5,12 +5,12 @@
 @section('content')
 <div id="settings">
     <div class="card-light">
-        <h2>Sucheinstellungen ({{ $fokusName }})</h2>
-        <p>Hier können Sie Sucheinstellungen für Ihre MetaGer Suche im Fokus {{ $fokusName }} vornehmen. Diese bleiben solange gespeichert, wie Sie Cookies im Browser speichern.</p>
+        <h2>@lang('settings.header.1') ({{ $fokusName }})</h2>
+        <p>@lang('settings.text.1', ["fokusName" => $fokusName])</p>
     </div>
     <div class="card-light">
-        <h2>Verwendete Suchmaschinen</h2>
-        <p>Nachfolgend sehen Sie alle für diesen Fokus verfügbaren Suchmaschinen. Mit einem Klick auf den Namen können Sie Ein-/Ausgeschaltet werden. Eingeschaltete Suchmaschinen sind in grün dargestellt. Ausgeschaltete in rot oder grau.</p>
+        <h2>@lang('settings.header.2')</h2>
+        <p>@lang('settings.text.2')</p>
         <p></p>
         <div class="sumas enabled-engines">
             @foreach($sumas as $suma => $sumaInfo)
@@ -54,8 +54,8 @@
         @endif
     </div>
     <div class="card-light">
-        <h2>Suchfilter</h2>
-        <p>An dieser Stelle können Sie Suchfilter dauerhaft setzen. Mit der Auswahl eines Suchfilters stehen nur noch Suchmaschinen zur Verfügung, welche diesen Filter unterstützen. Umgekehrt werden auch nur Suchfilter angezeigt, welche von der aktuellen Suchmaschinenauswahl unterstützt werden.</p>
+        <h2>@lang('settings.header.3')</h2>
+        <p>@lang('settings.text.3')</p>
         <form id="filter-form" action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('enableFilter')) }}" method="post" class="form">
             <input type="hidden" name="fokus" value="{{ $fokus }}">
             <input type="hidden" name="url" value="{{ $url }}">
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label for="{{ $filterInfo->{"get-parameter"} }}">@lang($filterInfo->name)</label>
                     <select name="{{ $filterInfo->{"get-parameter"} }}" id="{{ $filterInfo->{"get-parameter"} }}" class="form-control">
-                        <option value="" @if(Cookie::get($fokus . "_setting_" . $filterInfo->{"get-parameter"}) === null)disabled selected @endif>Beliebig</option>
+                        <option value="" @if(Cookie::get($fokus . "_setting_" . $filterInfo->{"get-parameter"}) === null)disabled selected @endif>@lang('metaGer.filter.noFilter')</option>
                         @foreach($filterInfo->values as $key => $value)
                         @if(!empty($key))
                         <option value="{{ $key }}" {{ Cookie::get($fokus . "_setting_" . $filterInfo->{"get-parameter"}) === $key ? "disabled selected" : "" }}>@lang($value)</option>
@@ -74,7 +74,7 @@
                 </div>
                 @endforeach
             </div>
-            <button type="submit" class="btn btn-default">Speichern</button>
+            <button type="submit" class="btn btn-default">@lang('settings.save')</button>
         </form>
 
     </div>
@@ -84,12 +84,12 @@
             <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('deleteSettings', ["fokus" => $fokus, "url" => $url])) }}" method="post">
                 <input type="hidden" name="url" value="{{ $url }}">
                 <input type="hidden" name="fokus" value="{{ $fokus }}">
-                <button type="submit" class="btn btn-sm btn-danger">Alle Einstellungen löschen</button>
+                <button type="submit" class="btn btn-sm btn-danger">@lang('settings.reset')</button>
             </form>
         </div>
         @endif
         <div id="back">
-            <a href="{{ $url }}" class="btn btn-sm btn-default">Zurück zur letzten Seite</a>
+            <a href="{{ $url }}" class="btn btn-sm btn-default">@lang('settings.back')</a>
         </div>
     </div>
 
