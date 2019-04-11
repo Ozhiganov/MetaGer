@@ -464,6 +464,7 @@ a {
         border-bottom: 1px solid #ccc;
         @media (max-width: @screen-mobile) {
             .card;
+            margin: 0;
         }
         &>div {
             padding-right: 16px;
@@ -498,6 +499,7 @@ a {
     padding: 0 8px;
     @media(max-width: @screen-mobile){
         .card;
+        margin: 0;
     }
     input[type=checkbox]{
         display: none;
@@ -527,10 +529,6 @@ a {
             #filter-toggle {
                 flex-direction: column;
             }
-            #settings {
-            }
-            #result-count{
-            }
         }
         > div {
             margin-left: 8px;
@@ -549,7 +547,6 @@ a {
         #result-count {
             flex-grow: 1;
             text-align: right;
-            width: 100%;
         }
         .option-toggle {
             text-align: center;

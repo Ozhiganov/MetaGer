@@ -14,7 +14,6 @@
 		<i class="fas fa-angle-double-down"></i>
 	</a>
 	<script src="{{ mix('js/scriptStartPage.js') }}" defer></script>
-	<script src="{{ mix('js/searchbar.js') }}" defer></script>
 @endsection
 
 @section('additional-content')

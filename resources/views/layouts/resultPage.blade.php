@@ -45,6 +45,5 @@
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
 		<script src="{{ mix('js/lib.js') }}"></script>
 		<script src="{{ mix('js/scriptResultPage.js') }}" defer></script>
-		<script src="{{ mix('js/searchbar.js') }}" defer></script>
 	</body>
 </html>
