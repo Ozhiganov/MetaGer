@@ -26,7 +26,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
+            #\App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 

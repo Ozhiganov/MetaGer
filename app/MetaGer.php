@@ -481,8 +481,9 @@ class MetaGer
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
             $autoDisabled = empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) ? false : $this->sumaFile->sumas->{$suma}->{"auto-disabled"};
-            if ($disabled || $autoDisabled) {
-                continue;
+            if ($disabled || $autoDisabled
+                || \Cookie::get($this->getFokus() . "_engine_" . $suma) === "off") { # Check if the user has disabled this engine
+            continue;
             }
 
             # Check if this engine can use eventually defined query-filter
