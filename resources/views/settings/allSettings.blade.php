@@ -7,7 +7,7 @@
     <div class="card-light">
         <h2>@lang('settings.allSettings.header', ["root" => Request::root()])</h2>
         <p>@lang('settings.allSettings.text')</p>
-
+        @if(sizeof(Cookie::get()) > 0)
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -47,13 +47,17 @@
                     @endforeach
                 </tbody>
             </table>
-
+            @else
+            <p id="no-settings">@lang('settings.noSettings')</p>
+            @endif
             <div id="actions">
                 <a href="{{ $url }}" class="btn btn-sm btn-default">@lang('settings.back')</a>
+                @if(sizeof(Cookie::get()) > 0)
                 <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('removeAllSettings'))}}" method="post">
                     <input type="hidden" name="url" value="{{ url()->full() }}">
                     <button type="submit" class="btn btn-sm btn-danger">@lang('settings.reset')</button>
                 </form>
+                @endif
             </div>
         </div>
     </div>
@@ -67,6 +71,9 @@
 }
 #actions > a, #actions > form {
     margin-left: 8px;
+}
+#no-settings {
+    text-align: center;
 }
 </style>
 @endsection

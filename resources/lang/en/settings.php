@@ -18,6 +18,7 @@ return [
     "back" => "Back to the last page",
 
     // Translations from the settings overview
+    'noSettings' => "Currently no settings are set!",
     'allSettings.header' => "Settings on :root",
     'allSettings.text' => "Here you will find an overview of all settings and cookies you have set. You can delete individual entries or remove them all. Keep in mind that the associated settings will no longer be used.",
 

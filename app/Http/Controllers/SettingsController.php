@@ -81,6 +81,10 @@ class SettingsController extends Controller
 
         $sumas = [];
         foreach ($sumasFoki as $suma) {
+            if ((!empty($langFile->sumas->{$suma}->disabled) && $langFile->sumas->{$suma}->disabled) ||
+                (!empty($langFile->sumas->{$suma}->{"auto-disabled"}) && $langFile->sumas->{$suma}->{"auto-disabled"})) {
+                continue;
+            }
             $sumas[$suma]["display-name"] = $langFile->sumas->{$suma}->{"display-name"};
             $sumas[$suma]["filtered"] = false;
             if (Cookie::get($fokus . "_engine_" . $suma) === "off") {

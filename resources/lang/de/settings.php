@@ -18,6 +18,7 @@ return [
     "back" => "Zurück zur letzten Seite",
 
     // Translations from the settings overview
+    'noSettings' => "Aktuell sind keine Einstellungen gesetzt!",
     'allSettings.header' => "Auf :root gesetzte Einstellungen",
     'allSettings.text' => "Hier finden Sie eine Übersicht aller von Ihnen gesetzten Einstellungen und Cookies. Sie können einzelne Einträge löschen, oder alle entfernen. Bedenken Sie, dass die zugehörigen Einstellungen dann nicht mehr verwendet werden.",
 
