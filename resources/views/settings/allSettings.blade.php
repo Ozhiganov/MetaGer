@@ -3,7 +3,7 @@
 @section('title', $title )
 
 @section('content')
-<div id="all-settings">
+<div id="settings">
     <div class="card-light">
         <h2>@lang('settings.allSettings.header', ["root" => Request::root()])</h2>
         <p>@lang('settings.allSettings.text')</p>
@@ -62,18 +62,4 @@
         </div>
     </div>
 </div>
-<style>
-#actions {
-    display: flex;
-    margin-left: -8px;
-    align-items: center;
-    justify-content: center;
-}
-#actions > a, #actions > form {
-    margin-left: 8px;
-}
-#no-settings {
-    text-align: center;
-}
-</style>
 @endsection
