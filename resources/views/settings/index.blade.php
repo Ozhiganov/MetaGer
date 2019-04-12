@@ -45,7 +45,7 @@
             @endforeach
         </div>
         @if($filteredSumas)
-        <h4>Durch Suchfilter deaktiviert:</h4>
+        <h4>@lang('settings.disabledByFilter')</h4>
         <div class="sumas filtered-engines">
             @foreach($sumas as $suma => $sumaInfo)
             @if($sumaInfo["filtered"])

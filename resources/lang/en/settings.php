@@ -9,6 +9,7 @@ return [
 
     "header.2" => "Used Search Engines",
     "text.2" => "Below are all the search engines available for this focus. With a click on the name they can be switched on / off. Used search engines are shown in green. Not used ones in red or gray.",
+    "disabledByFilter" => "Disabled by Search Filter:",
 
     "header.3" => "Search Filters",
     "text.3" => "At this point you can set search filters permanently. With the selection of a search filter, only search engines are available that support this filter. Conversely, only search filters are displayed which are supported by the current search engine selection.",

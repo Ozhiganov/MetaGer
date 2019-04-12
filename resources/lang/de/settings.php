@@ -9,6 +9,7 @@ return [
 
     "header.2" => "Verwendete Suchmaschinen",
     "text.2" => "Nachfolgend sehen Sie alle für diesen Fokus verfügbaren Suchmaschinen. Mit einem Klick auf den Namen können Sie Ein-/Ausgeschaltet werden. Eingeschaltete Suchmaschinen sind in grün dargestellt. Ausgeschaltete in rot oder grau.",
+    "disabledByFilter" => "Durch Suchfilter deaktiviert:",
 
     "header.3" => "Suchfilter",
     "text.3" => "An dieser Stelle können Sie Suchfilter dauerhaft setzen. Mit der Auswahl eines Suchfilters stehen nur noch Suchmaschinen zur Verfügung, welche diesen Filter unterstützen. Umgekehrt werden auch nur Suchfilter angezeigt, welche von der aktuellen Suchmaschinenauswahl unterstützt werden.",
