@@ -9,6 +9,10 @@
         <p>@lang('settings.text.1', ["fokusName" => $fokusName])</p>
     </div>
     <div class="card-light">
+        <h2>@lang('settings.hint.header')</h2>
+        <p>@lang('settings.hint.text')</p>
+    </div>
+    <div class="card-light">
         <h2>@lang('settings.header.2')</h2>
         <p>@lang('settings.text.2')</p>
         <p></p>
