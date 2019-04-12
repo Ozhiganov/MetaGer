@@ -1,38 +1,33 @@
 <?php
 
 return [
-    "head.1"	=>	"Settings",
-    "head.2"	=>	"Here you can customize your MetaGer: After selecting your desired settings, you have to choose whether you want to save the settings permanently or for one time use. Please confirm with one of the buttons on the bottom of this page.",
-    "allgemein.1"	=>	"General",
-    "quotes.label"	=>	"Sayings",
-    "quotes.on"	=>	"show",
-    "quotes.off"	=>	"hide",
-    "tab.label"	=>	"Show results:",
-    "tab.new"	=>	"in a new tab",
-    "tab.same"	=>	"in the same tab",
-    "language.label"	=>	"Select language",
-    "language.all"	=>	"all languages",
-    "language.de"	=>	"german",
-    "language.en"	=>	"english",
-    "suchmaschinen.1"	=>	"search engines",
-    "suchmaschinen.2"	=>	"(deselect all)",
-    "suchmaschinen.3"	=>	"(select / deselect all)",
-    "abort"	=>	"abort",
-    "speichern.1"	=>	"Create a startpage for one-time use",
-    "speichern.2"	=>	"Save settings permanently",
-    "speichern.3"	=>	"Generate plugin with these settings",
-    "speichern.4"	=>	"Reset saved settings",
-    "request"	=>	"Query method",
-    "autocomplete.label"	=>	"Auto complete (of search input)",
-    "autocomplete.on"	=>	"on",
-    "autocomplete.off"	=>	"off",
-    "key.label"	=>	"The key for ad-free search",
-    "key.placeholder"	=>	"Put in the key here",
-    "foki.web"	=>	"Web",
-    "foki.andere"	=>	"Others",
-    "foki.produktsuche"	=>	"Shopping",
-    "foki.wissenschaft"	=>	"Science",
-    "foki.nachrichten"	=>	"News/Politics",
-    "foki.bilder"	=>	"Pictures",
-    "autocomplete"	=>	"autocomplete (search input)"
+    "header.1" => "Search Preferences",
+    "text.1" => "Here you can set permanent search settings for your MetaGer search in focus :fokusName. If these do not remain permanently stored, please check in your browser settings whether it deletes cookies stored on exit.",
+
+    "hint.header" => "Note",
+    "hint.text" => "To save your search settings, we use non-personally identifiable cookies. These are saved in clear text in your browser. You can see an <a href=\":link\">overview</a> of all the settings and cookies you have made.",
+
+    "header.2" => "Used Search Engines",
+    "text.2" => "Below are all the search engines available for this focus. With a click on the name they can be switched on / off. Used search engines are shown in green. Not used ones in red or gray.",
+    "disabledByFilter" => "Disabled by Search Filter:",
+
+    "header.3" => "Search Filters",
+    "text.3" => "At this point you can set search filters permanently. With the selection of a search filter, only search engines are available that support this filter. Conversely, only search filters are displayed which are supported by the current search engine selection.",
+
+    "save" => "Save",
+    "reset" => "Delete all settings",
+    "back" => "Back to the last page",
+
+    // Translations from the settings overview
+    'noSettings' => "Currently no settings are set!",
+    'allSettings.header' => "Settings on :root",
+    'allSettings.text' => "Here you will find an overview of all settings and cookies you have set. You can delete individual entries or remove them all. Keep in mind that the associated settings will no longer be used.",
+
+    'meaning' => "Meaning",
+    'actions' => "Actions",
+
+    'engineDisabled' => "The search engine :engine will not be queried in focus :focus.",
+    'inFocus' => "in focus",
+    'key' => "Your key to the ad-free search",
+    'removeCookie' => "Remove this cookie",
 ];

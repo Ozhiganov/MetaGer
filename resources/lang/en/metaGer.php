@@ -23,7 +23,7 @@ return [
     'feedback' => 'Not what you were looking for? Give us feedback: ',
 
     'results' => "Results",
-    'filter.noFilter' => 'All',
+    'filter.noFilter' => 'Any',
     'filter.reset' => 'Reset filter',
 
     'filter.sitesearch' => 'Sitesearch',
@@ -121,11 +121,6 @@ return [
     "filter.market.chk" => "Chinese (Hong Kong SAR)",
     "filter.market.cc" => "Chinese (China)",
     "filter.market.ct" => "Chinese (Taiwan)",
+
+    "settings" => "Settings",
 ];
-
-
-
-
-
-
-

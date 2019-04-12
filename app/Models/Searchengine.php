@@ -7,7 +7,6 @@ use App\MetaGer;
 use Cache;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Redis;
-use Request;
 
 abstract class Searchengine
 {
@@ -76,7 +75,8 @@ abstract class Searchengine
 
         # Parse enabled Parameter-Filter
         foreach ($metager->getParameterFilter() as $filterName => $filter) {
-            $inputParameter = Request::input($filter->{"get-parameter"}, "");
+            $inputParameter = $filter->value;
+
             if (empty($inputParameter) || empty($filter->sumas->{$name}->values->{$inputParameter})) {
                 continue;
             }

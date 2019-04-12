@@ -189,7 +189,7 @@ Route::group(
 
         Route::get('qt', 'MetaGerSearch@quicktips');
         Route::get('tips', 'MetaGerSearch@tips');
-        Route::get('/plugins/{params}/opensearch.xml', 'StartpageController@loadPlugin');
+        Route::get('/plugins/opensearch.xml', 'StartpageController@loadPlugin');
         Route::get('owi', function () {
             return redirect('https://metager.de/klassik/en/owi/');
         });

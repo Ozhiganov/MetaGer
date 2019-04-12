@@ -1,4 +1,3 @@
-{{-- Don't forget <script src="{{ mix('js/searchbar.js') }}"></script> --}}
 <fieldset>
 	<form id="searchForm" method={{ $request }} action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/meta/meta.ger3 ") }}" accept-charset="UTF-8">
 		<div class="searchbar {{$class ?? ''}}">

@@ -481,10 +481,10 @@ class MetaGer
             # Check if this engine is disabled and can't be used
             $disabled = empty($this->sumaFile->sumas->{$suma}->disabled) ? false : $this->sumaFile->sumas->{$suma}->disabled;
             $autoDisabled = empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) ? false : $this->sumaFile->sumas->{$suma}->{"auto-disabled"};
-            if ($disabled || $autoDisabled) {
-                continue;
+            if ($disabled || $autoDisabled
+                || \Cookie::get($this->getFokus() . "_engine_" . $suma) === "off") { # Check if the user has disabled this engine
+            continue;
             }
-
             # Check if this engine can use eventually defined query-filter
             $valid = true;
             foreach ($this->queryFilter as $queryFilter => $filter) {
@@ -497,8 +497,7 @@ class MetaGer
             if ($valid) {
                 foreach ($this->parameterFilter as $filterName => $filter) {
                     # We need to check if the searchengine supports the parameter value, too
-                    $value = $request->input($filter->{"get-parameter"}, "");
-                    if (empty($filter->sumas->$suma) || empty($filter->sumas->{$suma}->values->{$value})) {
+                    if (empty($filter->sumas->$suma) || empty($filter->sumas->{$suma}->values->{$filter->value})) {
                         $valid = false;
                         break;
                     }
@@ -529,6 +528,12 @@ class MetaGer
         # Implements Yahoo Ads if Yahoo is not enabled as a searchengine
         if (!$this->apiAuthorized && empty($this->enabledSearchengines["yahoo"]) && $this->fokus != "bilder" && !empty($this->sumaFile->sumas->{"yahoo-ads"})) {
             $this->enabledSearchengines["yahoo-ads"] = $this->sumaFile->sumas->{"yahoo-ads"};
+        }
+
+        # Special case if search engines are disabled
+        # Since bing is normally only active if a filter is set but it should be active, too if yahoo is disabled
+        if ($this->getFokus() === "web" && empty($this->enabledSearchengines["yahoo"]) && \Cookie::get("web_engine_bing") !== "off") {
+            $this->enabledSearchengines["bing"] = $this->sumaFile->sumas->{"bing"};
         }
 
         if (sizeof($this->enabledSearchengines) === 0) {
@@ -629,24 +634,52 @@ class MetaGer
         $availableFilter = [];
 
         foreach ($parameterFilter as $filterName => $filter) {
+            $values = $filter->values;
             # Check if any of the enabled search engines provide this filter
             foreach ($this->enabledSearchengines as $engineName => $engine) {
                 if (!empty($filter->sumas->$engineName)) {
-                    $availableFilter[$filterName] = $filter;
+                    if (empty($availableFilter[$filterName])) {
+                        $availableFilter[$filterName] = $filter;
+                        unset($availableFilter[$filterName]->values);
+                    }
+                    if (empty($availableFilter[$filterName]->values)) {
+                        $availableFilter[$filterName]->values = (object) ["" => $values->{""}];
+                    }
+                    foreach ($filter->sumas->{$engineName}->values as $key => $value) {
+                        $availableFilter[$filterName]->values->$key = $values->$key;
+                    }
                 }
             }
             # We will also add the filter from the opt-in search engines (the searchengines that are only used when a filter of it is too)
             foreach ($this->sumaFile->foki->{$this->fokus}->sumas as $suma) {
-                if ($this->sumaFile->sumas->{$suma}->{"filter-opt-in"}) {
+                if ($this->sumaFile->sumas->{$suma}->{"filter-opt-in"} && \Cookie::get($this->getFokus() . "_engine_" . $suma) !== "off") {
                     if (!empty($filter->sumas->{$suma})) {
                         # If the searchengine is disabled this filter shouldn't be available
                         if ((!empty($this->sumaFile->sumas->{$suma}->disabled) && $this->sumaFile->sumas->{$suma}->disabled === true)
                             || (!empty($this->sumaFile->sumas->{$suma}->{"auto-disabled"}) && $this->sumaFile->sumas->{$suma}->{"auto-disabled"} === true)) {
                             continue;
                         }
-                        $availableFilter[$filterName] = $filter;
+                        if (empty($availableFilter[$filterName])) {
+                            $availableFilter[$filterName] = $filter;
+                            unset($availableFilter[$filterName]->values);
+                        }
+                        if (empty($availableFilter[$filterName]->values)) {
+                            $availableFilter[$filterName]->values = (object) ["" => $values->{""}];
+                        }
+                        foreach ($filter->sumas->{$suma}->values as $key => $value) {
+                            $availableFilter[$filterName]->values->$key = $values->$key;
+                        }
                     }
                 }
+            }
+        }
+
+        # Set the current values for the filters
+        foreach ($availableFilter as $filterName => $filter) {
+            if (\Request::filled($filter->{"get-parameter"})) {
+                $filter->value = \Request::input($filter->{"get-parameter"});
+            } else if (\Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"}) !== null) {
+                $filter->value = \Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"});
             }
         }
 
@@ -1018,10 +1051,17 @@ class MetaGer
             } else {
                 $usedParameters[$filter->{"get-parameter"}] = true;
             }
-            if ($request->filled($filter->{"get-parameter"})) {
-                $this->parameterFilter[$filterName] = $filter;
+
+            if (($request->filled($filter->{"get-parameter"}) && $request->input($filter->{"get-parameter"}) !== "off") ||
+                \Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"}) !== null) { # If the filter is set via Cookie
+            $this->parameterFilter[$filterName] = $filter;
+                $this->parameterFilter[$filterName]->value = $request->input($filter->{"get-parameter"}, '');
+                if (empty($this->parameterFilter[$filterName]->value)) {
+                    $this->parameterFilter[$filterName]->value = \Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"});
+                }
             }
         }
+
         $this->searchCheckHostBlacklist($request);
         $this->searchCheckDomainBlacklist($request);
         $this->searchCheckUrlBlacklist();
@@ -1418,6 +1458,31 @@ class MetaGer
         return $this->searchUid;
     }
 
+    public function getManualParameterFilterSet()
+    {
+        $filters = $this->sumaFile->filter->{"parameter-filter"};
+        foreach ($filters as $filterName => $filter) {
+            if (\Request::filled($filter->{"get-parameter"})
+                && \Cookie::get($this->getFokus() . "_setting_" . $filter->{"get-parameter"}) !== \Request::input($filter->{"get-parameter"})) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getSavedSettingCount()
+    {
+        $cookies = \Cookie::get();
+        $count = 0;
+
+        foreach ($cookies as $key => $value) {
+            if (starts_with($key, [$this->getFokus() . "_setting_", $this->getFokus() . "_engine_"])) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
 # Einfache Getter
 
     public function getVerificationId()
@@ -1488,6 +1553,16 @@ class MetaGer
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    public static function getLanguageFile()
+    {
+        $locale = LaravelLocalization::getCurrentLocale();
+        if ($locale === "en") {
+            return config_path('sumasEn.json');
+        } else {
+            return config_path('sumas.json');
+        }
     }
 
     public function getLang()
