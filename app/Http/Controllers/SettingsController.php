@@ -218,4 +218,26 @@ class SettingsController extends Controller
             ->with('url', $request->input('url', ''))
             ->with('sumaFile', $sumaFile);
     }
+
+    public function removeOneSetting(Request $request)
+    {
+        $key = $request->input('key', '');
+        $path = \Request::path();
+        $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+        Cookie::queue($key, "", 0, $cookiePath, null, false, false);
+
+        return redirect($request->input('url', 'https://metager.de'));
+
+    }
+
+    public function removeAllSettings(Request $request)
+    {
+        $path = \Request::path();
+        $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+
+        foreach (Cookie::get() as $key => $value) {
+            Cookie::queue($key, "", 0, $cookiePath, null, false, false);
+        }
+        return redirect($request->input('url', 'https://metager.de'));
+    }
 }

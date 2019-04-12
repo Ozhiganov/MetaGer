@@ -34,12 +34,39 @@
                         Ihr Schlüssel für die werbefreie Suche
                         @endif
                         </td>
-                        <td></td>
+                        <td>
+                            <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('removeOneSetting')) }}" method="post">
+                                <input type="hidden" name="key" value="{{ $key }}">
+                                <input type="hidden" name="url" value="{{ url()->full() }}">
+                                <button type="submit" title="Diesen Cookie entfernen">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            <div id="actions">
+                <a href="{{ $url }}" class="btn btn-sm btn-default">Zurück zur letzten Seite</a>
+                <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('removeAllSettings'))}}" method="post">
+                    <input type="hidden" name="url" value="{{ url()->full() }}">
+                    <button type="submit" class="btn btn-sm btn-danger">Alle Einstellungen entfernen</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+<style>
+#actions {
+    display: flex;
+    margin-left: -8px;
+    align-items: center;
+    justify-content: center;
+}
+#actions > a, #actions > form {
+    margin-left: 8px;
+}
+</style>
 @endsection

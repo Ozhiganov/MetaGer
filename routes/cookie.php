@@ -22,6 +22,9 @@ Route::group(
 
                 # Route to show and delete all settings
                 Route::get('all-settings', 'SettingsController@allSettingsIndex')->name('showAllSettings');
+                Route::post('all-settings/removeOne', 'SettingsController@removeOneSetting')->name('removeOneSetting');
+                Route::post('all-settings/removeAll', 'SettingsController@removeAllSettings')->name('removeAllSettings');
+
             });
     }
 );
