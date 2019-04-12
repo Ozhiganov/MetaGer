@@ -16,4 +16,16 @@ return [
     "save" => "Speichern",
     "reset" => "Alle Einstellungen löschen",
     "back" => "Zurück zur letzten Seite",
+
+    // Translations from the settings overview
+    'allSettings.header' => "Auf :root gesetzte Einstellungen",
+    'allSettings.text' => "Hier finden Sie eine Übersicht aller von Ihnen gesetzten Einstellungen und Cookies. Sie können einzelne Einträge löschen, oder alle entfernen. Bedenken Sie, dass die zugehörigen Einstellungen dann nicht mehr verwendet werden.",
+
+    'meaning' => "Bedeutung",
+    'actions' => "Aktionen",
+
+    'engineDisabled' => "Die Suchmaschine :engine wird im Fokus :focus nicht abgefragt.",
+    'inFocus' => "im Fokus",
+    'key' => "Ihr Schlüssel für die werbefreie Suche",
+    'removeCookie' => "Diesen Cookie entfernen",
 ];
