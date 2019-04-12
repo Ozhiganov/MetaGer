@@ -207,4 +207,15 @@ class SettingsController extends Controller
 
         return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $fokus, "url" => $url])));
     }
+
+    public function allSettingsIndex(Request $request)
+    {
+        $sumaFile = MetaGer::getLanguageFile();
+        $sumaFile = json_decode(file_get_contents($sumaFile));
+
+        return view('settings.allSettings')
+            ->with('title', trans('titles.allSettings'))
+            ->with('url', $request->input('url', ''))
+            ->with('sumaFile', $sumaFile);
+    }
 }

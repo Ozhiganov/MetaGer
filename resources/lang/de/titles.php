@@ -25,4 +25,5 @@ return [
     'plugin' => 'Plugin - MetaGer',
     'key' => 'Mitgliederschlüssel - MetaGer',
     'settings' => 'Sucheinstellungen (:fokus)',
+    'allSettings' => 'Alle Sucheinstellungen - MetaGer',
 ];
