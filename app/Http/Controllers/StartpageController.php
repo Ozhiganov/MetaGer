@@ -88,52 +88,15 @@ class StartpageController extends Controller
         return loadPage($subpage);
     }
 
-    public function loadPlugin($params, $locale = "de")
+    public function loadPlugin($locale = "de")
     {
-        $params = unserialize(base64_decode($params));
-        $requests = $params;
-        $params = [];
-        foreach ($requests as $key => $value) {
-            if (strpos($key, "param_") === 0) {
-                $key = substr($key, strpos($key, "param_") + 6);
-            }
-            $params[$key] = $value;
-        }
-
-        if (!isset($params['focus'])) {
-            $params['focus'] = 'web';
-        }
-
-        if (!isset($params['encoding'])) {
-            $params['encoding'] = 'utf8';
-        }
-
-        if (!isset($params['lang'])) {
-            $params['lang'] = 'all';
-        }
-
-        if (isset($params['request']) && ($params['request'] === "GET" || $params['request'] === "POST")) {
-            $request = $params['request'];
-        } else {
-            $request = "GET";
-        }
-
-        array_forget($params, 'eingabe');
-        array_forget($params, 'out');
-        array_forget($params, 'page');
-        array_forget($params, 'request');
-        array_forget($params, 'focus');
-        array_forget($params, 'encoding');
-        array_forget($params, 'lang');
-
         $link = action('MetaGerSearch@search', []);
 
         $response = Response::make(
             view('plugin')
                 ->with('link', $link)
-                ->with('params', $params)
                 ->with('hostname', gethostname())
-                ->with('request', $request), "200");
+            , "200");
         $response->header('Content-Type', "application/opensearchdescription+xml");
         return $response;
     }
