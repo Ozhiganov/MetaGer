@@ -50,7 +50,8 @@
             @else
             <p id="no-settings">@lang('settings.noSettings')</p>
             @endif
-            <div id="actions">
+        </div>
+        <div id="actions">
                 <a href="{{ $url }}" class="btn btn-sm btn-default">@lang('settings.back')</a>
                 @if(sizeof(Cookie::get()) > 0)
                 <form action="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('removeAllSettings'))}}" method="post">
@@ -59,7 +60,6 @@
                 </form>
                 @endif
             </div>
-        </div>
     </div>
 </div>
 @endsection
