@@ -1,4 +1,3 @@
-@if(sizeof($metager->getAvailableParameterFilter()) > 0)
 	<div id="options">
 		<div id="toggle-box">
 			<div id="filter-toggle">
@@ -28,6 +27,7 @@
 			</div>
 			@endif
 		</div>
+		@if(sizeof($metager->getAvailableParameterFilter()) > 0)
 		<input type="checkbox" id="options-toggle" @if(sizeof($metager->getParameterFilter()) > 0)checked @endif />
 		<div class="scrollbox">
 			<div id="options-box">
@@ -51,6 +51,5 @@
 			</div>
 			<div class="scrollfade-right"></div>
 		</div>
-
-	</div>
 	@endif
+	</div>
