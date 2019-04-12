@@ -81,6 +81,10 @@ class SettingsController extends Controller
 
         $sumas = [];
         foreach ($sumasFoki as $suma) {
+            if ((!empty($langFile->sumas->{$suma}->disabled) && $langFile->sumas->{$suma}->disabled) ||
+                (!empty($langFile->sumas->{$suma}->{"auto-disabled"}) && $langFile->sumas->{$suma}->{"auto-disabled"})) {
+                continue;
+            }
             $sumas[$suma]["display-name"] = $langFile->sumas->{$suma}->{"display-name"};
             $sumas[$suma]["filtered"] = false;
             if (Cookie::get($fokus . "_engine_" . $suma) === "off") {
@@ -206,5 +210,38 @@ class SettingsController extends Controller
         }
 
         return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $fokus, "url" => $url])));
+    }
+
+    public function allSettingsIndex(Request $request)
+    {
+        $sumaFile = MetaGer::getLanguageFile();
+        $sumaFile = json_decode(file_get_contents($sumaFile));
+
+        return view('settings.allSettings')
+            ->with('title', trans('titles.allSettings'))
+            ->with('url', $request->input('url', ''))
+            ->with('sumaFile', $sumaFile);
+    }
+
+    public function removeOneSetting(Request $request)
+    {
+        $key = $request->input('key', '');
+        $path = \Request::path();
+        $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+        Cookie::queue($key, "", 0, $cookiePath, null, false, false);
+
+        return redirect($request->input('url', 'https://metager.de'));
+
+    }
+
+    public function removeAllSettings(Request $request)
+    {
+        $path = \Request::path();
+        $cookiePath = "/" . substr($path, 0, strpos($path, "meta/") + 5);
+
+        foreach (Cookie::get() as $key => $value) {
+            Cookie::queue($key, "", 0, $cookiePath, null, false, false);
+        }
+        return redirect($request->input('url', 'https://metager.de'));
     }
 }
