@@ -26,6 +26,9 @@ class Result
     public $strippedHost; # Der Host in Form "foo.bar.de"
     public $strippedDomain; # Die Domain in Form "bar.de"
     public $strippedLink; # Der Link in Form "foo.bar.de/test"
+    public $strippedHostAnzeige; # Der Host in Form "foo.bar.de"
+    public $strippedDomainAnzeige; # Die Domain in Form "bar.de"
+    public $strippedLinkAnzeige; # Der Link in Form "foo.bar.de/test"
     public $rank; # Das Ranking für das Ergebnis
     public $new = true;
 
@@ -62,6 +65,9 @@ class Result
         $this->strippedHost = $this->getStrippedHost($this->link);
         $this->strippedDomain = $this->getStrippedDomain($this->link);
         $this->strippedLink = $this->getStrippedLink($this->link);
+        $this->strippedHostAnzeige = $this->getStrippedHost($this->anzeigeLink);
+        $this->strippedDomainAnzeige = $this->getStrippedDomain($this->anzeigeLink);
+        $this->strippedLinkAnzeige = $this->getStrippedLink($this->anzeigeLink);
         $this->rank = 0;
         $this->partnershop = isset($additionalInformation["partnershop"]) ? $additionalInformation["partnershop"] : false;
         $this->image = isset($additionalInformation["image"]) ? $additionalInformation["image"] : "";
@@ -247,7 +253,7 @@ class Result
         }
 
         # Allgemeine URL und Domain Blacklist
-        if ($this->strippedHost !== "" && (in_array($this->strippedHost, $metager->getDomainBlacklist()) || in_array($this->strippedLink, $metager->getUrlBlacklist()))) {
+        if ($this->isBlackListed($metager)) {
             return false;
         }
 
@@ -278,6 +284,19 @@ class Result
         } else {
             return false;
         }
+    }
+
+    public function isBlackListed(\App\MetaGer $metager)
+    {
+        if (($this->strippedHost !== "" && (in_array($this->strippedHost, $metager->getDomainBlacklist()) ||
+            in_array($this->strippedLink, $metager->getUrlBlacklist()))) ||
+            ($this->strippedHostAnzeige !== "" && (in_array($this->strippedHostAnzeige, $metager->getDomainBlacklist()) ||
+                in_array($this->strippedLinkAnzeige, $metager->getUrlBlacklist())))) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /* Liest aus einem Link den Host.
@@ -362,6 +381,10 @@ return "https://proxy.suma-ev.de/mger/nph-proxy.cgi/en/w0/" . $tmp;
      */
     public function getUrlElements($url)
     {
+        if (!starts_with($url, "http")) {
+            $url = "http://" . $url;
+        }
+
         $parts = parse_url($url);
         $re = [];
 
