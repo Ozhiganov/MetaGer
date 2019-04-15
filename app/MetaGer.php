@@ -57,7 +57,9 @@ class MetaGer
     protected $sprueche;
     protected $newtab;
     protected $domainsBlacklisted = [];
+    protected $adDomainsBlacklisted = [];
     protected $urlsBlacklisted = [];
+    protected $adUrlsBlacklisted = [];
     protected $url;
     protected $fullUrl;
     protected $languageDetect;
@@ -76,6 +78,15 @@ class MetaGer
             $this->domainsBlacklisted = explode("\n", $tmp);
             $tmp = file_get_contents(config_path() . "/blacklistUrl.txt");
             $this->urlsBlacklisted = explode("\n", $tmp);
+        } else {
+            Log::warning("Achtung: Eine, oder mehrere Blacklist Dateien, konnten nicht geöffnet werden");
+        }
+        # Versuchen Blacklists einzulesen
+        if (file_exists(config_path() . "/adBlacklistDomains.txt") && file_exists(config_path() . "/adBlacklistUrl.txt")) {
+            $tmp = file_get_contents(config_path() . "/adBlacklistDomains.txt");
+            $this->adDomainsBlacklisted = explode("\n", $tmp);
+            $tmp = file_get_contents(config_path() . "/adBlacklistUrl.txt");
+            $this->adUrlsBlacklisted = explode("\n", $tmp);
         } else {
             Log::warning("Achtung: Eine, oder mehrere Blacklist Dateien, konnten nicht geöffnet werden");
         }
@@ -266,9 +277,21 @@ class MetaGer
             if ($result->isValid($this)) {
                 $newResults[] = $result;
             }
-
         }
         $this->results = $newResults;
+
+        # Validate Advertisements
+        $newResults = [];
+        foreach ($this->ads as $ad) {
+            if (($ad->strippedHost !== "" && (in_array($ad->strippedHost, $this->adDomainsBlacklisted) ||
+                in_array($ad->strippedLink, $this->adUrlsBlacklisted))) ||
+                ($ad->strippedHostAnzeige !== "" && (in_array($ad->strippedHostAnzeige, $this->adDomainsBlacklisted) ||
+                    in_array($ad->strippedLinkAnzeige, $this->adUrlsBlacklisted)))) {
+                continue;
+            }
+            $newResults[] = $ad;
+        }
+        $this->ads = $newResults;
 
         #Adgoal Implementation
         if (!$this->apiAuthorized) {
