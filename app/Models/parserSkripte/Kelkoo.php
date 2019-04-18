@@ -29,7 +29,6 @@ class Kelkoo extends Searchengine
             $results = $content->xpath('//response/result[@name="response"]/doc');
 
             foreach ($results as $result) {
-                die($reuslt);
                 $result      = simplexml_load_string($result->saveXML());
                 $title       = $result->xpath('/doc/arr[@name="artikelName"]')[0]->{"str"}->__toString();
                 $link        = $result->xpath('/doc/arr[@name="artikelDeeplink"]')[0]->{"str"}->__toString();
@@ -76,7 +75,7 @@ class Kelkoo extends Searchengine
         // replace " " by "+"
         $urlPath = str_replace(" ", "+", $urlPath);
         // format URL
-        $URLtmp = $urlPath . "&" . $URL_partner . "=" . $partner . "&amp" . $URL_ts . "=" . $time;
+        $URLtmp = $urlPath . "&" . $URL_partner . "=" . $partner . "&" . $URL_ts . "=" . $time;
        
         // URL needed to create the token
         $s = $urlPath . "&" . $URL_partner . "=" . $partner . "&" . $URL_ts . "=" . $time . $key;
