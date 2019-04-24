@@ -15,7 +15,6 @@ class Kelkoo extends Searchengine
         parent::__construct($name, $engine, $metager);
         $this->unsignedGetString = $this->getString;
         $this->getString = $this->UrlSigner($this->unsignedGetString);
-        # var_dump($this->getString);
         $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
     }
 
@@ -23,8 +22,6 @@ class Kelkoo extends Searchengine
     public function loadResults($result)
     {
         $result = preg_replace("/\r\n/si", "", $result);
-       # var_dump($result);
-       # die();
         # delete namespace, allowing easier xpath access
         $result = str_replace('xmlns="urn:yahoo:prods"', '', $result);
         try {
