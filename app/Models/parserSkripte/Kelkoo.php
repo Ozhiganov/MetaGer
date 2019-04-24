@@ -20,23 +20,42 @@ class Kelkoo extends Searchengine
     public function loadResults($result)
     {
         $result = preg_replace("/\r\n/si", "", $result);
+        # delete namespace, allowing easier xpath access
+        $result = str_replace('xmlns="urn:yahoo:prods"', '', $result);
         try {
             $content = simplexml_load_string($result);
             if (!$content) {
                 return;
             }
-
-            $results = $content->xpath('//response/result[@name="response"]/doc');
+            # Kekloo gives us the total Result Count
+            $resultCount = $content->xpath('/ProductSearch/Products/@totalResultsAvailable');
+            if (sizeof($resultCount) > 0) {
+                $resultCount = intval($resultCount[0]->__toString());
+            } else {
+                $resultCount = 0;
+            }
+            $this->totalResults = $resultCount;
+            $results = $content->xpath('/ProductSearch/Products/Product/Offer');
 
             foreach ($results as $result) {
                 $result      = simplexml_load_string($result->saveXML());
-                $title       = $result->xpath('/doc/arr[@name="artikelName"]')[0]->{"str"}->__toString();
-                $link        = $result->xpath('/doc/arr[@name="artikelDeeplink"]')[0]->{"str"}->__toString();
-                $anzeigeLink = parse_url($link);
-                parse_str($anzeigeLink['query'], $query);
-                $anzeigeLink = $query['url'];
-                $descr       = $result->xpath('/doc/arr[@name="artikelBeschreibung"]')[0]->{"str"}->__toString();
-                $image       = $result->xpath('/doc/arr[@name="artikelImageurl"]')[0]->{"str"}->__toString();
+
+                $title       = $result->Title[0]->__toString();
+                
+                $price = floatval($result->Price[0]->Price[0]);
+                $deliveryPrice = floatval($result->Price[0]->DeliveryCost[0]);
+                $totalPrice = $price + $deliveryPrice;
+
+                $descr = "";
+            
+                if(isset($result->Description[0]))
+                {
+                    $descr       = $result->Description[0]->__toString();
+                }
+                $descr .= "<p>Preis: " . $price . " €</p>";
+                $image       = $result->Images[0]->Image[0]->Url[0]->__toString();
+                $link        = $result->Url[0]->__toString();
+                $anzeigeLink = $result->Merchant[0]->Name[0]->__toString();
                 $this->counter++;
                 $this->results[] = new \App\Models\Result(
                     $this->engine,
@@ -46,7 +65,8 @@ class Kelkoo extends Searchengine
                     $descr,
                     $this->engine->{"display-name"},$this->engine->homepage,
                     $this->counter,
-                    ['image' => $image]
+                    ['image' => $image,
+                     'price' => $totalPrice * 100]
                 );
             }
         } catch (\Exception $e) {
@@ -54,6 +74,10 @@ class Kelkoo extends Searchengine
             Log::error($e->getMessage());
             return;
         }
+    }
+
+    public function getNext(\App\MetaGer $metager, $result)
+    {
     }
 
 
