@@ -17,7 +17,12 @@
 				</div>
 				<div class="form-group" style="max-width: 100px; margin-right: 8px;">
 					<label for="interface">Sprache</label>
-					<select class="form-control" name="interface" id="interface"><option value="all" {{ (Request::input('interface', 'all') == "all" ? "selected" : "")}}>Alle</option><option value="de" {{ (Request::input('interface', 'all') == "de" ? "selected" : "")}}>DE</option><option value="en" {{ (Request::input('interface', 'all') == "en" ? "selected" : "")}}>EN</option></select>
+					<select class="form-control" name="interface" id="interface">
+						<option value="all" {{ (Request::input('interface', 'all') == "all" ? "selected" : "")}}>Alle</option>
+						<option value="de" {{ (Request::input('interface', 'all') == "de" ? "selected" : "")}}>DE</option>
+						<option value="en" {{ (Request::input('interface', 'all') == "en" ? "selected" : "")}}>EN</option>
+						<option value="es" {{ (Request::input('interface', 'all') == "es" ? "selected" : "")}}>ES</option>
+					</select>
 				</div>
 				<div id="refresh" style="margin-top: 11px; margin-right: 8px;">
 					<button type="submit" class="btn btn-sm btn-default">Aktualisieren</button>
