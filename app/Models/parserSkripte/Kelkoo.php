@@ -8,11 +8,14 @@ use Log;
 class Kelkoo extends Searchengine
 {
     public $results = [];
+    public $unsignedGetString = "";
 
     public function __construct($name, \StdClass $engine, \App\MetaGer $metager)
     {
         parent::__construct($name, $engine, $metager);
-        $this->getString = $this->UrlSigner();
+        $this->unsignedGetString = $this->getString;
+        $this->getString = $this->UrlSigner($this->unsignedGetString);
+        # var_dump($this->getString);
         $this->hash = md5($this->engine->host . $this->getString . $this->engine->port . $this->name);
     }
 
@@ -20,6 +23,8 @@ class Kelkoo extends Searchengine
     public function loadResults($result)
     {
         $result = preg_replace("/\r\n/si", "", $result);
+       # var_dump($result);
+       # die();
         # delete namespace, allowing easier xpath access
         $result = str_replace('xmlns="urn:yahoo:prods"', '', $result);
         try {
@@ -78,13 +83,56 @@ class Kelkoo extends Searchengine
 
     public function getNext(\App\MetaGer $metager, $result)
     {
+        $result = preg_replace("/\r\n/si", "", $result);
+        # delete namespace, allowing easier xpath access
+        $result = str_replace('xmlns="urn:yahoo:prods"', '', $result);
+        try {
+            $content = simplexml_load_string($result);
+            if (!$content) {
+                return;
+            }
+        } catch (\Exception $e) {
+            Log::error("A problem occurred parsing results from $this->name:");
+            Log::error($e->getMessage());
+            return;
+        }
+        # Kekloo gives us the total Result Count
+        $resultCount = $content->xpath('/ProductSearch/Products/@totalResultsAvailable');
+        if (sizeof($resultCount) > 0) {
+            $resultCount = intval($resultCount[0]->__toString());
+        } else {
+            $resultCount = 0;
+        }
+        $this->totalResults = $resultCount;
+
+        // Get the current Result Position
+        $current = 0;
+        if (strpos($this->getString, "&start=") !== false) {
+            $tmp = substr($this->getString, strpos($this->getString, "&start=") + 7);
+            if (strpos($tmp, "&") !== false) {
+                $tmp = substr($tmp, 0, strpos($tmp, "&"));
+            }
+            $current = intval($tmp);
+        }
+
+        if ($current >= ($this->totalResults - 20)) {
+            return;
+        }
+
+        # Erstellen des neuen Suchmaschinenobjekts und anpassen des GetStrings:
+        $next = new Kelkoo($this->name, $this->engine, $metager);
+        $next->unsignedGetString .= "&start=" . ($current + 20);
+        $next->getString = $next->UrlSigner($next->unsignedGetString);
+        
+        $next->hash = md5($next->engine->host . $next->getString . $next->engine->port . $next->name);
+        $this->next = $next;
     }
 
 
     # kelkoogroup.com/kelkoo-customer-service/kelkoo-developer-network/shopping-services/samples/signing-url-php/
-    private function UrlSigner(){
+    public function UrlSigner($path){
         
-        $urlPath = $this->getString;
+        $urlPath = $path;
         $partner = $this->engine->{"http-auth-credentials"}->ID;
         $key = $this->engine->{"http-auth-credentials"}->Key;
 
