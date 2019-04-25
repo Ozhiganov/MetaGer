@@ -7,6 +7,7 @@ use App\MetaGer;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use LaravelLocalization;
 use View;
 
 const TIP_SERVER = 'http://metager3.de:63825/tips.xml';
@@ -20,6 +21,12 @@ class MetaGerSearch extends Controller
         if ($focus === "maps") {
             $searchinput = $request->input('eingabe', '');
             return redirect()->to('https://maps.metager.de/map/' . $searchinput . '/1240908.5493525574,6638783.2192695495,6');
+        }
+
+        # If there is no query parameter we redirect to the startpage
+        $eingabe = $request->input('eingabe', '');
+        if (empty(trim($eingabe))) {
+            return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/'));
         }
 
         # Mit gelieferte Formulardaten parsen und abspeichern:
