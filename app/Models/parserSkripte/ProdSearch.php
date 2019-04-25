@@ -16,16 +16,19 @@ class ProdSearch extends Searchengine
     public function loadResults($result)
     {
         $results = json_decode($result, true);
+        if ($results === null) {
+            return;
+        }
         foreach ($results as $result) {
             if ($this->counter >= 10) {
                 break;
             }
 
-            $title       = $result["title"];
-            $link        = $result["product-link"];
+            $title = $result["title"];
+            $link = $result["product-link"];
             $anzeigeLink = $link;
-            $price       = 0;
-            $descr       = "";
+            $price = 0;
+            $descr = "";
             if (isset($result['price_cents'])) {
                 $price = intval($result['price_cents']);
                 $descr .= "<p>Preis: " . (intval($result['price_cents']) / 100.0) . " €</p>";
@@ -41,7 +44,7 @@ class ProdSearch extends Searchengine
                 $link,
                 $anzeigeLink,
                 $descr,
-                $this->engine->{"display-name"},$this->engine->homepage,
+                $this->engine->{"display-name"}, $this->engine->homepage,
                 $this->counter,
                 [
                     'price' => $price,
