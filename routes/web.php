@@ -167,14 +167,16 @@ Route::group(
                 ->with('request', $this->input('request', 'GET'));
         });
 
-        Route::group([/*'middleware' => ['referer.check'],*/'prefix' => 'admin'], function () {
+        Route::group(['middleware' => ['referer.check'], 'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get', 'post'], 'count', 'AdminInterface@count');
             Route::get('check', 'AdminInterface@check');
             Route::get('engines', 'AdminInterface@engines');
         });
 
-        Route::get('settings', 'StartpageController@loadSettings');
+        Route::get('settings', function () {
+            return redirect(LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), '/'));
+        });
 
         Route::match(['get', 'post'], 'meta/meta.ger3', 'MetaGerSearch@search')->middleware('humanverification');
         Route::get('meta/loadMore', 'MetaGerSearch@loadMore');

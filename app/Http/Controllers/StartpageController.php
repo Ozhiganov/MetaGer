@@ -101,17 +101,6 @@ class StartpageController extends Controller
         return $response;
     }
 
-    public function loadSettings(Request $request)
-    {
-        return view('settings')
-            ->with('title', 'Einstellungen')
-            ->with('js', ['settings.js'])
-            ->with('navbarFocus', 'suche');
-        die(var_dump($foki));
-
-        return $xml->saveXML();
-    }
-
     public function berlin(Request $request)
     {
         $link = "";
