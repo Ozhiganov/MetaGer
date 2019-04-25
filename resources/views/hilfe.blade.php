@@ -7,6 +7,7 @@
 	<h1 class="page-title">{!! trans('hilfe.title') !!}</h1>
 
 	<section>
+		<h2>{!! trans('hilfe.title.2') !!}</h2>
 		<h3>{!! trans('hilfe.searchfield.title') !!}</h3>
 		<div>
 			<p>{!! trans('hilfe.searchfield.info') !!}</p>
@@ -14,7 +15,18 @@
 				<li>{!! trans('hilfe.searchfield.memberkey') !!}</li>
 				<li>{!! trans('hilfe.searchfield.slot') !!}</li>
 				<li>{!! trans('hilfe.searchfield.search') !!}</li>
-				<li>{!! trans('hilfe.result.top') !!}</li>
+			</ul>
+		</div>
+
+		<h3>{!! trans('hilfe.resultpage.title') !!}</h3>
+		<div>
+			<ul class="dotlist">
+				<li>{!! trans('hilfe.resultpage.foci') !!}</li>
+				<li>{!! trans('hilfe.resultpage.choice') !!}</li>
+				<ul class="dotlist">
+					<li>{!! trans('hilfe.resultpage.filter') !!}</li>
+					<li>{!! trans('hilfe.resultpage.settings') !!}</li>
+				</ul>
 			</ul>
 		</div>
 	</section>
