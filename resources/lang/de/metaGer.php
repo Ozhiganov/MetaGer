@@ -122,5 +122,13 @@ return [
     "filter.market.cc" => "Chinesisch (China)",
     "filter.market.ct" => "Chinesisch (Taiwan)",
 
+    "filter.sort" => "Sortieren nach",
+    "filter.sort.priceascending" => "Preis (aufsteigend)",
+    "filter.sort.pricedescending" => "Preis (absteigend)",
+    "filter.sort.totalpriceascending" => "Gesamtpreis (aufsteigend)",
+    "filter.sort.totalpricedescending" => "Gesamtpreis (absteigend)",
+
+    "filter.rabate" => "Min. Rabatt",
+
     "settings" => "Einstellungen",
 ];
