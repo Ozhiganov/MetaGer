@@ -1,20 +1,27 @@
 <?php
 
 return [
-    "achtung" => 'Achtung, da unsere Suchmaschine ständig weiterentwickelt und verbessert wird, kann es dazu kommen, dass sich immer wieder Änderungen an Aufbau und Funktion ergeben. Wir versuchen zwar die Hilfe schnellstmöglich den Änderungen entsprechend anzupassen, können jedoch nicht ausschließen, dass es zu temporären Unstimmigkeiten in Teilen der Erklärungen kommt.',
-    "title" => 'MetaGer - Hilfe',
+    "achtung"               => 'Achtung, da unsere Suchmaschine ständig weiterentwickelt und verbessert wird, kann es dazu kommen, dass sich immer wieder Änderungen an Aufbau und Funktion ergeben. Wir versuchen zwar die Hilfe schnellstmöglich den Änderungen entsprechend anzupassen, können jedoch nicht ausschließen, dass es zu temporären Unstimmigkeiten in Teilen der Erklärungen kommt.',
+    "title"                 => 'MetaGer - Hilfe',
 
-    "searchfield.title" => 'Das Suchfeld',
-    "searchfield.info" => 'Das Suchfeld besteht aus mehreren Teilen:',
+    "title.2"               => 'Benutzung der Suchmaschine';
+    "searchfield.title"     => 'Das Suchfeld',
+    "searchfield.info"      => 'Das Suchfeld besteht aus mehreren Teilen:',
     "searchfield.memberkey" => 'Dem Schlüsselsymbol (nur für Vereinsmitglieder): Hier können die Mitglieder des SUMA-EV Ihren Schlüssel eingeben, um die werbefreie Suche nutzen zu können. Sie wollen das auch? Werden Sie Mitglied: <a href = "/beitritt/">Beitrittsantrag</a>',
-    "searchfield.slot" => 'Dem Suchfeld: Geben Sie hier Ihren Suchbegriff ein.',
-    "searchfield.search" => 'Der Lupe: Starten Sie die Suche.',
-    "result.top" => 'Auf der Ergebnisseite: Klicken / drücken Sie auf das Filterzeichen, um alle Filterfunktionen benutzen zu können.',
+    "searchfield.slot"      => 'Dem Suchfeld: Geben Sie hier Ihren Suchbegriff ein.',
+    "searchfield.search"    => 'Der Lupe: Starten Sie die Suche.',
 
-    "stopworte.title" => 'Stoppworte',
-    "stopworte.1" => "Wenn Sie unter den MetaGer-Suchergebnissen solche ausschließen wollen, in denen bestimmte Worte (Ausschlussworte / Stoppworte) vorkommen, dann erreichen Sie das, indem Sie diese Worte mit einem Minus versehen.",
-    "stopworte.2" => "Beispiel: Sie suchen ein neues Auto, aber auf keinen Fall einen BMW. Ihre Eingabe lautet also:",
-    "stopworte.3" => "auto neu -bmw",
+    "resultpage.title"      =>  'Die Ergebnisseite',
+    "resultpage.foci"       =>  'Unter dem Suchfeld sehen Sie nun 6 verschiedene Suchfoki (Web, Bilder…...), denen intern auch spezifische Suchmaschinen zugeordnet sind.',
+    "resultpage.choice"     =>  'Darunter sehen Sie zwei Punkte: gegebenenfalls „Filter“ sowie „Einstellungen“',
+    "resultpage.filter"     =>  'Filter: Sie haben hier die Möglichkeit, Filtermöglichkeiten ein- und auszublenden und Filter anzuwenden. In jedem Suchfokus haben Sie hier andere Auswahlmöglichkeiten.',
+    "resultpage.settings"   =>  'Einstellungen: Hier können Sie dauerhafte Sucheinstellungen für Ihre MetaGer-Suche im aktuellen Fokus vornehmen. Sie können auch Suchmaschinen, die dem Fokus zugeordnet sind, an- und abwählen. Ihre Einstellungen werden mithilfe eines nicht personenbeziehbaren Klartextcookies gespeichert. Unter dem Punkt „Hinweis“ finden Sie einen Link, der Ihnen Ihre gesamten Einstellungen zeigt. Hier können Sie diese auch wieder mit einem Klick löschen.',
+
+
+    "stopworte.title"       => 'Stoppworte',
+    "stopworte.1"           => "Wenn Sie unter den MetaGer-Suchergebnissen solche ausschließen wollen, in denen bestimmte Worte (Ausschlussworte / Stoppworte) vorkommen, dann erreichen Sie das, indem Sie diese Worte mit einem Minus versehen.",
+    "stopworte.2"           => "Beispiel: Sie suchen ein neues Auto, aber auf keinen Fall einen BMW. Ihre Eingabe lautet also:",
+    "stopworte.3"           => "auto neu -bmw",
 
     "mehrwortsuche.title" => "Mehrwortsuche",
     "mehrwortsuche.1" => "Wenn Sie bei MetaGer nach mehr als einem Wort suchen, versuchen wir automatisch, Ihnen Ergebnisse zu liefern, in denen alle Wörter vorkommen, oder die diesen möglichst nahe kommen.",
