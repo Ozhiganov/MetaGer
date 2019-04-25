@@ -167,7 +167,7 @@ Route::group(
                 ->with('request', $this->input('request', 'GET'));
         });
 
-        Route::group(['middleware' => ['referer.check'], 'prefix' => 'admin'], function () {
+        Route::group([/*'middleware' => ['referer.check'],*/'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get', 'post'], 'count', 'AdminInterface@count');
             Route::get('check', 'AdminInterface@check');
