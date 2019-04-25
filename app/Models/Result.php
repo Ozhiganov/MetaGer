@@ -35,6 +35,7 @@ class Result
     # Erstellt ein neues Ergebnis
     public function __construct($provider, $titel, $link, $anzeigeLink, $descr, $gefVon, $gefVonLink, $sourceRank, $additionalInformation = [])
     {
+        $this->provider = $provider;
         $this->titel = strip_tags(trim($titel));
         $this->link = trim($link);
         $this->anzeigeLink = trim($anzeigeLink);
@@ -278,7 +279,27 @@ class Result
         /* Der Dublettenfilter, der sicher stellt,
          *  dass wir nach Möglichkeit keinen Link doppelt in der Ergebnisliste haben.
          */
-        if ($metager->addLink($this->strippedLink)) {
+        $dublettenLink = $this->strippedLink;
+        if (!empty($this->provider->{"dubletten-include-parameter"}) && sizeof($this->provider->{"dubletten-include-parameter"}) > 0) {
+            $dublettenLink .= "?";
+            $query = parse_url($this->link);
+            if (!empty($query["query"])) {
+                $queryTmp = explode("&", $query["query"]);
+                $query = [];
+                foreach ($queryTmp as $getParameter) {
+                    $keyVal = explode("=", $getParameter);
+                    $query[$keyVal[0]] = $keyVal[1];
+                }
+                foreach ($this->provider->{"dubletten-include-parameter"} as $param) {
+                    if (!empty($query[$param])) {
+                        $dublettenLink .= $param . "=" . $query[$param] . "&";
+                    }
+                }
+                $dublettenLink = rtrim($dublettenLink, "&");
+            }
+        }
+
+        if ($metager->addLink($dublettenLink)) {
             $metager->addHostCount($this->strippedHost);
             return true;
         } else {

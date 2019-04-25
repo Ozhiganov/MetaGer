@@ -32,7 +32,7 @@ class Mg_produkt2 extends Searchengine
                 $link        = $result->xpath('/doc/arr[@name="artikelDeeplink"]')[0]->{"str"}->__toString();
                 $anzeigeLink = parse_url($link);
                 parse_str($anzeigeLink['query'], $query);
-                $anzeigeLink = $query['url'];
+                $anzeigeLink = $query['diurl'];
                 $descr       = $result->xpath('/doc/arr[@name="artikelBeschreibung"]')[0]->{"str"}->__toString();
                 $image       = $result->xpath('/doc/arr[@name="artikelImageurl"]')[0]->{"str"}->__toString();
                 $this->counter++;
