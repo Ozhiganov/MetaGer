@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ConvertCountFile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Response;
-use \SplFileObject;
 
 class AdminInterface extends Controller
 {
@@ -95,46 +95,113 @@ class AdminInterface extends Controller
             $days = 28;
         }
 
+        $maxDate = Carbon::createFromFormat('d.m.Y', "28.06.2016");
+        $selectedDate = Carbon::now()->subDays($days);
+        if ($maxDate > $selectedDate) {
+            $days = $maxDate->diffInDays(Carbon::now());
+        }
+
         $logToday = "/var/log/metager/mg3.log";
 
-        if (file_exists($logToday)) {
-            if ($interface === "all") {
-                $logToday = exec("cat $logToday | wc -l");
-            } else {
-                $logToday = exec("cat $logToday | grep interface=" . $interface . " | wc -l");
-            }
-        } else {
-            return redirect('');
+        $archivePath = "/var/log/metager/archive/";
+
+        $today = [
+            'logFile' => $logToday,
+            'countPath' => storage_path('logs/count/'),
+            'countFile' => storage_path('logs/count/' . getmypid()),
+        ];
+        if (\file_exists($today["countFile"])) {
+            unlink($today["countFile"]);
         }
+
+        $neededLogs = [
+            0 => $today,
+        ];
+        $logsToRequest = [
+            0 => $today,
+        ];
+        $requestedLogs = [];
+        for ($i = 1; $i <= $days; $i++) {
+            $date = Carbon::now()->subDays($i);
+            $countPath = storage_path('logs/count/' . $date->year . "/" . $date->month . "/");
+            $countFile = $countPath . $date->day . ".json";
+            $neededLogs[$i] = [
+                'logFile' => $archivePath . "mg3.log.$i",
+                'countPath' => $countPath,
+                'countFile' => $countFile,
+            ];
+            if (!file_exists($neededLogs[$i]['countFile'])) {
+                $logsToRequest[$i] = $neededLogs[$i];
+            }
+        }
+        if (sizeof($logsToRequest) > 100) {
+            set_time_limit(600);
+        }
+        // Create the Jobs for count file creation
+        while (sizeof($logsToRequest) > 0 || sizeof($requestedLogs) > 0) {
+            if (sizeof($requestedLogs) < 20 && sizeof($logsToRequest) > 0) {
+                $newJob = array_shift($logsToRequest);
+                $newJob["startedAt"] = time();
+                $requestedLogs[] = $newJob;
+
+                Redis::set(md5($newJob["countFile"]), "running");
+                Redis::expire(md5($newJob["countFile"]), 15);
+                ConvertCountFile::dispatch($newJob);
+            } else {
+                usleep(50000);
+            }
+            // Remove all finished Jobs
+            $removedOne = false;
+            do {
+                $removedOne = false;
+                foreach ($requestedLogs as $index => $requestedLog) {
+                    if (!Redis::exists(md5($requestedLog["countFile"]))) {
+                        unset($requestedLogs[$index]);
+                        $removedOne = true;
+                        break;
+                    }
+                }
+            } while ($removedOne === true);
+        }
+
         $oldLogs = [];
         $rekordTag = 0;
         $rekordTagDate = "";
         $size = 0;
         $count = 0;
-        for ($i = 1; $i <= $days; $i++) {
-            $logDate = "/var/log/metager/archive/mg3.log.$i";
-            if (file_exists($logDate)) {
-                $now = Carbon::now();
-                $sameTimeLine = $this->findLineForTime($logDate, Carbon::now());
-                if ($interface === "all") {
-                    $sameTime = exec("head -n " . $sameTimeLine . " " . $logDate . " | wc -l");
-                    $insgesamt = exec("wc -l $logDate | cut -f1 -d' '");
-                } else {
-                    $sameTime = exec("head -n " . $sameTimeLine . " " . $logDate . " | grep interface=" . $interface . " | wc -l");
-                    $insgesamt = exec("cat $logDate | grep interface=" . $interface . " | wc -l");
+
+        $now = Carbon::now()->subMinutes(Carbon::now()->minute % 5)->format('H:i');
+        if ($now === "00:00") {
+            $now = "00:05";
+        }
+
+        foreach ($neededLogs as $key => $value) {
+            $countFile = $value["countFile"];
+            if (file_exists($countFile)) {
+                $stats = json_decode(file_get_contents($countFile));
+                if ($key === 0) {
+                    // Log for today
+                    $logToday = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
+                    if (\file_exists($today["countFile"])) {
+                        unlink($today["countFile"]);
+                    }
+                    continue;
                 }
+                $insgesamt = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
+                $sameTime = empty($stats->time->{$now}->{$interface}) ? 0 : $stats->time->{$now}->{$interface};
+
                 if ($insgesamt > $rekordTag) {
                     $rekordTag = $insgesamt;
                     $rekordTagSameTime = $sameTime;
                     $rekordTagDate = date("d.m.Y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $i, date("Y")));
                 }
-                $oldLogs[$i]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
-                $oldLogs[$i]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
+                $oldLogs[$key]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
+                $oldLogs[$key]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
                 # Nun noch den median:
                 $count += $insgesamt;
                 $size++;
                 if ($size > 0) {
-                    $oldLogs[$i]['median'] = number_format(floatval(round($count / $size)), 0, ",", ".");
+                    $oldLogs[$key]['median'] = number_format(floatval(round($count / $size)), 0, ",", ".");
                 }
 
             }
@@ -164,44 +231,6 @@ class AdminInterface extends Controller
 
         }
 
-    }
-
-    private function findLineForTime($file, $time)
-    {
-        $file = new SplFileObject($file);
-        $file->seek(PHP_INT_MAX);
-        $numberOfRows = $file->key();
-
-        $minLine = 1;
-        $maxLine = $numberOfRows;
-        $current = round($maxLine / 2);
-
-        $finished = false;
-        $counter = 0;
-        while (!$finished) {
-            $counter++;
-            if ($counter == 1000) {
-                return $maxLine;
-            }
-            $current = $minLine + round(($maxLine - $minLine) / 2);
-            $file->seek($current);
-            $line = $file->fgets();
-
-            # Extract time from line
-            $line = substr($line, 1);
-            $line = substr($line, 0, strpos($line, "]"));
-            $lineTime = Carbon::createFromFormat('D M d H:i:s', $line)->day(date('d'))->month(date('m'))->year(date('Y'));
-
-            if (($maxLine - $minLine) <= 1) {
-                return $maxLine;
-            } else if ($time < $lineTime) {
-                $maxLine = $current;
-                continue;
-            } else if ($time > $lineTime) {
-                $minLine = $current;
-                continue;
-            }
-        }
     }
 
     public function check()
