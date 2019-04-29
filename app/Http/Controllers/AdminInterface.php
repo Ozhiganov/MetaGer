@@ -193,7 +193,7 @@ class AdminInterface extends Controller
                 if ($insgesamt > $rekordTag) {
                     $rekordTag = $insgesamt;
                     $rekordTagSameTime = $sameTime;
-                    $rekordTagDate = date("d.m.Y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $i, date("Y")));
+                    $rekordTagDate = Carbon::now()->subDays($key)->format('d.m.Y');
                 }
                 $oldLogs[$key]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
                 $oldLogs[$key]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
