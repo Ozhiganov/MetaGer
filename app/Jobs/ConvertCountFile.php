@@ -32,7 +32,11 @@ class ConvertCountFile implements ShouldQueue
      */
     public function handle()
     {
-        $result = [];
+        $result = [
+            "insgesamt" => [
+                "all" => 0,
+            ],
+        ];
         $fh = false;
         $fullRound = false;
         try {
@@ -56,9 +60,6 @@ class ConvertCountFile implements ShouldQueue
                 }
 
                 while (!$fullRound && ((intval($logTime[0]) * 60) + intval($logTime[1])) > (($currentLogTime->hour * 60) + $currentLogTime->minute)) {
-                    if (empty($result["insgesamt"])) {
-                        continue 2;
-                    }
                     $result["time"][$currentLogTime->format('H:i')] = $result["insgesamt"];
                     $currentLogTime->addMinutes(5);
                     if ($currentLogTime->hour === 0 && $currentLogTime->minute === 0) {
@@ -87,6 +88,7 @@ class ConvertCountFile implements ShouldQueue
             if ($fh !== false) {
                 fclose($fh);
             }
+
             $oldUmask = umask(0);
             // Write the result to a File
             if (!file_exists($this->files["countPath"])) {

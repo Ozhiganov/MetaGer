@@ -10,11 +10,26 @@
 	@php ($startX = 20)
 	@php ($startY = $height-20)
 	@php ($maxCount = intval(str_replace(".", "", $rekordCount)))
-	@php ($yPerSearch = ($startY - $padding - $paddingArrow) / floatval($maxCount))
+	@php ($minCount = $minCount)
+	@php ($scaleFromTo = $maxCount - $minCount)
+	@php ($yPerSearch = ($startY - $padding - $paddingArrow) / floatval($scaleFromTo))
 	@php ($entryCount = min(sizeof($oldLogs), 30))
 	@php ($daysPerEntry = sizeof($oldLogs) / floatval($entryCount))
 	<div id="graph">
 		<svg width="100%" height="auto" viewbox="0 0 {{$width}} {{$height}}">
+			<!-- Data -->
+			@php($vStep = ($width - $padding - $paddingArrow - $startX) / floatval(sizeof($oldLogs)-1))
+			<polyline
+				points="
+				@foreach($oldLogs as $key => $value)
+				{{$width - $padding - $paddingArrow - (($key-1)*$vStep)}},{{$startY - ((intval(str_replace(".", "", $value['insgesamt'])) - $minCount)  * $yPerSearch)}}
+				@endforeach
+				{{$startX}},{{$startY}}
+				{{$width-$padding-$paddingArrow}},{{$startY}}
+
+				"
+				fill="rgba(255,127,0,.2)" stroke="rgb(255,127,0)" stroke-width=".5"
+			/>
 			<!-- Y-Achse -->
 			<path d="m{{$startX}} {{$startY}} L{{$startX}} {{$padding}} L{{$startX-1}} {{$padding}} L{{$startX}} {{$padding-1}} L{{$startX+1}} {{$padding}} L{{$startX}} {{$padding}}z" fill="#333" stroke="#333" stroke-width=".7" />
 			<!-- Skalierung Y-Achse -->
@@ -22,7 +37,7 @@
 			<line x1="{{$startX-1}}" y1="{{ ($padding+$paddingArrow) + (($startY-($padding+$paddingArrow)) * ($i/10.0)) }}" x2="{{$startX+1}}" y2="{{ ($padding+$paddingArrow) + (($startY-($padding+$paddingArrow)) * ($i/10.0)) }}" fill="#333" stroke="#333" stroke-width=".7" />
 			<line x1="{{$startX}}" y1="{{ ($padding+$paddingArrow) + (($startY-($padding+$paddingArrow)) * ($i/10.0)) }}" x2="{{$width-$padding-$paddingArrow}}" y2="{{ ($padding+$paddingArrow) + (($startY-($padding+$paddingArrow)) * ($i/10.0)) }}" fill="#777" stroke="#777" stroke-width=".2" />
 			<text x="{{$startX - 15}}" y="{{ ($padding+$paddingArrow) + (($startY-($padding+$paddingArrow)) * ($i/10.0)) + 2 }}" style="font-size: .3em;">
-			{{ round(($maxCount - ($maxCount * ($i/10.0))) / 1000.0)}}k
+			{{ round(($maxCount - ($scaleFromTo * ($i/10.0))) / 1000.0)}}k
 			</text>
 			@endfor
 			<!-- X-Achse -->
@@ -33,19 +48,6 @@
 			{{ Carbon::now()->subDays(floor(($entryCount-$i) * $daysPerEntry))->format('d.m')}}
 			</text>
 			@endfor
-			<!-- Data -->
-			@php($vStep = ($width - $padding - $paddingArrow - $startX) / floatval(sizeof($oldLogs)-1))
-			<polyline
-				points="
-				@foreach($oldLogs as $key => $value)
-				{{$width - $padding - $paddingArrow - (($key-1)*$vStep)}},{{$startY - (intval(str_replace(".", "", $value['insgesamt'])) * $yPerSearch)}}
-				@endforeach
-				{{$startX}},{{$startY}}
-				{{$width-$padding-$paddingArrow}},{{$startY}}
-
-				"
-				fill="rgba(255,127,0,.2)" stroke="rgb(255,127,0)" stroke-width=".5"
-			/>
 		</svg>
 	</div>
 	<p>{{ exec("uptime") }}</p>

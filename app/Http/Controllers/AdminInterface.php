@@ -166,6 +166,7 @@ class AdminInterface extends Controller
 
         $oldLogs = [];
         $rekordTag = 0;
+        $minCount = 0;
         $rekordTagDate = "";
         $size = 0;
         $count = 0;
@@ -193,7 +194,10 @@ class AdminInterface extends Controller
                 if ($insgesamt > $rekordTag) {
                     $rekordTag = $insgesamt;
                     $rekordTagSameTime = $sameTime;
-                    $rekordTagDate = date("d.m.Y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $i, date("Y")));
+                    $rekordTagDate = Carbon::now()->subDays($key)->format('d.m.Y');
+                }
+                if ($minCount === 0 || $insgesamt < $minCount) {
+                    $minCount = $insgesamt;
                 }
                 $oldLogs[$key]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
                 $oldLogs[$key]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
@@ -212,6 +216,7 @@ class AdminInterface extends Controller
                 ->with('title', 'Suchanfragen - MetaGer')
                 ->with('today', number_format(floatval($logToday), 0, ",", "."))
                 ->with('oldLogs', $oldLogs)
+                ->with('minCount', $minCount)
                 ->with('rekordCount', number_format(floatval($rekordTag), 0, ",", "."))
                 ->with('rekordTagSameTime', number_format(floatval($rekordTagSameTime), 0, ",", "."))
                 ->with('rekordDate', $rekordTagDate)
