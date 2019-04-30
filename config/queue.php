@@ -51,7 +51,7 @@ return [
             'driver' => 'redis',
             'connection' => 'default',
             'queue' => env('REDIS_QUEUE', 'default'),
-            'retry_after' => 90,
+            'retry_after' => 310,
             'block_for' => null,
         ],
     ],
@@ -66,7 +66,7 @@ return [
     |
      */
     'failed' => [
-        'database' => 'sqlite',
+        'database' => 'mysql',
         'table' => 'failed_jobs',
     ],
 ];
