@@ -28,6 +28,6 @@ class Monthlyrequests extends Migration
      */
     public function down()
     {
-        Schema::drop('sponsorenlinks');
+        Schema::drop('monthlyrequests');
     }
 }
