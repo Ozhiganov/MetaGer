@@ -107,7 +107,7 @@
           </li>
         @endif
         <li>
-          <a class="outlink" href="https://www.boost-project.com/de/shops?charity_id=1129&amp;tag=bl" >{{ trans('sidebar.nav17') }}</a>
+          <a class="outlink" href="https://www.wecanhelp.de/430159004" >{{ trans('sidebar.nav17') }}</a>
         </li>
       </ul>
     </li>
