@@ -41,7 +41,7 @@ class StaticPagesTest extends TestCase
 
     private function startPageTest()
     {
-        $this->webdriver->get($mgServer);
+        $this->webdriver->get($this->mgServer);
 
         # Test for Page Title
         $this->assertEquals($this->webdriver->getTitle(), "MetaGer - Mehr als eine Suchmaschine");
@@ -57,7 +57,7 @@ class StaticPagesTest extends TestCase
      */
     private function navigationMenuTest()
     {
-        $this->webdriver->get($mgServer);
+        $this->webdriver->get($this->mgServer);
 
         // Check if the Navigation menu expands on click
         $sidebarToggle = $this->webdriver->findElement(WebDriverBy::cssSelector("label[for=sidebarToggle]"));
