@@ -55,6 +55,9 @@ test metager3:
   script:
     - cd ~/MetaGer_neu 
     - sh test.sh
+  after_script:
+    - kill $browserstackPid
+    - kill $servePid
 
 deploy metager3:
   stage: deploy

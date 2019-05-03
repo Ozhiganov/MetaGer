@@ -14,6 +14,3 @@ browserstackPid=$!
 sleep 5
 
 ./vendor/bin/phpunit
-
-kill $browserstackPid
-kill $servePid
