@@ -54,10 +54,12 @@ test metager3:
     - development@open-source/MetaGer
   script:
     - cd ~/MetaGer_neu 
-    - sh test.sh
-  after_script:
-    - kill `cat ~/browserstackPid` && rm ~/browserstackPid
-    - kill `cat ~/servePid` && rm ~/servePid
+    - nohup php artisan serve --port 8005 >/dev/null 2>&1 &
+    - servePid=$!
+    - nohup ~/BrowserStackLocal --key gCyHqmJnNwLhp96LgiVG 2>&1 &
+    - browserstackPid=$!
+    - sleep 5
+    - ( trap 'kill $servePid && kill $browserstackPid' EXIT; sh test.sh )
 
 deploy metager3:
   stage: deploy
