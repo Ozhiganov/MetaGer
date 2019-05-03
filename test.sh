@@ -11,6 +11,7 @@ servePid=$!
 # Start the Browserstack Proxy
 ~/BrowserStackLocal --key gCyHqmJnNwLhp96LgiVG 2>&1 &
 browserstackPid=$!
+sleep 5
 
 ./vendor/bin/phpunit
 

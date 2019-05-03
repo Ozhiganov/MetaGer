@@ -18,7 +18,7 @@ class StaticPagesTest extends TestCase
         "resolution" => "1920x1080",
     );
     private $webdriver;
-    private $mgServer = "http://localhost";
+    private $mgServer = "http://localhost:8000";
     /**
      * A basic feature test example.
      *
