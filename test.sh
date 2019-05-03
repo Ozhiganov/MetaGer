@@ -5,7 +5,7 @@ set -e
 cd ~/MetaGer_neu
 
 # Start Webserver
-php artisan serve >/dev/null 2>&1 &
+php artisan serve --port 8005 >/dev/null 2>&1 &
 servePid=$!
 
 # Start the Browserstack Proxy
