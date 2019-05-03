@@ -66,4 +66,4 @@ deploy metager3:
     - development@open-source/MetaGer
   script:
     - cd ~/MetaGer_neu 
-    - sh test.sh
+    - sh deploy.sh
