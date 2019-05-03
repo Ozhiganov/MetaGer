@@ -51,7 +51,7 @@ test metager3:
   tags:
     - metager3
   only:
-    -development@open-source/MetaGer
+    - development@open-source/MetaGer
   script:
     - cd ~/MetaGer_neu 
     - sh test.sh
