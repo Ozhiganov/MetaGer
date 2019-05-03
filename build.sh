@@ -6,7 +6,6 @@ path=`pwd`
 cd ~/
 if [ -d MetaGer_neu ]; then rm -rf MetaGer_neu;fi
 git clone "$path" MetaGer_neu
-cd lkaklgn
 cd MetaGer_neu
 composer install
 scp -P 63824 metager@metager3.de:~/.env .
@@ -25,10 +24,3 @@ chmod -R 777 bootstrap/cache
 npm install
 npm run production
 php artisan migrate --force
-php artisan requests:gather
-if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
-cd ~/
-while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
-mv MetaGer_neu MetaGer
-sudo pkill --signal SIGHUP supervisord
-php ~/MetaGer/artisan up
