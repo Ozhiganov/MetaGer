@@ -52,9 +52,9 @@ class Kelkoo extends Searchengine
             
                 if(isset($result->Description[0]))
                 {
-                    $descr       = $result->Description[0]->__toString();
+                    $descr = $result->Description[0]->__toString();
                 }
-                $descr .= "<p>Preis: " . $price . " €</p>";
+                $descr      .= "<p>Preis: " . $price . " €</p>";
                 $image       = $result->Images[0]->Image[0]->Url[0]->__toString();
                 $link        = $result->Url[0]->__toString();
                 $anzeigeLink = $result->Merchant[0]->Name[0]->__toString();
