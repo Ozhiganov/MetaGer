@@ -14,7 +14,7 @@ Deutschland/Germany',
 Tel.: ++49-(0)511-34000070
 EMail: <a href="mailto:office@suma-ev.de">office@suma-ev.de</a><a href="/kontakt/"> - Public-PGP-Key</a>
 <a href="/kontakt/">encrypted contact form</a>',
-    'info.4' => 'Board: Dominik Hebeler, Carsten Riel, <a href="https://www2.ostfalia.de/cms/de/pws/jensenn/index.html">Prof.Dr. Nils Jensen</a>',
+    'info.4' => 'Board: Dominik Hebeler, Carsten Riel, <a href="https://www.ostfalia.de/cms/de/pws/jensen/index.html">Prof.Dr. Nils Jensen</a>',
     'info.6' => 'Youth Protection Commissioner: Georg Becker
 <a href="mailto:jugendschutz@metager.de">jugendschutz@metager.de</a>',
     'info.8' => '"SUMA-EV - Verein für freien Wissenszugang" is a charitable association, registered in the register of associations at the Amtsgericht Hannover
