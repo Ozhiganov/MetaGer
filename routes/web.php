@@ -167,9 +167,10 @@ Route::group(
                 ->with('request', $this->input('request', 'GET'));
         });
 
-        Route::group(['middleware' => ['referer.check'], 'prefix' => 'admin'], function () {
+        Route::group(['middleware' => ['auth.basic'], 'prefix' => 'admin'], function () {
             Route::get('/', 'AdminInterface@index');
             Route::match(['get', 'post'], 'count', 'AdminInterface@count');
+            Route::get('count/graphtoday.svg', 'AdminInterface@countGraphToday');
             Route::get('check', 'AdminInterface@check');
             Route::get('engines', 'AdminInterface@engines');
         });
@@ -235,3 +236,7 @@ Route::group(
             });
         });
     });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
