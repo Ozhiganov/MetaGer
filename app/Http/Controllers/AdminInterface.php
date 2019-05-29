@@ -193,6 +193,54 @@ class AdminInterface extends Controller
 
     }
 
+    public function engineStats()
+    {
+        $result = [];
+        $result["loadavg"] = sys_getloadavg();
+
+        // Memory Data
+        $data = explode("\n", trim(file_get_contents("/proc/meminfo")));
+        $meminfo = [];
+        foreach ($data as $line) {
+            list($key, $val) = explode(":", $line);
+            $meminfo[$key] = trim($val);
+        }
+        $conversions = [
+            "KB",
+            "MB",
+            "GB",
+            "TB",
+        ];
+
+        $memAvailable = $meminfo["MemAvailable"];
+        $memAvailable = intval(explode(" ", $memAvailable)[0]);
+        $counter = 0;
+        while ($memAvailable > 1000) {
+            $memAvailable /= 1000.0;
+            $counter++;
+        }
+        $memAvailable = round($memAvailable);
+        $memAvailable .= " " . $conversions[$counter];
+
+        $result["memoryAvailable"] = $memAvailable;
+
+        $resultCount = 0;
+        $file = "/var/log/metager/mg3.log";
+        if (file_exists($file)) {
+            $fh = fopen($file, "r");
+            try {
+                while (fgets($fh) !== false) {
+                    $resultCount++;
+                }
+            } finally {
+                fclose($fh);
+            }
+        }
+
+        $result["resultCount"] = number_format($resultCount, 0, ",", ".");
+        return response()->json($result);
+    }
+
     private function getStats($days)
     {
         $maxDate = Carbon::createFromFormat('d.m.Y', "28.06.2016");
