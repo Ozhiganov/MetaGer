@@ -15,6 +15,7 @@ scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/
 scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
 scp -P 63824 metager@metager3.de:~/adBlacklistUrl.txt config/
 scp -P 63824 metager@metager3.de:~/adBlacklistDomains.txt config/
+scp -P 63824 metager@metager3.de:~/UsersSeeder.php database/seeds/
 touch storage/logs/laravel.log
 touch storage/logs/worker.log
 touch database/metager.sqlite
@@ -24,3 +25,11 @@ chmod -R 777 bootstrap/cache
 npm install
 npm run production
 php artisan migrate --force
+php artisan db:seed --force
+php artisan requests:gather
+if [ -f ~/MetaGer/artisan ]; then php ~/MetaGer/artisan down;fi
+cd ~/
+while [ -d ~/MetaGer ]; do rm -rf ~/MetaGer;done
+mv MetaGer_neu MetaGer
+sudo pkill --signal SIGHUP supervisord
+php ~/MetaGer/artisan up

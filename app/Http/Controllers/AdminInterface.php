@@ -94,7 +94,155 @@ class AdminInterface extends Controller
         if (!is_int($days) || $days <= 0) {
             $days = 28;
         }
+        $logs = $this->getStats($days);
 
+        $oldLogs = [];
+        $rekordTag = 0;
+        $minCount = 0;
+        $rekordTagDate = "";
+        $size = 0;
+        $count = 0;
+
+        $now = Carbon::now()->subMinutes(Carbon::now()->minute % 5)->format('H:i');
+        if ($now === "00:00") {
+            $now = "00:05";
+        }
+
+        foreach ($logs as $key => $stats) {
+            if ($key === 0) {
+                // Log for today
+                $logToday = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
+                continue;
+            }
+            $insgesamt = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
+            $sameTime = empty($stats->time->{$now}->{$interface}) ? 0 : $stats->time->{$now}->{$interface};
+
+            if ($insgesamt > $rekordTag) {
+                $rekordTag = $insgesamt;
+                $rekordTagSameTime = $sameTime;
+                $rekordTagDate = Carbon::now()->subDays($key)->format('d.m.Y');
+            }
+            if ($minCount === 0 || $insgesamt < $minCount) {
+                $minCount = $insgesamt;
+            }
+            $oldLogs[$key]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
+            $oldLogs[$key]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
+            # Nun noch den median:
+            $count += $insgesamt;
+            $size++;
+            if ($size > 0) {
+                $oldLogs[$key]['median'] = number_format(floatval(round($count / $size)), 0, ",", ".");
+            }
+
+        }
+
+        if ($request->input('out', 'web') === "web") {
+            return view('admin.count')
+                ->with('title', 'Suchanfragen - MetaGer')
+                ->with('today', number_format(floatval($logToday), 0, ",", "."))
+                ->with('oldLogs', $oldLogs)
+                ->with('minCount', $minCount)
+                ->with('rekordCount', number_format(floatval($rekordTag), 0, ",", "."))
+                ->with('rekordTagSameTime', number_format(floatval($rekordTagSameTime), 0, ",", "."))
+                ->with('rekordDate', $rekordTagDate)
+                ->with('days', $days);
+        } else {
+            $result = "";
+            foreach ($oldLogs as $key => $value) {
+                $resultTmp = '"' . date("D, d M y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $key, date("Y"))) . '",';
+                $resultTmp .= '"' . $value['sameTime'] . '",';
+                $resultTmp .= '"' . $value['insgesamt'] . '",';
+                $resultTmp .= '"' . $value['median'] . '"' . "\r\n";
+                $result = $resultTmp . $result;
+            }
+            return response($result, 200)
+                ->header('Content-Type', 'text/csv')
+                ->header('Content-Disposition', 'attachment; filename="count.csv"');
+
+        }
+
+    }
+
+    public function countGraphToday()
+    {
+        $stats = $this->getStats(0)[0];
+
+        $hourly = [];
+        $previous = 0;
+        $max = 0;
+        foreach ($stats->time as $time => $timeStats) {
+            $hour = intval(substr($time, 0, strpos($time, ":")));
+            if (empty($hourly[$hour])) {
+                $hourly[$hour] = 0;
+            }
+            $hourly[$hour] += $timeStats->all - $previous;
+            $previous = $timeStats->all;
+            if ($hourly[$hour] > $max) {
+                $max = $hourly[$hour];
+            }
+        }
+        $result = [
+            "insgesamt" => $stats->insgesamt->all,
+            "max" => $max,
+            "hourly" => $hourly,
+        ];
+
+        return response()
+            ->view('admin.countGraphToday', ["data" => $result], 200)
+            ->header('Content-Type', "image/svg+xml");
+
+    }
+
+    public function engineStats()
+    {
+        $result = [];
+        $result["loadavg"] = sys_getloadavg();
+
+        // Memory Data
+        $data = explode("\n", trim(file_get_contents("/proc/meminfo")));
+        $meminfo = [];
+        foreach ($data as $line) {
+            list($key, $val) = explode(":", $line);
+            $meminfo[$key] = trim($val);
+        }
+        $conversions = [
+            "KB",
+            "MB",
+            "GB",
+            "TB",
+        ];
+
+        $memAvailable = $meminfo["MemAvailable"];
+        $memAvailable = intval(explode(" ", $memAvailable)[0]);
+        $counter = 0;
+        while ($memAvailable > 1000) {
+            $memAvailable /= 1000.0;
+            $counter++;
+        }
+        $memAvailable = round($memAvailable);
+        $memAvailable .= " " . $conversions[$counter];
+
+        $result["memoryAvailable"] = $memAvailable;
+
+        $resultCount = 0;
+        $file = "/var/log/metager/mg3.log";
+        if (file_exists($file)) {
+            $fh = fopen($file, "r");
+            try {
+                while (fgets($fh) !== false) {
+                    $resultCount++;
+                }
+            } finally {
+                fclose($fh);
+            }
+        }
+
+        $result["resultCount"] = number_format($resultCount, 0, ",", ".");
+        return response()->json($result);
+    }
+
+    private function getStats($days)
+    {
         $maxDate = Carbon::createFromFormat('d.m.Y', "28.06.2016");
         $selectedDate = Carbon::now()->subDays($days);
         if ($maxDate > $selectedDate) {
@@ -164,78 +312,20 @@ class AdminInterface extends Controller
             } while ($removedOne === true);
         }
 
-        $oldLogs = [];
-        $rekordTag = 0;
-        $minCount = 0;
-        $rekordTagDate = "";
-        $size = 0;
-        $count = 0;
-
-        $now = Carbon::now()->subMinutes(Carbon::now()->minute % 5)->format('H:i');
-        if ($now === "00:00") {
-            $now = "00:05";
-        }
+        $result = [];
 
         foreach ($neededLogs as $key => $value) {
             $countFile = $value["countFile"];
             if (file_exists($countFile)) {
-                $stats = json_decode(file_get_contents($countFile));
-                if ($key === 0) {
-                    // Log for today
-                    $logToday = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
-                    if (\file_exists($today["countFile"])) {
-                        unlink($today["countFile"]);
-                    }
-                    continue;
-                }
-                $insgesamt = empty($stats->insgesamt->{$interface}) ? 0 : $stats->insgesamt->{$interface};
-                $sameTime = empty($stats->time->{$now}->{$interface}) ? 0 : $stats->time->{$now}->{$interface};
-
-                if ($insgesamt > $rekordTag) {
-                    $rekordTag = $insgesamt;
-                    $rekordTagSameTime = $sameTime;
-                    $rekordTagDate = Carbon::now()->subDays($key)->format('d.m.Y');
-                }
-                if ($minCount === 0 || $insgesamt < $minCount) {
-                    $minCount = $insgesamt;
-                }
-                $oldLogs[$key]['sameTime'] = number_format(floatval($sameTime), 0, ",", ".");
-                $oldLogs[$key]['insgesamt'] = number_format(floatval($insgesamt), 0, ",", ".");
-                # Nun noch den median:
-                $count += $insgesamt;
-                $size++;
-                if ($size > 0) {
-                    $oldLogs[$key]['median'] = number_format(floatval(round($count / $size)), 0, ",", ".");
-                }
-
+                $result[$key] = json_decode(file_get_contents($countFile));
             }
         }
 
-        if ($request->input('out', 'web') === "web") {
-            return view('admin.count')
-                ->with('title', 'Suchanfragen - MetaGer')
-                ->with('today', number_format(floatval($logToday), 0, ",", "."))
-                ->with('oldLogs', $oldLogs)
-                ->with('minCount', $minCount)
-                ->with('rekordCount', number_format(floatval($rekordTag), 0, ",", "."))
-                ->with('rekordTagSameTime', number_format(floatval($rekordTagSameTime), 0, ",", "."))
-                ->with('rekordDate', $rekordTagDate)
-                ->with('days', $days);
-        } else {
-            $result = "";
-            foreach ($oldLogs as $key => $value) {
-                $resultTmp = '"' . date("D, d M y", mktime(date("H"), date("i"), date("s"), date("m"), date("d") - $key, date("Y"))) . '",';
-                $resultTmp .= '"' . $value['sameTime'] . '",';
-                $resultTmp .= '"' . $value['insgesamt'] . '",';
-                $resultTmp .= '"' . $value['median'] . '"' . "\r\n";
-                $result = $resultTmp . $result;
-            }
-            return response($result, 200)
-                ->header('Content-Type', 'text/csv')
-                ->header('Content-Disposition', 'attachment; filename="count.csv"');
-
+        if (\file_exists($today["countFile"])) {
+            unlink($today["countFile"]);
         }
 
+        return $result;
     }
 
     public function check()
