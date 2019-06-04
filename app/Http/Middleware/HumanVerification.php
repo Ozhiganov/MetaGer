@@ -29,7 +29,7 @@ class HumanVerification
             $ip = $request->ip();
             $id = "";
             $uid = "";
-            if ($this->couldBeSpammer($ip)) {
+            if (\App\Http\Controllers\HumanVerification::couldBeSpammer($ip)) {
                 $id = hash("sha512", "999.999.999.999");
                 $uid = hash("sha512", "999.999.999.999" . $ip . $_SERVER["AGENT"] . "uid");
             } else {
@@ -186,36 +186,6 @@ class HumanVerification
 
         $request->request->add(['verification_id' => $user["uid"], 'verification_count' => $user["unusedResultPages"]]);
         return $next($request);
-
-    }
-
-    private function couldBeSpammer($ip)
-    {
-        $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
-        $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
-
-        $ch = curl_init($queryUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-        curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        $possibleSpammer = false;
-        if ($httpcode === 200) {
-            return true;
-        }
-
-        # Check for recent Spams
-        $eingabe = \Request::input('eingabe');
-        if (\preg_match("/^[\\d]{3}\s*chan.*$/si", $eingabe)) {
-            return true;
-        }
-        if (\preg_match("/^susimail\s+-site:[^\s]+\s-site:/si", $eingabe)) {
-            return true;
-        }
-
-        return $possibleSpammer;
 
     }
 }
