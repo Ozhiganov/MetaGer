@@ -110,7 +110,7 @@ class HumanVerification extends Controller
         $redis = Redis::connection('redisCache');
         $ip = $request->ip();
         $id = "";
-        if (HumanVerification::isTor($ip)) {
+        if (HumanVerification::couldBeSpammer($ip)) {
             $id = hash("sha512", "999.999.999.999");
         } else {
             $id = hash("sha512", $ip);
@@ -176,7 +176,7 @@ class HumanVerification extends Controller
     {
         $uid = "";
         $ip = $request->ip();
-        if (HumanVerification::isTor($ip)) {
+        if (HumanVerification::couldBeSpammer($ip)) {
             $uid = hash("sha512", "999.999.999.999" . $ip . $_SERVER["AGENT"] . "uid");
         } else {
             $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
@@ -189,7 +189,7 @@ class HumanVerification extends Controller
         }
     }
 
-    private static function isTor($ip)
+    public static function couldBeSpammer($ip)
     {
         $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
         $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
@@ -201,10 +201,21 @@ class HumanVerification extends Controller
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        $possibleSpammer = false;
         if ($httpcode === 200) {
             return true;
-        } else {
-            return false;
         }
+
+        # Check for recent Spams
+        $eingabe = \Request::input('eingabe');
+        if (\preg_match("/^[\\d]{3}\s*chan.*$/si", $eingabe)) {
+            return true;
+        }
+        if (\preg_match("/^susimail\s+-site:[^\s]+\s-site:/si", $eingabe)) {
+            return true;
+        }
+
+        return $possibleSpammer;
+
     }
 }
