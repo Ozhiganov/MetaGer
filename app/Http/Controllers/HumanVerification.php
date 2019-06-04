@@ -108,7 +108,13 @@ class HumanVerification extends Controller
     private static function removeUser($request, $uid)
     {
         $redis = Redis::connection('redisCache');
-        $id = hash("sha512", HumanVerification::getIP($request));
+        $ip = $request->ip();
+        $id = "";
+        if (HumanVerification::isTor($ip)) {
+            $id = hash("sha512", "999.999.999.999");
+        } else {
+            $id = hash("sha512", $ip);
+        }
 
         $userList = $redis->smembers(HumanVerification::PREFIX . "." . $id);
         $pipe = $redis->pipeline();
@@ -168,16 +174,23 @@ class HumanVerification extends Controller
 
     private static function checkId($request, $id)
     {
-        if (hash("sha512", HumanVerification::getIP($request) . $_SERVER["AGENT"] . "uid") === $id) {
+        $uid = "";
+        $ip = $request->ip();
+        if ($HumanVerification::isTor($ip)) {
+            $uid = hash("sha512", "999.999.999.999" . $ip . $_SERVER["AGENT"] . "uid");
+        } else {
+            $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
+        }
+
+        if ($uid === $id) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static function getIP($request)
+    private static function isTor($ip)
     {
-        $ip = $request->ip();
         $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
         $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
 
@@ -189,9 +202,9 @@ class HumanVerification extends Controller
         curl_close($ch);
 
         if ($httpcode === 200) {
-            return "999.999.999.999";
+            return true;
         } else {
-            return $ip;
+            return false;
         }
     }
 }
