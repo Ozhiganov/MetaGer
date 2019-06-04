@@ -176,7 +176,7 @@ class HumanVerification extends Controller
     {
         $uid = "";
         $ip = $request->ip();
-        if ($HumanVerification::isTor($ip)) {
+        if (HumanVerification::isTor($ip)) {
             $uid = hash("sha512", "999.999.999.999" . $ip . $_SERVER["AGENT"] . "uid");
         } else {
             $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
