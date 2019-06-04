@@ -22,8 +22,6 @@ Route::group(
 
         Route::get('/', 'StartpageController@loadStartPage');
 
-        Route::get('test2', 'StartpageController@testTor');
-
         Route::get('asso', function () {
             return view('assoziator.asso')
                 ->with('title', trans('titles.asso'))

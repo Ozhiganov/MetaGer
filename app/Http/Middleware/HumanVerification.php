@@ -7,6 +7,7 @@ use Closure;
 use Cookie;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redis;
+use Log;
 use URL;
 
 class HumanVerification
@@ -26,8 +27,9 @@ class HumanVerification
         $prefix = "humanverification";
         $redis = Redis::connection('redisCache');
         try {
-            $id = hash("sha512", $request->ip());
-            $uid = hash("sha512", $request->ip() . $_SERVER["AGENT"] . "uid");
+            $ip = $this->getIP();
+            $id = hash("sha512", $ip);
+            $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
             unset($_SERVER["AGENT"]);
 
             /**
@@ -179,5 +181,26 @@ class HumanVerification
         $request->request->add(['verification_id' => $user["uid"], 'verification_count' => $user["unusedResultPages"]]);
         return $next($request);
 
+    }
+
+    private function getIP()
+    {
+        $ip = \Request::ip();
+        $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
+        $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
+
+        $ch = curl_init($queryUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+        curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpcode === 200) {
+            Log::info("Tor call");
+            return "999.999.999.999";
+        } else {
+            return $ip;
+        }
     }
 }
