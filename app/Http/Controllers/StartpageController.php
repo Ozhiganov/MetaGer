@@ -115,4 +115,28 @@ class StartpageController extends Controller
             ->with('link', $link)
             ->with('password', $password);
     }
+
+    public function testTor()
+    {
+        if ($this->IsTorExitPoint()) {
+            die(var_dump("Willkommen Tor"));
+        } else {
+            die(var_dump("Willkommen Normal"));
+        }
+    }
+
+    private function IsTorExitPoint()
+    {
+        if (gethostbyname($this->ReverseIPOctets($_SERVER['REMOTE_ADDR']) . "." . $_SERVER['SERVER_PORT'] . "." . $this->ReverseIPOctets($_SERVER['SERVER_ADDR']) . ".ip-port.exitlist.torproject.org") == "127.0.0.2") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private function ReverseIPOctets($inputip)
+    {
+        $ipoc = explode(".", $inputip);
+        return $ipoc[3] . "." . $ipoc[2] . "." . $ipoc[1] . "." . $ipoc[0];
+    }
+
 }
