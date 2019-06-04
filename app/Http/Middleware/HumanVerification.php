@@ -7,7 +7,6 @@ use Closure;
 use Cookie;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redis;
-use Log;
 use URL;
 
 class HumanVerification
@@ -197,7 +196,6 @@ class HumanVerification
         curl_close($ch);
 
         if ($httpcode === 200) {
-            Log::info("Tor call");
             return "999.999.999.999";
         } else {
             return $ip;
