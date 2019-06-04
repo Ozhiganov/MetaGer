@@ -26,9 +26,16 @@ class HumanVerification
         $prefix = "humanverification";
         $redis = Redis::connection('redisCache');
         try {
-            $ip = $this->getIP();
-            $id = hash("sha512", $ip);
-            $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
+            $ip = $request->ip();
+            $id = "";
+            $uid = "";
+            if ($this->isTor($ip)) {
+                $id = hash("sha512", "999.999.999.999");
+                $uid = hash("sha512", "999.999.999.999" . $ip . $_SERVER["AGENT"] . "uid");
+            } else {
+                $id = hash("sha512", $ip);
+                $uid = hash("sha512", $ip . $_SERVER["AGENT"] . "uid");
+            }
             unset($_SERVER["AGENT"]);
 
             /**
@@ -182,9 +189,8 @@ class HumanVerification
 
     }
 
-    private function getIP()
+    private function isTor($ip)
     {
-        $ip = \Request::ip();
         $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
         $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
 
@@ -196,9 +202,9 @@ class HumanVerification
         curl_close($ch);
 
         if ($httpcode === 200) {
-            return "999.999.999.999";
+            return true;
         } else {
-            return $ip;
+            return false;
         }
     }
 }
