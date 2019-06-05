@@ -27,15 +27,14 @@ return [
     'focus-creator.delete' => 'Eigene Suche löschen',
     'focus-creator.focusname' => 'Suchname: ',
 
-    'slogan.title' => 'Besser&nbsp;suchen, schneller&nbsp;finden',
-    'slogan.1' => 'Datenschutz & Privatsphäre: Bei uns einfach und selbstverständlich.',
-    'slogan.2' => 'Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger Verein: <a href="/beitritt">Werden Sie Mitglied</a> oder <a href="/spende">spenden Sie</a>!',
-    'slogan.3' => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
-
-    'about.title' => 'Über uns',
-    'about.1.1' => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach & selbstverständlich.',
-    'about.2.1' => 'Wir arbeiten nicht gewinnorientiert, wir sind ein <a href="/spende">gemeinnütziger Verein</a>: <a href="/beitritt">Werden Sie Mitglied!</a>',
-    'about.3.1' => 'Überzeugen Sie sich von unseren Datenschutz- und Privatsphärefeatures',
+    'about.1.1' => "Garantierte Privatsphäre",
+    'about.1.2' => 'Mit uns behalten Sie die volle Kontrolle über Ihre Daten.',
+    'about.2.1' => 'Gemeinnütziger Verein',
+    'about.2.2' => 'Wir als SUMA-EV sind unabhängig, weil wir keine kommerziellen Interessen verfolgen!',
+    'about.3.1' => 'Unterstützen & Spenden',
+    'about.3.2' => 'Mit Ihrer Spende unterstützen Sie die Arbeit des SUMA-EV und den Betrieb von MetaGer.',
+    'about.4.1' => 'Machen Sie mit!',
+    'about.4.2' => 'Stärken Sie uns, indem Sie Mitglied werden.',
 
     'lang.tooltip' => 'Ergebnissprache wählen',
     'key.placeholder' => 'Mitglieder-Key eingeben',
