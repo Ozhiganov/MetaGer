@@ -1,7 +1,6 @@
 /* Startseite */
 
 @main-content-width: 1000px;
-@foki-edge-rounding: 7px;
 #main-content {
     flex-grow: 1;
     display: flex;
@@ -47,76 +46,8 @@
 
 .startpage #main-content {
     justify-content: center;
-    margin-top: 0;
+    margin-top: -15%;
     @media(max-width: @screen-mobile){
-        justify-content: start;
-        margin-top: 20vh;
-    }
-}
-
-#additional-content {
-    flex-grow: 2;
-    padding-top: 50px;
-    display: flex;
-    @media(max-width: @screen-mobile) {
-        flex-direction: column;
-        position: absolute;
-        top: 100vh;
-    }
-    #about-us {
-        max-width: 500px;
-        margin-right: 50px;
-        @media(max-width: @screen-mobile) {
-            margin: 0px;
-            max-width: 100%;
-            .card-medium;
-            order: 2;
-            p {
-                text-align: justify;
-            }
-        }
-        h2 {
-            font-size: 1.3em;
-        }
-        p {
-            font-size: 1em;
-        }
-    }
-    #s {
-        @media(max-width: @screen-mobile) {
-            margin: 8px 0px;
-            .card-medium;
-        }
-        h2 {
-            font-size: 1.3em;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0px;
-            text-align: left;
-            margin-bottom: 0;
-            li.sr {
-                a {
-                    color: inherit;
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 1em;
-                    i {
-                        margin-left: 10px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-#spendenaufruf {
-    text-align: center;
-    a {
-        background-color: white;
-        display: inline-block;
-        width: 100%;
-        max-width: 770px;
-        margin-bottom: 10px;
+        margin-top: -25%;
     }
 }

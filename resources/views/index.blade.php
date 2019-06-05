@@ -13,16 +13,4 @@
 	<a id="scroll-helper" href="#about-us">
 		<i class="fas fa-angle-double-down"></i>
 	</a>
-	<script src="{{ mix('js/scriptStartPage.js') }}" defer></script>
-@endsection
-
-@section('additional-content')
-	<div id="about-us">
-		<div>
-			<h2>{!! trans('index.slogan.title') !!}</h2>
-			<p>{!! trans('index.slogan.1') !!}</p>
-			<p>{!! trans('index.slogan.2') !!}</p>
-			<p>{!! trans('index.slogan.3') !!}</p>
-		</div>
-	</div>
 @endsection
