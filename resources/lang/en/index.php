@@ -27,20 +27,14 @@ return [
     "focus-creator.delete" => "Delete search focus",
     "focus-creator.focusname" => "Focus:",
 
-    'slogan.title' => 'MetaGer: Privacy protected Search and Find',
-    'slogan.1' => 'We provide privacy & data protection and we are a non profit NGO.',
-    'slogan.2' => '<a href="/beitritt">Become a member</a> oder <a href="/spende">donate</a>! Our source code is open: <a href="https://gitlab.metager3.de/open-source/MetaGer">gitlab.metager3.de</a>',
-    'slogan.3' => 'You keep a neutral view on the web by using MetaGer',
-
-    "sponsors.head" => "Partners",
-    'sponsors.woxikon' => 'Tagesgeld jetzt!',
-    'sponsors.gutscheine' => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
-    'sponsors.seo' => 'Suchmaschinenoptimierung',
-
-    "about.title" => "About Us",
-    "about.1.1" => "We provide <a href=\"/en/datenschutz\">privacy & data protection.</a>",
-    "about.2.1" => 'We are a <a href="/en/spende">non profit NGO</a>. Our source code is open:<a href="https://gitlab.metager3.de/open-source/MetaGer" target="_blank">gitlab.metager3.de</a>',
-    "about.3.1" => "Everyone might check our data protection & privacy features.",
+    'about.1.1' => "Guaranteed Privacy",
+    'about.1.2' => 'With us you have full control over your data.',
+    'about.2.1' => 'Nonprofit organization',
+    'about.2.2' => 'We as SUMA-EV are independent because we do not pursue commercial interests!',
+    'about.3.1' => 'Support & Donate',
+    'about.3.2' => 'With your donation you support the work of the SUMA-EV and the operation of MetaGer.',
+    'about.4.1' => 'Join in!',
+    'about.4.2' => 'Strengthen us by becoming a member.',
 
     'lang.tooltip' => 'Language',
     'key.placeholder' => 'Enter member key',

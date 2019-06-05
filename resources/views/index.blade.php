@@ -10,29 +10,29 @@
 	<div id="plugin-btn-div">
 		<a id="plugin-btn" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/plugin") }}" title="{{ trans('index.plugin-title') }}"><i class="fa fa-plug" aria-hidden="true"></i> {{ trans('index.plugin') }}</a>
 	</div>
+		<div id="about-us">
+			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "about") }}">
+				<i class="fas fa-user-secret"></i>
+				<span>@lang('index.about.1.1')</span>
+				<div class="teaser">@lang('index.about.1.2')</div>
+			</a>
+			<a href="https://suma-ev.de">
+				<i class="fas fa-heart"></i>
+				<span>@lang('index.about.2.1')</span>
+				<div class="teaser">@lang('index.about.2.2')</div>
+			</a>
+			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "spenden") }}">
+				<i class="fas fa-money-bill-wave"></i>
+				<span>@lang('index.about.3.1')</span>
+				<div class="teaser">@lang('index.about.3.2')</div>
+			</a>
+			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "beitritt") }}">
+				<i class="fas fa-user-friends"></i>
+				<span>@lang('index.about.4.1')</span>
+				<div class="teaser">@lang('index.about.4.2')</div>
+			</a>
+		</div>
 	<a id="scroll-helper" href="#about-us">
 		<i class="fas fa-angle-double-down"></i>
 	</a>
-	<script src="{{ mix('js/scriptStartPage.js') }}" defer></script>
-@endsection
-
-@section('additional-content')
-	<div id="about-us">
-		<div>
-			<h2>{!! trans('index.slogan.title') !!}</h2>
-			<p>{!! trans('index.slogan.1') !!}</p>
-			<p>{!! trans('index.slogan.2') !!}</p>
-			<p>{!! trans('index.slogan.3') !!}</p>
-		</div>
-	</div>
-	<div id="s">
-		<h2>{{ trans('index.sponsors.head') }}</h2>
-		<ul class="startpage">
-			@foreach($sponsors as $link)
-			<li class="sr">
-				<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
-			</li>
-			@endforeach
-		</ul>
-	</div>
 @endsection

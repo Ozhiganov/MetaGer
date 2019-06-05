@@ -56,9 +56,6 @@
 				@endif
 				@yield('content')
 			</main>
-			<div id="additional-content">
-				@yield('additional-content')
-			</div>
 		</div>
 		@include('parts.sidebar', ['id' => 'staticPagesSideBar'])
 		@include('parts.sidebar-opener', ['class' => 'fixed'])
