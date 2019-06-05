@@ -25,14 +25,4 @@
 			<p>{!! trans('index.slogan.3') !!}</p>
 		</div>
 	</div>
-	<div id="s">
-		<h2>{{ trans('index.sponsors.head') }}</h2>
-		<ul class="startpage">
-			@foreach($sponsors as $link)
-			<li class="sr">
-				<a href="{{ $link->link }}" target="_blank" rel="noopener"><p>{{ $link->linktext }}</p> <i class="fa fa-external-link-alt"></i></a>
-			</li>
-			@endforeach
-		</ul>
-	</div>
 @endsection

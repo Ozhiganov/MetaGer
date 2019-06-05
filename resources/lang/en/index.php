@@ -32,11 +32,6 @@ return [
     'slogan.2' => '<a href="/beitritt">Become a member</a> oder <a href="/spende">donate</a>! Our source code is open: <a href="https://gitlab.metager3.de/open-source/MetaGer">gitlab.metager3.de</a>',
     'slogan.3' => 'You keep a neutral view on the web by using MetaGer',
 
-    "sponsors.head" => "Partners",
-    'sponsors.woxikon' => 'Tagesgeld jetzt!',
-    'sponsors.gutscheine' => 'Aktuelle Gutscheine auf Gutschein-Magazin.de',
-    'sponsors.seo' => 'Suchmaschinenoptimierung',
-
     "about.title" => "About Us",
     "about.1.1" => "We provide <a href=\"/en/datenschutz\">privacy & data protection.</a>",
     "about.2.1" => 'We are a <a href="/en/spende">non profit NGO</a>. Our source code is open:<a href="https://gitlab.metager3.de/open-source/MetaGer" target="_blank">gitlab.metager3.de</a>',

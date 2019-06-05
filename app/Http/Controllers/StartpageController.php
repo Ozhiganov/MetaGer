@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App;
-use DB;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use LaravelLocalization;
-use Log;
 use Response;
 
 class StartpageController extends Controller
@@ -44,15 +42,6 @@ class StartpageController extends Controller
             $lang = 'all';
         }
 
-        # Sponsorenlinks
-        $sponsors = [];
-        try {
-            $sponsors = DB::table('sponsorenlinks')->where('langcode', 'de')->orderByRaw('LENGTH(linktext)', 'ASC')->get();
-            DB::disconnect('mysql');
-        } catch (\Illuminate\Database\QueryException $e) {
-            Log::info($e);
-        }
-
         return view('index')
             ->with('title', trans('titles.index'))
             ->with('homeIcon')
@@ -63,7 +52,6 @@ class StartpageController extends Controller
             ->with('request', $request->input('request', 'GET'))
             ->with('option_values', $option_values)
             ->with('autocomplete', $autocomplete)
-            ->with('sponsors', $sponsors)
             ->with('pluginmodal', $request->input('plugin-modal', 'off'));
     }
 

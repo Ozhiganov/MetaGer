@@ -32,11 +32,6 @@ return [
     'slogan.2' => 'Wir arbeiten nicht gewinnorientiert, wir sind ein gemeinnütziger Verein: <a href="/beitritt">Werden Sie Mitglied</a> oder <a href="/spende">spenden Sie</a>!',
     'slogan.3' => 'Mit MetaGer bewahren Sie einen neutralen Blick auf’s Web!',
 
-    'sponsors.head' => 'Partner',
-    'sponsors.woxikon' => 'SEO Agentur',
-    'sponsors.gutscheine' => 'STERN.de: Günstige Kredite im Kreditvergleich',
-    'sponsors.seo' => 'Weihnachtsfeier',
-
     'about.title' => 'Über uns',
     'about.1.1' => '<a href="/datenschutz">Datenschutz & Privatsphäre</a>: Bei uns einfach & selbstverständlich.',
     'about.2.1' => 'Wir arbeiten nicht gewinnorientiert, wir sind ein <a href="/spende">gemeinnütziger Verein</a>: <a href="/beitritt">Werden Sie Mitglied!</a>',
