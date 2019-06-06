@@ -8,7 +8,6 @@ use Illuminate\Hashing\BcryptHasher as Hasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Input;
-use LaravelLocalization;
 
 class HumanVerification extends Controller
 {
@@ -27,41 +26,7 @@ class HumanVerification extends Controller
         }
 
         if ($request->getMethod() == 'POST') {
-            # Check if Weekday matches
-            $weekdays = [
-                'de' => [
-                    'montag',
-                    'dienstag',
-                    'mittwoch',
-                    'donnerstag',
-                    'freitag',
-                    'samstag',
-                    'sonntag',
-                ],
-                'en' => [
-                    'monday',
-                    'tuesday',
-                    'wednesday',
-                    'thursday',
-                    'friday',
-                    'saturday',
-                    'sunday',
-                ],
-                'es' => [
-                    'lunes',
-                    'martes',
-                    'miércoles',
-                    'jueves',
-                    'viernes',
-                    'sábado',
-                    'domingo',
-                ],
-            ];
-            $lang = LaravelLocalization::getCurrentLocale();
-            $dow = Carbon::now()->dayOfWeek;
-
-            $dowCheck = strtolower(trim($request->input('dw', ''))) === $weekdays[$lang][$dow - 1];
-
+            $dowCheck = true;
             # Temp remove later
             # Check for recent Spams
             if (\preg_match("/eingabe=[\\d]{3}\s*chan.*$/si", $url)) {
