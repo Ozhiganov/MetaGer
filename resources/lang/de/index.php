@@ -34,7 +34,7 @@ return [
     'about.3.1' => 'Unterstützen & Spenden',
     'about.3.2' => 'Mit Ihrer Spende unterstützen Sie die Arbeit des SUMA-EV und den Betrieb von MetaGer.',
     'about.4.1' => 'Machen Sie mit!',
-    'about.4.2' => 'Stärken Sie uns, indem Sie Mitglied werden.',
+    'about.4.2' => 'Stärken Sie uns, indem Sie Mitglied im Trägerverin werden.',
 
     'lang.tooltip' => 'Ergebnissprache wählen',
     'key.placeholder' => 'Mitglieder-Key eingeben',

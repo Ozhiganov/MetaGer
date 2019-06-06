@@ -16,12 +16,16 @@
 				<span>@lang('index.about.1.1')</span>
 				<div class="teaser">@lang('index.about.1.2')</div>
 			</a>
-			<a href="https://suma-ev.de">
+			@if(LaravelLocalization::getCurrentLocale() === "de")
+			<a href="https://suma-ev.de" target="_blank">
+			@else
+			<a href="https://suma-ev.de/en/index.html" target="_blank">
+			@endif
 				<i class="fas fa-heart"></i>
 				<span>@lang('index.about.2.1')</span>
 				<div class="teaser">@lang('index.about.2.2')</div>
 			</a>
-			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "spenden") }}">
+			<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "spende") }}">
 				<i class="fas fa-money-bill-wave"></i>
 				<span>@lang('index.about.3.1')</span>
 				<div class="teaser">@lang('index.about.3.2')</div>
