@@ -52,13 +52,6 @@ mix
   )
   .babel(
     [
-      "resources/js/scriptStartPage.js",
-      "resources/js/result-saver.js"
-    ],
-    "public/js/scriptStartPage.js"
-  )
-  .babel(
-    [
       "resources/js/scriptSettings.js"
     ],
     "public/js/scriptSettings.js"

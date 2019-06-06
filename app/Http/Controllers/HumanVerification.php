@@ -8,6 +8,7 @@ use Illuminate\Hashing\BcryptHasher as Hasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Input;
+use LaravelLocalization;
 
 class HumanVerification extends Controller
 {
@@ -26,6 +27,40 @@ class HumanVerification extends Controller
         }
 
         if ($request->getMethod() == 'POST') {
+            # Check if Weekday matches
+            $weekdays = [
+                'de' => [
+                    'montag',
+                    'dienstag',
+                    'mittwoch',
+                    'donnerstag',
+                    'freitag',
+                    'samstag',
+                    'sonntag',
+                ],
+                'en' => [
+                    'monday',
+                    'tuesday',
+                    'wednesday',
+                    'thursday',
+                    'friday',
+                    'saturday',
+                    'sunday',
+                ],
+                'es' => [
+                    'lunes',
+                    'martes',
+                    'miércoles',
+                    'jueves',
+                    'viernes',
+                    'sábado',
+                    'domingo',
+                ],
+            ];
+            $lang = LaravelLocalization::getCurrentLocale();
+            $dow = Carbon::now()->dayOfWeek;
+
+            $dowCheck = strtolower(trim($request->input('dw', ''))) === $weekdays[$lang][$dow - 1];
 
             $user = $redis->hgetall(HumanVerification::PREFIX . "." . $id);
             $user = ['uid' => $user["uid"],
@@ -40,7 +75,7 @@ class HumanVerification extends Controller
             $key = $request->input('captcha');
             $key = strtolower($key);
 
-            if (!$hasher->check($key, $lockedKey)) {
+            if (!$dowCheck || !$hasher->check($key, $lockedKey)) {
                 $captcha = Captcha::create("default", true);
                 $pipeline = $redis->pipeline();
                 $pipeline->hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
@@ -50,7 +85,7 @@ class HumanVerification extends Controller
                     ->with('id', $id)
                     ->with('url', $url)
                     ->with('image', $captcha["img"])
-                    ->with('errorMessage', 'Fehler: Falsches Captcha eingegeben!');
+                    ->with('errorMessage', 'Fehler: Falsche Eingabe!');
             } else {
                 # If we can unlock the Account of this user we will redirect him to the result page
                 if ($user !== null && $user["locked"]) {
