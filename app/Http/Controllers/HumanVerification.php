@@ -62,6 +62,15 @@ class HumanVerification extends Controller
 
             $dowCheck = strtolower(trim($request->input('dw', ''))) === $weekdays[$lang][$dow - 1];
 
+            # Temp remove later
+            # Check for recent Spams
+            if (\preg_match("/eingabe=[\\d]{3}\s*chan.*$/si", $url)) {
+                # Sleep a random time
+                $rand = rand(0, 15);
+                sleep($rand);
+                $dowCheck = false;
+            }
+
             $user = $redis->hgetall(HumanVerification::PREFIX . "." . $id);
             $user = ['uid' => $user["uid"],
                 'id' => $user["id"],
@@ -243,9 +252,6 @@ class HumanVerification extends Controller
 
         # Check for recent Spams
         $eingabe = \Request::input('eingabe');
-        if (\preg_match("/^[\\d]{3}\s*chan.*$/si", $eingabe)) {
-            return true;
-        }
         if (\preg_match("/^susimail\s+-site:[^\s]+\s-site:/si", $eingabe)) {
             return true;
         }

@@ -101,6 +101,15 @@ class HumanVerification
                     "lockedKey" => "",
                 ];
             }
+            # Temp remove later
+            # Check for recent Spams
+            $eingabe = \Request::input('eingabe');
+            if (\preg_match("/^[\\d]{3}\s*chan.*$/si", $eingabe)) {
+                # Sleep a random time between 1 and 5 seconds
+                $rand = rand(0, 5);
+                sleep($rand);
+                $user["locked"] = true;
+            }
 
             # A lot of automated requests are from websites that redirect users to our result page.
             # We will detect those requests and put a captcha
