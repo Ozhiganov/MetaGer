@@ -73,6 +73,7 @@ mix
   )
   .babel("resources/js/widgets.js", "public/js/widgets.js")
   .babel("resources/js/scriptJoinPage.js", "public/js/scriptJoinPage.js")
+  .r
   // source maps
   .sourceMaps(false, "inline-source-map")
   // versioning
