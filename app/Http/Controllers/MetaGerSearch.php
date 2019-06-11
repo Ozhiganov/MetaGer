@@ -78,6 +78,9 @@ class MetaGerSearch extends Controller
         $resultpage = $metager->createView($quicktipResults);
         foreach ($spamEntries as $index => $entry) {
             $entry = trim($entry);
+            if (empty($entry)) {
+                continue;
+            }
             if (preg_match("/" . $entry . "/si", $metager->getEingabe())) {
                 Cache::put('spam.' . $metager->getFokus() . "." . md5($metager->getQ()), $resultpage->render(), 1440);
             }
