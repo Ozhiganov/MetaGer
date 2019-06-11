@@ -16,6 +16,11 @@ class MetaGerSearch extends Controller
 {
     public function search(Request $request, MetaGer $metager)
     {
+        $spamEntries = [];
+        if (file_exists(config_path('spam.txt'))) {
+            $spamEntries = file(config_path('spam.txt'));
+        }
+
         $focus = $request->input("focus", "web");
 
         if ($focus === "maps") {
@@ -34,6 +39,10 @@ class MetaGerSearch extends Controller
 
         # Nach Spezialsuchen überprüfen:
         $metager->checkSpecialSearches($request);
+
+        if (Cache::has('spam.' . $metager->getFokus() . "." . md5($metager->getQ()))) {
+            return response(Cache::get('spam.' . $metager->getFokus() . "." . md5($metager->getQ())));
+        }
 
         # Die Quicktips als Job erstellen
         $quicktips = $metager->createQuicktips();
@@ -66,7 +75,17 @@ class MetaGerSearch extends Controller
         $pipeline->execute();
 
         # Die Ausgabe erstellen:
-        return $metager->createView($quicktipResults);
+        $resultpage = $metager->createView($quicktipResults);
+        foreach ($spamEntries as $index => $entry) {
+            $entry = trim($entry);
+            if (empty($entry)) {
+                continue;
+            }
+            if (preg_match("/" . $entry . "/si", $metager->getEingabe())) {
+                Cache::put('spam.' . $metager->getFokus() . "." . md5($metager->getQ()), $resultpage->render(), 1440);
+            }
+        }
+        return $resultpage;
     }
 
     public function loadMore(Request $request)

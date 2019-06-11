@@ -24,6 +24,7 @@ update(144.76.113.134):
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
     - scp -P 63824 metager@metager3.de:~/adBlacklistUrl.txt config/
     - scp -P 63824 metager@metager3.de:~/adBlacklistDomains.txt config/
+    - scp -P 63824 metager@metager3.de:~/spam.txt config/
     - scp -P 63824 metager@metager3.de:~/UsersSeeder.php database/seeds/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log
@@ -67,6 +68,9 @@ update(metager2):
     - scp -P 63824 metager@metager3.de:~/sumasEn.json config/
     - scp -P 63824 metager@metager3.de:~/blacklistUrl.txt config/
     - scp -P 63824 metager@metager3.de:~/blacklistDomains.txt config/
+    - scp -P 63824 metager@metager3.de:~/adBlacklistUrl.txt config/
+    - scp -P 63824 metager@metager3.de:~/adBlacklistDomains.txt config/
+    - scp -P 63824 metager@metager3.de:~/spam.txt config/
     - scp -P 63824 metager@metager3.de:~/UsersSeeder.php database/seeds/
     - touch storage/logs/laravel.log
     - touch storage/logs/worker.log

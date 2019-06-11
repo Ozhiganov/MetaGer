@@ -26,16 +26,6 @@ class HumanVerification extends Controller
         }
 
         if ($request->getMethod() == 'POST') {
-            $dowCheck = true;
-            # Temp remove later
-            # Check for recent Spams
-            if (\preg_match("/eingabe=[\\d]{3}\s*chan.*$/si", $url)) {
-                # Sleep a random time
-                $rand = rand(0, 15);
-                sleep($rand);
-                $dowCheck = false;
-            }
-
             $user = $redis->hgetall(HumanVerification::PREFIX . "." . $id);
             $user = ['uid' => $user["uid"],
                 'id' => $user["id"],
@@ -49,7 +39,7 @@ class HumanVerification extends Controller
             $key = $request->input('captcha');
             $key = strtolower($key);
 
-            if (!$dowCheck || !$hasher->check($key, $lockedKey)) {
+            if (!$hasher->check($key, $lockedKey)) {
                 $captcha = Captcha::create("default", true);
                 $pipeline = $redis->pipeline();
                 $pipeline->hset(HumanVerification::PREFIX . "." . $id, 'lockedKey', $captcha["key"]);
@@ -200,6 +190,9 @@ class HumanVerification extends Controller
 
     public static function couldBeSpammer($ip)
     {
+        if (!env("REMOVE_SPAM_IN_TOR")) {
+            return false;
+        }
         $serverAddress = empty($_SERVER['SERVER_ADDR']) ? "144.76.88.77" : $_SERVER['SERVER_ADDR'];
         $queryUrl = "https://tor.metager.org?password=" . urlencode(env("TOR_PASSWORD")) . "&ra=" . urlencode($ip) . "&sa=" . urlencode($serverAddress) . "&sp=443";
 
