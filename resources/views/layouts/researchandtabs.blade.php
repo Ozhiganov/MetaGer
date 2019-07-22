@@ -31,6 +31,7 @@
 		@yield('results')
 	</div>
 	<div id="additions-container">
+		@include('layouts.keyboardNavBox')
 		@if( $metager->showQuicktips() )
 			<div id="quicktips">
 				@include('quicktips', ['quicktips', $quicktips])
