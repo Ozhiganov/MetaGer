@@ -18,7 +18,7 @@
 				@include('layouts.ad', ['ad' => $metager->popAd()])
 			@endif
 		@endif
-		@include('layouts.result', ['result' => $result])
+		@include('layouts.result', ['result' => $result, 'index' => $index + 1])
 	@endforeach
 	@include('parts.pager')
 </div>
