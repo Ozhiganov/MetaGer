@@ -41,11 +41,11 @@
 			<button type="button" class="btn btn-primary noprint" onclick="window.print();">{{ trans('spende.drucken') }}</button>
 		</div>
 		<div class="col-lg-6 col-md-12 col-sm-12 others noprint" id="right">
-			<h2>{{ trans('about.about.1') }}</h2>
-			<p>{!! trans('about.about.2') !!}</p>
-			<p>{!! trans('about.about.3') !!}</p>
-			<p>{!! trans('about.about.4') !!}</p>
-			<p>{!! trans('about.about.5') !!}</p>
+			<h2>{{ trans('danke.head.1') }}</h2>
+			<p>{!! trans('danke.info.1') !!}</p>
+			<p>{!! trans('danke.info.2') !!}</p>
+			<p>{!! trans('danke.info.3') !!}</p>
+			<p>{!! trans('danke.info.4') !!}</p>
 		</div>
 		<div class="clearfix"></div>
 	</div>
