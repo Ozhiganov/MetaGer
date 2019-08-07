@@ -1,10 +1,10 @@
 var ctrlInfo = false;       // Flag used for checking if the user was shown the keyboard control information
-/* var currentElement = [
-    ["Results", false]
-];
-*/ 
-var currentResultIndex = 1; // stores result which was focused last
-
+var currentResultIndex = 1; // stores index of result which was focused last
+var currentElementData = {      // Object used for storing currently focused element and element type (e.g. anchor tag or result div)
+    element: $("div.result").first(), 
+    selector: "div.result",
+    type: "result"
+};
 
 $(document).on('keydown', function(e) {
     e = e || window.event;
@@ -12,51 +12,54 @@ $(document).on('keydown', function(e) {
     if (e.keyCode == '9') {
         e.preventDefault();
         tabKeyPressed();
+    // Check for ENTER keypress
     } else if (e.keyCode == '13') {
+        e.preventDefault();
         enterKeyPressed();
     }
 });
+
+function setFocus(e, selector, type) {
+    currentElementData.element = e;
+    currentElementData.selector = selector;
+    currentElementData.type = type;
+    currentElementData.element.focus();
+    console.log(currentElementData);
+}
 
 function tabKeyPressed() {
     if(!ctrlInfo) {
         ctrlInfo = true;
         showInfoBox();
     } else {
-        focusNextElement($(":focus"));
+        focusNextElement();
     }
 }
 
 function enterKeyPressed() {
-    if($(":focus").hasClass("result")) {
-        //$(":focus").children("a").focus();
-        console.log($(":focus").children("a"));
-    }
+    if(currentElementData.type = "result") {
+        // setFocus(currentElementData.element, "link")
+    } 
 }
 
 function showInfoBox() {
-    infoBox = $("#keyboard-ctrl-info");
-    infoBox.show();
-    infoBox.focus();
+    $("#keyboard-ctrl-info").show();
+    setFocus($("#keyboard-ctrl-info"), "#keyboard-ctrl-info", "infobox");
 }
 
-function focusNextElement(currentFocus) {
-    if(currentFocus.hasClass("result")) {
-        focusNextResult(currentFocus);
+function focusNextElement() {
+    if(currentElementData.type === "result") {
+        focusNextResult();
     } else {
-        focusResult();
+       setFocus($("div.result").not('.ad').first(), "div.result" , "result");
     }
 }
-function focusResult() {
-    $("div[data-index='"+ currentResultIndex + "'").focus();
-    n = $(".result").length;
-    currentResultIndex = 1 + currentResultIndex % n;
-    console.log(currentResultIndex + " - " + n);
-}
 
-function focusNextResult(currentFocus) {
-   if(currentFocus.next().length > 0) {
-        currentFocus.next().focus();
+
+function focusNextResult() {
+   if(currentElementData.element.next().length > 0) {
+        setFocus(currentElementData.element.next(), '' , "result");
     } else {
-        $("div[.result]").first().focus();
+       setFocus($("div.result").not('.ad').first(), "div.result" , "result");
     }
 }
