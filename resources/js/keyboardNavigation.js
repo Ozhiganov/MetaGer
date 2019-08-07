@@ -2,7 +2,6 @@ var ctrlInfo = false;       // Flag used for checking if the user was shown the 
 var currentResultIndex = 1; // stores index of result which was focused last
 var currentElementData = {      // Object used for storing currently focused element and element type (e.g. anchor tag or result div)
     element: $("div.result").first(), 
-    selector: "div.result",
     type: "result"
 };
 
@@ -19,12 +18,11 @@ $(document).on('keydown', function(e) {
     }
 });
 
-function setFocus(e, selector, type) {
+function setFocus(e, type) {
     currentElementData.element = e;
-    currentElementData.selector = selector;
     currentElementData.type = type;
-    currentElementData.element.focus();
     console.log(currentElementData);
+    currentElementData.element.focus();
 }
 
 function tabKeyPressed() {
@@ -37,29 +35,31 @@ function tabKeyPressed() {
 }
 
 function enterKeyPressed() {
-    if(currentElementData.type = "result") {
-        // setFocus(currentElementData.element, "link")
-    } 
+    if(currentElementData.type === "result") {
+        console.log($(":focus").find("a").first());
+        setFocus($(":focus").find("a").first(), "link")
+    } else if(currentElementData.type === "link") {
+        window.location = currentElementData.element.attr('href');
+    }
 }
 
 function showInfoBox() {
     $("#keyboard-ctrl-info").show();
-    setFocus($("#keyboard-ctrl-info"), "#keyboard-ctrl-info", "infobox");
+    setFocus($("#keyboard-ctrl-info"), "infobox");
 }
 
 function focusNextElement() {
     if(currentElementData.type === "result") {
         focusNextResult();
     } else {
-       setFocus($("div.result").not('.ad').first(), "div.result" , "result");
+       setFocus($("div.result").not('.ad').first(), "result");
     }
 }
 
-
 function focusNextResult() {
    if(currentElementData.element.next().length > 0) {
-        setFocus(currentElementData.element.next(), '' , "result");
+        setFocus(currentElementData.element.next(), "result");
     } else {
-       setFocus($("div.result").not('.ad').first(), "div.result" , "result");
+       setFocus($("div.result").not('.ad').first(), "result");
     }
 }
