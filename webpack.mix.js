@@ -60,7 +60,8 @@ mix
     [
       "resources/js/scriptResultPage.js",
       "resources/js/result-saver.js",
-      "resources/js/translations.js"
+      "resources/js/translations.js",
+      "resources/js/keyboardNavigation.js"
     ],
     "public/js/scriptResultPage.js"
   )
@@ -68,7 +69,7 @@ mix
   .babel("resources/js/bitpay.js", "public/js/bitpay.js")
   // utility
   .babel(
-    ["resources/js/utility.js", "resources/js/keyboardNavigation.js", "resources/js/translations.js"],
+    ["resources/js/utility.js", "resources/js/translations.js"],
     "public/js/utility.js"
   )
   .babel("resources/js/widgets.js", "public/js/widgets.js")

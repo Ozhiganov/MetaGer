@@ -1,8 +1,8 @@
-<div id="keyboard-ctrl-info" tabindex="0">
-    <div class="keyboard-ctrl-info-content">
-        <div class="keyboard-ctrl-info-header">
-            <h5 class="keyboard-ctrl-info-title">Tastatur-Navigationsanleitung</h5>
-            <div class="keyboard-ctrl-info-body">
+<div id="keyboard-nav-info" tabindex="0">
+    <div class="keyboard-nav-info-content">
+        <div class="keyboard-nav-info-header">
+            <h5 class="keyboard-nav-info-title">Tastatur-Navigationsanleitung</h5>
+            <div class="keyboard-nav-info-body">
                 <p>Die Navigation durch die Ergebnisseite ist hierarchisch aufgebaut.</p>
                 <ul>
                     <li>TAB-Taste: Innerhalb der aktuellen Ebene zum nächsten Element springen.</li>

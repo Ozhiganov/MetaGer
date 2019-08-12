@@ -1,6 +1,6 @@
 var ctrlInfo = false;       // Flag used for checking if the user was shown the keyboard control information
 var currentResultIndex = 1; // stores index of result which was focused last
-var currentElementData = {      // Object used for storing currently focused element and element type (e.g. anchor tag or result div)
+var currentFocusedElement = {      // Object used for storing currently focused element and element type (e.g. anchor tag or result div)
     element: $("div.result").first(), 
     type: "result"
 };
@@ -18,11 +18,10 @@ $(document).on('keydown', function(e) {
     }
 });
 
-function setFocus(e, type) {
-    currentElementData.element = e;
-    currentElementData.type = type;
-    console.log(currentElementData);
-    currentElementData.element.focus();
+function focusElement(e, type) {
+    currentFocusedElement.element = e;
+    currentFocusedElement.type = type;
+    currentFocusedElement.element.focus();
 }
 
 function tabKeyPressed() {
@@ -35,31 +34,31 @@ function tabKeyPressed() {
 }
 
 function enterKeyPressed() {
-    if(currentElementData.type === "result") {
+    if(currentFocusedElement.type === "result") {
         console.log($(":focus").find("a").first());
-        setFocus($(":focus").find("a").first(), "link")
-    } else if(currentElementData.type === "link") {
-        window.location = currentElementData.element.attr('href');
+        focusElement($(":focus").find("a").first(), "link")
+    } else if(currentFocusedElement.type === "link") {
+        window.location = currentFocusedElement.element.attr('href');
     }
 }
 
 function showInfoBox() {
-    $("#keyboard-ctrl-info").show();
-    setFocus($("#keyboard-ctrl-info"), "infobox");
+    $("#keyboard-nav-info").show();
+    focusElement($("#keyboard-nav-info"), "infobox");
 }
 
 function focusNextElement() {
-    if(currentElementData.type === "result") {
+    if(currentFocusedElement.type === "result") {
         focusNextResult();
     } else {
-       setFocus($("div.result").not('.ad').first(), "result");
+       focusElement($("div.result").not('.ad').first(), "result");
     }
 }
 
 function focusNextResult() {
-   if(currentElementData.element.next().length > 0) {
-        setFocus(currentElementData.element.next(), "result");
+   if(currentFocusedElement.element.next().length > 0) {
+        focusElement(currentFocusedElement.element.next(), "result");
     } else {
-       setFocus($("div.result").not('.ad').first(), "result");
+       focusElement($("div.result").not('.ad').first(), "result");
     }
 }
