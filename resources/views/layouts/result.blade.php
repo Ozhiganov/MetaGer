@@ -58,10 +58,10 @@
 		<a class="result-open-proxy" onmouseover="$(this).popover('show');" onmouseout="$(this).popover('hide');" data-toggle="popover" data-placement="auto right" data-container="body" data-content="@lang('result.proxytext')" href="{{ $result->proxyLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">
 			{!! trans('result.options.5') !!}
 		</a>
-		<label class="open-result-options navigation-element" for="result-toggle-{{$result->hash}}">
+		<label class="open-result-options navigation-element" for="result-toggle-{{$result->hash}}" tabindex='0'>
 			{{ trans('result.options.more')}}
 		</label>
-		<label class="close-result-options navigation-element" for="result-toggle-{{$result->hash}}">
+		<label class="close-result-options navigation-element" for="result-toggle-{{$result->hash}}" tabindex='0'>
 			{{ trans('result.options.less')}}
 		</label>
 	</div>

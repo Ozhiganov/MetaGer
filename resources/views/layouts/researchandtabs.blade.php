@@ -3,7 +3,7 @@
 	<div id="research-bar-container">
 		<div id="research-bar">
 			<div id="header-logo">
-				<a class="screen-large" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">
+				<a class="screen-large" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}" tabindex="4">
 					<h1>MetaGer</h1>
 				</a>
 				<a class="screen-small" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), "/") }}">

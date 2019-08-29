@@ -3,7 +3,7 @@
 			<div id="filter-toggle">
 				@if(sizeof($metager->getAvailableParameterFilter()) > 0)
 				<div class="option-toggle">
-					<label class="navigation-element" for="options-toggle">
+					<label class="navigation-element" for="options-toggle" tabindex="0">
 						<i class="fas fa-filter"></i> Filter&hellip;
 					</label>
 				</div>
