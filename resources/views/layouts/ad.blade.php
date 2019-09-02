@@ -1,5 +1,5 @@
 @if(isset($ad)  && !$apiAuthorized)
-	<div class="result ad" tabindex="0">
+	<div class="result ad">
 		</span>
 		<div class="result-header">
 			<div class="result-headline">
