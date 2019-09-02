@@ -9,10 +9,10 @@
 					{!! $result->titel !!}
 				</a>
 			</h2>
-			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener">{{ trans('result.gefVon') . " " . $result->gefVon }}</a>
+			<a class="result-hoster" href="{{ $result->gefVonLink }}" target="{{ $metager->getNewtab() }}" rel="noopener" tabindex="-1">{{ trans('result.gefVon') . " " . $result->gefVon }} </a>
 		</div>
 		<div class="result-subheadline">
-			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" title="{{ $result->anzeigeLink }}" rel="noopener">
+			<a class="result-link" href="{{ $result->link }}" target="{{ $metager->getNewtab() }}" title="{{ $result->anzeigeLink }}" rel="noopener" tabindex="-1">
 				{{ $result->anzeigeLink }}
 			</a>
 			@if( isset($result->partnershop) && $result->partnershop === TRUE)

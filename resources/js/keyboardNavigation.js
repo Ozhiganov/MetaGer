@@ -5,7 +5,7 @@ var ctrlInfo = false;
 
 $(document).ready(function () {
     // Add entry point for tabbing to the first result
-    $('[data-index="1"').attr("id", "results-entry");
+    $('.result, .ad').first().attr("id", "results-entry");
     // Initially focus the searchbar
     $('div.search-input input').focus();
 });
@@ -16,6 +16,7 @@ $(document).ready(function () {
 $('label').on('keydown', function(e) {
     if(e.keyCode == '13') {
         $(this).click();
+        $('a', this)
     }
 }); 
 
@@ -60,8 +61,15 @@ function focusResults() {
 /**
  * Focuses the first <a> tag of the focus options
  */
-function focusSettings() {
+function focusFoki() {
     $('#foki a').first().focus();
+}
+
+/**
+ * Focuses the search settings
+ */
+function focusSettings() {
+    $('#settings a').focus();
 }
 
 /**
