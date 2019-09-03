@@ -360,7 +360,7 @@ class MetaGer
                 if (!$result->new) {
                     continue;
                 }
-                $link = $result->anzeigeLink;
+                $link = $result->link;
                 if (strpos($link, "http") !== 0) {
                     $link = "http://" . $link;
                 }
@@ -373,9 +373,9 @@ class MetaGer
             $hash = md5("meta" . $publicKey . $tldList . "GER");
 
             # Query
-            $query = urlencode($this->q);
+            $query = $this->q;
 
-            $link = "https://api.smartredirect.de/api_v2/CheckForAffiliateUniversalsearchMetager.php?p=" . $publicKey . "&k=" . $hash . "&tld=" . $tldList . "&q=" . $query;
+            $link = "https://api.smartredirect.de/api_v2/CheckForAffiliateUniversalsearchMetager.php?p=" . urlencode($publicKey) . "&k=" . urlencode($hash) . "&tld=" . urlencode($tldList) . "&q=" . urlencode($query);
             $answer = json_decode(file_get_contents($link));
 
             # Nun müssen wir nur noch die Links für die Advertiser ändern:
@@ -388,20 +388,17 @@ class MetaGer
                         # Hier ist ein Advertiser:
                         # Das Logo hinzufügen:
                         if ($result->image !== "") {
-                            $result->logo = "https://img.smartredirect.de/logos_v2/60x30/" . $hash . ".gif";
+                            $result->logo = "https://img.smartredirect.de/logos_v2/60x30/" . urlencode($hash) . ".gif";
                         } else {
-                            $result->image = "https://img.smartredirect.de/logos_v2/120x60/" . $hash . ".gif";
+                            $result->image = "https://img.smartredirect.de/logos_v2/120x60/" . urlencode($hash) . ".gif";
                         }
 
                         # Den Link hinzufügen:
                         $publicKey = $publicKey;
-                        $targetUrl = $result->anzeigeLink;
-                        if (strpos($targetUrl, "http") !== 0) {
-                            $targetUrl = "http://" . $targetUrl;
-                        }
+                        $targetUrl = $result->link;
 
                         $gateHash = md5($targetUrl . $privateKey);
-                        $newLink = "https://api.smartredirect.de/api_v2/ClickGate.php?p=" . $publicKey . "&k=" . $gateHash . "&url=" . urlencode($targetUrl) . "&q=" . $query;
+                        $newLink = "https://api.smartredirect.de/api_v2/ClickGate.php?p=" . urlencode($publicKey) . "&k=" . urlencode($gateHash) . "&url=" . urlencode($targetUrl) . "&q=" . urlencode($query);
                         $result->link = $newLink;
                         $result->partnershop = true;
                     }
