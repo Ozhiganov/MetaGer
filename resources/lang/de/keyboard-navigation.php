@@ -6,5 +6,5 @@ return [
     'focus-foki'         => 'Zur Fokus-Auswahl springen',
     'focus-settings'     => 'Zu den Sucheinstellungen springen',
     'focus-navigation'   => 'Zu der Seitennavigation springen',
-    'keyboard-nav-hint'  => 'Tipp: Drücken Sie die Escape-Taste um in diese Box zurückzugelangen und zum schließen aller ausklappbaren Menüs.'
+    'keyboard-nav-hint'  => 'Tipp: Drücken Sie die Escape-Taste um in diese Box zurückzugelangen und zum Schließen aller ausklappbaren Menüs.'
 ];
