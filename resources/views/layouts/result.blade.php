@@ -69,7 +69,7 @@
 		<div class="options">
 				<ul class="option-list list-unstyled small">
 					<li class="js-only">
-						<a href="javascript:resultSaver("{{ $result->hash }}");" class="saver">
+						<a href="javascript:resultSaver('{{ $result->hash }}');" class="saver">
 							<nobr><i class="fa fa-floppy-o"></i> {!! trans('result.options.savetab') !!}</nobr>
 						</a>
 					</li>
