@@ -1,9 +1,16 @@
 	<div id="options">
 		<div id="toggle-box">
+			<div id="settings">
+				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $metager->getFokus(), "url" => url()->full()])) }}">
+					<i class="fas fa-cogs"></i>
+					@if($metager->getSavedSettingCount() > 0) <span class="badge badge-primary">{{ $metager->getSavedSettingCount() }}@endif</span>
+					@lang('metaGer.settings')&hellip;
+				</a>
+			</div>
 			<div id="filter-toggle">
 				@if(sizeof($metager->getAvailableParameterFilter()) > 0)
 				<div class="option-toggle">
-					<label class="navigation-element" for="options-toggle">
+					<label class="navigation-element" for="options-toggle" tabindex="0">
 						<i class="fas fa-filter"></i> Filter&hellip;
 					</label>
 				</div>
@@ -13,13 +20,6 @@
 					<a href="{{$metager->generateSearchLink($metager->getFokus())}}"><nobr>{{ trans('metaGer.filter.reset') }}</nobr></a>
 				</div>
 				@endif
-			</div>
-			<div id="settings">
-				<a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), route('settings', ["fokus" => $metager->getFokus(), "url" => url()->full()])) }}">
-					<i class="fas fa-cogs"></i>
-					@if($metager->getSavedSettingCount() > 0) <span class="badge badge-primary">{{ $metager->getSavedSettingCount() }}@endif</span>
-					@lang('metaGer.settings')&hellip;
-				</a>
 			</div>
 			@if($metager->getTotalResultCount() > 0)
 			<div id="result-count">

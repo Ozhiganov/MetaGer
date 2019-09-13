@@ -3,18 +3,18 @@
 		<div class="searchbar {{$class ?? ''}}">
 			<div class="search-input-submit">
 				<div id="search-key">
-					<a id="key-link" @if(isset($apiAuthorized) && $apiAuthorized)class="authorized" @else class="unauthorized"@endif href="{{ action('KeyController@index', ['redirUrl' => url()->full() ]) }}" data-tooltip="{{ trans ('index.key.tooltip') }}">
+					<a id="key-link" @if(isset($apiAuthorized) && $apiAuthorized)class="authorized" @else class="unauthorized"@endif href="{{ action('KeyController@index', ['redirUrl' => url()->full() ]) }}" data-tooltip="{{ trans ('index.key.tooltip') }}" tabindex="0">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</a>
 				</div>
 				<div class="search-input">
-					<input type="search" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="off" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="2">
-					<button id="search-delete-btn" type="button">
+					<input type="search" name="eingabe" value="@if(isset($eingabe)){{$eingabe}}@endif" required=""  @if(\Request::is('/')) autofocus @endif autocomplete="off" class="form-control" placeholder="{{ trans('index.placeholder') }}" tabindex="0">
+					<button id="search-delete-btn" type="button" tabindex="-1">
 						&#xd7;
 					</button>
 				</div>
 				<div class="search-submit" id="submit-inputgroup">
-					<button type="submit">
+					<button type="submit" tabindex="-1">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
 				</div>

@@ -11,7 +11,7 @@
 				<a class="ad-label" href="{{ $ad->gefVonLink }}" target="_blank" rel="noopener">{!! $ad->gefVon !!}</a>
 			</div>
 			<div class="result-subheadline">
-				<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}">
+				<a class="result-link" href="{{ $ad->link }}" target="{{ $metager->getNewtab() }}" tabindex="-1">
 					<span class="advertisement-mark">Anzeige</span>
 					<span>{{ $ad->anzeigeLink }}</span>
 				</a>

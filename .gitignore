@@ -8,6 +8,7 @@ Homestead.yaml
 .orig
 .vscode
 langfiles.zip
+npm-debug.log
 # The Files created by Webpack in the build process
 /public/**/*.css
 !/public/fonts/arimo/stylesheet.css

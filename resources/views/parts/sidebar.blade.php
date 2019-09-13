@@ -52,7 +52,7 @@
     <hr>
     <li class="metager-dropdown">
       <input id="contactToggle" class="sidebarCheckbox" type="checkbox">
-      <label for="contactToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationKontakt" >
+      <label for="contactToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationKontakt" tabindex=0>
         <i class="fa fa-comments" aria-hidden="true"></i>
         <span>{{ trans('sidebar.nav18') }}</span>
         <span class="caret"></span>
@@ -74,7 +74,7 @@
     </li>
     <li class="metager-dropdown">
       <input id="servicesToggle" class="sidebarCheckbox" type="checkbox">
-        <label for="servicesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" >
+        <label for="servicesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" tabindex=0>
           <i class="fa fa-wrench" aria-hidden="true"></i>
           <span>{{ trans('sidebar.nav15') }}</span>
           <span class="caret"></span>
@@ -113,7 +113,7 @@
     </li>
     <li class="metager-dropdown">
       <input id="languagesToggle" class="sidebarCheckbox" type="checkbox">
-      <label for="languagesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationSprache" >
+      <label for="languagesToggle" class="metager-dropdown-toggle navigation-element" aria-haspopup="true" id="navigationSprache" tabindex=0>
         <i class="fa fa-globe" aria-hidden="true"></i>
         <span>{{ trans('sidebar.nav19') }} ({{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }})</span>
         <span class="caret"></span>
